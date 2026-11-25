@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "version": "0.1.5",
-  "edition": "v0.1.5",
-  "generated_at": "2026-11-25T04:17:10Z",
-  "source_sha256": "4c6a57d69b328c572b0db4f944f5fe824e8551be4b6fc3b6023a80cc1a88e213",
+  "version": "0.1.6",
+  "edition": "v0.1.6",
+  "generated_at": "2026-11-25T04:20:08Z",
+  "source_sha256": "375af66b45b25fe334a5c8dd3ddad1a932c3651e6cb03a4616a479cb3abfce8a",
   "sources": [
     ".ebook/build-ebook.mjs",
     ".ebook/epub.css",
@@ -35,12 +35,12 @@
   "document_metadata": {},
   "artifacts": {
     "pdf": {
-      "file": "Designfy-Guia-do-Usuario-v0.1.5.pdf",
-      "sha256": "6024b631ff7ac4e137e899d62bb3d7cb18d53368de03a485fde70944597c8fb2"
+      "file": "Designfy-Guia-do-Usuario-v0.1.6.pdf",
+      "sha256": "8ef87faa092f7ecaee83860af42c216beddd3f405c0cf8794ecd2ebe5aed595c"
     },
     "epub": {
-      "file": "Designfy-Guia-do-Usuario-v0.1.5.epub",
-      "sha256": "214d2aec9404d9d18c2a55633335306be467b93c219087f30c3d76175d8ca404"
+      "file": "Designfy-Guia-do-Usuario-v0.1.6.epub",
+      "sha256": "35ceb9243623677e611ad87664a99c1d1c3579843b16681de234cfbd6c10efda"
     }
   }
 }

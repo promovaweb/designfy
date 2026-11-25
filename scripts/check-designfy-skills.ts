@@ -532,8 +532,9 @@ export function checkSkills(root = join(import.meta.dir, "..")): { problems: Pro
     const path = label(root, file);
     if (path.includes("/assets/examples/") || path.includes("/references/backgrounds/")) continue;
     const text = read(file);
-    if (text.startsWith(GENERATED_COMMENT)) continue;
-    for (const hit of findBannedText(text)) fail(file, hit.line, `vetoed text (${hit.term})`);
+    // Generated references are instruction text too: a hit points to the source (catalog JSON or docs) to fix.
+    const generated = text.startsWith(GENERATED_COMMENT);
+    for (const hit of findBannedText(text)) fail(file, hit.line, `vetoed text (${hit.term})${generated ? " in a generated file: fix the source and run bun run skills:sync" : ""}`);
   }
 
   // f. The catalog and the folders name the same skills.

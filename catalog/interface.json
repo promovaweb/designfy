@@ -4623,7 +4623,7 @@
       "category": "site-sections",
       "purpose": "Presents a time-limited offer with optional capacity and a primary action.",
       "useWhen": [
-        "Apresentar prazo e capacidade junto da decisão de inscrição."
+        "Apresentar prazo e capacidade perto da ação de inscrição."
       ],
       "avoidWhen": [
         "Para comparar vários planos."
@@ -4679,12 +4679,12 @@
         "Explicar para quem a oferta é indicada."
       ],
       "avoidWhen": [
-        "Quando há somente um critério simples."
+        "Quando há somente uma condição simples."
       ],
       "anatomy": [
         "título",
         "grupos",
-        "critérios",
+        "condições",
         "nota"
       ],
       "variants": [

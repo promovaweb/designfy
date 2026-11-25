@@ -937,7 +937,7 @@ Introduces a person with a portrait, credentials and links.
 
 Presents a time-limited offer with optional capacity and a primary action.
 
-- **Use when:** Apresentar prazo e capacidade junto da decisão de inscrição.
+- **Use when:** Apresentar prazo e capacidade perto da ação de inscrição.
 - **Avoid when:** Para comparar vários planos.
 - **Anatomy:** título; apoio; prazo; relógio; capacidade; ação.
 - **Variants:** tinted; stage.
@@ -953,8 +953,8 @@ Presents a time-limited offer with optional capacity and a primary action.
 Pairs positive and negative fit criteria in two lists.
 
 - **Use when:** Explicar para quem a oferta é indicada.
-- **Avoid when:** Quando há somente um critério simples.
-- **Anatomy:** título; grupos; critérios; nota.
+- **Avoid when:** Quando há somente uma condição simples.
+- **Anatomy:** título; grupos; condições; nota.
 - **Variants:** com nota; sem nota.
 - **States:** default.
 - **Responsive:** Os cartões empilham e passam a duas colunas de mesma altura.

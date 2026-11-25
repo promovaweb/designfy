@@ -2,6 +2,13 @@
 
 Formato baseado em Keep a Changelog. Versões seguem SemVer.
 
+## [0.1.6] - 2026-11-25
+
+### Corrigido
+
+- Três textos do catálogo de interface com palavras vetadas pelas regras de escrita das skills, que chegavam à referência gerada `catalogo-de-interface.md`.
+- `skills:lint` passa a conferir também as referências geradas; o erro aponta a fonte a corrigir.
+
 ## [0.1.5] - 2026-11-25
 
 ### Adicionado
