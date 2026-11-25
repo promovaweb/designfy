@@ -1,6 +1,6 @@
 {
   "name": "@promovaweb/designfy",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Visual framework for web projects: design system, React and Astro components with Tailwind, shadcn and motion, skills, dependency and MCP setup, and Playwright screen captures.",
   "license": "AGPL-3.0-only",
   "author": "Promovaweb",
