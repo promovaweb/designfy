@@ -5,7 +5,7 @@ Astro, no formato do shadcn. Ele vai embutido no binário.
 
 ```bash
 designfy components list                       # framework do projeto
-designfy components list --framework react --surface system
+designfy components list --framework react --surface webapp
 designfy components list --category hero
 designfy components show hero-split --source
 ```
@@ -15,16 +15,45 @@ designfy components show hero-split --source
 | Família | Itens | Superfície |
 | --- | --- | --- |
 | base | `designfy-theme`, `designfy-motion`, `cn`, `background-styles` | as duas |
-| movimento | `reveal`, `counter`, `marquee`, `background` | as duas |
+| movimento | `reveal`, `counter`, `marquee`, `background`, `pixel-stage` | as duas |
 | estrutura | `section`, `card`, `theme-toggle` | as duas |
 | navegação de site | `site-header`, `site-footer`, `announcement-bar` | site |
-| hero | `hero-split`, `hero-centered`, `hero-media` | site |
-| seções | `feature-grid`, `bento-grid`, `feature-split`, `steps`, `stats-band`, `logo-marquee`, `testimonial`, `pricing-table`, `comparison-table`, `faq`, `cta-band`, `newsletter-form` | site |
+| hero | `hero-split`, `hero-centered`, `hero-media`, `hero-pixel` | site |
+| seções | `feature-grid`, `bento-grid`, `feature-split`, `steps`, `stats-band`, `logo-marquee`, `testimonial`, `pricing-table`, `comparison-table`, `faq`, `cta-band`, `newsletter-form`, `feature-rows`, `milestone-timeline`, `profile-split` | site |
+| oferta | `offer-card`, `audience-fit`, `numbered-checklist`, `outcome-grid`, `detail-card`, `statement-stats` | site |
 | conteúdo | `article-header`, `prose`, `table-of-contents`, `reading-progress`, `post-card`, `post-list`, `author-box`, `callout`, `code-block`, `figure`, `video-embed` | site |
-| sistema | `app-shell`, `page-header`, `stat-card`, `chart-card`, `data-table`, `filter-bar`, `description-list`, `activity-feed`, `form-layout`, `stepper`, `file-upload`, `settings-layout`, `settings-section`, `auth-card` | sistema |
+| web app | `app-shell`, `page-header`, `stat-card`, `chart-card`, `data-table`, `filter-bar`, `description-list`, `activity-feed`, `form-layout`, `stepper`, `file-upload`, `settings-layout`, `settings-section`, `auth-card` | webapp |
 | estados | `empty-state`, `error-state` | as duas |
 
 A lista do binário vale mais que esta tabela: itens entram a cada versão.
+
+## Itens tirados de páginas reais
+
+Os itens da família oferta, o `pixel-stage`, o `hero-pixel`, o
+`feature-rows`, o `milestone-timeline` e o `profile-split` saíram do estudo
+da landing Founders, descrito na skill `designfy-websites`, em
+`references/estudos/landing-de-oferta-founders.md`. Leia o estudo para ver
+cada peça no lugar dela, na ordem do argumento da página.
+
+| Item | Para que serve |
+| --- | --- |
+| `pixel-stage` | palco escuro com mosaico de pixels em canvas, mais denso de um lado, com véu atrás do texto, pausa por teclado e versão parada |
+| `hero-pixel` | hero sobre o `pixel-stage`, com título em duas cores, apoio, duas ações e uma coluna lateral opcional |
+| `feature-rows` | linhas numeradas para informação comparável; a variante `split` mantém título e ação fixos ao lado |
+| `milestone-timeline` | etapas ou datas ligadas por um fio que se desenha, com o passo atual anunciado e colunas alinhadas por `subgrid` |
+| `profile-split` | quem conduz: retrato, adesivos com fatos da bio, texto, ação e redes |
+| `offer-card` | prazo com contagem regressiva que funciona sem JavaScript e encerra sozinha, vagas em destaque e ação principal |
+| `audience-fit` | para quem é e para quem não é, em dois cartões de altura igual |
+| `numbered-checklist` | o que está incluído, numerado, em uma ou duas colunas, com itens de bônus em destaque |
+| `outcome-grid` | resultados possíveis em ladrilhos com ícone, de duas a cinco colunas |
+| `detail-card` | cartão com ícone, rótulo, texto, lista e nota de limite; `DetailCardGrid` monta o conjunto com um cartão alto |
+| `statement-stats` | frase grande em duas cores ao lado de números curtos com explicação |
+
+Variantes acrescentadas a itens que já existiam: `faq` com `stickyIntro`
+(título fixo na variante `split`), `cta-band` com `secondaryAction`,
+`testimonial` com `carouselLayout="responsive"` (um, dois ou três cartões),
+`pricing-table` com a variante `single` (plano único) e `marquee` com a
+variante `accent` (faixa na cor de acento com losangos).
 
 ## Como os itens se encaixam
 

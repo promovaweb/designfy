@@ -126,8 +126,9 @@ skill `designfy-viewspec`.
   confere frontmatter, as seções `Leitura prévia`, `Regras`, `Passos`, `Marcos` e
   `Saída`, os links, os arquivos sem referência, as famílias vetadas e cada
   command, option, tool e item de catálogo citado.
-- A TUI segue `/home/luizeof/hub/TUI.md`, o padrão das TUIs da Promovaweb, além
-  de `docs/tui.md`. Tela nova entra na Home em menu, na barra de teclas e nos
+- A TUI segue o padrão das TUIs da Promovaweb, ensinado pela skill
+  `termfy-tui` do [Termfy](https://github.com/promovaweb/termfy), além de
+  `docs/tui.md`. Tela nova entra na Home em menu, na barra de teclas e nos
   quadros de referência de `tests/showcase-frames/`.
 - Lotes paralelos de subagentes trabalham em arquivos disjuntos. Dois lotes ao
   mesmo tempo nunca escrevem o mesmo arquivo; os registros centrais

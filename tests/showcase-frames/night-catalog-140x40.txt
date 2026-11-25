@@ -17,7 +17,7 @@
    │   both · landing-... detail, settings ││  │ Plain navigation between pages: use a link.                                           ┃│
    │ Authentication · 1                    ││  │ More than one primary button in the same region.                                      ┃│
    │   Auth card                           ││  │ Anatomy                                                                               ┃│
-   │   system · auth                       ││  │ label                                                                                 ┃│
+   │   webapp · auth                       ││  │ label                                                                                 ┃│
    │ Containers · 2                        ││  │ leading or trailing icon (optional)                                                   ┃│
    │   Accordion                           ││  │ loading indicator                                                                     ┃│
    │   both · landing-...cs-page, settings ││  │ Variants                                                                              ┃│

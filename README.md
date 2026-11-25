@@ -1,8 +1,8 @@
 <p align="center">
-  <a href="https://promovaweb.com/ferramentas/">
+  <a href="https://promovaweb.com/designfy/">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="brand/logo/logo-dark.svg">
-      <img alt="Designfy" src="brand/logo/logo-light.svg" width="320">
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/promovaweb/designfy/main/brand/logo/logo-dark.svg">
+      <img alt="Designfy" src="https://raw.githubusercontent.com/promovaweb/designfy/main/brand/logo/logo-light.svg" width="320">
     </picture>
   </a>
 </p>
@@ -17,21 +17,24 @@
 <p align="center">Um projeto da <a href="https://promovaweb.com">Promovaweb</a></p>
 
 <p align="center">
-  <a href="https://promovaweb.com">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://promovaweb.com/promovaweb-logo-dark-586.png">
-      <img alt="Promovaweb" src="https://promovaweb.com/promovaweb-logo-light-586.png" width="180">
-    </picture>
-  </a>
+  <a href="https://github.com/promovaweb/designfy/releases/latest"><img alt="GitHub Release" src="https://img.shields.io/github/v/release/promovaweb/designfy"></a>
+  <a href="https://www.npmjs.com/package/@promovaweb/designfy"><img alt="npm" src="https://img.shields.io/npm/v/@promovaweb/designfy"></a>
+  <a href="https://github.com/promovaweb/designfy/blob/main/LICENSE"><img alt="Licença" src="https://img.shields.io/github/license/promovaweb/designfy"></a>
 </p>
 
 <p align="center">
-  <a href="docs/user/README.md">Guia do Usuário</a> ·
-  <a href="docs/README.md">Documentação</a> ·
+  <a href="https://promovaweb.com/discord"><img alt="Discord: obter ajuda e conversar com a Comunidade" src="https://img.shields.io/badge/Discord-Obter%20ajuda%20e%20conversar%20com%20a%20Comunidade-5865F2?style=for-the-badge&logo=discord&logoColor=white"></a>
+</p>
+
+<p align="center">
+  <a href="https://promovaweb.com/designfy/">Site do projeto</a> ·
+  <a href="https://promovaweb.com/docs/designfy/">Documentação</a> ·
+  <a href="https://github.com/promovaweb/designfy/tree/main/docs/user">Guia do Usuário</a> ·
   <a href="https://promovaweb.com/harness/">Harness</a> ·
   <a href="https://promovaweb.com/ferramentas/">Ferramentas</a> ·
+  <a href="https://promovaweb.com/discord">Discord</a> ·
   <a href="https://promovaweb.com/planos?utm_source=github&utm_medium=readme&utm_campaign=designfy">Planos da Promovaweb</a> ·
-  <a href="CHANGELOG.md">Changelog</a>
+  <a href="https://github.com/promovaweb/designfy/blob/main/CHANGELOG.md">Changelog</a>
 </p>
 
 ## O que é
@@ -49,13 +52,14 @@ MCP.
 
 | Entrega | O que você recebe |
 | --- | --- |
-| Skill orquestradora e especialistas | a skill `designfy` recebe o pedido e chama viewspec, design system, componentes, movimento, sites, conteúdo, sistemas, responsivo, acessibilidade e revisão, dez especialistas no total |
+| Skill orquestradora e especialistas | a skill `designfy` recebe o pedido e chama viewspec, design system, componentes, movimento, sites, conteúdo, web apps, responsivo, acessibilidade e revisão, dez especialistas no total |
 | Viewspec | o guia `VIEWSPEC.md` na raiz do projeto e um viewspec por tela em `viewspec/<id>-<slug>/VIEWSPEC.md`, com nove seções e checklist por especialista |
-| Catálogo de interface | 80 fragmentos comuns de site e de sistema, com propósito, anatomia, variações, estados, acessibilidade, tokens e fonte de implementação |
-| Registro de componentes | 58 itens React e 46 Astro sobre Tailwind 4, shadcn e Motion, copiados para o projeto com as dependências resolvidas |
-| Tema e paleta | leitura do tema do Tailwind do projeto, contraste WCAG 2.2 e APCA, escala OKLCH e harmonias da roda de cores |
+| Catálogo de interface | 91 fragmentos comuns de site e de web app, com propósito, anatomia, variações, estados, acessibilidade, tokens e fonte de implementação |
+| Registro de componentes | 69 itens React e 57 Astro sobre Tailwind 4, shadcn e Motion, copiados para o projeto com as dependências resolvidas |
+| Tema e paleta | leitura do tema do Tailwind 4 e do Tailwind 3, contraste WCAG 2.2 e APCA, escala OKLCH e harmonias da roda de cores |
 | Presets de fundo | 334 presets de fundo por tema, categoria e legibilidade, gerados a partir do tema |
-| Capturas | Playwright em celular, tablet, desktop e tela larga, com manifesto de estouro horizontal e erros de console |
+| Capturas | Playwright em celular, tablet, desktop e tela larga, com a página inteira, os dois temas e um manifesto de estouro horizontal e erros de console |
+| Integrações | reconhecimento do Astrofy e do Specsfy no `status` e no `doctor`, com o vínculo `trackedBy` no viewspec da tela |
 | TUI | Home em menu e abas de tema, catálogo, componentes, skills, dependências, MCP, viewspecs e capturas |
 | MCP | tools de projeto, skills, dependências, catálogo, componentes, tema, paleta, capturas e viewspecs para o agente |
 
@@ -65,39 +69,46 @@ catálogo, monta o viewspec e passa cada parte para a especialista certa.
 
 ## Instalação
 
-O Designfy ainda não tem pacote npm. A instalação é pelo repositório privado
-[`promovaweb/designfy`](https://github.com/promovaweb/designfy).
-
-### Do código-fonte
+### Com o npm
 
 ```bash
-git clone git@github.com:promovaweb/designfy.git
-cd designfy
-bun install
-bun run build
-install -m 755 dist/designfy ~/.local/bin/designfy
+npm i -g @promovaweb/designfy
 designfy --version
 ```
 
-O build gera `dist/designfy` para a plataforma da máquina. Para os cinco alvos
-de release, use `bun run build:all`.
+O pacote é um invólucro fino: ele baixa o binário da release da mesma versão,
+confere o SHA-256 e o guarda em `~/.designfy/bin/v<versão>/` para as próximas
+execuções. Precisa de Node.js 18.17 ou superior.
 
-### Do binário da release
+### Pelo binário da release
 
 Baixe o executável da sua plataforma em
-[Releases](https://github.com/promovaweb/designfy/releases): `designfy-linux-x64`,
-`designfy-linux-arm64`, `designfy-darwin-x64`, `designfy-darwin-arm64` ou
-`designfy-windows-x64.exe`. Confira o arquivo com o `SHA256SUMS` da mesma
-release, dê permissão de execução e coloque no `PATH`.
+[Releases](https://github.com/promovaweb/designfy/releases/latest):
+`designfy-linux-x64`, `designfy-linux-arm64`, `designfy-darwin-x64`,
+`designfy-darwin-arm64` ou `designfy-windows-x64.exe`. Confira o arquivo com o
+`SHA256SUMS` da mesma release, dê permissão de execução e coloque no `PATH`.
+
+### Instalar a skill no agente
+
+A skill `designfy` ensina Claude Code, Codex, OpenCode e outros agentes a
+especificar, compor e revisar a interface:
+
+```bash
+npx skills add promovaweb/designfy
+```
+
+Dentro de um projeto, o `designfy skills install` escolhe as skills compatíveis
+com o framework detectado, instala as internas e as externas e grava o
+`skills-lock.json`.
 
 ### Requisitos
 
-- Bun 1.4.4 ou superior para compilar e rodar o código. O executável da release
-  já leva o runtime.
-- [Node.js](https://nodejs.org) para dois trabalhos: o `npx skills`, que instala
-  as skills, e a captura, porque o Playwright roda num processo Node do projeto.
-- Acesso ao repositório privado, para o clone e para o `npx skills add` buscar
-  as skills internas.
+- [Node.js](https://github.com/nodejs/node) 18.17 ou superior, para o pacote do
+  npm, o `npx skills` e a captura, porque o Playwright roda num processo Node do
+  projeto.
+- [Bun](https://github.com/oven-sh/bun) 1.4.4 ou superior só para rodar o
+  código-fonte ou compilar o binário. O executável da release já leva o runtime.
+- Acesso ao GitHub, para o `npx skills add` buscar as skills.
 
 Para capturar telas, o projeto precisa do Playwright e do Chromium:
 
@@ -106,14 +117,17 @@ designfy deps install testing
 npx playwright install chromium
 ```
 
-### Instalar a skill no agente
+### Atualizar
 
 ```bash
-designfy skills install
+npm i -g @promovaweb/designfy@latest
+designfy --version
 ```
 
-O comando instala as skills internas padrão e as externas compatíveis com o
-framework detectado, pelo `npx skills add`.
+A versão nova baixa o binário dela na primeira execução e mantém o anterior em
+cache. Pelo binário da release, baixe o arquivo novo e substitua o que está no
+`PATH`. As notas de cada versão ficam no
+[CHANGELOG](https://github.com/promovaweb/designfy/blob/main/CHANGELOG.md).
 
 ## Primeiros passos
 
@@ -128,7 +142,9 @@ Wrote /projeto/designfy.json (react-vite).
 ```
 
 O `init` detecta o framework pelo `package.json`, o Tailwind, o `components.json`
-do shadcn e o gerenciador pelo lockfile, e grava `designfy.json`.
+do shadcn e o gerenciador pelo lockfile, e grava `designfy.json`. O
+`--theme-path` aponta o CSS do tema quando a busca automática não encontra o
+arquivo certo.
 
 Confira o projeto:
 
@@ -155,7 +171,16 @@ designfy status
   Next viewspec ID      0001
   Viewspec guide        not found
   Tailwind theme        /projeto/src/styles/globals.css
+
+Integrations
+
+  astrofy  absent
+  specsfy  absent  specsDir=specs
 ```
+
+O bloco **Integrations** informa se o projeto usa o
+[Astrofy](https://github.com/promovaweb/astrofy) ou o
+[Specsfy](https://github.com/promovaweb/specsfy), com os caminhos encontrados.
 
 Instale as dependências e as skills:
 
@@ -188,12 +213,23 @@ Por fim, chame a skill com o pedido da tela:
 ```bash
 designfy init --framework astro --dry-run   # mostra o designfy.json sem gravar
 designfy init --force                        # substitui um arquivo existente
+designfy init --theme-path src/styles/tokens.css
 designfy status --json
 ```
 
 O `designfy.json` guarda o framework, o TypeScript, o gerenciador, a versão do
-Tailwind, o shadcn e os caminhos de componentes, estilos e viewspec. Quando o
-arquivo existe, os campos definidos nele prevalecem sobre a detecção.
+Tailwind, o shadcn e os caminhos de componentes, estilos, tema e viewspec.
+Quando o arquivo existe, os campos definidos nele prevalecem sobre a detecção.
+
+A option global `--project` (`-C`) executa qualquer command com a raiz
+indicada, sem trocar de pasta:
+
+```bash
+designfy -C ./website status
+designfy --project ../app capture run http://localhost:4321/ --viewport mobile
+```
+
+A variável `DESIGNFY_PROJECT` define o padrão quando a option não aparece.
 
 ### Skills
 
@@ -209,12 +245,16 @@ designfy skills list
   designfy-motion         Motion (internal, no)
   designfy-websites       Websites (internal, no)
   designfy-content        Content (internal, no)
-  designfy-webapps        Systems (internal, no)
+  designfy-webapps        Web apps (internal, no)
   designfy-responsive     Responsive (internal, no)
   designfy-accessibility  Accessibility (internal, no)
   designfy-review         Review (internal, no)
   hallmark                Hallmark (external, global)
   shadcn                  shadcn/ui (external, no)
+  migrate-radix-to-base   Radix to Base UI (external, no)
+  astrofy                 Astrofy (external, no)
+  specsfy                 Specsfy (external, no)
+  brandfy                 Brandfy (external, no)
 ```
 
 ```bash
@@ -225,13 +265,13 @@ designfy skills remove designfy-content
 ```
 
 O estado de cada skill é `project`, `global` ou `no`. As internas vêm de
-`promovaweb/designfy`; as externas, do Hallmark, do shadcn/ui, do Astrofy e do
-Brandfy.
+`promovaweb/designfy`; as externas, do Hallmark, do shadcn/ui, do Astrofy, do
+Specsfy e do Brandfy.
 
 ### Catálogo e componentes
 
 ```bash
-designfy catalog list --surface system
+designfy catalog list --surface webapp
 designfy catalog show button
 designfy catalog search "empty state"
 ```
@@ -245,10 +285,11 @@ designfy catalog search "empty state"
 ```
 
 O catálogo é a fonte que as skills leem para escolher os fragmentos de uma tela,
-antes de olhar para qualquer implementação.
+antes de olhar para qualquer implementação. A superfície é `site`, `webapp` ou
+`both`; o valor antigo `system` continua aceito e é lido como `webapp`.
 
 ```bash
-designfy components list --surface system
+designfy components list --surface webapp
 designfy components show cn
 designfy components add cn --framework react --dry-run
 ```
@@ -265,7 +306,8 @@ designfy components add cn --framework react --dry-run
 O `components add` copia o item e os itens exigidos, troca o marcador
 `@designfy/components` pelo alias do projeto e relata os pacotes npm e os itens
 `shadcn:` que faltam. Arquivo existente e diferente não é tocado sem
-`--overwrite`.
+`--overwrite`. Num projeto em Tailwind 3, o comando recusa com exit code 10 e o
+`--allow-tailwind3` copia com aviso.
 
 ### Tema e paleta
 
@@ -297,9 +339,26 @@ designfy palette contrast "#00161E" "#C6F4ED"
   UI component  AA pass, AAA N/A
 ```
 
+O `theme show` e o `theme check` leem, nesta ordem, o `--file`, o `paths.theme`
+do `designfy.json`, o `tokensFile` do `VIEWSPEC.md` e a busca do CSS do
+Tailwind. Um projeto em Tailwind 3 também é lido, com o `tailwind.config.*`
+completando os tokens.
+
 O `theme check` mede os pares de cor do tema nos dois modos e confere os papéis
 que o registro usa. Par abaixo de 4.5 ou papel obrigatório ausente sai com exit
-code 10.
+code 10. Num projeto com escalas próprias, o modo `custom` mede os pares de
+`theme.pairs`:
+
+```json
+{
+  "theme": {
+    "pairs": [
+      { "fg": "--text-body", "bg": "--bg-page", "label": "Texto corrido" },
+      { "fg": "primary-950", "bg": "white", "label": "Destaque", "min": 7 }
+    ]
+  }
+}
+```
 
 ### Viewspec
 
@@ -328,6 +387,16 @@ O guia da raiz vale para todas as telas. Cada viewspec de tela guarda objetivo,
 conteúdo, estrutura, estados, responsivo, movimento, acessibilidade, checklist e
 notas. O binário lê e valida; quem escreve é a skill `designfy-viewspec`.
 
+O campo `trackedBy` liga o viewspec ao registro da tarefa no Astrofy ou no
+Specsfy, e o `viewspec validate` confere o arquivo de cada vínculo:
+
+```yaml
+trackedBy:
+  - system: specsfy
+    id: "0007"
+    path: specs/planned/0007-cadastro-de-clientes/spec.md
+```
+
 ### Capturas
 
 ```bash
@@ -341,11 +410,18 @@ designfy capture run http://localhost:4321/ --viewport mobile,desktop
   desktop    localhost-4321--desktop.png
 ```
 
-O `manifest.json` registra, por captura, o título, as medidas da página, os
-erros de console e `overflowX`, o sinal de conteúdo mais largo que a viewport.
-Viewports nomeados: `mobile` 390x844, `tablet` 820x1180, `desktop` 1440x900 e
-`wide` 1920x1080; `LARGURAxALTURA` aceita outra dimensão. Use `--theme dark`,
-`--reduced-motion`, `--fold` e `--selector` para recortar a revisão.
+Antes do print da página inteira, o navegador rola em passos da altura da
+viewport, espera a rede, as imagens e as fontes e volta ao topo. Os overlays de
+desenvolvimento de Astro, Vite e Next.js ficam ocultos. `--hide` esconde outros
+seletores, `--scroll-budget` limita a preparação, `--no-scroll` pula a rolagem e
+`--theme light,dark` grava um PNG por viewport em cada tema.
+
+O `manifest.json` registra, por captura, o título, as medidas da página, o tema,
+os passos da rolagem, as imagens incompletas, o orçamento esgotado, os erros de
+console e `overflowX`, o sinal de conteúdo mais largo que a viewport. Viewports
+nomeados: `mobile` 390x844, `tablet` 820x1180, `desktop` 1440x900 e `wide`
+1920x1080; `LARGURAxALTURA` aceita outra dimensão. Use `--reduced-motion`,
+`--fold` e `--selector` para recortar a revisão.
 
 ```bash
 designfy capture list
@@ -365,10 +441,10 @@ com a paleta `night`.
     › Install dependencies   [Enter]
 
    ╭─ 1 ◐ Theme ─────────────────────────────╮  ╭─ 2 ≡ Catalog ────────────────────────────╮  ╭─ 3 λ Components ────────────────────────╮
-   │ globals.css                             │  │ 80 patterns                              │  │ Registry · react-vite                   │
-   │ ██ ██ ░░ ░░ ░░ ░░ ░░                    │  │ site   ━━━━━━━━━━━━ 32                   │  │ Copied ━━━━━━━━ 0/58 0%                 │
-   │ ✓ 18.88:1 FG / BG                       │  │ system ━━━━━━━━     22                   │  │                                         │
-   │ Inter, sans-serif                       │  │ both   ━━━━━━━━━━   26                   │  │                                         │
+   │ globals.css                             │  │ 91 patterns                              │  │ Registry · react-vite                   │
+   │ ██ ██ ░░ ░░ ░░ ░░ ░░                    │  │ site   ━━━━━━━━━━━━ 43                   │  │ Copied ━━━━━━━━ 0/69 0%                 │
+   │ ✓ 18.88:1 FG / BG                       │  │ webapp ━━━━━━       22                   │  │                                         │
+   │ Inter, sans-serif                       │  │ both   ━━━━━━━      26                   │  │                                         │
    ╰─────────────────────────────────────────╯  ╰──────────────────────────────────────────╯  ╰─────────────────────────────────────────╯
 
     Enter  open   r  reload  │   T  theme   ^K  commands   ?  help   q  quit
@@ -393,7 +469,10 @@ designfy skills install --agent claude-code,codex,opencode
 ```
 
 Cada especialista cobre uma área: viewspec, design system, componentes,
-movimento, sites, conteúdo, sistemas, responsivo, acessibilidade e revisão.
+movimento, sites, conteúdo, web apps, responsivo, acessibilidade e revisão. Os
+estudos de páginas reais e de telas de sistema ficam em
+`skills/designfy-websites/references/estudos/` e
+`skills/designfy-webapps/references/estudos/`.
 
 ### MCP
 
@@ -421,8 +500,9 @@ OpenCode, Cursor e Gemini CLI. Para desenvolvimento, sem compilar, use
 | Capturas | `capture_run`, `capture_list` |
 | Servidores e configuração | `mcp_servers`, `skill`, `config_list`, `config_get`, `credentials_status`, `exit_codes` |
 
-As tools de projeto usam a pasta de trabalho do servidor. O cofre expõe pelo MCP
-apenas metadados.
+As tools de projeto usam a pasta de trabalho do servidor, escolhida por
+`designfy mcp --project ./website`, por `DESIGNFY_PROJECT` ou pelo argumento
+`project` de cada chamada. O cofre expõe pelo MCP apenas metadados.
 
 Para um agente que só consulta, inicie sem as tools que escrevem:
 
@@ -498,6 +578,7 @@ dados com exit code diferente de zero: confira `data.ok` no `doctor`,
 | `~/.designfy/settings.json` | preferências, em texto claro, com permissão 0600 |
 | `~/.designfy/credentials.json` | cofre cifrado com AES-256-GCM, com permissão 0600 |
 | `~/.designfy/master.key` | master key em hexadecimal, com permissão 0600 |
+| `~/.designfy/bin/` | binário do npm baixado da release e mantido em cache |
 
 A pasta `~/.designfy/` nasce com 0700. O binário não guarda segredo próprio: o
 cofre vem do starter kit e fica para as credenciais que você cadastrar. A master
@@ -519,14 +600,28 @@ segredos:
 
 `✓` aprova, `!` avisa e `✗` reprova o comando com exit code 3.
 
+## Migração
+
+A versão 0.1.5 renomeou dois valores. Nenhum deles quebra o projeto existente:
+
+- A skill `designfy-systems` passou a se chamar `designfy-webapps`. Rode
+  `designfy skills install` para instalar o nome novo e remova o antigo com
+  `designfy skills remove designfy-systems`.
+- A superfície `system` passou a se chamar `webapp`. O valor antigo continua
+  aceito no `--surface`, no viewspec e nas tools do MCP, e é lido como `webapp`.
+
+O histórico completo está no [CHANGELOG.md](https://github.com/promovaweb/designfy/blob/main/CHANGELOG.md).
+
 ## Documentação
 
-- [Guia do Usuário](docs/user/README.md), com onze capítulos: introdução e
-  instalação, preparar o projeto, skills, viewspec, tema e paleta, catálogo e
-  componentes, fundos e movimento, capturas e revisão, TUI, agentes e MCP, e
-  referência. Também em
-  [PDF](ebook/Designfy-Guia-do-Usuario-v0.1.0.pdf) e
-  [EPUB](ebook/Designfy-Guia-do-Usuario-v0.1.0.epub).
+- [Guia do Usuário](https://github.com/promovaweb/designfy/tree/main/docs/user),
+  com onze capítulos: introdução e instalação, preparar o projeto, skills,
+  viewspec, tema e paleta, catálogo e componentes, fundos e movimento, capturas
+  e revisão, TUI, agentes e MCP, e referência. Também em
+  [PDF](https://github.com/promovaweb/designfy/blob/main/ebook/Designfy-Guia-do-Usuario-v0.2.0.pdf)
+  e [EPUB](https://github.com/promovaweb/designfy/blob/main/ebook/Designfy-Guia-do-Usuario-v0.2.0.epub).
+- [Documentação no site](https://promovaweb.com/docs/designfy/), publicada a
+  cada versão.
 - [Documentação técnica](docs/README.md): [CLI](docs/cli.md), [TUI](docs/tui.md),
   [MCP](docs/mcp.md), [configuração](docs/configuration.md),
   [exit codes](docs/exit-codes.md), [arquitetura](docs/architecture.md) e o
@@ -540,33 +635,46 @@ segredos:
 
 | Projeto | Para quê |
 | --- | --- |
+| [Bun](https://github.com/oven-sh/bun) | runtime, bundler e compilação do binário |
+| [Node.js](https://github.com/nodejs/node) | execução do pacote do npm, das skills e do Playwright da captura |
 | [Termfy](https://github.com/promovaweb/termfy) | framework de CLI, TUI e MCP que originou o binário |
-| [Tailwind CSS](https://tailwindcss.com) | tema, tokens e utilitários dos componentes |
-| [shadcn/ui](https://ui.shadcn.com) | componentes, primitives e formato do registro |
-| [ReUI](https://reui.io) | componentes e padrões que entram pelo registro do shadcn |
-| [Motion](https://motion.dev) | movimento dos componentes e das telas |
-| [Playwright](https://playwright.dev) | capturas em celular, tablet e desktop |
+| [Astrofy](https://github.com/promovaweb/astrofy) | sites Astro, com a sitespec que conversa com o viewspec |
+| [Specsfy](https://github.com/promovaweb/specsfy) | especificação de fatia, com a spec que o viewspec acompanha |
+| [Brandfy](https://github.com/promovaweb/brandfy) | marca, símbolo e manual que alimentam o design system |
+| [Tailwind CSS](https://github.com/tailwindlabs/tailwindcss) | tema, tokens e utilitários dos componentes |
+| [shadcn/ui](https://github.com/shadcn-ui/ui) | componentes, primitives e formato do registro |
+| [ReUI](https://github.com/keenthemes/reui) | componentes e padrões que entram pelo registro do shadcn |
+| [Motion](https://github.com/motiondivision/motion) | movimento dos componentes e das telas |
+| [Playwright](https://github.com/microsoft/playwright) | capturas em celular, tablet e desktop |
 | [Hallmark](https://github.com/nutlope/hallmark) | revisão de página gerada e lista de acabamento |
-| [Astro](https://astro.build) | sites que recebem os componentes Astro |
-| [React](https://react.dev) | sistemas e ilhas que recebem os componentes React |
-| [TanStack Table](https://tanstack.com/table) | tabelas de dados do catálogo |
-| [Recharts](https://recharts.org) | gráficos de dashboard |
+| [Astro](https://github.com/withastro/astro) | sites que recebem os componentes Astro |
+| [React](https://github.com/facebook/react) | sistemas e ilhas que recebem os componentes React |
+| [TanStack Table](https://github.com/TanStack/table) | tabelas de dados do catálogo |
+| [Recharts](https://github.com/recharts/recharts) | gráficos de dashboard |
 | [OpenTUI](https://github.com/sst/opentui) | interface do terminal |
+
+## Comunidade e suporte
+
+- **Discord:** [obter ajuda e conversar com a Comunidade](https://promovaweb.com/discord).
+- **Bugs e pedidos:** abra uma [issue](https://github.com/promovaweb/designfy/issues)
+  com a versão, o sistema operacional e o passo a passo para reproduzir.
+- **Novidades:** acompanhe o [CHANGELOG](https://github.com/promovaweb/designfy/blob/main/CHANGELOG.md)
+  e as [releases](https://github.com/promovaweb/designfy/releases).
 
 ## Contribuir
 
 Este README cobre o uso. Para ambiente de desenvolvimento, organização do
 código, validação, skills, registro de componentes e releases, leia o
-[CONTRIBUTING.md](CONTRIBUTING.md).
+[CONTRIBUTING.md](https://github.com/promovaweb/designfy/blob/main/CONTRIBUTING.md).
 
 ## Promovaweb
 
 O Designfy é mantido pela [Promovaweb](https://promovaweb.com), comunidade de
 co-working digital onde profissionais aprendem a construir, automatizar e gerir
-negócios de tecnologia e IA. O código é privado por enquanto; o guia e a
-documentação deste repositório acompanham cada versão.
+negócios de tecnologia e IA com aulas ao vivo, Co-works e revisão de projetos
+reais.
 
-Quer aplicar o Designfy em projetos de verdade, com acompanhamento? Conheça os
+Quer usar o Designfy em projetos de verdade, com acompanhamento? Conheça os
 [planos da Promovaweb](https://promovaweb.com/planos?utm_source=github&utm_medium=readme&utm_campaign=designfy).
 
 ## Licença

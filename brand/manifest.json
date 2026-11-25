@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-25T00:48:51.548Z",
+  "generatedAt": "2026-11-25T05:42:14.748Z",
   "assets": [
     {
       "path": "logo/icon-16w.png",
@@ -9,7 +9,7 @@
       "height": 16,
       "role": "favicon",
       "function": "favicon e ícone de aplicativo de 16 px",
-      "sha256": "17d7b4958f9ef92e08d57ff03ad45d2581d1a600efb22bc772989f62b45ce8b6"
+      "sha256": "07a5307d8609853e8abe1ebf5d0bd4172da596351366a2d59934859954dec0e3"
     },
     {
       "path": "logo/icon-180w.png",
@@ -18,7 +18,7 @@
       "height": 180,
       "role": "favicon",
       "function": "favicon e ícone de aplicativo de 180 px",
-      "sha256": "f4ea9035a5a71643c5201d6107eb61a0f7979a5b144992ae9cd3a56bc8379305"
+      "sha256": "f5e5f26e0774812f443b8911141418c2ec7e9da988cccf39a4fbfef235c0fab2"
     },
     {
       "path": "logo/icon-192w.png",
@@ -27,7 +27,7 @@
       "height": 192,
       "role": "favicon",
       "function": "favicon e ícone de aplicativo de 192 px",
-      "sha256": "deb283abedc765c653c36524c35001aa10018f1f807f98210d479ecd6f94a38a"
+      "sha256": "cf7ee576a5d03010b0d8275151b89da5abe859b857c0aba55020bb189290dc31"
     },
     {
       "path": "logo/icon-32w.png",
@@ -36,7 +36,7 @@
       "height": 32,
       "role": "favicon",
       "function": "favicon e ícone de aplicativo de 32 px",
-      "sha256": "9cc85cb84b257c5fcc9a296d76a3fc0466492a89db8696590a3745945a0e28e6"
+      "sha256": "9304aa48efa3d06afc71df50d3435c2ff5c35ccd8df12b4b594792ee74cdb6e4"
     },
     {
       "path": "logo/icon-48w.png",
@@ -45,7 +45,7 @@
       "height": 48,
       "role": "favicon",
       "function": "favicon e ícone de aplicativo de 48 px",
-      "sha256": "340742787d17bd361311b6b5a885e69b9e34b3ecee3ef7732529fe736e0e24b4"
+      "sha256": "71576ffe4e4251896eb0febcf4cf73d1ff1d02521a283f847680d70c6e2a5619"
     },
     {
       "path": "logo/icon-512w.png",
@@ -54,7 +54,16 @@
       "height": 512,
       "role": "favicon",
       "function": "favicon e ícone de aplicativo de 512 px",
-      "sha256": "344242b5e118af41cd3b177dd93e9e51854509213ddf881df1dbe464959e5f9e"
+      "sha256": "c0a7680eda0096ec33991afd7ff7cb3645684fc591d712c06e66ee9d9db1ab1d"
+    },
+    {
+      "path": "logo/icon-app.svg",
+      "format": "svg",
+      "width": 512,
+      "height": 512,
+      "role": "icon-app",
+      "function": "ícone de aplicativo com placa petróleo arredondada",
+      "sha256": "c251f9f5ec546a6ce4e354fd7d87f88dae400af2bceb455c59ce77e113b3d434"
     },
     {
       "path": "logo/icon-dark.png",
@@ -63,7 +72,7 @@
       "height": 512,
       "role": "icon-dark",
       "function": "símbolo transparente para fundo escuro",
-      "sha256": "d9444ff4d916038732a4f9c8002edbc2a97d0612f49559fc53d269a6f5a5ad53"
+      "sha256": "d050a7aea198e5917631ed7d2fc8788502691c2a0900dd96f5166c8e70c51ed4"
     },
     {
       "path": "logo/icon-dark.svg",
@@ -72,7 +81,7 @@
       "height": 512,
       "role": "icon-dark",
       "function": "símbolo transparente para fundo escuro",
-      "sha256": "cd5e45d68e4b86981ce3271e505e01f017ddaa42d89c415dd936c2c77c9e7be1"
+      "sha256": "e15700baf6f75cacf7323b336170ef2b39ef9c15309caf9a141dd1b641eb2ae1"
     },
     {
       "path": "logo/icon-light.png",
@@ -81,7 +90,7 @@
       "height": 512,
       "role": "icon-light",
       "function": "símbolo transparente para fundo claro",
-      "sha256": "be0296f29704040159c095e347c4b2a7d964c1b34deedbd5d5fb4b3bc30505ab"
+      "sha256": "249705e32fdca54127c7d1c18c635e05577db15921ad7a728f076fbd58292e9b"
     },
     {
       "path": "logo/icon-light.svg",
@@ -90,7 +99,7 @@
       "height": 512,
       "role": "icon-light",
       "function": "símbolo transparente para fundo claro",
-      "sha256": "c30a93dd05a07fb50a961ca8687e8f3a989b8765a2d8209491cf254ce5dabe69"
+      "sha256": "340fc5f7827084bac369491ce9d4917cbef4a8d9613911eacc8ce579b75caf0a"
     },
     {
       "path": "logo/icon.png",
@@ -98,8 +107,8 @@
       "width": 512,
       "height": 512,
       "role": "icon",
-      "function": "ícone principal com placa petróleo",
-      "sha256": "344242b5e118af41cd3b177dd93e9e51854509213ddf881df1dbe464959e5f9e"
+      "function": "símbolo isolado com interior petróleo para fundos claros e escuros",
+      "sha256": "94653f045e389090d5157d961a7bcf1b56d242518b9675620eb8b07385803e4b"
     },
     {
       "path": "logo/icon.svg",
@@ -107,8 +116,8 @@
       "width": 512,
       "height": 512,
       "role": "icon",
-      "function": "ícone principal com placa petróleo",
-      "sha256": "4dcd0097db1c9a25bf5a0c9b80a7ce435e316d98d84c54125110efdfd47717b0"
+      "function": "símbolo isolado com interior petróleo para fundos claros e escuros",
+      "sha256": "b4f057ba5b0c8a6e9ad81e18b06d6361027dc91243bde328d90f8a9465a88b0b"
     },
     {
       "path": "logo/logo-dark.png",
@@ -117,7 +126,7 @@
       "height": 339,
       "role": "logo-dark",
       "function": "assinatura horizontal para fundo escuro",
-      "sha256": "8ac4206427e455e3ed09c4bc4ffa97db3692f3acd2d93321afb1bc1cd073829b"
+      "sha256": "d2d59b1037536e463e8e4cda40a6f3f9ca2ea4b82ad22d6b586f8d9f7ac9fe8a"
     },
     {
       "path": "logo/logo-dark.svg",
@@ -126,7 +135,7 @@
       "height": 320,
       "role": "logo-dark",
       "function": "assinatura horizontal para fundo escuro",
-      "sha256": "d88af1020baacbbdedfa79764604446ad09ac2027743af9a9d249f71bc68d06d"
+      "sha256": "663275835e4abe1c07555ba8d9b86dfdd4647b57ddce3fe01cd39219fbe075c8"
     },
     {
       "path": "logo/logo-light.png",
@@ -135,7 +144,7 @@
       "height": 339,
       "role": "logo-light",
       "function": "assinatura horizontal para fundo claro",
-      "sha256": "ca4f7ce686afea21fef302415dbc5f92c4da8b7150e7093896593967b06ced1f"
+      "sha256": "d76e90c7dba623127e1188781b8b84b97cbcac99fa569ff4e225660d3691ff9a"
     },
     {
       "path": "logo/logo-light.svg",
@@ -144,7 +153,25 @@
       "height": 320,
       "role": "logo-light",
       "function": "assinatura horizontal para fundo claro",
-      "sha256": "f9ba0edb09075ea38ae5850ca2c73e218e29c9188ebba85b8cbfdef94cad94c8"
+      "sha256": "f25ce7660f1580bf45f1568cdd0fc88622ff8d9b7e78e1ab94517fad744681c8"
+    },
+    {
+      "path": "logo/social-preview.png",
+      "format": "png",
+      "width": 1280,
+      "height": 640,
+      "role": "social-preview",
+      "function": "prévia social do repositório no GitHub",
+      "sha256": "d305eb55fc79184a5be1bfc0e3fe03e20db8b90ffc4421e1a2cb6bbaf52421b4"
+    },
+    {
+      "path": "logo/social-preview.svg",
+      "format": "svg",
+      "width": 1280,
+      "height": 640,
+      "role": "social-preview",
+      "function": "prévia social do repositório no GitHub",
+      "sha256": "cb2a3e154659436008d8a47706aeb6a88d2ad35aa3b8b530099e07015329714e"
     }
   ]
 }

@@ -43,7 +43,17 @@ Para desenvolver sem compilar:
 ```
 
 As tools de projeto usam a pasta de trabalho do servidor. Abra o cliente na raiz
-do site ou da aplicação.
+do site ou da aplicação, ou defina a pasta na linha de comando:
+
+```bash
+designfy mcp --project ./website
+```
+
+A option global `--project` (`-C`) vale para o servidor, e `DESIGNFY_PROJECT`
+define o padrão quando ela falta. Nas tools que aceitam o argumento `project`,
+o caminho pode ser absoluto ou relativo à pasta do servidor e vale só para
+aquela chamada. Os outros caminhos da mesma chamada partem do projeto
+selecionado.
 
 ## As tools
 
@@ -93,11 +103,11 @@ designfy mcp --list --json
 A listagem mostra cada tool com a descrição, os resources e os prompts:
 
 ```text
-MCP server designfy v0.1.0
+MCP server designfy v0.2.0
 
 Tools:
   project_status  Use to inspect the current web project. Returns detection, effective project settings, installation counts, viewspec progress, guide counts and the Tailwind stylesheet.
-  catalog_list  List candidate interface fragments for a site or system. Returns entries filtered by surface, category, and viewspec kind.
+  catalog_list  List candidate interface fragments for a site or webapp. Returns entries filtered by surface, category, and viewspec kind.
   ...
 Resources:
   designfy://about  Binary identity and runtime as JSON.

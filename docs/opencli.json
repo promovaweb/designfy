@@ -724,7 +724,7 @@
             "options": [
               {
                 "name": "--surface",
-                "description": "Filter by site, system, or both.",
+                "description": "Filter by site, webapp, or both. The legacy system alias means webapp.",
                 "arguments": [
                   {
                     "name": "surface",
@@ -735,8 +735,9 @@
                     },
                     "acceptedValues": [
                       "site",
-                      "system",
-                      "both"
+                      "webapp",
+                      "both",
+                      "system"
                     ]
                   }
                 ]
@@ -972,7 +973,7 @@
               },
               {
                 "name": "--surface",
-                "description": "Filter by site, system, or both. Shared items match site and system.",
+                "description": "Filter by site, webapp, or both. The legacy system alias means webapp. Shared items match site and webapp.",
                 "arguments": [
                   {
                     "name": "surface",
@@ -983,8 +984,9 @@
                     },
                     "acceptedValues": [
                       "site",
-                      "system",
-                      "both"
+                      "webapp",
+                      "both",
+                      "system"
                     ]
                   }
                 ]

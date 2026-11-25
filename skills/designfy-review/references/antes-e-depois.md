@@ -9,7 +9,7 @@ Antes de mudar qualquer coisa:
 
 ```bash
 designfy capture run <url> --viewport mobile,tablet,desktop,wide --name <slug>-antes
-designfy capture run <url> --viewport mobile,desktop --theme dark --name <slug>-antes-escuro
+designfy capture run <url> --viewport mobile,desktop --theme light,dark --name <slug>-antes-temas
 ```
 
 Registre no viewspec, em `## Notas`, o nome da execução e o que precisa

@@ -13,7 +13,7 @@ designfy capture run http://localhost:4321/ --viewport mobile,tablet,desktop,wid
 designfy capture run http://localhost:4321/ --viewport 320x640,1280x800 --fold --name home-dobra
 
 # tema escuro e movimento reduzido
-designfy capture run http://localhost:4321/ --viewport mobile,desktop --theme dark --name home-escuro
+designfy capture run http://localhost:4321/ --viewport mobile,desktop --theme light,dark --name home-temas
 designfy capture run http://localhost:4321/ --viewport mobile,desktop --reduced-motion --name home-parado
 
 # só um componente

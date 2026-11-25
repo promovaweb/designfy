@@ -47,46 +47,60 @@ um script lê sem interpretar texto.
 
 ## Requisitos
 
-- **Bun 1.4.4 ou superior** para rodar o código e compilar o binário. A versão
-  mínima está em `package.json` e o `designfy doctor` a confere.
-- **Node.js** para dois trabalhos: o `npx skills`, que instala as skills, e a
-  captura, porque o Playwright roda num processo Node do projeto.
-- **Acesso ao repositório privado** `promovaweb/designfy`. O registro de
-  componentes é embutido no binário e o projeto ainda não é público.
-- **Acesso ao GitHub** para o `npx skills add` buscar as skills internas em
-  `promovaweb/designfy`.
+- **Node.js 18.17 ou superior** para três trabalhos: o pacote do npm, que baixa
+  o binário, o `npx skills`, que instala as skills, e a captura, porque o
+  Playwright roda num processo Node do projeto.
+- **Bun 1.4.4 ou superior** só para rodar o código-fonte ou compilar o binário.
+  A versão mínima está em `package.json` e o `designfy doctor` a confere. O
+  executável da release já leva o runtime.
+- **Acesso ao GitHub** para o `npx skills add` buscar as skills em
+  `promovaweb/designfy`, quando você instalar a skill à mão.
 
-## Instalar a partir do repositório privado
-
-Clone o repositório e instale as dependências com Bun:
+## Instalar com o npm
 
 ```bash
-git clone git@github.com:promovaweb/designfy.git
+npm i -g @promovaweb/designfy
+designfy --version
+```
+
+O pacote do npm é um invólucro fino. Ele baixa o binário da release da mesma
+versão para `~/.designfy/bin/v<versão>/`, confere o SHA-256 e o mantém em
+cache; as execuções seguintes usam o arquivo guardado. O `postinstall` adianta
+o download e a primeira execução o repete se o cache estiver vazio.
+
+## Instalar pelo binário da release
+
+Baixe o executável da sua plataforma em
+[Releases](https://github.com/promovaweb/designfy/releases): `designfy-linux-x64`,
+`designfy-linux-arm64`, `designfy-darwin-x64`, `designfy-darwin-arm64` ou
+`designfy-windows-x64.exe`. Confira o arquivo com o `SHA256SUMS` da mesma
+release, dê permissão de execução e coloque numa pasta do `PATH`.
+
+## Instalar a skill no agente
+
+```bash
+npx skills add promovaweb/designfy
+```
+
+O comando instala as skills que o agente lê. Dentro de um projeto, o caminho
+completo é o `designfy skills install`, do capítulo 3, que escolhe as skills
+compatíveis com o framework detectado.
+
+## Do código-fonte
+
+Para desenvolver o Designfy ou gerar o binário da sua plataforma:
+
+```bash
+git clone https://github.com/promovaweb/designfy.git
 cd designfy
 bun install
-```
-
-Durante o desenvolvimento, o comando completo é `bun run src/main.ts`, com os
-argumentos depois de `--`:
-
-```bash
-bun run dev -- --help
-bun run dev -- status
-```
-
-Para ter um executável, compile com o Bun:
-
-```bash
 bun run build
 ./dist/designfy --version
 ```
 
-O build gera `dist/designfy` para a plataforma da máquina. Copie o arquivo para
-uma pasta do `PATH` quando quiser chamar `designfy` de qualquer projeto. Para
-gerar os cinco alvos de release, use `bun run build:all`.
-
-Não há pacote npm publicado deste binário. A instalação é a do repositório
-privado, com o clone ou com o executável compilado.
+O build gera `dist/designfy` para a plataforma da máquina. Para os cinco alvos
+de release, use `bun run build:all`. O ambiente de desenvolvimento, os testes e
+a validação estão no [CONTRIBUTING.md](../../CONTRIBUTING.md).
 
 ## Conferir a instalação
 
@@ -102,23 +116,23 @@ designfy doctor
 O `--version` imprime a versão:
 
 ```text
-designfy 0.1.0
+designfy 0.2.0
 ```
 
 O `about` mostra o executável, o runtime, a plataforma, a pasta de dados, a
 licença e os créditos:
 
 ```text
-Designfy v0.1.0
+Designfy v0.2.0
 Visual framework for web projects: design system, React and Astro components with Tailwind, shadcn and motion, skills, dependency and MCP setup, and Playwright screen captures.
 
 Binary
 
-  Executable  /home/luizeof/.bun/bin/bun
+  Executable  ~/.bun/bin/bun
   Runtime     Bun 1.4.4
   Platform    linux-x64
   PID         3904428
-  Data        /home/luizeof/.designfy
+  Data        ~/.designfy
   License     AGPL-3.0-only
 
 Project
@@ -149,11 +163,11 @@ dependem dela:
 ! master-key: none
 ! credentials: Not created
 ✓ node: /usr/bin/node
-✓ npx: /home/luizeof/.npm-global/bin/npx
+✓ npx: ~/.npm-global/bin/npx
 ✓ designfy.json: Project file exists
 ! VIEWSPEC.md: Not created
 ✓ tailwind-theme: /tmp/opencode/designfy-demo/src/styles/app.css
-✓ binary: designfy 0.1.0
+✓ binary: designfy 0.2.0
 ✓ platform: linux-x64
 ```
 

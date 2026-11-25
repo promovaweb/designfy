@@ -46,7 +46,7 @@ aprendido.
 | `scope` | `project` | Sim | Diferencia o guia do viewspec de uma tela. |
 | `name` | string | Sim | Nome do site ou sistema. |
 | `description` | string | Sim | Uma frase sobre o produto e quem usa. |
-| `surfaces` | lista | Sim | `site`, `system` ou os dois. |
+| `surfaces` | lista | Sim | `site`, `webapp` ou os dois. O guia e as telas aceitam o valor antigo `system` como `webapp` e emitem um aviso na validação. |
 | `frameworks` | lista | Sim | `astro`, `react`, `react-vite`, `next` ou `other`. |
 | `tokensFile` | string | Sim | Caminho do CSS de tokens, fonte dos valores. |
 | `themes` | lista | Sim | `light`, `dark` ou os dois. |
@@ -164,7 +164,7 @@ desconhecido, enum inválido ou tipo errado recusam a leitura do arquivo.
 | `summary` | string | Sim | Uma frase, usada nas listagens. |
 | `status` | enum | Sim | `draft`, `in_progress`, `blocked`, `done` ou `archived`. |
 | `kind` | enum | Sim | Tipo de interface, da tabela abaixo. |
-| `surface` | enum | Sim | `site` ou `system`. |
+| `surface` | enum | Sim | `site` ou `webapp`. |
 | `framework` | enum | Sim | `astro`, `react`, `react-vite`, `next` ou `other`. |
 | `route` | string | Sim | Rota ou caminho da tela, como `/precos/` ou `/app/pedidos`. |
 | `createdAt` | date-time | Sim | Criação; não muda depois. |
@@ -215,13 +215,13 @@ Valores de `kind`:
 | `blog-index` | `site` | listagem de artigos |
 | `blog-post` | `site` | artigo ou conteúdo longo |
 | `docs-page` | `site` | página de documentação |
-| `dashboard` | `system` | visão geral com indicadores e gráficos |
-| `table` | `system` | listagem de dados com filtro e ação |
-| `form` | `system` | formulário de criação, edição ou fluxo em etapas |
-| `crud` | `system` | conjunto de lista, detalhe, criação e edição de um recurso |
-| `detail` | `system` | detalhe de um registro |
-| `settings` | `system` | página de configurações |
-| `auth` | `system` | entrada, cadastro e recuperação de acesso |
+| `dashboard` | `webapp` | visão geral com indicadores e gráficos |
+| `table` | `webapp` | listagem de dados com filtro e ação |
+| `form` | `webapp` | formulário de criação, edição ou fluxo em etapas |
+| `crud` | `webapp` | conjunto de lista, detalhe, criação e edição de um recurso |
+| `detail` | `webapp` | detalhe de um registro |
+| `settings` | `webapp` | página de configurações |
+| `auth` | `webapp` | entrada, cadastro e recuperação de acesso |
 | `other` | os dois | o que não couber nos anteriores, descrito no corpo |
 
 As datas aceitam string entre aspas ou o escalar ISO sem aspas.
@@ -317,7 +317,7 @@ title: Dashboard de vendas
 summary: Visão diária de receita, pedidos e conversão para o time comercial.
 status: in_progress
 kind: dashboard
-surface: system
+surface: webapp
 framework: react-vite
 route: /app/vendas
 createdAt: 2026-11-24T15:00:00-03:00

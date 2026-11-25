@@ -82,17 +82,25 @@ designfy capture list
 Com [assets/roteiro-de-capturas.md](assets/roteiro-de-capturas.md):
 
 ```bash
-designfy capture run <url> --viewport mobile,tablet,desktop,wide --name <slug>-r1
-designfy capture run <url> --viewport mobile,desktop --theme dark --name <slug>-r1-escuro
+designfy capture run <url> --viewport mobile,tablet,desktop,wide --theme light,dark --name <slug>-r1
 designfy capture run <url> --viewport mobile,desktop --reduced-motion --name <slug>-r1-parado
 designfy capture run <url> --viewport 320x640,1280x800 --fold --name <slug>-r1-dobra
 ```
 
 Mais os estados (carregando, vazio, erro) e os componentes abertos.
 
+A captura de página inteira rola a página antes do print, para disparar as
+revelações e as imagens preguiçosas, e esconde as barras de desenvolvimento
+(Astro, Vite, Next.js). Elementos fixos que cobrem conteúdo e não são o
+objeto da revisão, como botão flutuante de contato ou janela de chat, saem
+com `--hide <seletor>`. Página muito longa pede `--scroll-budget <ms>`
+maior. Uma captura só vale quando o manifesto diz que o orçamento não
+acabou e que não sobrou imagem incompleta.
+
 ### 3. Ler o manifesto
 
-`overflowX`, `consoleErrors`, `pageErrors`, `documentHeight` de cada
+`overflowX`, `consoleErrors`, `pageErrors`, `documentHeight`, o tema, os
+passos de rolagem, as imagens incompletas e se o orçamento acabou, em cada
 captura. Estouro e erro de script são achados de gravidade alta antes de
 abrir qualquer imagem.
 

@@ -42,7 +42,9 @@
     "skills:sync:check": "bun scripts/sync-skill-assets.ts --check",
     "skills:lint": "bun scripts/check-designfy-skills.ts",
     "ebook": "bun .ebook/build-ebook.mjs",
-    "ebook:verify": "bun .ebook/build-ebook.mjs --check"
+    "ebook:verify": "bun .ebook/build-ebook.mjs --check",
+    "npm:readme": "bun run scripts/npm-readme.ts",
+    "release": "bun run scripts/release.ts"
   },
   "engines": {
     "bun": ">=1.4.4"

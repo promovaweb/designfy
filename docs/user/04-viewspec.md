@@ -145,7 +145,8 @@ priority: high
 
 `kind` é o tipo de interface: `landing-page`, `home`, `site-page`, `blog-index`,
 `blog-post`, `docs-page`, `dashboard`, `table`, `form`, `crud`, `detail`,
-`settings`, `auth` ou `other`. `surface` é `site` ou `system`. `skills` lista as
+`settings`, `auth` ou `other`. `surface` é `site` ou `webapp`; o valor antigo
+`system` continua aceito e vira `webapp` na leitura. `skills` lista as
 especialistas na ordem de execução. `guideRules` registra as regras do guia que
 a tela aplica de forma direta e `deviations` registra as que ela não segue, com
 o motivo em Notas.
@@ -153,6 +154,22 @@ o motivo em Notas.
 Os campos opcionais são `priority` (`low`, `medium` ou `high`), `dependsOn`
 (IDs que precisam estar `done`), `source`, `blockedReason`, `archivedReason` e
 `captures` (execuções da revisão).
+
+O `trackedBy` liga o viewspec ao registro da tarefa em outro sistema. Cada
+vínculo informa `system`, `id` e `path`, e o caminho parte da raiz do projeto e
+aponta para um arquivo que existe:
+
+```yaml
+trackedBy:
+  - system: specsfy
+    id: "0007"
+    path: specs/planned/0007-cadastro-de-clientes/spec.md
+```
+
+O `system` aceita `astrofy`, `specsfy` ou `other`. O `designfy viewspec validate`
+confere o arquivo de cada vínculo e mostra o caminho novo quando a spec muda de
+pasta de estado. A listagem e a consulta individual mostram os vínculos, na CLI
+e nas tools do MCP.
 
 Numa entrega com várias telas, crie todos os viewspecs antes da primeira
 implementação e marque a ordem em `dependsOn`: o shell antes das telas, a
@@ -166,6 +183,64 @@ Estrutura (as regiões de cima para baixo, com o fragmento de cada uma), Estados
 quê, com a versão parada), Acessibilidade (marcos, títulos, foco, nomes e
 contraste), Checklist (as tarefas, com dona e identificador) e Notas (o registro
 cronológico das escolhas e dos impedimentos).
+
+## Projeto com Astrofy ou Specsfy
+
+O Designfy convive com dois sistemas de especificação da Promovaweb. O
+`status` e o `doctor` mostram o bloco **Integrations**, com a presença de cada
+um e os caminhos encontrados:
+
+```text
+Integrations
+
+  astrofy  present  sitespecDir=.sitespec  astrofyDir=.astrofy  dependency=@promovaweb/astrofy
+  specsfy  absent  specsDir=specs
+```
+
+O `status --json` entrega o mesmo em `integrations.astrofy` e
+`integrations.specsfy`, e a tool `project_status` expõe os mesmos dados.
+Caminho ausente vem `null`.
+
+### Astrofy
+
+O projeto usa Astrofy quando tem `.sitespec/` com tarefas
+`<id>-<slug>/SITEPEC.md`, `.astrofy/` ou a dependência `@promovaweb/astrofy`.
+
+| Assunto | Fica com | Arquivo |
+| --- | --- | --- |
+| Tarefa técnica do site, dependências e comprovação | Astrofy | `.sitespec/<id>-<slug>/SITEPEC.md` |
+| Conteúdo aprovado de uma página planejada | Astrofy | `.astrofy/pages/<slug>/page-spec.json` |
+| Guia de interface do projeto | Designfy | `VIEWSPEC.md` |
+| Especificação da tela e checklist das especialistas | Designfy | `viewspec/<id>-<slug>/VIEWSPEC.md` |
+| Rotas, SEO, dados estruturados, imagens, build e deploy | skills `astrofy-*` | a sitespec |
+| Tokens gerados pelo Astrofy | `astrofy-design-system` | `.astrofy/design/design-system.json` |
+
+O Designfy não grava sitespec e o Astrofy não grava viewspec. Cada um cita o
+outro: a sitespec aponta o viewspec pelo caminho relativo e o `trackedBy` do
+viewspec aponta a sitespec com `system: astrofy`. O CSS gerado pelo Astrofy é a
+fonte dos tokens, e o `tokensFile` do guia aponta para ele. O
+`designfy theme check` mede o contraste desse CSS e a correção volta ao JSON.
+
+### Specsfy
+
+O projeto usa Specsfy quando tem `specs/` com as pastas de estado, `.specsfy/`,
+`DESIGNSYSTEM.MD` ou `INTERFACE.md`.
+
+| Assunto | Fica com | Arquivo |
+| --- | --- | --- |
+| O que a fatia entrega, regras, permissões, tarefas e gates | Specsfy | `specs/<estado>/<NNNN>-<slug>/spec.md` |
+| Interface da fatia, na seção Interface da spec | Specsfy | a spec |
+| Orientações gerais de interface do produto | Specsfy | `DESIGNSYSTEM.MD` |
+| Registro de componentes, blocos e telas | Specsfy | `INTERFACE.md` |
+| Guia do Designfy, citando o `DESIGNSYSTEM.MD` | Designfy | `VIEWSPEC.md` |
+| Execução da interface, checklist e capturas | Designfy | `viewspec/<id>-<slug>/VIEWSPEC.md` |
+
+A spec manda. Quando o viewspec e a spec divergem, vale a spec, e o que faltar
+volta para ela antes de entrar no viewspec. Spec com `Interface para pessoas:
+Não` não ganha viewspec. Antes de copiar um item do registro, procure no
+`INTERFACE.md` o componente que já faz a função, e um componente novo entra no
+`INTERFACE.md` na mesma entrega. Os itens da checklist citam o ID da tarefa
+`[CODE]` da spec quando executam uma delas.
 
 ## Modelos e exemplos
 
@@ -273,3 +348,5 @@ com a `designfy-review`, com capturas.
 - `designfy viewspec progress` devolve o próximo `id` livre.
 - O viewspec da tela tem as nove seções e a checklist com dona e `{#id}`.
 - O `status` da tela reflete o trabalho real, com `captures` quando fecha.
+- Cada `trackedBy` aponta um arquivo que existe e passa no `viewspec validate`.
+- O bloco **Integrations** do `status` mostra o Astrofy e o Specsfy do projeto.

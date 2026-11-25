@@ -5,7 +5,7 @@ import {
 } from "../../design/interface-catalog.ts";
 import { projectScreen, shortcut } from "./project-screen.ts";
 
-const surfaces = ["all", "site", "system"] as const;
+const surfaces = ["all", "site", "webapp"] as const;
 
 /** Creates the interface catalog screen. */
 export function createCatalogScreen() {

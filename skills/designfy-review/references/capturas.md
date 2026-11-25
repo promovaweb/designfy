@@ -17,23 +17,31 @@ vai receber, sem as marcas do modo de desenvolvimento.
 ## Comando
 
 ```bash
-designfy capture run <urls...> [--viewport lista] [--theme light|dark] [--fold] [--reduced-motion]
-                               [--wait ms] [--selector css] [--out pasta] [--name execução]
+designfy capture run <urls...> [--viewport lista] [--theme lista] [--fold] [--reduced-motion]
+                               [--wait ms] [--selector css] [--hide css] [--scroll-budget ms]
+                               [--no-scroll] [--show-dev-overlays] [--out pasta] [--name execução]
 ```
 
 | Opção | Efeito |
 | --- | --- |
 | `--viewport` | `mobile` (390 x 844), `tablet` (820 x 1180), `desktop` (1440 x 900), `wide` (1920 x 1080) ou `LARGURAxALTURA`; lista com vírgulas ou a opção repetida |
-| `--theme` | define o esquema de cores do navegador |
+| `--theme` | esquema de cores do navegador: `light`, `dark` ou os dois em lista (`light,dark`) |
 | `--fold` | só a primeira dobra; sem ela, a página inteira |
 | `--reduced-motion` | liga a preferência de movimento reduzido |
 | `--wait` | espera extra em milissegundos depois da carga |
 | `--selector` | captura só o elemento |
+| `--hide` | esconde um seletor antes do print (botão flutuante, chat); pode repetir |
+| `--scroll-budget` | tempo máximo da rolagem que dispara revelações e imagens preguiçosas; padrão 15 s |
+| `--no-scroll` | desliga a rolagem antes do print |
+| `--show-dev-overlays` | mantém as barras de desenvolvimento, que saem por padrão |
 | `--name` | nome da execução (pasta); sem ela, data e hora |
 | `--out` | pasta base; padrão `.designfy/captures` |
 
-Saída: `.designfy/captures/<execução>/` com um PNG por URL e largura e o
-`manifest.json`. `designfy capture list` mostra as execuções.
+Saída: `.designfy/captures/<execução>/` com um PNG por URL, largura e
+tema (o tema entra no nome quando há mais de um) e o `manifest.json`, que
+registra de cada captura os passos de rolagem, as imagens que ficaram
+incompletas e se o orçamento acabou. Captura com orçamento esgotado ou
+imagem incompleta não vale como prova: repita com orçamento maior. `designfy capture list` mostra as execuções.
 
 Códigos de saída: 0 certo; 10 quando falta o Playwright (com a dica de
 instalação); 5 quando a URL não responde.
@@ -42,12 +50,11 @@ instalação); 5 quando a URL não responde.
 
 | Execução | Comando | Para ver |
 | --- | --- | --- |
-| página inteira | `--viewport mobile,tablet,desktop,wide` | layout em cada faixa |
+| página inteira | `--viewport mobile,tablet,desktop,wide --theme light,dark` | layout em cada faixa, nos dois temas |
 | dobra | `--viewport 320x640,mobile,1280x800,desktop --fold` | o que aparece sem rolar |
-| tema escuro | `--viewport mobile,desktop --theme dark` | contraste e bordas no escuro |
 | parado | `--viewport mobile,desktop --reduced-motion` | tudo visível sem movimento |
 
-Em projeto com um tema só, a terceira execução não existe.
+Em projeto com um tema só, use `--theme light`.
 
 ## Movimento na captura
 

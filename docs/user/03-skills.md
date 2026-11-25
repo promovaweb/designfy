@@ -25,6 +25,10 @@ O catálogo tem onze skills `designfy*`, todas com origem em
 | `designfy-accessibility` | quality | WCAG 2.2 nível AA | auditoria, correções e relatório |
 | `designfy-review` | quality | fechamento de um viewspec | capturas, achados e veredito |
 
+Até a versão 0.1.4, a skill `designfy-webapps` se chamava `designfy-systems`. O
+nome antigo saiu do catálogo; use o novo nas chamadas, no `skills-lock.json` e
+nas referências do guia.
+
 ## O que cada skill faz
 
 ### `designfy`
@@ -125,6 +129,29 @@ leitura das imagens, a otimização por largura, a gravidade e o encaminhamento,
 revisão por tipo e a lista de acabamento. Entrega as execuções de captura, os
 achados por gravidade com a dona de cada um, o veredito e o que vai para o guia.
 
+## Estudos de páginas e de telas
+
+Duas skills guardam estudos de interfaces reais, lidas por inteiro: a ordem das
+seções, a anatomia das peças, os estados, o movimento e o comportamento no
+celular. `skills/designfy-websites/references/estudos/` traz páginas de site e
+`skills/designfy-webapps/references/estudos/` traz telas de sistema, no mesmo
+formato.
+
+O primeiro estudo é a landing de oferta com prazo e turma limitada do plano
+Founders, em `landing-de-oferta-founders.md`. Ele lê as 21 seções na ordem, com
+a pergunta que cada uma responde, o palco de pixels do hero, a contagem
+regressiva do prazo, o carrossel de depoimentos e a tabela de preço de um plano
+só. Foi dele que saíram os onze itens novos do registro, no capítulo 6.
+
+A pasta de telas de sistema já traz o formato e ainda não tem estudo. O primeiro
+entra quando houver uma tela real, em uso, para ler do começo ao fim; até lá,
+as referências da skill e os apps de `examples/react-system` cobrem as telas
+comuns.
+
+O estudo serve para o argumento e a composição, não para copiar dados, nomes de
+clientes ou a marca do produto estudado. Cada estudo termina apontando os itens
+do registro que nasceram dele.
+
 ## O fluxo da skill `designfy`
 
 A orquestração tem oito estágios: ler o projeto, ler o pedido, garantir o guia,
@@ -152,7 +179,7 @@ classifica como `site-page`, superfície `site`, cria
 
 **Dashboard.** "Redesenha o dashboard de vendas em `/app/vendas`; os dados vêm
 de `GET /api/sales/summary`; a ação principal é abrir os pedidos em atraso." A
-classificação é `dashboard`, superfície `system`, e o viewspec nasce como
+classificação é `dashboard`, superfície `webapp`, e o viewspec nasce como
 `viewspec/0002-dashboard-de-vendas/VIEWSPEC.md`. Rodam
 `designfy-design-system` se faltar papel de cor, `designfy-webapps`,
 `designfy-components`, `designfy-motion`, `designfy-responsive`,
@@ -167,7 +194,7 @@ classificação é `blog-post`, superfície `site`, com
 
 ## As skills externas
 
-O catálogo também instala cinco skills de fora:
+O catálogo também instala seis skills de fora:
 
 | Skill | Origem | Quando entra |
 | --- | --- | --- |
@@ -175,10 +202,12 @@ O catálogo também instala cinco skills de fora:
 | `shadcn` | [shadcn/ui](https://github.com/shadcn-ui/ui) | procurar, instalar, corrigir e compor componentes |
 | `migrate-radix-to-base` | shadcn/ui | migrar Radix UI para Base UI, só com pedido explícito |
 | `astrofy` | [promovaweb/astrofy](https://github.com/promovaweb/astrofy) | projeto Astro: arquitetura, páginas, SEO e deploy |
+| `specsfy` | [promovaweb/specsfy](https://github.com/promovaweb/specsfy) | projeto com specs: a spec da fatia como fonte da interface |
 | `brandfy` | [promovaweb/brandfy](https://github.com/promovaweb/brandfy) | marca nova: estratégia, logo, paleta e manual |
 
-O `shadcn` e o `astrofy` só entram em projeto compatível. O `astrofy` e o
-`brandfy` instalam a biblioteca inteira da origem.
+O `shadcn`, o `migrate-radix-to-base` e o `astrofy` só entram em projeto
+compatível. O `astrofy`, o `specsfy` e o `brandfy` instalam a biblioteca inteira
+da origem.
 
 ## Instalar e listar
 
@@ -193,7 +222,7 @@ as skills por origem e roda um `npx -y skills add` por grupo. O `update` e o
 
 ## Conferir
 
-- `designfy skills list` mostra as onze internas e as cinco externas.
+- `designfy skills list` mostra as onze internas e as seis externas.
 - `skills-lock.json` está versionado com o projeto.
 - `designfy skills install --dry-run` imprime um comando por origem.
 - O relato final cita o viewspec criado e a pasta da captura.

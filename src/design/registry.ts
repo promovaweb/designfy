@@ -9,6 +9,8 @@ import { REGISTRY } from "../generated/registry.ts";
 import { externalRegistryItem } from "./registry-lint.ts";
 import { readProjectPackages, resolveProject, versionMajor, type Framework } from "./project.ts";
 
+import { interfaceSurfaces, normalizeSurface, surfaceInputs } from "./surfaces.ts";
+
 const registryFileSchema = z.object({
   path: z.string().min(1),
   type: z.string(),
@@ -28,7 +30,7 @@ export const registryItemSchema = z.object({
   files: z.array(registryFileSchema),
   meta: z.object({
     motion: z.boolean(),
-    surface: z.enum(["site", "system", "both"]),
+    surface: z.preprocess(normalizeSurface, z.enum(interfaceSurfaces)),
     catalog: z.string().min(1).optional(),
     targetRoot: z.enum(["components", "styles"]).optional(),
   }),
@@ -48,7 +50,7 @@ export type EmbeddedRegistry = z.infer<typeof embeddedSchema>;
 export interface ItemFilters {
   framework?: Framework;
   category?: string;
-  surface?: RegistryItem["meta"]["surface"];
+  surface?: (typeof surfaceInputs)[number];
 }
 
 /** Compatibility note for projects that still use Tailwind 3. */
@@ -118,9 +120,10 @@ export function loadRegistry(framework: Framework = "unknown"): Registry {
 
 /** Finds registry entries matching the selected category and surface. */
 export function listItems(filters: ItemFilters = {}): RegistryItem[] {
+  const surface = normalizeSurface(filters.surface);
   return loadRegistry(filters.framework).items.filter((item) =>
     (!filters.category || item.categories.includes(filters.category)) &&
-    (!filters.surface || item.meta.surface === filters.surface ||
+    (!filters.surface || item.meta.surface === surface ||
       (filters.surface !== "both" && item.meta.surface === "both")),
   );
 }

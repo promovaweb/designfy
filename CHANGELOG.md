@@ -2,6 +2,27 @@
 
 Formato baseado em Keep a Changelog. Versões seguem SemVer.
 
+## [0.2.0] - 2026-11-25
+
+### Adicionado
+
+- Repositório público, sob a licença AGPL-3.0.
+- Pacote npm `@promovaweb/designfy` (`npm i -g @promovaweb/designfy`): baixa o binário da plataforma na GitHub Release da mesma versão, confere o SHA-256 e guarda em cache.
+- Marca completa: ícone (quadro de interface com o componente âmbar e o rastro de movimento), variantes clara e escura, ícone de aplicativo, favicons de 16 a 512 px e prévia social do GitHub.
+- `bun run release <versão>`: confere a árvore, a tag e o changelog, atualiza as versões, regenera os arquivos e só faz commit e tag depois de `bun run validate` passar.
+- Skill `designfy-design-system`: referência `tema-existente.md` para escalas próprias, Tailwind 3, pares em `theme.pairs` e tokens do Astrofy.
+
+### Alterado
+
+- O valor de superfície `system` passa a se chamar `webapp`, no catálogo, no registro, nos filtros, na TUI e no viewspec. `system` continua aceito, com aviso na validação.
+- Guia do usuário, ebook, README e CONTRIBUTING atualizados para tudo o que entrou de 0.1.3 a 0.1.6, sem caminhos pessoais.
+- Skill `designfy-components`: a referência do registro lista os onze itens novos e as variantes.
+- Skills `designfy-review`, `designfy-responsive` e `designfy-design-system`: capturas com `--theme light,dark`, `--hide` e `--scroll-budget`, e leitura do manifesto novo.
+
+### Corrigido
+
+- `doctor` deixa de avisar sobre credenciais, que o Designfy não usa.
+
 ## [0.1.6] - 2026-11-25
 
 ### Corrigido

@@ -29,6 +29,12 @@ jobs:
       - name: Instalar pacotes nativos do OpenTUI para todos os alvos
         run: bun install --frozen-lockfile --os="*" --cpu="*" --libc="*"
 
+      - name: Conferir versão da tag e dos pacotes
+        run: |
+          versao="${GITHUB_REF_NAME#v}"
+          test "$(jq -r .version package.json)" = "$versao"
+          test "$(jq -r .version npm/package.json)" = "$versao"
+
       - name: Validar projeto
         run: bun run validate
 

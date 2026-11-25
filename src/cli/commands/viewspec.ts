@@ -137,6 +137,7 @@ const validate: Command = {
   run: (ctx) => {
     const id = ctx.args[0] === undefined ? undefined : checkedId(ctx.args[0]);
     const data = validateProjectViewspecs(process.cwd(), id);
+    if (data.warnings.length) ctx.stderr("Warning: " + diagnostics(data.warnings));
     if (data.guide === "missing") ctx.stderr("guide: missing");
     return {
       data,

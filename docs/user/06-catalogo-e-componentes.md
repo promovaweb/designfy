@@ -7,7 +7,7 @@ estados, o movimento, os papéis de cor e a origem da implementação:
 ```text
 Stat card
   ID              stat-card
-  Surface         system
+  Surface         webapp
   Category        data-display
   Purpose         Shows one indicator with its change and context.
   Use when        Dashboards and record summaries.
@@ -31,15 +31,16 @@ forma; o registro entrega o arquivo.
 
 ## O catálogo de interface
 
-O catálogo tem 80 fragmentos comuns de site e de sistema, em 15 categorias e
-três superfícies: 32 entradas de `site`, 22 de `system` e 26 de `both`. Cada
+O catálogo tem 91 fragmentos comuns de site e de sistema, em 15 categorias e
+três superfícies: 43 entradas de `site`, 22 de `webapp` e 26 de `both`. O valor
+antigo `system` continua aceito e é lido como `webapp`. Cada
 entrada declara propósito, quando usar, quando evitar, anatomia, variações,
 estados, responsividade, movimento, acessibilidade, papéis de tema, itens
 relacionados e as fontes de implementação.
 
 ```bash
 designfy catalog list
-designfy catalog list --surface system
+designfy catalog list --surface webapp
 designfy catalog list --kind dashboard
 designfy catalog search table
 ```
@@ -60,7 +61,7 @@ começa assim:
   drawer             Drawer (both, feedback)
   counter            Animated counter (both, motion)
   theme-toggle       Theme toggle (both, actions)
-  app-shell          App shell (system, shell)
+  app-shell          App shell (webapp, shell)
   ...
 ```
 
@@ -73,11 +74,11 @@ A busca não diferencia caixa nem acento:
   prose              Prose (site, content)
   table-of-contents  Table of contents (site, content)
   figure             Figure (site, content)
-  chart-card         Chart card (system, data-display)
-  data-table         Data table (system, data-display)
-  filter-bar         Filter bar (system, data-display)
-  bulk-actions       Bulk action bar (system, data-display)
-  settings-layout    Settings layout (system, settings)
+  chart-card         Chart card (webapp, data-display)
+  data-table         Data table (webapp, data-display)
+  filter-bar         Filter bar (webapp, data-display)
+  bulk-actions       Bulk action bar (webapp, data-display)
+  settings-layout    Settings layout (webapp, settings)
 ```
 
 Id desconhecido sai com exit code 6. A skill `designfy-components` exige que
@@ -93,22 +94,22 @@ de origem. O binário leva o registro embutido, gerado por
 ```bash
 designfy components list
 designfy components list --framework react
-designfy components list --surface system
+designfy components list --surface webapp
 ```
 
-O registro React tem 58 itens e o Astro tem 46. Sem `--framework`, o comando usa
+O registro React tem 69 itens e o Astro tem 57. Sem `--framework`, o comando usa
 o framework do `designfy.json`; `next` e `react-vite` leem o registro React. A
 lista desta versão:
 
 | Categoria | Itens |
 | --- | --- |
-| `layout` | `background`, `background-styles`, `section` |
+| `layout` | `background`, `background-styles`, `pixel-stage`, `section` |
 | `utilities` | `cn`, `designfy-motion-runtime` |
 | `styles` | `designfy-motion`, `designfy-theme`, `designfy-prose` |
-| `hero` | `hero-split`, `hero-centered`, `hero-media` |
+| `hero` | `hero-split`, `hero-centered`, `hero-media`, `hero-pixel` |
 | `motion` | `reveal`, `counter` |
 | `site-navigation` | `announcement-bar`, `site-footer`, `site-header` |
-| `site-sections` | `bento-grid`, `comparison-table`, `cta-band`, `faq`, `feature-grid`, `feature-split`, `logo-marquee`, `marquee`, `newsletter-form`, `pricing-table`, `stats-band`, `steps`, `testimonial` |
+| `site-sections` | `audience-fit`, `bento-grid`, `comparison-table`, `cta-band`, `detail-card`, `faq`, `feature-grid`, `feature-rows`, `feature-split`, `logo-marquee`, `marquee`, `newsletter-form`, `numbered-checklist`, `offer-card`, `outcome-grid`, `milestone-timeline`, `pricing-table`, `profile-split`, `statement-stats`, `stats-band`, `steps`, `testimonial` |
 | `containers` | `card` |
 | `actions` | `theme-toggle` |
 | `content` | `article-header`, `author-box`, `callout`, `code-block`, `figure`, `post-card`, `post-list`, `prose`, `reading-progress`, `table-of-contents`, `video-embed` |
@@ -125,6 +126,35 @@ trazem o movimento e o script, `cn` combina classes, `designfy-prose` liga a
 tipografia de leitura, `background` e `background-styles` trazem os padrões de
 fundo e `section` fecha o ritmo das seções. Eles são arquivos de estilo e de
 biblioteca, não telas, e se copiam uma vez por projeto.
+
+### Os onze itens do estudo Founders
+
+Onze itens nasceram da landing de oferta lida no estudo do capítulo 3, em React
+e em Astro, com o mesmo nome, as mesmas props e a mesma estrutura:
+
+| Item | O que entrega |
+| --- | --- |
+| `pixel-stage` | mosaico de pixels em canvas, que lê o tema, acende com o ponteiro, pausa por teclado e tem versão parada |
+| `hero-pixel` | abertura de landing sobre o palco de pixels, com resumo lateral opcional |
+| `feature-rows` | vantagens numeradas em linhas alinhadas, com introdução acima ou lateral fixa |
+| `milestone-timeline` | eventos datados ou etapas em ordem, com marcador do momento atual e resultados alinhados |
+| `profile-split` | apresenta uma pessoa com retrato, credenciais e links |
+| `offer-card` | oferta com prazo, vagas opcionais e ação principal, nas variantes `tinted` e `stage` |
+| `audience-fit` | duas listas, para quem é e para quem não é, com ou sem nota |
+| `numbered-checklist` | inclusões com chips numerados e destaques opcionais, em uma ou duas colunas |
+| `outcome-grid` | resultados curtos numa grade responsiva de blocos com ícone |
+| `detail-card` | explica um recurso com ícone, parágrafos e itens de conferência; inclui o `DetailCardGrid` |
+| `statement-stats` | frase em dois tons ao lado de estatísticas empilhadas, para compor com a linha do tempo |
+
+Cinco itens que já existiam ganharam variante:
+
+| Item | Variante nova |
+| --- | --- |
+| `faq` | `split` com `stickyIntro`, o título fixo à esquerda enquanto as perguntas rolam |
+| `cta-band` | `secondaryAction`, a segunda ação ao lado da principal |
+| `testimonial` | `carousel`, um depoimento por vez no celular e vários no desktop |
+| `pricing-table` | `single`, um plano com oferta e lista de inclusões no lugar da grade |
+| `marquee` | `accent`, com separadores em losango e a cor de destaque do tema |
 
 ## Conferir um item
 
@@ -231,8 +261,8 @@ de toque de 44 px no celular, mantém o foco visível e usa uma biblioteca de
 
 - `designfy catalog list --kind <tipo>` devolve os fragmentos do tipo de tela.
 - `designfy catalog show <id>` mostra a origem da implementação.
-- `designfy components list --framework react` mostra os 58 itens.
-- `designfy components list --framework astro` mostra os 46 itens.
+- `designfy components list --framework react` mostra os 69 itens.
+- `designfy components list --framework astro` mostra os 57 itens.
 - `designfy components add <item> --dry-run` mostra os arquivos antes da cópia.
 - `designfy deps check` termina com exit code 0 depois da cópia.
 - Nenhum arquivo copiado tem cor literal ou `font-family`.

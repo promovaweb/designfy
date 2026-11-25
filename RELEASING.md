@@ -1,105 +1,59 @@
 # Publicação de versões
 
-A versão do Designfy sai em duas partes: a tag no Git e a GitHub Release privada
-com os binários. Não há publicação no npm por enquanto. A versão vem do
-`package.json`, que o binário lê em tempo de build, e o histórico fica no
-`CHANGELOG.md`. A edição do guia em `ebook/` acompanha a versão.
+O Designfy distribui cinco executáveis pela GitHub Release pública. O pacote
+`@promovaweb/designfy` instala o executável da mesma versão a partir desses
+anexos. O download público dispensa token e confere o SHA-256 antes de gravar
+o arquivo em cache.
 
-A tag `vX.Y.Z` dispara o workflow `.github/workflows/release.yml`. Ele instala
-as dependências e os pacotes nativos do OpenTUI de todos os alvos, roda
-`bun run validate`, compila `linux-x64`, `linux-arm64`, `darwin-x64`,
-`darwin-arm64` e `windows-x64`, gera o `SHA256SUMS` e publica a GitHub Release
-com as notas extraídas do changelog. O workflow não publica no npm.
+## Preparar a versão
 
-## Passo a passo
-
-Os exemplos usam `X.Y.Z` para a versão nova.
-
-1. Confira que a `main` local está limpa e igual à remota:
-
-   ```bash
-   git status --short
-   git fetch origin && git status -sb
-   ```
-
-2. Avance a versão em `package.json`. Ela é a fonte do `--version`, do `about`,
-   do MCP e do OpenCLI, e precisa ser a mesma da tag. Confira:
-
-   ```bash
-   jq -r .version package.json
-   ```
-
-3. Escreva a seção `## [X.Y.Z] - AAAA-MM-DD` no topo do `CHANGELOG.md`, no
-   formato Keep a Changelog. O workflow extrai as notas pelo título exato
-   `## [X.Y.Z]`, então não mude o formato do cabeçalho.
-
-4. Atualize a edição do guia. `ebook/VERSION` acompanha o `package.json` e o
-   guia é reconstruído quando `docs/user/` mudou:
-
-   ```bash
-   bun run ebook
-   bun run ebook:verify
-   ```
-
-   A geração exige `pandoc`, `weasyprint`, `unzip`, `xmllint`, `magick`,
-   `fc-match` e `pdftohtml` instalados na máquina. O `build.json` registra a
-   versão, o hash das fontes e os hashes do PDF e do EPUB.
-
-5. Valide:
-
-   ```bash
-   bun run validate
-   ```
-
-   O `validate` roda `typecheck`, `bun test`, `skills:check`,
-   `skills:sync:check`, `skills:lint`, `registry:check`, `backgrounds:check`,
-   `opencli:check`, `docs:check` e `build`.
-
-6. Faça o commit, crie a tag e envie os dois juntos. A tag é nova e não é movida
-   depois:
-
-   ```bash
-   git add -A
-   git commit -m "release: designfy vX.Y.Z"
-   git tag -a vX.Y.Z -m "vX.Y.Z"
-   git push --atomic origin HEAD:main vX.Y.Z
-   ```
-
-7. Acompanhe o workflow:
-
-   ```bash
-   gh run watch
-   ```
-
-8. Confira a release:
-
-   ```bash
-   gh release view vX.Y.Z -R promovaweb/designfy
-   ```
-
-   A release precisa ter os cinco binários e o `SHA256SUMS`. Quem baixa o
-   executável depende desses anexos.
-
-9. Atualize o gitlink do submódulo no Hub, conforme a ordem de `RELEASES.md`:
-   primeiro a release do sub-repositório, depois o ponteiro, a versão, o
-   changelog, a tag e a release do Hub.
-
-## Conferência
+Na `main`, registre as mudanças da versão e escreva a seção
+`## [X.Y.Z] - AAAA-MM-DD` no `CHANGELOG.md` com a data local de hoje.
+Faça commit das mudanças de implementação antes de iniciar o fluxo. Troque
+`X.Y.Z` pela nova versão nos comandos.
 
 ```bash
-gh release view vX.Y.Z -R promovaweb/designfy
-./dist/designfy --version
+bun run release X.Y.Z --dry-run
+bun run release X.Y.Z
 ```
 
-O build local confere a identidade antes da tag:
+O primeiro comando exibe o plano. O segundo confere a branch, a árvore de
+trabalho, a tag local e o changelog. Aceita mudanças apenas nos arquivos da
+versão, incluindo os artefatos gerados. Atualiza os dois manifestos e
+`ebook/VERSION`, regenera o README do npm, o OpenCLI, as referências das skills
+e o ebook. Depois executa `bun run validate`. Uma falha interrompe o fluxo
+antes do commit e da tag. Corrija a causa e repita o comando.
+
+Para gerar o guia, instale `pandoc`, `weasyprint`, `unzip`, `xmllint`,
+`magick`, `fc-match`, `pdftohtml` e `pdftoppm`. O build verifica os arquivos
+e mantém as cinco edições mais recentes.
+
+Após a validação, o script cria o commit e a tag anotada. Para enviar a
+`main` e a tag na mesma execução, acrescente `--push` ao comando de release.
+Quando a tag já foi criada localmente, envie o par diretamente.
 
 ```bash
-bun run build
-./dist/designfy --version
+git push --atomic origin HEAD:main vX.Y.Z
 ```
 
-Uma tag publicada não é movida nem reutilizada. Correção posterior recebe uma
-versão nova. Se a criação da release falhar, a publicação fica pendente até que a
-release exista e seja conferida.
+## Conferir e publicar
 
-O build local e o detalhe dos alvos estão em [docs/release.md](docs/release.md).
+1. Acompanhe o workflow Release com `gh run watch`. A tag deve coincidir com
+   as versões do manifesto da raiz e do pacote npm.
+2. Confira os anexos com `gh release view vX.Y.Z -R promovaweb/designfy`.
+   Devem constar os executáveis para Linux x64 e arm64, macOS x64 e arm64,
+   Windows x64 e o arquivo `SHA256SUMS`.
+3. Na pasta `npm/`, confira que `npm whoami` retorna `contatopromovaweb` e
+   publique o pacote.
+
+   ```bash
+   cd npm
+   npm whoami
+   npm publish --access public
+   ```
+
+4. Confira a instalação com `npx @promovaweb/designfy@X.Y.Z --version`.
+   Atualize o gitlink do submódulo no Hub conforme `RELEASES.md`.
+
+Correções após uma tag publicada recebem uma versão nova. Consulte os
+[comandos de build local](docs/release.md).

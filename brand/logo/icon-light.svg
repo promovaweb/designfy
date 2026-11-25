@@ -1,5 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 64 64" role="img" aria-label="Designfy">
-  <title>Designfy</title>
-  <desc>Quadro de interface com cabeçalho, barra lateral e um componente âmbar que deixa rastro de movimento.</desc>
-  <g stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="9" width="50" height="46" rx="5" fill="none" stroke="#00161E" stroke-width="3.2"/><path d="M7 20h50M21 20v35" fill="none" stroke="#00161E" stroke-width="3"/><rect x="26" y="27" width="16" height="13" rx="2.5" fill="#FFB224" fill-opacity=".22"/><rect x="30.5" y="27" width="16" height="13" rx="2.5" fill="#FFB224" fill-opacity=".5"/><rect x="35" y="27" width="17" height="13" rx="2.5" fill="#FFB224"/><path d="M27 48h18" fill="none" stroke="#00161E" stroke-width="3"/><path d="M12 28h4M12 35h4M12 42h4" fill="none" stroke="#00161E" stroke-width="2.6"/></g>
+  <rect x="10" y="14" width="44" height="36" rx="4" fill="none" stroke="#00161E" stroke-width="4"/>
+  <path d="M10 23h44" stroke="#00161E" stroke-width="3"/>
+  <path d="M17 32h12m-8 8h8" fill="none" stroke="#FFB224" stroke-width="4" stroke-linecap="round"/>
+  <rect x="33" y="28" width="15" height="16" rx="3" fill="#FFB224"/>
 </svg>

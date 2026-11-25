@@ -1,29 +1,20 @@
 # Release
 
-Toda alteração publicada sai com versão, changelog, tag e GitHub Release
-privada. O passo a passo completo está em
-[RELEASING.md](../RELEASING.md).
+A distribuição usa uma GitHub Release pública e o pacote npm
+`@promovaweb/designfy`. O launcher procura o executável no cache da versão.
+No primeiro uso, baixa o binário da plataforma e confere o `SHA256SUMS`.
 
-Resumo:
+| Comando | Efeito |
+| --- | --- |
+| `bun run release X.Y.Z --dry-run` | Mostra as etapas da preparação e publicação. |
+| `bun run release X.Y.Z` | Atualiza a versão, regenera os arquivos, valida, cria o commit e a tag local. |
+| `bun run release X.Y.Z --push` | Executa a preparação e envia a main e a nova tag em um push atômico. |
+| `bun run npm:readme` | Gera o README do pacote a partir do README da raiz. |
 
-1. Atualize `version` em `package.json` (SemVer). O binário lê essa versão.
-2. Registre a mudança em `CHANGELOG.md`, no formato Keep a Changelog, com o
-   título `## [X.Y.Z] - AAAA-MM-DD`.
-3. Atualize `ebook/VERSION` e rode `bun run ebook` e `bun run ebook:verify`.
-4. Rode `bun run validate`.
-5. Commit: `release: designfy vX.Y.Z`.
-6. Tag: `git tag -a vX.Y.Z -m "vX.Y.Z"`.
-7. Push da `main` e só desta tag: `git push --atomic origin HEAD:main vX.Y.Z`.
-8. O workflow `release.yml` instala os pacotes nativos de todos os alvos, roda
-   `bun run validate`, compila os binários para linux-x64, linux-arm64,
-   darwin-x64, darwin-arm64 e windows-x64, gera o `SHA256SUMS` e publica a
-   GitHub Release com as notas do changelog.
-9. Confira a release em
-   `https://github.com/promovaweb/designfy/releases/tag/vX.Y.Z`.
-10. Atualize o gitlink do submódulo no Hub.
-
-Não há publicação no npm por enquanto. Uma tag publicada nunca é movida.
-Correção posterior recebe nova versão.
+O changelog precisa conter a seção da versão com a data de hoje. A publicação
+no npm ocorre após a conferência dos cinco anexos executáveis e do arquivo de
+checksums. O procedimento com a conta `contatopromovaweb` está no
+[guia de publicação](../RELEASING.md).
 
 ## Build local
 

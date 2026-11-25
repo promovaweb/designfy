@@ -1,7 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1227" height="320" viewBox="0 0 1227 320" role="img" aria-labelledby="title description">
   <title id="title">Designfy</title>
   <desc id="description">Assinatura para fundo escuro. Quadro de interface com um componente âmbar em movimento ao lado do nome Designfy.</desc>
-  <g transform="translate(16 16) scale(4.5)"><g stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="9" width="50" height="46" rx="5" fill="none" stroke="#C6F4ED" stroke-width="3.2"/><path d="M7 20h50M21 20v35" fill="none" stroke="#C6F4ED" stroke-width="3"/><rect x="26" y="27" width="16" height="13" rx="2.5" fill="#FFB224" fill-opacity=".22"/><rect x="30.5" y="27" width="16" height="13" rx="2.5" fill="#FFB224" fill-opacity=".5"/><rect x="35" y="27" width="17" height="13" rx="2.5" fill="#FFB224"/><path d="M27 48h18" fill="none" stroke="#C6F4ED" stroke-width="3"/><path d="M12 28h4M12 35h4M12 42h4" fill="none" stroke="#C6F4ED" stroke-width="2.6"/></g></g>
+  <g transform="translate(16 16) scale(4.5)">
+  <rect x="10" y="14" width="44" height="36" rx="4" fill="none" stroke="#C6F4ED" stroke-width="4"/>
+  <path d="M10 23h44" stroke="#C6F4ED" stroke-width="3"/>
+  <path d="M17 32h12m-8 8h8" fill="none" stroke="#FFB224" stroke-width="4" stroke-linecap="round"/>
+  <rect x="33" y="28" width="15" height="16" rx="3" fill="#FFB224"/>
+  </g>
   <g fill="#F2F8F9" transform="translate(313.19025304592316 211.3477038425492) scale(0.09864104967197751 -0.09864104967197751)">
     <path transform="translate(0 0)" d="M140 0L140 1440L602 1440Q620 1440 673.5 1439Q727 1438 776 1432Q949 1411 1068.5 1311Q1188 1211 1250 1057Q1312 903 1312 720Q1312 537 1250 383Q1188 229 1068.5 129Q949 29 776 8Q727 2 673.5 1Q620 0 602 0ZM401 242L602 242Q631 242 677.5 243.5Q724 245 760 252Q858 271 920 341.5Q982 412 1011.5 512Q1041 612 1041 720Q1041 833 1010.5 933Q980 1033 917.5 1101.5Q855 1170 760 1188Q724 1196 677.5 1197Q631 1198 602 1198L401 1198Z"/>
     <path transform="translate(1410.3333333333333 0)" d="M636 -30Q471 -30 346 41.5Q221 113 150.5 238.5Q80 364 80 527Q80 704 149 835Q218 966 340 1038Q462 1110 622 1110Q790 1110 908.5 1031Q1027 952 1084 808Q1141 664 1126 468L872 468L872 562Q871 733 814.5 810Q758 887 633 887Q489 887 420.5 799Q352 711 352 540Q352 382 420.5 296Q489 210 622 210Q706 210 767 247.5Q828 285 860 355L1115 280Q1054 133 923.5 51.5Q793 -30 636 -30ZM272 468L272 661L1001 661L1001 468Z"/>

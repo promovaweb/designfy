@@ -1,4 +1,5 @@
 /** Exposes registry browsing and component copying as CLI subcommands. */
+import { surfaceInputs } from "../../design/surfaces.ts";
 import { ExitCode } from "../../app/exit-codes.ts";
 import { manifest } from "../../app/manifest.ts";
 import { detectProject, frameworks, resolveProject, type Framework } from "../../design/project.ts";
@@ -21,8 +22,8 @@ const list: Command = {
     { name: "--category", argument: { name: "category" }, description: "Filter by registry category." },
     {
       name: "--surface",
-      argument: { name: "surface", values: ["site", "system", "both"] },
-      description: "Filter by site, system, or both. Shared items match site and system.",
+      argument: { name: "surface", values: surfaceInputs },
+      description: "Filter by site, webapp, or both. The legacy system alias means webapp. Shared items match site and webapp.",
     },
   ],
   examples: [`${manifest.bin} components list --framework astro`],

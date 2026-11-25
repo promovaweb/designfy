@@ -3223,7 +3223,7 @@ export const REGISTRY: EmbeddedRegistry = {
         "meta": {
           "catalog": "app-shell",
           "motion": true,
-          "surface": "system"
+          "surface": "webapp"
         },
         "name": "app-shell",
         "registryDependencies": [
@@ -3255,7 +3255,7 @@ export const REGISTRY: EmbeddedRegistry = {
         "meta": {
           "catalog": "auth-card",
           "motion": true,
-          "surface": "system"
+          "surface": "webapp"
         },
         "name": "auth-card",
         "registryDependencies": [
@@ -3290,7 +3290,7 @@ export const REGISTRY: EmbeddedRegistry = {
         "meta": {
           "catalog": "chart-card",
           "motion": true,
-          "surface": "system"
+          "surface": "webapp"
         },
         "name": "chart-card",
         "registryDependencies": [
@@ -3324,7 +3324,7 @@ export const REGISTRY: EmbeddedRegistry = {
         "meta": {
           "catalog": "data-table",
           "motion": true,
-          "surface": "system"
+          "surface": "webapp"
         },
         "name": "data-table",
         "registryDependencies": [
@@ -3446,7 +3446,7 @@ export const REGISTRY: EmbeddedRegistry = {
         "meta": {
           "catalog": "file-upload",
           "motion": true,
-          "surface": "system"
+          "surface": "webapp"
         },
         "name": "file-upload",
         "registryDependencies": [
@@ -3478,7 +3478,7 @@ export const REGISTRY: EmbeddedRegistry = {
         "meta": {
           "catalog": "filter-bar",
           "motion": true,
-          "surface": "system"
+          "surface": "webapp"
         },
         "name": "filter-bar",
         "registryDependencies": [
@@ -3511,7 +3511,7 @@ export const REGISTRY: EmbeddedRegistry = {
         "meta": {
           "catalog": "form-layout",
           "motion": true,
-          "surface": "system"
+          "surface": "webapp"
         },
         "name": "form-layout",
         "registryDependencies": [
@@ -3542,7 +3542,7 @@ export const REGISTRY: EmbeddedRegistry = {
         "meta": {
           "catalog": "page-header",
           "motion": true,
-          "surface": "system"
+          "surface": "webapp"
         },
         "name": "page-header",
         "registryDependencies": [
@@ -3571,7 +3571,7 @@ export const REGISTRY: EmbeddedRegistry = {
         "meta": {
           "catalog": "settings-layout",
           "motion": true,
-          "surface": "system"
+          "surface": "webapp"
         },
         "name": "settings-layout",
         "registryDependencies": [
@@ -3601,7 +3601,7 @@ export const REGISTRY: EmbeddedRegistry = {
         "meta": {
           "catalog": "settings-section",
           "motion": true,
-          "surface": "system"
+          "surface": "webapp"
         },
         "name": "settings-section",
         "registryDependencies": [
@@ -3635,7 +3635,7 @@ export const REGISTRY: EmbeddedRegistry = {
         "meta": {
           "catalog": "stat-card",
           "motion": true,
-          "surface": "system"
+          "surface": "webapp"
         },
         "name": "stat-card",
         "registryDependencies": [
@@ -3666,7 +3666,7 @@ export const REGISTRY: EmbeddedRegistry = {
         "meta": {
           "catalog": "stepper",
           "motion": true,
-          "surface": "system"
+          "surface": "webapp"
         },
         "name": "stepper",
         "registryDependencies": [

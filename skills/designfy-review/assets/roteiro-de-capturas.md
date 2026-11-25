@@ -12,8 +12,8 @@ designfy capture run {url} --viewport mobile,tablet,desktop,wide --name {slug}-r
 # 2. primeira dobra, inclusive o mínimo e o notebook
 designfy capture run {url} --viewport 320x640,mobile,1280x800,desktop --fold --name {slug}-r1-dobra
 
-# 3. tema escuro
-designfy capture run {url} --viewport mobile,desktop --theme dark --name {slug}-r1-escuro
+# 3. temas claro e escuro
+designfy capture run {url} --viewport mobile,desktop --theme light,dark --name {slug}-r1-temas
 
 # 4. movimento reduzido
 designfy capture run {url} --viewport mobile,desktop --reduced-motion --name {slug}-r1-parado

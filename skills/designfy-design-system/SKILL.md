@@ -21,6 +21,7 @@ tudo vem dos papéis definidos aqui. Mudar a marca é mudar este arquivo.
 | Fundos de seção e os presets de padrão | [references/fundos.md](references/fundos.md) e [references/backgrounds/catalogo.md](references/backgrounds/catalogo.md) |
 | Raios, bordas, sombras e camadas | [references/formas-e-profundidade.md](references/formas-e-profundidade.md) |
 | Modo escuro e temas adicionais | [references/temas-e-modo-escuro.md](references/temas-e-modo-escuro.md) |
+| Projeto com tema próprio: escalas da casa, Tailwind 3, tokens do Astrofy | [references/tema-existente.md](references/tema-existente.md) |
 | Conferência antes de entregar | [references/checklist.md](references/checklist.md) |
 
 Modelos em `assets/`: [tema-inicial.css](assets/tema-inicial.css) (o arquivo
@@ -61,7 +62,12 @@ de tokens completo), [entrada.css](assets/entrada.css) (ordem dos imports),
     máscara; `decorative-only` nunca fica atrás de texto corrido.
 12. **Claro e escuro são derivados, não invertidos.** Cada papel tem valor
     próprio nos dois temas, com o contraste conferido nos dois.
-13. **Mudança no tema atualiza o guia.** Cor base, harmonia, pares medidos,
+13. **Tema que já existe é descrito, não trocado.** Projeto com escalas
+    próprias, Tailwind 3 ou tokens gerados pelo Astrofy segue
+    [references/tema-existente.md](references/tema-existente.md): as
+    regras 2 a 4 valem para tema novo e para componente copiado do registro,
+    não para reescrever o tema da casa.
+14. **Mudança no tema atualiza o guia.** Cor base, harmonia, pares medidos,
     fontes e raios ficam descritos no `VIEWSPEC.md` na mesma mudança.
 
 ## Passos
@@ -74,6 +80,14 @@ designfy theme check --json
 designfy viewspec guide --json
 ```
 
+- `theme show` diz a versão do Tailwind, o arquivo escolhido e por qual
+  regra (`paths.theme`, `tokensFile` do guia ou busca). Arquivo errado se
+  corrige com `paths.theme` no `designfy.json` (`designfy init --theme-path`).
+- `theme check` diz o modo: `shadcn` mede os papéis do shadcn; `custom`,
+  para escalas próprias, mede os pares de `theme.pairs` ou os pares
+  semânticos comuns. Em modo `custom`, declare em `theme.pairs` todos os
+  pares que importam (botões, acento, texto sobre superfícies), como em
+  [references/tema-existente.md](references/tema-existente.md).
 - Saída 6 em `theme show`: não há tema. Vá ao passo 2.
 - Tema existente: liste os papéis presentes, os que faltam e os pares
   reprovados. Vá ao passo 3.

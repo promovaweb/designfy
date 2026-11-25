@@ -38,7 +38,7 @@ designfy config schema
 O `config list` mostra o arquivo em uso e o valor de cada key:
 
 ```text
-File: /home/luizeof/.designfy/settings.json (not created yet; defaults)
+File: ~/.designfy/settings.json (not created yet; defaults)
 
   capture.outDir       ".designfy/captures"
   capture.viewports    "mobile,desktop"
@@ -70,10 +70,14 @@ a descrição de cada key. Uma key fora do schema é aceita como texto.
 | `shadcn` | booleano |
 | `paths.components` | pasta dos componentes copiados |
 | `paths.styles` | pasta dos estilos copiados e do CSS do tema |
+| `paths.theme` | caminho opcional do CSS do tema, relativo à raiz ou absoluto; também aceito por `init --theme-path` |
 | `paths.viewspec` | pasta dos viewspecs |
 | `aliases.components` | alias que substitui `@designfy/components` |
+| `theme.pairs` | pares de contraste do modo `custom`, com `fg`, `bg`, `label` e `min` |
 
 Quando o arquivo existe, os campos definidos nele prevalecem sobre a detecção.
+A option global `--project` (`-C`) escolhe a pasta do projeto por execução, e
+`DESIGNFY_PROJECT` define o padrão.
 
 ## Arquivos e pastas
 
@@ -124,6 +128,7 @@ seguir.
 | Variável | Efeito |
 | --- | --- |
 | `DESIGNFY_HOME` | troca `~/.designfy/` por outra pasta |
+| `DESIGNFY_PROJECT` | pasta do projeto por padrão no CLI e no servidor MCP; a option `--project` tem precedência |
 | `DESIGNFY_MASTER_KEY` | master key em 64 caracteres hexadecimais; dispensa `master.key` |
 | `DESIGNFY_CATALOG_DIR` | pasta com os JSONs de catálogo no lugar dos embutidos |
 | `DESIGNFY_REGISTRY_FILE` | JSON com os registros embutidos de React e Astro |
@@ -138,6 +143,9 @@ seguir.
 | `No package.json found in the current directory` com exit 6 | comando rodou fora da raiz | entre na raiz do site ou da aplicação |
 | `No Tailwind stylesheet found` com exit 6 | o projeto não tem CSS com `@import "tailwindcss"` | rode `designfy components add designfy-theme` e ligue no CSS de entrada |
 | `Theme check failed` com exit 10 | par abaixo de 4.5 ou papel obrigatório ausente | meça com `designfy palette contrast` e corrija o papel no arquivo de tokens |
+| `Theme check failed` no modo `custom` | par do `theme.pairs` abaixo do `min` | ajuste os valores no `designfy.json` ou o `min` do par |
+| `components add` recusa com exit 10 num projeto Tailwind 3 | o registro usa a sintaxe do Tailwind 4 | use o item como referência, migre o projeto ou copie com `--allow-tailwind3` |
+| `trackedBy` aponta arquivo ausente | a spec ou a sitespec mudou de pasta de estado | atualize o `path` no front matter do viewspec |
 | `missing animate-df-marquee` com exit 10 | o CSS de movimento ficou fora do arquivo lido | importe `designfy-motion.css` e use `--file` no CSS de entrada |
 | `Missing: ...` com exit 10 | pacotes ausentes no `package.json` | rode `designfy deps install` |
 | `Unknown component` com exit 6 | nome errado ou framework errado | confira `designfy components list --framework <framework>` |
@@ -146,7 +154,7 @@ seguir.
 | `Project guide VIEWSPEC.md is missing` com exit 6 | o projeto ainda não tem guia | rode a skill `designfy-viewspec` no modo guia |
 | `Viewspec validation passed.` com `guide: missing` | o aviso não reprova | crie o guia na próxima etapa |
 | A TUI encerra com exit 8 | o comando rodou sem terminal interativo | use o CLI em script e a TUI só no terminal |
-| `npx skills add` falha com exit 5 | sem rede, sem acesso ao repositório privado ou agente inválido | confira o login do GitHub e o nome do agente |
+| `npx skills add` falha com exit 5 | sem rede ou agente inválido | confira a conexão, o nome do repositório e o nome do agente |
 | `Shadcn items` na resposta do `components add` | o item exige primitivas do shadcn | rode o comando `npx shadcn@latest add` que a resposta indica |
 
 Quando o sintoma não está na tabela, `designfy doctor` confere o ambiente sem
@@ -158,8 +166,13 @@ avisos `!` não reprovam.
 
 O código, os binários e as notas de versão ficam em
 [promovaweb/designfy](https://github.com/promovaweb/designfy), um repositório
-privado. As skills internas vêm da mesma origem, e o guia do método que sustenta
-o binário fica no [Termfy](https://github.com/promovaweb/termfy).
+público sob a AGPL 3.0. O pacote do npm é `@promovaweb/designfy`. As skills vêm
+da mesma origem, e o guia do método que sustenta o binário fica no
+[Termfy](https://github.com/promovaweb/termfy). A versão online deste guia e a
+documentação técnica ficam em
+[promovaweb.com/docs/designfy](https://promovaweb.com/docs/designfy/), e a
+apresentação do projeto em
+[promovaweb.com/designfy](https://promovaweb.com/designfy/).
 
 ## Conferir
 

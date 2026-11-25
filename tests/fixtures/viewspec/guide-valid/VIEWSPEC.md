@@ -3,7 +3,7 @@ schemaVersion: "1.0.0"
 scope: project
 name: Mesa de Pedidos
 description: Sistema usado pela equipe de expedição e atendimento para acompanhar pedidos de uma distribuidora regional.
-surfaces: [system]
+surfaces: [webapp]
 frameworks:
   - react-vite
 tokensFile: src/styles/tokens.css

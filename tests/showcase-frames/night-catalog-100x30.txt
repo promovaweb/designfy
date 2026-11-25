@@ -15,7 +15,7 @@
    │   both · land...tail, settings ││  │ the next step.                                       ││
    │ Authentication · 1             ││  │ One primary action per screen region.                ││
    │   Auth card                    ││  │ Avoid when                                           ││
-   │   system · auth                ││  │ Plain navigation between pages: use a link.          ││
+   │   webapp · auth                ││  │ Plain navigation between pages: use a link.          ││
    │ Containers · 2                 ││  │ More than one primary button in the same region.     ││
    │   Accordion                    ││  │ Anatomy                                              ││
    │   both · land...page, settings ││  │ label                                                ││

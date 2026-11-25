@@ -50,9 +50,10 @@ function useRegistry(items: RegistryItem[]): void {
 
 test("embedded registries select framework, category and surface", () => {
   for (const framework of ["next", "react-vite", "react", "unknown"] as const) {
-    expect(listItems({ framework, category: "utilities", surface: "system" }).map(({ name }) => name)).toContain("cn");
+    expect(listItems({ framework, category: "utilities", surface: "webapp" }).map(({ name }) => name)).toContain("cn");
   }
   expect(listItems({ framework: "astro", category: "utilities" }).map(({ name }) => name)).toContain("cn");
+  expect(listItems({ surface: "system" })).toEqual(listItems({ surface: "webapp" }));
   expect(getItem("cn").files[0]?.content).toContain("twMerge");
   expect(getItem("designfy-theme", "astro").meta.targetRoot).toBe("styles");
   expect(() => getItem("missing", "astro")).toThrow(expect.objectContaining({

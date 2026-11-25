@@ -25,13 +25,14 @@ pull request.
 
 Requisitos:
 
-- Bun 1.4.4 ou superior. O binário roda sobre Bun, não sobre Node.js.
-- Node.js para o `npx skills`, para o Playwright das capturas e para gerar o
-  ebook.
+- Bun 1.4.4 ou superior. O binário roda sobre
+  [Bun](https://github.com/oven-sh/bun), não sobre Node.js.
+- [Node.js](https://github.com/nodejs/node) para o `npx skills`, para o
+  Playwright das capturas e para gerar o ebook.
 - Git.
 
 ```bash
-git clone git@github.com:promovaweb/designfy.git
+git clone https://github.com/promovaweb/designfy.git
 cd designfy
 bun install
 bun run dev -- --help                                 # roda o CLI pelo TypeScript
@@ -226,7 +227,8 @@ fora dele `components_add` e `capture_run`.
 
 ### Uma tela da TUI
 
-1. Leia `/home/luizeof/hub/TUI.md`, o padrão das TUIs da Promovaweb, e
+1. Siga o padrão das TUIs da Promovaweb, ensinado pela skill
+   [`termfy-tui`](https://github.com/promovaweb/termfy), e
    [docs/tui.md](docs/tui.md), a referência da interface atual.
 2. Copie `template/screen/example.ts` para `src/tui/screens/<name>.ts`.
 3. Use os componentes de `src/tui/components.ts`, o `ScreenContext` de
@@ -354,6 +356,11 @@ A CI em `.github/workflows/ci.yml` roda `bun install --frozen-lockfile` e
 | `registry/README.md` e `registry/CONVENTIONS.md` | como o registro funciona e as regras de cada item |
 | `brand/README.md` | logo, paleta e regras de uso da marca |
 
+A documentação publicada no site fica em
+[promovaweb.com/docs/designfy](https://promovaweb.com/docs/designfy/) e
+acompanha a release. O guia do usuário em `docs/user/` é a fonte do ebook e da
+versão publicada.
+
 O `docs:check` faz parte do `validate`. Quando a mudança tocar um command, uma
 tool, uma tela, uma key ou um exit code, atualize `docs/` no mesmo commit.
 
@@ -400,7 +407,8 @@ A versão vem do `package.json` e o histórico fica no `CHANGELOG.md`. A tag
 `vX.Y.Z` dispara o workflow `release.yml`, que instala os pacotes nativos de
 todos os alvos, roda `bun run validate`, compila os binários das cinco
 plataformas, gera o `SHA256SUMS` e publica a GitHub Release com as notas do
-changelog. O repositório é privado e não há publicação no npm por enquanto.
+changelog. O repositório é público sob a AGPL 3.0. A publicação no npm sai do
+pacote em `npm/`, com a mesma versão, logo depois da release.
 
 O passo a passo está em [RELEASING.md](RELEASING.md) e em
 [docs/release.md](docs/release.md).

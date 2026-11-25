@@ -16,7 +16,7 @@ test("the order management sample includes 14 sections, 33 rules and six learnin
   const guide = readGuide(project);
   expect(guide.errors).toEqual([]);
   expect(guide.exists).toBe(true);
-  expect(guide.frontMatter).toMatchObject({ scope: "project", surfaces: ["system"], themes: ["light", "dark"] });
+  expect(guide.frontMatter).toMatchObject({ scope: "project", surfaces: ["webapp"], themes: ["light", "dark"] });
   expect(guide.sections).toHaveLength(14);
   expect(guide.rules).toHaveLength(33);
   expect(guide.rules[0]).toMatchObject({ id: "v001", section: "Visão geral", origin: "@pessoa", line: 19 });

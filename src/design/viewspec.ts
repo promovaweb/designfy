@@ -12,8 +12,8 @@ const directoryName = /^([0-9]{4})-([a-z0-9]+(?:-[a-z0-9]+)*)$/;
 
 export const viewStatuses = ["draft", "in_progress", "blocked", "done", "archived"] as const;
 const siteKinds = ["landing-page", "home", "site-page", "blog-index", "blog-post", "docs-page"] as const;
-const systemKinds = ["dashboard", "table", "form", "crud", "detail", "settings", "auth"] as const;
-export const viewKinds = [...siteKinds, ...systemKinds, "other"] as const;
+const webappKinds = ["dashboard", "table", "form", "crud", "detail", "settings", "auth"] as const;
+export const viewKinds = [...siteKinds, ...webappKinds, "other"] as const;
 
 const viewSections = [
   "Objetivo", "Conteúdo", "Estrutura", "Estados", "Responsivo",
@@ -32,7 +32,7 @@ type GuideSection = (typeof guideSections)[number][0];
 
 const text = z.string().trim().min(1);
 const dateTime = z.iso.datetime({ offset: true });
-const surface = z.enum(["site", "system"]);
+const surface = z.enum(["site", "webapp"]);
 const framework = z.enum(["astro", "react", "react-vite", "next", "other"]);
 const commonFields = { schemaVersion: z.literal("1.0.0"), createdAt: dateTime, updatedAt: dateTime };
 export const viewFrontMatterSchema = z.strictObject({
@@ -109,7 +109,7 @@ export type ViewspecProgress = ChecklistProgress & {
   nextId: string | null;
   errors: ViewspecError[];
 };
-export type ViewspecValidation = { valid: boolean; guide: "missing" | "valid" | "invalid"; errors: ViewspecError[] };
+export type ViewspecValidation = { warnings: ViewspecError[]; valid: boolean; guide: "missing" | "valid" | "invalid"; errors: ViewspecError[] };
 
 type Scalar = string | number | boolean | null;
 type ParsedDocument = {
@@ -202,7 +202,7 @@ function readSections(lines: string[], start: number): ViewspecSection[] {
 }
 
 /** Parses restricted YAML and Markdown sections with one-based source locations. */
-export function parseViewspec(file: string, markdown: string): ParsedDocument {
+export function parseViewspec(file: string, markdown: string, warnings?: ViewspecError[]): ParsedDocument {
   const frontMatter: ParsedDocument["frontMatter"] = Object.create(null);
   const fieldLines: ParsedDocument["fieldLines"] = Object.create(null);
   const errors: ViewspecError[] = [];
@@ -254,6 +254,14 @@ export function parseViewspec(file: string, markdown: string): ParsedDocument {
     }
   }
 
+  for (const field of ["surface", "surfaces"]) {
+    const value = frontMatter[field];
+    if (field === "surface" && value === "system") frontMatter[field] = "webapp";
+    else if (field === "surfaces" && Array.isArray(value) && value.includes("system")) {
+      frontMatter[field] = value.map((entry) => entry === "system" ? "webapp" : entry);
+    } else continue;
+    warnings?.push({ file, line: fieldLines[field], field, message: 'The "system" surface is deprecated. Use "webapp".' });
+  }
   return { file, frontMatter, fieldLines, sections: readSections(lines, end + 1), errors };
 }
 
@@ -430,7 +438,7 @@ export function validateViewspec(parsed: ParsedDocument, project = resolve(dirna
   }
 
   const expectedSurface = [...siteKinds].some((kind) => kind === front.kind) ? "site"
-    : [...systemKinds].some((kind) => kind === front.kind) ? "system" : undefined;
+    : [...webappKinds].some((kind) => kind === front.kind) ? "webapp" : undefined;
   if (expectedSurface && surface.safeParse(front.surface).success && front.surface !== expectedSurface) {
     errors.push(fieldError(parsed, "surface", 'Use "' + expectedSurface + '" for kind "' + front.kind + '".'));
   }
@@ -468,9 +476,9 @@ export function validateViewspec(parsed: ParsedDocument, project = resolve(dirna
   return { item, found: true, errors };
 }
 
-function readDocument(file: string): ParsedDocument | { missing: boolean; error: ViewspecError } {
+function readDocument(file: string, warnings?: ViewspecError[]): ParsedDocument | { missing: boolean; error: ViewspecError } {
   try {
-    return parseViewspec(file, readFileSync(file, "utf8"));
+    return parseViewspec(file, readFileSync(file, "utf8"), warnings);
   } catch (cause) {
     const code = (cause as NodeJS.ErrnoException).code;
     return {
@@ -506,7 +514,7 @@ function readCandidates(cwd: string): { files: { file: string; id: string | unde
   return { files, errors: [] };
 }
 
-function loadCandidates(project: string, files: ReturnType<typeof readCandidates>["files"], errors: ViewspecError[]): Viewspec[] {
+function loadCandidates(project: string, files: ReturnType<typeof readCandidates>["files"], errors: ViewspecError[], warnings?: ViewspecError[]): Viewspec[] {
   const items: Viewspec[] = [];
   const used = new Map<string, string>();
   const duplicates = new Set<string>();
@@ -520,7 +528,7 @@ function loadCandidates(project: string, files: ReturnType<typeof readCandidates
         used.set(id, file);
       }
     }
-    const parsed = readDocument(file);
+    const parsed = readDocument(file, warnings);
     if ("error" in parsed) {
       if (id !== undefined || !parsed.missing) errors.push(parsed.error);
       continue;
@@ -673,9 +681,9 @@ export function validateGuide(parsed: ParsedDocument): ProjectGuide {
 }
 
 /** Reads the root VIEWSPEC.md and reports whether the guide exists. */
-export function readGuide(cwd: string): ProjectGuide {
+export function readGuide(cwd: string, warnings?: ViewspecError[]): ProjectGuide {
   const file = resolve(cwd, filename);
-  const document = readDocument(file);
+  const document = readDocument(file, warnings);
   if ("frontMatter" in document) return validateGuide(document);
   const guide = emptyGuide(file, !document.missing);
   if (!document.missing) guide.errors.push(document.error);
@@ -684,14 +692,17 @@ export function readGuide(cwd: string): ProjectGuide {
 
 /** Checks selected screens and the root guide, treating an absent guide as a warning. */
 export function validateProjectViewspecs(cwd: string, id?: string): ViewspecValidation {
-  const guide = readGuide(cwd);
-  const views = id === undefined ? readViewspecs(cwd) : readViewspec(cwd, id);
-  const errors = [...guide.errors, ...views.errors];
-  if (id !== undefined && "found" in views && !views.found && !views.errors.length) {
+  const warnings: ViewspecError[] = [];
+  const guide = readGuide(cwd, warnings);
+  const { files, errors: screenErrors } = readCandidates(cwd);
+  const selected = id === undefined ? files : files.filter((entry) => entry.id === id);
+  loadCandidates(cwd, selected, screenErrors, warnings);
+  const errors = [...guide.errors, ...screenErrors];
+  if (id !== undefined && !selected.length && !screenErrors.length) {
     errors.push({
       file: resolve(cwd, resolveProject(cwd).paths.viewspec), field: "id",
       message: 'No screen viewspec uses id "' + id + '". Run viewspec list to find an existing id.',
     });
   }
-  return { valid: errors.length === 0, guide: !guide.exists ? "missing" : guide.errors.length ? "invalid" : "valid", errors };
+  return { warnings, valid: errors.length === 0, guide: !guide.exists ? "missing" : guide.errors.length ? "invalid" : "valid", errors };
 }

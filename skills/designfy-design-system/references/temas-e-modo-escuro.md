@@ -55,8 +55,7 @@ O tema escuro não é o claro invertido. Cada papel é escolhido de novo:
 
 ```bash
 designfy theme check
-designfy capture run http://localhost:4321/ --theme light --name tema-claro
-designfy capture run http://localhost:4321/ --theme dark --name tema-escuro
+designfy capture run http://localhost:4321/ --theme light,dark --name temas
 ```
 
 `--theme` define o `prefers-color-scheme` do navegador da captura. Projeto

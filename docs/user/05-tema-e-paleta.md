@@ -72,10 +72,20 @@ papel, e a troca de tema muda a tela inteira num lugar só.
 designfy theme show
 ```
 
-O comando procura o CSS com `@import "tailwindcss"` em `paths.styles`,
-`src/styles`, `src/app`, `src/index.css` ou `app/globals.css`, segue os imports
-locais e extrai `@theme`, `@theme inline`, `:root` e `.dark`. A resposta começa
-pelo arquivo lido e agrupa os tokens:
+O comando segue uma ordem para escolher o arquivo:
+
+1. `--file <path>`, quando você indica.
+2. `paths.theme` do `designfy.json`, gravado por `init --theme-path`.
+3. O `tokensFile` do `VIEWSPEC.md` da raiz, quando aponta para um arquivo que
+   existe.
+4. A entrada convencional em `paths.styles`, `src/styles` e `src/app`, com
+   `global.css`, `app.css` ou `main.css` que importem o Tailwind.
+5. A busca por CSS do Tailwind nesses mesmos diretórios, com `src/index.css` e
+   `app/globals.css` na lista.
+
+A busca segue os imports locais e extrai `@theme`, `@theme inline`, `:root` e
+`.dark`. Áreas como `docs/`, `docs-theme.css`, `admin/` e `email/` ficam no fim
+da fila. A resposta começa pelo arquivo lido e agrupa os tokens:
 
 ```text
 /tmp/opencode/designfy-demo/src/styles/app.css
@@ -113,6 +123,20 @@ exit code 6 e a dica:
 error No Tailwind stylesheet found. Run "designfy components add designfy-theme". [6 NOT_FOUND]
 ```
 
+O `--json` informa qual regra escolheu o arquivo: `selection` vale `--file`,
+`paths.theme`, `tokensFile`, `conventional entry` ou `Tailwind search`, e
+`entryFile` aponta o CSS de entrada que importa o arquivo escolhido, quando ele
+existe.
+
+### Tailwind 3
+
+Num projeto que ainda está no Tailwind 3, a busca aceita `@tailwind base` ou
+`@import "tailwindcss/base"` e completa os tokens com `tailwind.config.*` na
+raiz. A resposta informa `tailwind: 3`, o `configFile` e a lista de arquivos
+lidos. Se a configuração não carregar, um aviso aparece e o resultado traz só os
+tokens do CSS. O comando executa o módulo de configuração, então rode apenas em
+projeto cujo código você confia.
+
 ## Conferir contraste
 
 ```bash
@@ -140,9 +164,49 @@ locais:
 designfy theme check --file src/styles/app.css
 ```
 
-Sem o `--file`, o comando usa o arquivo que encontrar primeiro. Se ele acusar
-um token de movimento ausente, falta o `designfy-motion.css` no projeto ou no
-CSS de entrada.
+Sem o `--file`, o comando usa a mesma ordem de escolha do `theme show`:
+`paths.theme`, o `tokensFile` do guia e a busca no projeto. Se ele acusar um
+token de movimento ausente, falta o `designfy-motion.css` no projeto ou no CSS
+de entrada.
+
+### Modo custom
+
+Um projeto com escalas próprias não precisa dos papéis do shadcn para medir
+contraste. Nesse caso o comando entra no modo `custom` e mede os pares que você
+declarar em `theme.pairs`, no `designfy.json`:
+
+```json
+{
+  "theme": {
+    "pairs": [
+      { "fg": "--text-body", "bg": "--bg-page", "label": "Texto corrido" },
+      { "fg": "primary-950", "bg": "white", "label": "Destaque", "min": 7 }
+    ]
+  }
+}
+```
+
+`fg` e `bg` aceitam variável CSS com o prefixo `--` e nome de cor do tema do
+Tailwind, como `primary-950` e `white`. `label` dá nome ao par e `min` aceita
+razão de 1 a 21, com 4,5 como padrão. O par se repete no tema escuro quando
+algum dos tokens tem declaração escura ou muda de valor. Sem pares configurados,
+o comando tenta `--text-body`, `--text-heading` e `--accent-text` sobre
+`--bg-page`, além de `--foreground` sobre `--background`, quando existirem.
+
+```text
+Theme check passed.
+
+Mode: custom
+
+project uses its own color scales; shadcn roles not checked
+
+  light --text-body on --bg-page (Texto corrido)  7.73:1 pass (min 4.5:1)
+  light primary-950 on white (Destaque)           18.53:1 pass (min 7:1)
+  dark --text-body on --bg-page (Texto corrido)   16.86:1 pass (min 4.5:1)
+```
+
+O modo `shadcn` continua para o tema com os papéis do registro, e ali o comando
+também confere se cada papel obrigatório existe.
 
 ## A roda de cores
 
@@ -252,5 +316,6 @@ puro, preto absoluto e branco absoluto ficam fora das superfícies.
 - O CSS de entrada importa o tema e o movimento, e o build resolve os dois.
 - `designfy theme show --group colors` mostra claro e escuro para cada papel.
 - `designfy theme check` termina com exit code 0 nos dois temas.
+- Num projeto com escalas próprias, o modo `custom` mede os pares do `theme.pairs`.
 - `designfy palette wheel` lista as seis harmonias para a cor da marca.
 - `designfy palette contrast` aprova os pares que você usa em texto e botão.

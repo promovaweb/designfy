@@ -1,0 +1,44 @@
+{
+  "name": "@promovaweb/designfy",
+  "version": "0.1.6",
+  "description": "Visual framework for web projects: design system, React and Astro components with Tailwind, shadcn and motion, skills, dependency and MCP setup, and Playwright screen captures.",
+  "license": "AGPL-3.0-only",
+  "author": "Promovaweb",
+  "homepage": "https://github.com/promovaweb/designfy",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/promovaweb/designfy.git"
+  },
+  "keywords": [
+    "design-system",
+    "tailwind",
+    "shadcn",
+    "react",
+    "astro",
+    "motion",
+    "components",
+    "cli",
+    "tui",
+    "mcp",
+    "ai-agents",
+    "playwright"
+  ],
+  "bin": {
+    "designfy": "bin/designfy.cjs"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "postinstall": "node lib/binary.cjs"
+  },
+  "engines": {
+    "node": ">=18.17.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,8 +1,9 @@
 /** Lists, reads, and searches interface fragments from the Designfy catalog. */
+import { surfaceInputs } from "../../design/surfaces.ts";
 import { ExitCode } from "../../app/exit-codes.ts";
 import { manifest } from "../../app/manifest.ts";
 import {
-  getEntry, interfaceKinds, interfaceSurfaces, listEntries, searchEntries,
+  getEntry, interfaceKinds, listEntries, searchEntries,
   type InterfaceEntry, type InterfaceFilters,
 } from "../../design/interface-catalog.ts";
 import { section, table } from "../format.ts";
@@ -30,7 +31,7 @@ const list: Command = {
   name: "list",
   description: "List interface fragments by surface, category, and viewspec kind.",
   options: [
-    { name: "--surface", argument: { name: "surface", values: interfaceSurfaces }, description: "Filter by site, system, or both." },
+    { name: "--surface", argument: { name: "surface", values: surfaceInputs }, description: "Filter by site, webapp, or both. The legacy system alias means webapp." },
     { name: "--category", argument: { name: "id" }, description: "Filter by category ID." },
     { name: "--kind", argument: { name: "kind", values: interfaceKinds }, description: "Filter by viewspec kind." },
   ],

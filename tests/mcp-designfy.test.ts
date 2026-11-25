@@ -281,7 +281,7 @@ test("reads the viewspec guide, screen, progress and validation", async () => {
   expect(await structured("viewspec_progress")).toEqual({
     ...stats, byStatus: { draft: 0, in_progress: 1, blocked: 0, done: 0, archived: 0 }, nextId: "0001", errors: [],
   });
-  expect(await structured("viewspec_validate", { id: "0002" })).toEqual({ valid: true, guide: "valid", errors: [] });
+  expect(await structured("viewspec_validate", { id: "0002" })).toEqual({ valid: true, guide: "valid", errors: [], warnings: [] });
 }, 75_000);
 
 test("reads synthetic capture history and project MCP configuration", async () => {

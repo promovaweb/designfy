@@ -59,22 +59,22 @@
     {
       "id": "shell",
       "title": "System shell",
-      "surface": "system"
+      "surface": "webapp"
     },
     {
       "id": "forms",
       "title": "Forms",
-      "surface": "system"
+      "surface": "webapp"
     },
     {
       "id": "settings",
       "title": "Settings",
-      "surface": "system"
+      "surface": "webapp"
     },
     {
       "id": "auth",
       "title": "Authentication",
-      "surface": "system"
+      "surface": "webapp"
     }
   ],
   "entries": [
@@ -2801,7 +2801,7 @@
     {
       "id": "app-shell",
       "name": "App shell",
-      "surface": "system",
+      "surface": "webapp",
       "category": "shell",
       "purpose": "Frames every screen of a system with navigation, context and content area.",
       "useWhen": [
@@ -2858,7 +2858,7 @@
     {
       "id": "sidebar-nav",
       "name": "Sidebar navigation",
-      "surface": "system",
+      "surface": "webapp",
       "category": "shell",
       "purpose": "Lists the areas of the system.",
       "useWhen": [
@@ -2915,7 +2915,7 @@
     {
       "id": "topbar",
       "name": "Topbar",
-      "surface": "system",
+      "surface": "webapp",
       "category": "shell",
       "purpose": "Holds global tools: sidebar toggle, breadcrumbs, command trigger, notifications and account.",
       "useWhen": [
@@ -2963,7 +2963,7 @@
     {
       "id": "page-header",
       "name": "Page header",
-      "surface": "system",
+      "surface": "webapp",
       "category": "shell",
       "purpose": "Names the screen and holds its main actions.",
       "useWhen": [
@@ -3018,7 +3018,7 @@
     {
       "id": "command-palette",
       "name": "Command palette",
-      "surface": "system",
+      "surface": "webapp",
       "category": "shell",
       "purpose": "Finds screens, records and actions from the keyboard.",
       "useWhen": [
@@ -3068,7 +3068,7 @@
     {
       "id": "stat-card",
       "name": "Stat card",
-      "surface": "system",
+      "surface": "webapp",
       "category": "data-display",
       "purpose": "Shows one indicator with its change and context.",
       "useWhen": [
@@ -3123,7 +3123,7 @@
     {
       "id": "chart-card",
       "name": "Chart card",
-      "surface": "system",
+      "surface": "webapp",
       "category": "data-display",
       "purpose": "Presents one chart with its title, period and legend.",
       "useWhen": [
@@ -3186,7 +3186,7 @@
     {
       "id": "data-table",
       "name": "Data table",
-      "surface": "system",
+      "surface": "webapp",
       "category": "data-display",
       "purpose": "Lists records in rows with sorting, filtering, selection and row actions.",
       "useWhen": [
@@ -3257,7 +3257,7 @@
     {
       "id": "filter-bar",
       "name": "Filter bar",
-      "surface": "system",
+      "surface": "webapp",
       "category": "data-display",
       "purpose": "Narrows a list by text, attribute and period.",
       "useWhen": [
@@ -3304,7 +3304,7 @@
     {
       "id": "bulk-actions",
       "name": "Bulk action bar",
-      "surface": "system",
+      "surface": "webapp",
       "category": "data-display",
       "purpose": "Offers actions for the selected rows.",
       "useWhen": [
@@ -3349,7 +3349,7 @@
     {
       "id": "description-list",
       "name": "Description list",
-      "surface": "system",
+      "surface": "webapp",
       "category": "data-display",
       "purpose": "Shows the attributes of one record as label and value pairs.",
       "useWhen": [
@@ -3396,7 +3396,7 @@
     {
       "id": "activity-feed",
       "name": "Activity feed",
-      "surface": "system",
+      "surface": "webapp",
       "category": "data-display",
       "purpose": "Lists what happened to a record or in the system, newest first.",
       "useWhen": [
@@ -3439,7 +3439,7 @@
     {
       "id": "status-indicator",
       "name": "Status indicator",
-      "surface": "system",
+      "surface": "webapp",
       "category": "data-display",
       "purpose": "States the condition of a record or service.",
       "useWhen": [
@@ -3488,7 +3488,7 @@
     {
       "id": "form-layout",
       "name": "Form layout",
-      "surface": "system",
+      "surface": "webapp",
       "category": "forms",
       "purpose": "Organizes fields into sections with one clear submit.",
       "useWhen": [
@@ -3552,7 +3552,7 @@
     {
       "id": "form-field",
       "name": "Form field",
-      "surface": "system",
+      "surface": "webapp",
       "category": "forms",
       "purpose": "One input with its label, help and error.",
       "useWhen": [
@@ -3621,7 +3621,7 @@
     {
       "id": "stepper",
       "name": "Stepper",
-      "surface": "system",
+      "surface": "webapp",
       "category": "forms",
       "purpose": "Splits a long task into ordered steps.",
       "useWhen": [
@@ -3671,7 +3671,7 @@
     {
       "id": "file-upload",
       "name": "File upload",
-      "surface": "system",
+      "surface": "webapp",
       "category": "forms",
       "purpose": "Receives files by drop or by picker and shows their progress.",
       "useWhen": [
@@ -3832,7 +3832,7 @@
     {
       "id": "confirm-dialog",
       "name": "Confirm dialog",
-      "surface": "system",
+      "surface": "webapp",
       "category": "feedback",
       "purpose": "Asks before an action that cannot be undone.",
       "useWhen": [
@@ -4087,7 +4087,7 @@
     {
       "id": "settings-layout",
       "name": "Settings layout",
-      "surface": "system",
+      "surface": "webapp",
       "category": "settings",
       "purpose": "Organizes configuration into areas with a stable navigation.",
       "useWhen": [
@@ -4132,7 +4132,7 @@
     {
       "id": "settings-section",
       "name": "Settings section",
-      "surface": "system",
+      "surface": "webapp",
       "category": "settings",
       "purpose": "Groups related settings with a title, an explanation and its own save.",
       "useWhen": [
@@ -4185,7 +4185,7 @@
     {
       "id": "danger-zone",
       "name": "Danger zone",
-      "surface": "system",
+      "surface": "webapp",
       "category": "settings",
       "purpose": "Separates destructive account or workspace actions.",
       "useWhen": [
@@ -4223,7 +4223,7 @@
     {
       "id": "auth-card",
       "name": "Auth card",
-      "surface": "system",
+      "surface": "webapp",
       "category": "auth",
       "purpose": "Signs a person in, up or back in after a lost password.",
       "useWhen": [

@@ -7,7 +7,7 @@ title: Dashboard de vendas
 summary: Visão diária de receita, pedidos e conversão para o time comercial.
 status: in_progress
 kind: dashboard
-surface: system
+surface: webapp
 framework: react-vite
 route: /app/vendas
 createdAt: 2026-11-24T15:00:00-03:00

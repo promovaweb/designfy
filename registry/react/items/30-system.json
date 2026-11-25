@@ -28,7 +28,7 @@
     "meta": {
       "catalog": "app-shell",
       "motion": true,
-      "surface": "system"
+      "surface": "webapp"
     }
   },
   {
@@ -58,7 +58,7 @@
     "meta": {
       "catalog": "page-header",
       "motion": true,
-      "surface": "system"
+      "surface": "webapp"
     }
   },
   {
@@ -89,7 +89,7 @@
     "meta": {
       "catalog": "stat-card",
       "motion": true,
-      "surface": "system"
+      "surface": "webapp"
     }
   },
   {
@@ -121,7 +121,7 @@
     "meta": {
       "catalog": "chart-card",
       "motion": true,
-      "surface": "system"
+      "surface": "webapp"
     }
   },
   {
@@ -156,7 +156,7 @@
     "meta": {
       "catalog": "data-table",
       "motion": true,
-      "surface": "system"
+      "surface": "webapp"
     }
   },
   {
@@ -189,7 +189,7 @@
     "meta": {
       "catalog": "filter-bar",
       "motion": true,
-      "surface": "system"
+      "surface": "webapp"
     }
   },
   {
@@ -275,7 +275,7 @@
     "meta": {
       "catalog": "form-layout",
       "motion": true,
-      "surface": "system"
+      "surface": "webapp"
     }
   },
   {
@@ -305,7 +305,7 @@
     "meta": {
       "catalog": "stepper",
       "motion": true,
-      "surface": "system"
+      "surface": "webapp"
     }
   },
   {
@@ -335,7 +335,7 @@
     "meta": {
       "catalog": "file-upload",
       "motion": true,
-      "surface": "system"
+      "surface": "webapp"
     }
   },
   {
@@ -418,7 +418,7 @@
     "meta": {
       "catalog": "settings-layout",
       "motion": true,
-      "surface": "system"
+      "surface": "webapp"
     }
   },
   {
@@ -450,7 +450,7 @@
     "meta": {
       "catalog": "settings-section",
       "motion": true,
-      "surface": "system"
+      "surface": "webapp"
     }
   },
   {
@@ -483,7 +483,7 @@
     "meta": {
       "catalog": "auth-card",
       "motion": true,
-      "surface": "system"
+      "surface": "webapp"
     }
   }
 ]

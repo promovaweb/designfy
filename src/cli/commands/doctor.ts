@@ -26,10 +26,11 @@ export function collectDoctorChecks(runtime = { version: Bun.version, stdin: Boo
   const add = (name: string, status: DoctorCheck["status"], detail: string) => checks.push({ name, status, detail });
   add("bun", Bun.semver.satisfies(runtime.version, ">=1.4.4") ? "ok" : "fail", `${runtime.version}; minimum 1.4.4`);
   for (const stream of ["stdin", "stdout"] as const) add(stream, runtime[stream] ? "ok" : "warn", runtime[stream] ? "TTY available" : "Not a TTY");
-  const inspect = (name: string, path: string, check: () => void, detail: string) => {
+  const inspect = (name: string, path: string, check: () => void, detail: string, optional = false) => {
     try {
       statSync(path);
     } catch (e) {
+      if (optional && (e as NodeJS.ErrnoException).code === "ENOENT") return;
       add(name, (e as NodeJS.ErrnoException).code === "ENOENT" ? "warn" : "fail", (e as NodeJS.ErrnoException).code === "ENOENT" ? "Not created" : "Cannot access file");
       return;
     }
@@ -49,7 +50,7 @@ export function collectDoctorChecks(runtime = { version: Bun.version, stdin: Boo
     if (source !== "none") getMasterKey(false);
     add("master-key", source === "none" ? "warn" : "ok", source);
   } catch { add("master-key", "fail", `${source}; unavailable or invalid`); }
-  inspect("credentials", paths.credentials(), () => { readVault(); }, "Vault decrypted successfully");
+  inspect("credentials", paths.credentials(), () => { readVault(); }, "Vault decrypted successfully", true);
   for (const program of ["node", "npx"]) {
     const executable = Bun.which(program);
     add(program, executable ? "ok" : "warn", executable ?? "Not found on PATH");

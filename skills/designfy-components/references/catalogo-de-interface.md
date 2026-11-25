@@ -42,7 +42,7 @@ usados e a fonte da implementação. Fontes: `designfy:<item>` copia com
 | `settings` | `button`, `link`, `card`, `badge`, `avatar`, `tabs`, `accordion`, `dropdown-menu`, `tooltip`, `dialog`, `drawer`, `theme-toggle`, `breadcrumbs`, `app-shell`, `sidebar-nav`, `topbar`, `page-header`, `command-palette`, `description-list`, `status-indicator`, `form-layout`, `form-field`, `file-upload`, `toast`, `alert`, `confirm-dialog`, `empty-state`, `error-state`, `skeleton`, `progress`, `settings-layout`, `settings-section`, `danger-zone`, `segmented-control` |
 | `auth` | `button`, `background-pattern`, `form-layout`, `form-field`, `stepper`, `auth-card` |
 
-## Actions (site e sistema)
+## Actions (site e webapp)
 
 ### `button` · Button
 
@@ -118,7 +118,7 @@ Chooses one of a few options that take effect at once.
 - **Tokens:** `muted`, `background`, `foreground`, `ring`.
 - **Sources:** `shadcn:toggle-group`. **Related:** `tabs`, `pricing-table`.
 
-## Containers (site e sistema)
+## Containers (site e webapp)
 
 ### `card` · Card
 
@@ -150,7 +150,7 @@ Shows and hides sections of content in place.
 - **Tokens:** `foreground`, `muted-foreground`, `border`.
 - **Sources:** `shadcn:accordion`, `designfy:faq`. **Related:** `faq`, `tabs`.
 
-## Layout and backgrounds (site e sistema)
+## Layout and backgrounds (site e webapp)
 
 ### `section` · Section container
 
@@ -197,7 +197,7 @@ Places a pausable theme-driven pixel mosaic behind landing content.
 - **Tokens:** `background`, `foreground`, `primary`, `accent-foreground`, `muted-foreground`, `border`, `ring`.
 - **Sources:** `designfy:pixel-stage`. **Related:** `background-pattern`, `hero-pixel`.
 
-## Motion (site e sistema)
+## Motion (site e webapp)
 
 ### `reveal` · Reveal on scroll
 
@@ -228,7 +228,7 @@ Counts a number up to its value when it appears or changes.
 - **Tokens:** `foreground`, `muted-foreground`, `font-heading`.
 - **Sources:** `designfy:counter`. **Related:** `stats-band`, `stat-card`.
 
-## Navigation (site e sistema)
+## Navigation (site e webapp)
 
 ### `tabs` · Tabs
 
@@ -273,7 +273,7 @@ Moves between pages of a list.
 - **Tokens:** `foreground`, `muted-foreground`, `border`, `primary`.
 - **Sources:** `shadcn:pagination`. **Related:** `data-table`, `post-list`.
 
-## Data display (site e sistema)
+## Data display (site e webapp)
 
 ### `badge` · Badge
 
@@ -416,7 +416,7 @@ States the condition of a record or service.
 - **Tokens:** `success`, `warning`, `destructive`, `info`, `muted-foreground`.
 - **Sources:** `shadcn:badge`. **Related:** `badge`.
 
-## Feedback and states (site e sistema)
+## Feedback and states (site e webapp)
 
 ### `tooltip` · Tooltip
 
@@ -1192,7 +1192,7 @@ Lifts one sentence of the text in large type.
 - **Tokens:** `foreground`, `primary`, `font-heading`.
 - **Sources:** `designfy:prose`. **Related:** `prose`.
 
-## System shell (sistema)
+## System shell (webapp)
 
 ### `app-shell` · App shell
 
@@ -1262,7 +1262,7 @@ Finds screens, records and actions from the keyboard.
 - **Tokens:** `popover`, `popover-foreground`, `accent`, `border`.
 - **Sources:** `shadcn:command`. **Related:** `sidebar-nav`.
 
-## Forms (sistema)
+## Forms (webapp)
 
 ### `form-layout` · Form layout
 
@@ -1319,7 +1319,7 @@ Receives files by drop or by picker and shows their progress.
 - **Tokens:** `border`, `muted`, `primary`, `destructive`.
 - **Sources:** `designfy:file-upload`. **Related:** `form-field`.
 
-## Settings (sistema)
+## Settings (webapp)
 
 ### `settings-layout` · Settings layout
 
@@ -1362,7 +1362,7 @@ Separates destructive account or workspace actions.
 - **Tokens:** `destructive`, `border`.
 - **Sources:** `designfy:settings-section`. **Related:** `confirm-dialog`.
 
-## Authentication (sistema)
+## Authentication (webapp)
 
 ### `auth-card` · Auth card
 

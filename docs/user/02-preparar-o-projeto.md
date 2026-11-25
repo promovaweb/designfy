@@ -87,6 +87,16 @@ Depois do primeiro `init`, edite o `designfy.json` à mão quando o projeto muda
 de pasta de componentes ou de alias. O arquivo é a fonte dos caminhos para o
 `components add`, para o `theme show` e para o `viewspec`.
 
+Quando a busca automática não encontra o CSS certo, o `--theme-path` grava o
+caminho no arquivo:
+
+```bash
+designfy init --theme-path src/styles/tokens.css
+```
+
+O valor entra em `paths.theme` e o `theme show` e o `theme check` passam a ler
+esse arquivo antes de procurar. O capítulo 5 mostra a ordem completa de escolha.
+
 ## Ler o estado
 
 ```bash
@@ -134,6 +144,54 @@ designfy status --json
 
 O `status` não grava nada e não precisa de rede. Rode depois de cada
 instalação para confirmar o efeito.
+
+## Projetos em Tailwind 3
+
+O Designfy lê o tema de um projeto que ainda está no Tailwind 3. A busca aceita
+o CSS com `@tailwind base` ou `@import "tailwindcss/base"` e completa os tokens
+com `tailwind.config.*` na raiz: cores aninhadas, fontes, raios, sombras, telas,
+curvas e keyframes, inclusive valores como `rgb(var(--x) / <alpha-value>)` e
+`hsl(var(--x))`.
+
+```bash
+designfy theme show
+designfy status
+designfy doctor
+```
+
+Os três informam a versão do Tailwind e os arquivos lidos. Um aviso aparece
+quando a configuração não carrega e o resultado traz só os tokens do CSS. O
+comando executa o módulo de configuração, então use em projeto cujo código você
+confia.
+
+O registro de componentes usa a sintaxe do Tailwind 4. Por isso o
+`components add` recusa um projeto Tailwind 3 com exit code 10 e explica a
+migração. O `--allow-tailwind3` copia os arquivos mesmo assim, com aviso:
+
+```bash
+designfy components add site-header --allow-tailwind3
+```
+
+Não rode `designfy deps install` sem grupo num projeto que já tem Tailwind: o
+grupo `core` traz o Tailwind 4. No Tailwind 3, use o item do registro como
+referência de estrutura, de estados e de movimento, e escreva o componente no
+padrão do projeto.
+
+## Rodar a partir de outra pasta
+
+A option global `--project` (`-C`) executa qualquer command com a raiz do site
+indicada, sem trocar de pasta antes:
+
+```bash
+designfy -C ./website status
+designfy --project ../app capture run http://localhost:4321/ --viewport mobile
+```
+
+A variável `DESIGNFY_PROJECT` define o padrão quando a option não aparece. A
+option vence a variável, e o command usa a pasta atual quando as duas faltam.
+Caminhos relativos passados aos commands, como `theme show --file`, partem da
+raiz escolhida. Uma pasta inexistente sai com exit code 6. No servidor MCP, a
+mesma escolha vale por chamada, pelo argumento `project`.
 
 ## Bibliotecas sugeridas
 
@@ -232,6 +290,47 @@ O comando separa dependências de produção das de desenvolvimento, como mostra
 a linha com `-D`. Uma falha do gerenciador sai com exit code 5 e devolve o
 comando executado em `details`.
 
+## Adotar um projeto que já tem design
+
+Quando o projeto já tem telas publicadas, tema próprio ou regras de design
+escritas, o primeiro resultado não é tela nova. É o guia `VIEWSPEC.md`
+descrevendo o projeto como ele é, com a fonte de cada regra. Nada de tema novo,
+Tailwind novo, componente copiado ou dependência instalada nesse momento.
+
+Os sinais de que o caminho de adoção vale: páginas ou telas no ar, CSS de tema
+ou `tailwind.config.*`, documento de marca ou de componentes, regras de
+interface no `AGENTS.md`, no `CLAUDE.md` ou no `README.md`, e monorepo com a
+pasta do projeto dentro de outro repositório que tem instruções próprias.
+
+A sequência:
+
+1. **Ler as instruções.** Abra o `AGENTS.md`, o `CLAUDE.md` e o `README.md` do
+   projeto e, em monorepo, também os da raiz do repositório pai.
+2. **Encontrar os documentos de design.** Procure por arquivos com `design`,
+   `brand`, `ui` ou `componentes` no nome e leia as seções de cores, tipografia,
+   layout, movimento, componentes, páginas e acessibilidade.
+3. **Ler o tema real.** Rode `designfy theme show --json` e
+   `designfy status --json` e anote a versão do Tailwind, o arquivo de tokens e
+   como o modo escuro é ligado. Projeto antigo usa escala própria
+   (`primary-500`), e o guia descreve a escala do projeto, sem trocar pelos
+   papéis do shadcn.
+4. **Ler as telas.** Liste os componentes e leia duas ou três telas de cada
+   tipo. Capture antes de mudar, para ter a linha de base:
+   `designfy capture run http://localhost:4321/ --viewport mobile,desktop`.
+5. **Medir a compatibilidade com o registro.** Com Tailwind 4 e papéis do
+   shadcn, o `components add` funciona direto. Com escala própria, copie e
+   troque as classes ou mapeie os papéis no `@theme inline`. No Tailwind 3, o
+   item serve de referência.
+6. **Escrever o guia.** Chame a `designfy-viewspec` no modo guia com o que foi
+   levantado. O `tokensFile` aponta para o CSS que o projeto já usa.
+7. **Configurar sem mexer no build.** Rode `designfy init` e ajuste `components`,
+   `styles` e `viewspec` no `designfy.json`.
+
+Regra do projeto prevalece sobre o padrão de uma especialista: siga o projeto e
+registre a diferença em `## Aprendizados`, citando a skill. O processo do
+projeto também continua, com sitespec, spec, issue, validações e convenções de
+commit. Quando uma fonte já responde, não pergunte de novo.
+
 ## Conferir
 
 - `designfy.json` existe na raiz e `designfy status` mostra o framework certo.
@@ -239,3 +338,5 @@ comando executado em `details`.
 - `designfy deps list` mostra `ok` para os pacotes centrais que o projeto já tem.
 - `designfy deps check` termina com exit code 0 ou lista exatamente o que falta.
 - `designfy deps install --dry-run` imprime os comandos antes de instalar.
+- `designfy -C <pasta> status` responde pelo projeto indicado.
+- Num projeto em Tailwind 3, `theme show` informa a versão e os arquivos lidos.

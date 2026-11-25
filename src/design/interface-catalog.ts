@@ -6,7 +6,8 @@ import interfaceJson from "../../catalog/interface.json";
 import { classifyFsError, error } from "../app/errors.ts";
 import { ExitCode } from "../app/exit-codes.ts";
 
-export const interfaceSurfaces = ["site", "system", "both"] as const;
+import { interfaceSurfaces, normalizeSurface, surfaceInputs } from "./surfaces.ts";
+export { interfaceSurfaces } from "./surfaces.ts";
 export const interfaceKinds = [
   "landing-page", "home", "site-page", "blog-index", "blog-post", "docs-page", "dashboard",
   "table", "form", "crud", "detail", "settings", "auth", "other",
@@ -15,7 +16,7 @@ export const interfaceKinds = [
 const id = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/);
 const text = z.string().min(1);
 const strings = z.array(z.string());
-const surface = z.enum(interfaceSurfaces);
+const surface = z.preprocess(normalizeSurface, z.enum(interfaceSurfaces));
 
 export const interfaceEntrySchema = z.strictObject({
   id,
@@ -75,7 +76,7 @@ export type InterfaceSurface = InterfaceEntry["surface"];
 export type InterfaceKind = InterfaceEntry["kinds"][number];
 
 export interface InterfaceFilters {
-  surface?: InterfaceSurface;
+  surface?: (typeof surfaceInputs)[number];
   category?: string;
   kind?: InterfaceKind;
 }
@@ -115,7 +116,8 @@ export function loadInterfaceCatalog(): InterfaceCatalog {
 }
 
 /** Lists fragments matching all selected filters, including shared entries for either surface. */
-export function listEntries({ surface, category, kind }: InterfaceFilters = {}): InterfaceEntry[] {
+export function listEntries({ surface: input, category, kind }: InterfaceFilters = {}): InterfaceEntry[] {
+  const surface = normalizeSurface(input);
   return loadInterfaceCatalog().entries.filter((entry) =>
     (!surface || entry.surface === surface || entry.surface === "both") &&
     (!category || entry.category === category) &&

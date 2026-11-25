@@ -43,9 +43,9 @@ export const KINDS = [
 
 /** Surface of a catalog category, written in Portuguese in the section title. */
 const SURFACES: Record<string, string> = {
-  both: "site e sistema",
+  both: "site e webapp",
   site: "site",
-  system: "sistema",
+  webapp: "webapp",
 };
 
 type Entry = (typeof interfaceCatalog.entries)[number];

@@ -1,7 +1,8 @@
 /** Exposes interface catalog filtering, lookup, and search as read-only MCP tools. */
+import { surfaceInputs } from "../../design/surfaces.ts";
 import { z } from "zod";
 import { AppError } from "../../app/errors.ts";
-import { getEntry, interfaceEntrySchema, interfaceKinds, interfaceSurfaces, listEntries, searchEntries } from "../../design/interface-catalog.ts";
+import { getEntry, interfaceEntrySchema, interfaceKinds, listEntries, searchEntries } from "../../design/interface-catalog.ts";
 import type { Registrar } from "../server.ts";
 
 const entryList = { entries: z.array(interfaceEntrySchema) };
@@ -19,13 +20,13 @@ function reply(operation: () => Record<string, unknown>) {
 
 /** Registers the interface catalog query tools. */
 export function registerInterfaceCatalogTools({ server, catalog }: Registrar): void {
-  const list = "List candidate interface fragments for a site or system. Returns entries filtered by surface, category, and viewspec kind.";
+  const list = "List candidate interface fragments for a site or webapp. Returns entries filtered by surface, category, and viewspec kind.";
   catalog.tools.push({ name: "catalog_list", description: list });
   server.registerTool("catalog_list", {
     title: "List interface fragments",
     description: list,
     inputSchema: {
-      surface: z.enum(interfaceSurfaces).optional().describe("Target interface surface."),
+      surface: z.enum(surfaceInputs).optional().describe("Target interface surface. The legacy system alias means webapp."),
       category: z.string().min(1).optional().describe("Catalog category ID."),
       kind: z.enum(interfaceKinds).optional().describe("Viewspec kind the fragment should suit."),
     },

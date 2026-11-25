@@ -14,7 +14,7 @@
     {
       "id": "data",
       "title": "Data",
-      "surface": "system"
+      "surface": "webapp"
     }
   ],
   "entries": [
@@ -135,7 +135,7 @@
     {
       "id": "sidebar",
       "name": "Sidebar",
-      "surface": "system",
+      "surface": "webapp",
       "category": "navigation",
       "purpose": "Navigate between application sections.",
       "useWhen": [
@@ -174,7 +174,7 @@
     {
       "id": "table",
       "name": "Table",
-      "surface": "system",
+      "surface": "webapp",
       "category": "data",
       "purpose": "Browse a relational dataset.",
       "useWhen": [

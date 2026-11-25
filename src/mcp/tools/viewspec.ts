@@ -122,6 +122,6 @@ export function registerViewspecTools({ server, catalog }: Registrar): void {
     description: validateDescription,
     annotations,
     inputSchema: { project: projectInput, id: id.optional().describe("Screen viewspec id. Omit to validate all screens and the project guide.") },
-    outputSchema: { valid: z.boolean(), guide: z.enum(["missing", "valid", "invalid"]), errors: errorsSchema },
+    outputSchema: { warnings: errorsSchema, valid: z.boolean(), guide: z.enum(["missing", "valid", "invalid"]), errors: errorsSchema },
   }, async ({ project, id: viewId }) => report(() => validateProjectViewspecs(toolProject(project), viewId)));
 }

@@ -34,7 +34,8 @@ test("loads fixture and embedded catalogs with valid relationships", () => {
 test("combines category, surface and viewspec filters, including entries shared by both surfaces", () => {
   const ids = (filters: Parameters<typeof listEntries>[0]) => listEntries(filters).map(({ id }) => id);
   expect(ids({ surface: "site", category: "marketing", kind: "landing-page" })).toEqual(["hero", "call-to-action"]);
-  expect(ids({ surface: "system", kind: "dashboard" })).toEqual(["breadcrumbs", "sidebar"]);
+  expect(ids({ surface: "webapp", kind: "dashboard" })).toEqual(["breadcrumbs", "sidebar"]);
+  expect(ids({ surface: "system" })).toEqual(ids({ surface: "webapp" }));
   expect(ids({ surface: "both" })).toEqual(["breadcrumbs", "filters"]);
   expect(ids({ category: "missing" })).toEqual([]);
 });

@@ -46,20 +46,20 @@ abrem Credentials, Docs e About.
 ## Quadro da Home
 
 ```text
-    ◆ Designfy   v0.1.0  ⌂ Home  fixture-project · react-vite                                             T night   linux-x64 · Bun 0.0.0
+    ◆ Designfy   v0.2.0  ⌂ Home  fixture-project · react-vite                                             T night   linux-x64 · Bun 0.0.0
 
     › Install dependencies   [Enter]
 
    ╭─ 1 ◐ Theme ─────────────────────────────╮  ╭─ 2 ≡ Catalog ────────────────────────────╮  ╭─ 3 λ Components ────────────────────────╮
-   │ globals.css                             │  │ 80 patterns                              │  │ Registry · react-vite                   │
-   │ ██ ██ ░░ ░░ ░░ ░░ ░░                    │  │ site   ━━━━━━━━━━━━ 32                   │  │ Copied ━━━━━━━━ 0/58 0%                 │
-   │ ✓ 18.88:1 FG / BG                       │  │ system ━━━━━━━━     22                   │  │                                         │
-   │ Inter, sans-serif                       │  │ both   ━━━━━━━━━━   26                   │  │                                         │
+   │ globals.css                             │  │ 91 patterns                              │  │ Registry · react-vite                   │
+   │ ██ ██ ░░ ░░ ░░ ░░ ░░                    │  │ site   ━━━━━━━━━━━━ 43                   │  │ Copied ━━━━━━━━ 0/69 0%                 │
+   │ ✓ 18.88:1 FG / BG                       │  │ webapp ━━━━━━       22                   │  │                                         │
+   │ Inter, sans-serif                       │  │ both   ━━━━━━━      26                   │  │                                         │
    ╰─────────────────────────────────────────╯  ╰──────────────────────────────────────────╯  ╰─────────────────────────────────────────╯
 
    ╭─ 4 ⇌ Skills ────────────────────────────╮  ╭─ 5 ◉ Deps ───────────────────────────────╮  ╭─ 6 ⇌ MCP ───────────────────────────────╮
-   │ Installed ━━━━━━━━ 1/16 6%              │  │ Present ━━━━━━━━ 1/13 7%                 │  │ 3 servers in catalog                    │
-   │ 11 internal · 5 external                │  │ ! 12 missing                             │  │ ○ claude 0  ○ codex 0                   │
+   │ Installed ━━━━━━━━ 1/17 5%              │  │ Present ━━━━━━━━ 1/13 7%                 │  │ 3 servers in catalog                    │
+   │ 11 internal · 6 external                │  │ ! 12 missing                             │  │ ○ claude 0  ○ codex 0                   │
    │ ● designfy installed                    │  │                                          │  │ ○ opencode 0  ○ cursor 0                │
    │                                         │  │                                          │  │ ○ gemini 0                              │
    ╰─────────────────────────────────────────╯  ╰──────────────────────────────────────────╯  ╰─────────────────────────────────────────╯
@@ -80,7 +80,7 @@ abrem Credentials, Docs e About.
    ╰─────────────────────────────────────────╯  ╰──────────────────────────────────────────╯  ╰─────────────────────────────────────────╯
 
    ╭─ d ≡ Docs ──────────────────────────────╮  ╭─ a ℹ About ──────────────────────────────╮
-   │ 6 topics                                │  │ v0.1.0                                   │
+   │ 6 topics                                │  │ v0.2.0                                   │
    │ Built-in reference                      │  │ Designfy                                 │
    ╰─────────────────────────────────────────╯  ╰──────────────────────────────────────────╯
    1 installed  ·  0 copied  ·  12 missing deps  ·  1 open viewspecs  ·  1 overflowX

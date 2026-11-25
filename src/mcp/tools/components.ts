@@ -1,4 +1,5 @@
 /** Registers MCP tools for reading and copying embedded Designfy components. */
+import { surfaceInputs } from "../../design/surfaces.ts";
 import { z } from "zod";
 import { AppError } from "../../app/errors.ts";
 import { detectProject, frameworks, resolveProject } from "../../design/project.ts";
@@ -36,7 +37,7 @@ export function registerComponentsReadTools({ server, catalog }: Registrar): voi
       project: projectInput,
       framework,
       category: z.string().min(1).optional().describe("Registry category to match."),
-      surface: z.enum(["site", "system", "both"]).optional().describe("Surface to match. Shared items also match site and system."),
+      surface: z.enum(surfaceInputs).optional().describe("Surface to match. Shared items also match site and webapp."),
     },
     outputSchema: { warning: z.string().optional(), framework: z.enum(frameworks), items: z.array(itemMetadata) },
   }, (input) => query(() => {

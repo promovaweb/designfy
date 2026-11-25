@@ -63,6 +63,18 @@ test("the complete contract example matches the fixture and validates cleanly", 
   expect(item?.checklist[0]).toMatchObject({ id: "k2a9", done: true, skill: "designfy-webapps" });
 });
 
+test("legacy screen and guide surfaces normalize with nonfatal validation warnings", async () => {
+  addScreen("0002", example.replace("surface: webapp", "surface: system"));
+  const guide = readFileSync(join(fixtures, "guide-valid/VIEWSPEC.md"), "utf8");
+  writeFileSync(join(project, "VIEWSPEC.md"), guide.replace("[webapp]", "[system]"));
+  const result = await run(["viewspec", "validate", "0002", "--json"]);
+  expect(result.code).toBe(0);
+  expect(result.stderr).toContain("deprecated");
+  const data = JSON.parse(result.stdout).data;
+  expect(data.warnings.map((warning: { field: string }) => warning.field)).toEqual(["surfaces", "surface"]);
+  expect(readViewspec(project, "0002").item?.frontMatter.surface).toBe("webapp");
+});
+
 test("parses quoted scalars, block and inline lists, dates, BOM and CRLF", () => {
   const markdown = example.replace("title: Dashboard de vendas", "title: 'Operação d''água #1' # title")
     .replace('priority: high', 'source: "Weekly \\"sales\\" review"')
@@ -95,7 +107,7 @@ const screenRejections: Array<[string, (value: string) => string, string, RegExp
   ["unexpected blocked reason", (value) => value.replace("priority: high", "blockedReason: Awaiting data"), "blockedReason", /Remove this reason/],
   ["missing archived reason", (value) => value.replace("status: in_progress", "status: archived"), "archivedReason", /Provide a reason/],
   ["unexpected archived reason", (value) => value.replace("priority: high", "archivedReason: Duplicate"), "archivedReason", /Remove this reason/],
-  ["kind and surface mismatch", (value) => value.replace("surface: system", "surface: site"), "surface", /Use "system"/],
+  ["kind and surface mismatch", (value) => value.replace("surface: webapp", "surface: site"), "surface", /Use "webapp"/],
   ["skill outside the Designfy family", (value) => value.replace("skills: [designfy-webapps", "skills: [hallmark"), "skills", /designfy/],
   ["nonexistent calendar date", (value) => value.replace("2026-11-24T", "2026-02-31T"), "createdAt", /ISO datetime/],
   ["duplicate front matter field", (value) => value.replace("priority: high", "priority: high\npriority: low"), "priority", /only once/],
@@ -245,7 +257,7 @@ test("renders the guide in text and JSON and validates it with a selected screen
   });
   const validation = await run(["viewspec", "validate", "0002", "--json"]);
   expect(validation.code).toBe(ExitCode.SUCCESS);
-  expect(JSON.parse(validation.stdout).data).toEqual({ valid: true, guide: "valid", errors: [] });
+  expect(JSON.parse(validation.stdout).data).toEqual({ valid: true, guide: "valid", errors: [], warnings: [] });
   expect(validation.stderr).toBe("");
   writeFileSync(guideFile, guide.replace("{#v001}", "{#t001}"));
   const invalid = await run(["viewspec", "validate", "0002", "--json"]);
