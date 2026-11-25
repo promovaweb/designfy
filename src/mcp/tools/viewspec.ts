@@ -5,6 +5,7 @@ import {
   guideFrontMatterSchema, listViewspecSummaries, readGuide, readViewspec, readViewspecProgress,
   validateProjectViewspecs, viewFrontMatterSchema, viewKinds, viewStatuses,
 } from "../../design/viewspec.ts";
+import { projectInput, toolProject } from "../project.ts";
 import type { Registrar } from "../server.ts";
 
 const annotations = { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false };
@@ -58,7 +59,7 @@ export function registerViewspecTools({ server, catalog }: Registrar): void {
     title: "Read project interface guide",
     description: guideDescription,
     annotations,
-    inputSchema: {},
+    inputSchema: { project: projectInput },
     outputSchema: {
       file: z.string(), exists: z.boolean(), frontMatter: guideFrontMatterSchema.nullable(),
       sections: z.array(sectionSchema),
@@ -66,8 +67,8 @@ export function registerViewspecTools({ server, catalog }: Registrar): void {
       learnings: z.array(learning), pendingProposals: z.array(learning),
       bySection: z.record(z.string(), count), byOrigin: z.record(origin, count), errors: errorsSchema,
     },
-  }, async () => report(() => {
-    const guide = readGuide(process.cwd());
+  }, async ({ project }) => report(() => {
+    const guide = readGuide(toolProject(project));
     if (!guide.exists) throw error.notFound("Project guide VIEWSPEC.md is missing from the project root.", { file: guide.file });
     return guide;
   }));
@@ -76,6 +77,7 @@ export function registerViewspecTools({ server, catalog }: Registrar): void {
     description: listDescription,
     annotations,
     inputSchema: {
+      project: projectInput,
       status: status.optional().describe("Filter by status. Omit to include all statuses."),
       kind: kind.optional().describe("Filter by screen kind. Omit to include all kinds."),
     },
@@ -85,12 +87,12 @@ export function registerViewspecTools({ server, catalog }: Registrar): void {
       })),
       errors: errorsSchema, nextId: id.nullable(),
     },
-  }, async (filter) => report(() => listViewspecSummaries(process.cwd(), filter)));
+  }, async ({ project, ...filter }) => report(() => listViewspecSummaries(toolProject(project), filter)));
   server.registerTool("viewspec_show", {
     title: "Read screen viewspec",
     description: showDescription,
     annotations,
-    inputSchema: { id },
+    inputSchema: { project: projectInput, id },
     outputSchema: {
       item: z.object({
         file: z.string(), frontMatter: viewFrontMatterSchema, sections: z.array(sectionSchema), progress: progressSchema,
@@ -98,8 +100,8 @@ export function registerViewspecTools({ server, catalog }: Registrar): void {
       }).nullable(),
       errors: errorsSchema,
     },
-  }, async ({ id: viewId }) => report(() => {
-    const cwd = process.cwd();
+  }, async ({ project, id: viewId }) => report(() => {
+    const cwd = toolProject(project);
     const { item, found, errors } = readViewspec(cwd, viewId);
     if (!found && !errors.length) {
       const known = listViewspecSummaries(cwd).items.map(({ id }) => id);
@@ -111,14 +113,14 @@ export function registerViewspecTools({ server, catalog }: Registrar): void {
     title: "Summarize viewspec progress",
     description: progressDescription,
     annotations,
-    inputSchema: {},
+    inputSchema: { project: projectInput },
     outputSchema: { ...progressSchema.shape, byStatus: z.record(status, count), nextId: id.nullable(), errors: errorsSchema },
-  }, async () => report(() => readViewspecProgress(process.cwd())));
+  }, async ({ project }) => report(() => readViewspecProgress(toolProject(project))));
   server.registerTool("viewspec_validate", {
     title: "Validate project viewspecs",
     description: validateDescription,
     annotations,
-    inputSchema: { id: id.optional().describe("Screen viewspec id. Omit to validate all screens and the project guide.") },
+    inputSchema: { project: projectInput, id: id.optional().describe("Screen viewspec id. Omit to validate all screens and the project guide.") },
     outputSchema: { valid: z.boolean(), guide: z.enum(["missing", "valid", "invalid"]), errors: errorsSchema },
-  }, async ({ id: viewId }) => report(() => validateProjectViewspecs(process.cwd(), viewId)));
+  }, async ({ project, id: viewId }) => report(() => validateProjectViewspecs(toolProject(project), viewId)));
 }

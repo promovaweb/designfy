@@ -6,10 +6,11 @@
  * returns the exit code. Printing follows the convention: text for people,
  * `--json` for machines, with a stable envelope on success and on error.
  */
-import { AppError } from "../app/errors.ts";
+import { AppError, classifyFsError } from "../app/errors.ts";
 import { manifest } from "../app/manifest.ts";
 import { ExitCode, exitCodeName } from "../app/exit-codes.ts";
 import { readSettings, getPath } from "../config/settings.ts";
+import { PROJECT_VARIABLE, resolveProjectDirectory } from "../design/project.ts";
 import { skillText } from "../skill/index.ts";
 import { renderHelp } from "./help.ts";
 import { root } from "./commands.ts";
@@ -47,6 +48,8 @@ export function printErrorJson(command: string, e: AppError): void {
 export async function runCli(argv: readonly string[]): Promise<number> {
   let json = argv.includes("--json") || prefersJson();
   let commandName = manifest.bin;
+  const cwd = process.cwd();
+  let changedDirectory = false;
 
   try {
     const parsed = parse(root, argv);
@@ -54,6 +57,16 @@ export async function runCli(argv: readonly string[]): Promise<number> {
     commandName = [manifest.bin, ...path].join(" ");
     json = options.json === true || (options.json === undefined && prefersJson());
     if (options["no-color"] === true) forceColors(false);
+    const project = typeof options.project === "string" ? options.project : process.env[PROJECT_VARIABLE] || undefined;
+    const directory = resolveProjectDirectory(cwd, project);
+    if (directory !== cwd) {
+      try {
+        process.chdir(directory);
+        changedDirectory = true;
+      } catch (cause) {
+        throw classifyFsError(cause, ExitCode.CONFIG, `Failed to enter project directory ${directory}`);
+      }
+    }
 
     if (options.version === true) {
       if (json) printJson(commandName, { bin: manifest.bin, version: manifest.version });
@@ -104,5 +117,7 @@ export async function runCli(argv: readonly string[]): Promise<number> {
       if (appError.code === ExitCode.USAGE) writeError(color.dim(`Use "${commandName} --help".`));
     }
     return appError.code;
+  } finally {
+    if (changedDirectory) process.chdir(cwd);
   }
 }

@@ -19,6 +19,8 @@ guideRules: []
 priority: medium
 ---
 
+<!-- markdownlint-disable MD013 MD041 -->
+
 ## Objetivo
 
 QUEM ABRE A TELA, EM QUAL MOMENTO, O QUE PRECISA CONSEGUIR. A ação

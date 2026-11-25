@@ -7,7 +7,7 @@ import { ExitCode } from "../app/exit-codes.ts";
 import { manifest } from "../app/manifest.ts";
 import { REGISTRY } from "../generated/registry.ts";
 import { externalRegistryItem } from "./registry-lint.ts";
-import { readProjectPackages, resolveProject, type Framework } from "./project.ts";
+import { readProjectPackages, resolveProject, versionMajor, type Framework } from "./project.ts";
 
 const registryFileSchema = z.object({
   path: z.string().min(1),
@@ -51,7 +51,13 @@ export interface ItemFilters {
   surface?: RegistryItem["meta"]["surface"];
 }
 
+/** Compatibility note for projects that still use Tailwind 3. */
+export function tailwindRegistryNote(major: number | null): string | undefined {
+  if (major === 3) return "Designfy registry items use Tailwind 4 syntax. Migrate the project to Tailwind 4 for compatibility.";
+}
+
 export interface AddOptions {
+  allowTailwind3?: boolean;
   framework?: Framework;
   path?: string;
   overwrite?: boolean;
@@ -66,6 +72,7 @@ interface AddFile {
 }
 
 export interface AddPlan {
+  warning?: string;
   framework: Framework;
   configured: boolean;
   overwrite: boolean;
@@ -77,6 +84,7 @@ export interface AddPlan {
 }
 
 export interface AddResult {
+  warning?: string;
   framework: Framework;
   configured: boolean;
   items: string[];
@@ -198,9 +206,13 @@ export function planAdd(cwd: string, names: readonly string[], options: AddOptio
   const project = resolveProject(cwd);
   const framework = options.framework ?? project.framework;
   const overwrite = options.overwrite ?? false;
+  const packages = readProjectPackages(cwd) ?? {};
+  const warning = tailwindRegistryNote(versionMajor(packages.tailwindcss ?? ""));
+  if (warning && !options.allowTailwind3) {
+    throw error.checkFailed(`${warning} To copy anyway, pass --allow-tailwind3 (MCP: allowTailwind3).`, { tailwind: 3 });
+  }
   const items = resolveItems(names, framework);
   const files = new Map<string, AddFile>();
-  const packages = readProjectPackages(cwd) ?? {};
   const dependencies = new Map<string, string>();
   const devDependencies = new Map<string, string>();
   const shadcnItems = new Set<string>();
@@ -229,6 +241,7 @@ export function planAdd(cwd: string, names: readonly string[], options: AddOptio
   return {
     framework,
     configured: existsSync(join(cwd, "designfy.json")),
+    ...(warning ? { warning } : {}),
     overwrite,
     items: items.map((item) => item.name),
     files: [...files.values()],
@@ -260,6 +273,7 @@ export function applyAdd(plan: AddPlan, options: { dryRun?: boolean } = {}): Add
   const dryRun = options.dryRun ?? false;
   const result: AddResult = {
     framework, configured, items, missingDependencies, missingDevDependencies, shadcnItems,
+    ...(plan.warning ? { warning: plan.warning } : {}),
     dryRun, written: [], unchanged: [], skipped: [],
   };
   const buckets = { write: result.written, unchanged: result.unchanged, skip: result.skipped };

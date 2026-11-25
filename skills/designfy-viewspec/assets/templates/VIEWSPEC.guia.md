@@ -11,6 +11,8 @@ createdAt: AAAA-MM-DDTHH:MM:SS-03:00
 updatedAt: AAAA-MM-DDTHH:MM:SS-03:00
 ---
 
+<!-- markdownlint-disable MD013 MD041 -->
+
 ## Visão geral
 
 Quem usa, em qual situação e o que a interface precisa transmitir. Três

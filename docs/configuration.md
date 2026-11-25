@@ -122,6 +122,7 @@ resposta de tool MCP.
 | --- | --- |
 | `{{BIN}}_HOME` | troca `~/.{{bin}}/` por outra pasta |
 | `{{BIN}}_MASTER_KEY` | master key em hex; dispensa `master.key` |
+| `DESIGNFY_PROJECT` | diretório padrão do projeto para o CLI e o servidor MCP. `--project` tem precedência |
 | `DESIGNFY_CATALOG_DIR` | pasta com JSONs de catálogo para substituir os embutidos |
 | `DESIGNFY_REGISTRY_FILE` | caminho de um JSON com os registros embutidos `react` e `astro`, incluindo `content` por arquivo |
 | `DESIGNFY_E2E` | `1` habilita o teste de captura com Playwright |

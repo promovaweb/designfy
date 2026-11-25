@@ -1,0 +1,32 @@
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+    --primary: var(--foreground);
+    --primary-foreground: var(--background);
+    --brand-rgb: 42 213 190;
+    --brand-deep: #123456;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222 47% 11%;
+    --foreground: 0 0% 100%;
+  }
+
+  [data-theme="dark"] {
+    --brand-rgb: 42 213 190;
+  }
+
+  html[data-theme="light"] {
+    --color-light-only: #abcdef;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root { --brand-rgb: 20 100 140; }
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root { --brand-deep: #112233; }
+  }
+}

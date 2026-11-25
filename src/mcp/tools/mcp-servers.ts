@@ -1,6 +1,7 @@
 /** Exposes catalog MCP servers and their project configuration status. */
 import { z } from "zod";
 import { listMcpServers, mcpClients } from "../../design/mcp-clients.ts";
+import { projectInput, toolProject } from "../project.ts";
 import type { Registrar } from "../server.ts";
 
 /** Registers a read-only MCP server catalog tool for the current project. */
@@ -11,7 +12,7 @@ export function registerMcpServersTools({ server, catalog }: Registrar): void {
     title: "List catalog MCP servers",
     description,
     annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
-    inputSchema: {},
+    inputSchema: { project: projectInput },
     outputSchema: {
       clients: z.array(z.enum(mcpClients)),
       servers: z.array(z.object({
@@ -20,9 +21,9 @@ export function registerMcpServersTools({ server, catalog }: Registrar): void {
         states: z.record(z.string(), z.enum(["absent", "same", "different"])),
       })),
     },
-  }, () => {
+  }, ({ project }) => {
     try {
-      const data = listMcpServers(process.cwd());
+      const data = listMcpServers(toolProject(project));
       return { structuredContent: data, content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
     } catch {
       return { isError: true, content: [{ type: "text", text: "Could not read the MCP catalog or project client configuration." }] };

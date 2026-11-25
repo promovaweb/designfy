@@ -20,16 +20,16 @@ const shadcn = join(fixture, "shadcn", "globals.css");
 const split = join(fixture, "split", "globals.css");
 const themeOnly = join(fixture, "theme-only.css");
 
-function withProject(run: (cwd: string) => void): void {
+async function withProject(run: (cwd: string) => void | Promise<void>): Promise<void> {
   const directory = mkdtempSync(join(tmpdir(), "designfy-theme-"));
   try {
-    run(directory);
+    await run(directory);
   } finally {
     rmSync(directory, { recursive: true, force: true });
   }
 }
 
-test("discovers entry points in the specified search order and honors --file", () => withProject((cwd) => {
+test("discovers entry points in the specified search order and honors --file", () => withProject(async (cwd) => {
   const paths = ["assets/css/a.css", "src/styles/a.css", "src/app/nested/a.css", "src/index.css", "app/globals.css"];
   writeFileSync(join(cwd, "designfy.json"), JSON.stringify({ paths: { styles: "assets/css" } }));
   mkdirSync(join(cwd, "src/app/nested"), { recursive: true });
@@ -52,11 +52,11 @@ test("discovers entry points in the specified search order and honors --file", (
     expect(cause).toMatchObject({ code: ExitCode.NOT_FOUND, details: { hint: "designfy components add designfy-theme" } });
     expect((cause as Error).message).toContain("designfy components add designfy-theme");
   }
-  expect(() => readTheme(cwd, { file: "missing.css" })).toThrow("Theme stylesheet not found");
+  await expect(readTheme(cwd, { file: "missing.css" })).rejects.toThrow("Theme stylesheet not found");
 }));
 
-test("resolves shadcn and Tailwind colors in both modes and groups the remaining tokens", () => {
-  const theme = readTheme(fixture, { file: shadcn });
+test("resolves shadcn and Tailwind colors in both modes and groups the remaining tokens", async () => {
+  const theme = await readTheme(fixture, { file: shadcn });
   const colors = Object.fromEntries(theme.colors.map((token) => [token.name, token]));
   expect(colors["--color-background"]).toEqual({
     name: "--color-background",
@@ -83,8 +83,8 @@ test("resolves shadcn and Tailwind colors in both modes and groups the remaining
   expect(theme.other.find(({ name }) => name === "--opaque")?.light?.resolved).toBe('"literal; { brace } var(--unknown)"');
 });
 
-test("follows local imports once per active chain and recognizes dark media and data attributes", () => {
-  const theme = readTheme(fixture, { file: split });
+test("follows local imports once per active chain and recognizes dark media and data attributes", async () => {
+  const theme = await readTheme(fixture, { file: split });
   expect(theme.files.map((file) => file.slice(fixture.length + 1))).toEqual(["split/globals.css", "split/tokens.css", "split/type.css"]);
   expect(theme.colors.find(({ name }) => name === "--background")?.dark?.resolved).toBe("#111111");
   expect(theme.colors.find(({ name }) => name === "--foreground")?.dark?.resolved).toBe("#101010");
@@ -93,7 +93,7 @@ test("follows local imports once per active chain and recognizes dark media and 
   });
   expect(theme.fonts[0]?.light?.resolved).toBe('"Test"');
   expect(theme.motion.keyframes).toEqual(["leave"]);
-  withProject((cwd) => {
+  await withProject(async (cwd) => {
     mkdirSync(join(cwd, "src/styles"), { recursive: true });
     writeFileSync(join(cwd, "src/styles/globals.css"), '@import "./tokens.css";');
     writeFileSync(join(cwd, "src/styles/tokens.css"), '@import "tailwindcss";');
@@ -101,21 +101,21 @@ test("follows local imports once per active chain and recognizes dark media and 
   });
 });
 
-test("measures each of the seven contrast pairs in both modes and checks required roles", () => {
-  const passing = checkTheme(readTheme(fixture, { file: shadcn }), { requiredRoles: ["--color-background"] });
+test("measures each of the seven contrast pairs in both modes and checks required roles", async () => {
+  const passing = checkTheme(await readTheme(fixture, { file: shadcn }), { requiredRoles: ["--color-background"] });
   expect(passing.ok).toBe(true);
   expect(passing.summary).toEqual({ passed: 14, failed: 0, missing: 0, unresolved: 0 });
   expect(passing.contrast[0]?.ratio).toBeCloseTo(21);
-  const failing = checkTheme(readTheme(fixture, { file: split }), { requiredRoles: ["ring", "dark-only"] });
+  const failing = checkTheme(await readTheme(fixture, { file: split }), { requiredRoles: ["ring", "dark-only"] });
   expect(failing.ok).toBe(false);
   expect(failing.contrast).toContainEqual({
     mode: "dark", foreground: "foreground", background: "background", ratio: expect.any(Number), status: "fail",
   });
   expect(failing.missingRoles).toEqual([{ role: "ring", modes: ["light", "dark"] }, { role: "dark-only", modes: ["light"] }]);
-  expect(checkTheme(readTheme(fixture, { file: themeOnly })).summary.passed).toBe(2);
+  expect(checkTheme(await readTheme(fixture, { file: themeOnly })).summary.passed).toBe(2);
 });
 
-test("checks token roles used by registry components in the selected framework", () => withProject((cwd) => {
+test("checks token roles used by registry components in the selected framework", () => withProject(async (cwd) => {
   writeFileSync(join(cwd, "package.json"), JSON.stringify({ dependencies: { astro: "1" } }));
   const registry = (content: string) => ({
     items: [{
@@ -135,7 +135,7 @@ test("checks token roles used by registry components in the selected framework",
   try {
     const roles = requiredThemeRoles(cwd);
     expect(roles).toEqual(["background", "font-heading", "foreground", "radius-lg"]);
-    const result = checkTheme(readTheme(cwd, { file: shadcn }), { requiredRoles: roles });
+    const result = checkTheme(await readTheme(cwd, { file: shadcn }), { requiredRoles: roles });
     expect(result.ok).toBe(false);
     expect(result.missingRoles).toEqual([{ role: "font-heading", modes: ["light", "dark"] }]);
   } finally {
@@ -153,7 +153,9 @@ test("filters CLI groups, prints truecolor swatches, and reports failed checks a
   try {
     forceColors(true);
     const result = await runTheme(["show", "--file", themeOnly, "--group", "colors"]);
-    expect(result.data).toEqual({ file: themeOnly, files: [themeOnly], colors: expect.any(Array) });
+    expect(result.data).toEqual({
+      file: themeOnly, files: [themeOnly], tailwind: 4, configFile: null, warnings: [], colors: expect.any(Array),
+    });
     const render = result.text as () => string;
     expect(render()).toContain("\u001b[48;2;170;187;204m  \u001b[0m");
     forceColors(false);
@@ -195,4 +197,50 @@ test("registers read-only theme tools and marks failing checks in the MCP respon
     await client.close();
     await server.close();
   }
+});
+
+test("reads Tailwind 3 CSS imports, color channels and explicit config tokens", async () => {
+  const cwd = join(import.meta.dir, "fixtures/theme-tw3/shadcn");
+  const file = join(cwd, "src/styles/global.css");
+  expect(findThemeFile(cwd)).toBe(file);
+  const theme = await readTheme(cwd);
+  expect(theme).toMatchObject({
+    tailwind: 3, file, configFile: join(cwd, "tailwind.config.ts"),
+    files: [file, join(cwd, "src/styles/tokens.css")], warnings: [],
+  });
+  const colors = Object.fromEntries(theme.colors.map(({ name, light, dark }) => [name, [light?.resolved, dark?.resolved]]));
+  expect(colors["--color-background"]).toEqual(["#ffffff", "#0f1729"]);
+  expect(colors["--color-primary"]).toEqual(["#0f1729", "#ffffff"]);
+  expect(colors["--color-primary-foreground"]).toEqual(["#ffffff", "#0f1729"]);
+  expect(colors["--color-brand-500"]).toEqual(["#2ad5be", "#14648c"]);
+  expect(colors["--color-brand-700"]).toEqual(["#112233", "#123456"]);
+  expect(colors["--color-brand-900"]).toEqual(["#663399", "#663399"]);
+  expect(colors["--color-light-only"]).toEqual(["#abcdef", undefined]);
+  expect(theme.fonts.map(({ name, light }) => [name, light?.resolved])).toEqual([
+    ["--font-sans", "Inter, sans-serif"], ["--font-heading", "Example Serif, serif"],
+  ]);
+  expect(theme.text).toMatchObject([{ name: "--text-headline", light: { resolved: "1.5rem" }, lineHeight: { light: { resolved: "2rem" } } }]);
+  expect(theme.weights).toMatchObject([{ name: "--font-weight-semibold", light: { resolved: "600" } }]);
+  expect(theme.radius.find(({ name }) => name === "--radius-lg")?.light?.resolved).toBe("0.5rem");
+  expect(theme.spacing).toMatchObject([{ name: "--spacing-gutter", light: { resolved: "24px" } }]);
+  expect(theme.shadows[0]?.light?.resolved).toBe("0 0 2px #000, 0 2px 4px #111");
+  expect(theme.breakpoints.map(({ name, light }) => [name, light?.resolved])).toEqual([
+    ["--breakpoint-md", "768px"], ["--breakpoint-print", '{"raw":"print"}'],
+  ]);
+  expect(theme.motion.tokens.map(({ name }) => name)).toEqual(["--ease-standard", "--duration-reveal", "--animate-reveal"]);
+  expect(theme.motion.keyframes).toEqual(["reveal"]);
+  const check = checkTheme(theme, { requiredRoles: ["foreground", "primary", "brand-500", "font-heading", "radius-lg"] });
+  expect(check.ok).toBe(true);
+  expect(check.summary).toEqual({ passed: 4, failed: 0, missing: 10, unresolved: 0 });
+});
+
+test("falls back to CSS when the Tailwind 3 config cannot import a plugin", async () => {
+  const cwd = join(import.meta.dir, "fixtures/theme-tw3/broken");
+  expect(findThemeFile(cwd)).toBe(join(cwd, "src/styles/global.css"));
+  const theme = await readTheme(cwd);
+  expect(theme.tailwind).toBe(3);
+  expect(theme.configFile).toBe(join(cwd, "tailwind.config.cjs"));
+  expect(theme.warnings).toEqual([expect.stringContaining("Showing CSS tokens only")]);
+  expect(theme.colors[0]).toMatchObject({ name: "--background", light: { resolved: "#ffffff" }, dark: { resolved: "#111111" } });
+  expect(checkTheme(theme).summary.passed).toBe(2);
 });

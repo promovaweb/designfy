@@ -38,7 +38,7 @@ function homeLayout(ctx: ScreenContext) {
 }
 
 /** Composes each card independently so a corrupt project file cannot hide the menu. */
-function loadDashboard(ctx: ScreenContext, cards: ReadonlyMap<string, Card>): HomeDetails {
+function loadDashboard(ctx: ScreenContext, cards: ReadonlyMap<string, Card>, getTheme: () => Awaited<ReturnType<typeof readTheme>>): HomeDetails {
   const cwd = process.cwd();
   const { renderer, theme, icons } = ctx;
   const { short } = homeLayout(ctx);
@@ -68,8 +68,8 @@ function loadDashboard(ctx: ScreenContext, cards: ReadonlyMap<string, Card>): Ho
   };
 
   render("theme", () => {
-    let tokens: ReturnType<typeof readTheme>;
-    try { tokens = readTheme(cwd); }
+    let tokens: ReturnType<typeof getTheme>;
+    try { tokens = getTheme(); }
     catch (cause) {
       if (cause instanceof AppError && cause.code === ExitCode.NOT_FOUND) return [tag("available", "Theme missing"), line("Add designfy-theme", tone)];
       throw cause;
@@ -77,8 +77,10 @@ function loadDashboard(ctx: ScreenContext, cards: ReadonlyMap<string, Card>): Ho
     hasTheme = true;
     const names = ["background", "foreground", "primary", "accent", "muted", "border", "destructive"];
     const colors = names.map((name) => {
-      const value = tokens.colors.find((token) => token.name === `--color-${name}` || token.name === `--${name}`)?.light;
-      return value && parseColor(value.resolved ?? value.declared);
+      const token = tokens.colors.find((token) => token.name === `--color-${name}`) ??
+        tokens.colors.find((token) => token.name === `--${name}`);
+      const resolved = token?.light?.resolved;
+      return resolved ? parseColor(resolved) : undefined;
     });
     const contrast = colors[0] && colors[1] ? wcagContrast(colors[0], colors[1]) : undefined;
     const fonts = tokens.fonts.map((font) => font.light?.resolved ?? font.light?.declared ?? "").filter(Boolean);
@@ -188,7 +190,12 @@ export function createHomeScreen(): Screen {
   let start = () => {};
   let navigate = (_key: string) => false;
   let open = () => {};
-  const stop = () => { if (load !== undefined) clearImmediate(load); load = undefined; };
+  let loadVersion = 0;
+  const stop = () => {
+    loadVersion++;
+    if (load !== undefined) clearImmediate(load);
+    load = undefined;
+  };
   return {
     id: "overview", title: "Home", icon: "overview", description: "Project dashboard and module menu",
     watch: () => {
@@ -295,10 +302,15 @@ export function createHomeScreen(): Screen {
       };
       start = () => {
         stop();
-        load = setImmediate(() => {
+        const version = loadVersion;
+        load = setImmediate(async () => {
           load = undefined;
-          if (root.isDestroyed || renderer.isDestroyed) return;
-          const details = loadDashboard(ctx, cards);
+          const getTheme = await readTheme(process.cwd()).then(
+            (theme) => () => theme,
+            (cause) => () => { throw cause; },
+          );
+          if (version !== loadVersion || root.isDestroyed || renderer.isDestroyed) return;
+          const details = loadDashboard(ctx, cards, getTheme);
           next = details.next;
           banner.content = ` ${withIcon(icons, next.id ? "next" : "ok", next.text)}${next.id ? "   [Enter]" : ""} `;
           for (const node of totals.getChildren()) node.destroyRecursively();

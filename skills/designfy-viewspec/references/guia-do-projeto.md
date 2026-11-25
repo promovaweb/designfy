@@ -17,6 +17,16 @@ O guia é escrito a partir de quatro fontes, nesta ordem de confiança:
 4. **Os padrões do Designfy**: o que as especialistas recomendam quando as
    três fontes acima não dizem nada. Entra como `@agente`.
 
+Projeto com documentos de design próprios (manual, `DESIGN.md`, regras no
+`AGENTS.md` ou no `CLAUDE.md`, inclusive os da raiz de um monorepo) tem uma
+quinta fonte, acima do código: esses documentos. Nesse caso o guia resume
+cada regra em uma linha, cita o arquivo e a seção de origem num parágrafo de
+contexto e declara, em `## Visão geral`, que a fonte prevalece quando os dois
+divergirem. Regra que o documento atribui a uma pessoa entra como `@pessoa`,
+com a data em `## Aprendizados`. Débitos que o documento registra vão para
+`## Faça e não faça`, e a escala de cor que o projeto usa é descrita como
+está, mesmo fora dos papéis do shadcn.
+
 Antes de escrever, leia:
 
 ```bash

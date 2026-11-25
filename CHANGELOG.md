@@ -2,6 +2,19 @@
 
 Formato baseado em Keep a Changelog. Versões seguem SemVer.
 
+## [0.1.3] - 2026-11-24
+
+### Adicionado
+
+- Leitura de tema em projetos Tailwind 3: CSS com `@tailwind base`, imports locais e `tailwind.config.*` (cores aninhadas, fontes, raios, sombras, telas, curvas e keyframes), com valores `rgb(var(--x) / <alpha-value>)` e `hsl(var(--x))` resolvidos. `theme show`, `status` e `doctor` informam a versão do Tailwind e os arquivos lidos.
+- Opção global `--project <dir>` (`-C`) e variável `DESIGNFY_PROJECT`, para operar um projeto a partir de outra pasta; no servidor MCP, argumento `project` por chamada.
+- Referência `projeto-existente.md` na skill `designfy`: num projeto com telas, tema ou regras de design, o primeiro passo é ler e documentar o que existe, com a fonte de cada regra, sem mudar tema nem dependências.
+
+### Alterado
+
+- `components add` recusa projeto em Tailwind 3 com o código 10 e explica a migração; `--allow-tailwind3` copia mesmo assim.
+- Os modelos de viewspec trazem a liberação de linha longa do markdownlint, porque o contrato lê uma regra por linha.
+
 ## [0.1.2] - 2026-11-24
 
 ### Adicionado

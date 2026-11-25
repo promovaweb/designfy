@@ -212,3 +212,117 @@ test("CLI dry runs print executable plans and dependency checks return code 10 w
     ok: false, error: { name: "CHECK_FAILED", details: { missing: ["motion"], outdated: [] } },
   });
 });
+
+const tailwind3Fixture = join(import.meta.dir, "fixtures/theme-tw3/shadcn");
+const entry = resolve(import.meta.dir, "../src/main.ts");
+
+async function runProjectCli(args: string[], project?: string) {
+  const env = { ...process.env, [HOME_VARIABLE]: dir, DESIGNFY_PROJECT: project, NO_COLOR: "1" };
+  const child = Bun.spawn([process.execPath, "run", entry, ...args], {
+    cwd: dir, env, stdin: "ignore", stdout: "pipe", stderr: "pipe", timeout: 8000,
+  });
+  const [code, stdout, stderr] = await Promise.all([
+    child.exited, new Response(child.stdout).text(), new Response(child.stderr).text(),
+  ]);
+  return { code, stdout, stderr };
+}
+
+test("selects the project with the global option, alias and environment", async () => {
+  put("package.json", { dependencies: { astro: "^5", tailwindcss: "^4" } });
+  const project = join(dir, "website");
+  cpSync(tailwind3Fixture, project, { recursive: true });
+  const theme = { found: true, file: join(project, "src/styles/global.css") };
+  const expected = { ok: true, data: { detected: { framework: "react", tailwind: 3 }, theme } };
+  for (const result of await Promise.all([
+    runProjectCli(["--project", "website", "status", "--json"], "."),
+    runProjectCli(["status", "-C", project, "--json"]),
+    runProjectCli(["status", "--json"], "website"),
+  ])) {
+    expect(result.code).toBe(ExitCode.SUCCESS);
+    expect(JSON.parse(result.stdout)).toMatchObject(expected);
+  }
+
+  for (const project of ["missing", "package.json"]) {
+    const result = await runProjectCli(["--project", project, "status", "--json"]);
+    expect(result.code).toBe(ExitCode.NOT_FOUND);
+    expect(JSON.parse(result.stdout)).toMatchObject({ error: { code: ExitCode.NOT_FOUND } });
+  }
+
+  const doctor = await runProjectCli(["-C", "website", "doctor", "--json"]);
+  expect(doctor.code).toBe(ExitCode.SUCCESS);
+  expect(JSON.parse(doctor.stdout).data.checks).toContainEqual({
+    name: "tailwind", status: "warn", detail: expect.stringMatching(/Tailwind 3.*Tailwind 4/),
+  });
+}, 15_000);
+
+test("CLI notes Tailwind 3 compatibility and guards copying until explicitly allowed", async () => {
+  put("package.json", { dependencies: { react: "^19", tailwindcss: "^3.4" } });
+  for (const args of [["list"], ["show", "cn"]]) {
+    const result = await runProjectCli(["components", ...args]);
+    expect(result.code).toBe(ExitCode.SUCCESS);
+    expect(result.stderr).toContain("registry items use Tailwind 4 syntax");
+  }
+
+  const target = join(dir, "src/components/designfy/lib/cn.ts");
+  const refused = await runProjectCli(["components", "add", "cn", "--json"]);
+  expect(refused.code).toBe(ExitCode.CHECK_FAILED);
+  expect(JSON.parse(refused.stdout)).toMatchObject({ error: { code: 10, message: expect.stringContaining("--allow-tailwind3") } });
+  expect(existsSync(target)).toBe(false);
+
+  const copied = await runProjectCli(["components", "add", "cn", "--allow-tailwind3", "--json"]);
+  expect(copied.code).toBe(ExitCode.SUCCESS);
+  expect(copied.stderr).toContain("registry items use Tailwind 4 syntax");
+  expect(JSON.parse(copied.stdout).data.written).toEqual([target]);
+  expect(existsSync(target)).toBe(true);
+}, 15_000);
+
+test("MCP resolves project per call, guards component copies and preserves read-only mode", async () => {
+  put("package.json", { dependencies: { astro: "^5", tailwindcss: "^4" } });
+  const project = join(dir, "website");
+  cpSync(tailwind3Fixture, project, { recursive: true });
+  const server = async (readOnly: boolean, verify: (client: Client) => Promise<void>) => {
+    const client = new Client({ name: "project-test", version: "1.0.0" });
+    const transport = new StdioClientTransport({
+      command: process.execPath, args: ["run", entry, "mcp", "--project", dir, ...(readOnly ? ["--read-only"] : [])],
+      cwd: import.meta.dir, env: { [HOME_VARIABLE]: dir }, stderr: "pipe",
+    });
+    try {
+      await client.connect(transport);
+      await verify(client);
+    } finally {
+      await client.close();
+      await transport.close();
+    }
+  };
+
+  await server(false, async (client) => {
+    const [selected, current, theme] = await Promise.all([
+      client.callTool({ name: "project_status", arguments: { project: "website" } }),
+      client.callTool({ name: "project_status", arguments: {} }),
+      client.callTool({ name: "theme_show", arguments: { project, group: "colors" } }),
+    ]);
+    expect(selected.structuredContent).toMatchObject({ detected: { framework: "react", tailwind: 3 } });
+    expect(current.structuredContent).toMatchObject({ detected: { framework: "astro", tailwind: 4 } });
+    expect(theme.structuredContent).toMatchObject({ tailwind: 3, warnings: [], configFile: join(project, "tailwind.config.ts") });
+
+    const args = { project, names: ["cn"] };
+    const target = join(project, "src/components/designfy/lib/cn.ts");
+    const refused = await client.callTool({ name: "components_add", arguments: args });
+    expect(refused.isError).toBe(true);
+    expect(refused.content).toEqual([{ type: "text", text: expect.stringContaining('"code": 10') }]);
+    expect(existsSync(target)).toBe(false);
+
+    const copied = await client.callTool({ name: "components_add", arguments: { ...args, allowTailwind3: true } });
+    expect(copied.structuredContent).toMatchObject({ warning: expect.stringContaining("Tailwind 4"), written: [target] });
+    expect(existsSync(target)).toBe(true);
+    expect(existsSync(join(dir, "src"))).toBe(false);
+  });
+
+  await server(true, async (client) => {
+    const names = (await client.listTools()).tools.map(({ name }) => name);
+    expect(names).not.toContain("components_add");
+    expect(names).not.toContain("capture_run");
+    const list = await client.callTool({ name: "components_list", arguments: { project } });
+    expect(list.structuredContent).toMatchObject({ warning: expect.stringContaining("Tailwind 4") });
+  });
+}, 15_000);

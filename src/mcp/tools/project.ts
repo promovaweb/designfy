@@ -4,6 +4,7 @@ import { AppError } from "../../app/errors.ts";
 import { getProjectStatus, projectStatusSchema } from "../../cli/commands/status.ts";
 import { checkDependencies, dependencyGroupStateSchema, listDependencies } from "../../design/deps.ts";
 import { listSkills, skillStateSchema } from "../../design/skills.ts";
+import { projectInput, toolProject } from "../project.ts";
 import type { Registrar } from "../server.ts";
 
 const annotations = { readOnlyHint: true, destructiveHint: false, openWorldHint: false };
@@ -35,10 +36,10 @@ export function registerProjectTools({ server, catalog }: Registrar): void {
   server.registerTool("project_status", {
     title: "Project status",
     description: statusDescription,
-    inputSchema: {},
+    inputSchema: { project: projectInput },
     outputSchema: projectStatusSchema,
     annotations,
-  }, async () => response(() => getProjectStatus(process.cwd())));
+  }, async ({ project }) => response(() => getProjectStatus(toolProject(project))));
 
   const skillsDescription = "Use to discover catalog skills. Returns the skills and their project or global installation scope.";
   catalog.tools.push({ name: "skills_list", description: skillsDescription });
@@ -46,30 +47,31 @@ export function registerProjectTools({ server, catalog }: Registrar): void {
     title: "List skills",
     description: skillsDescription,
     inputSchema: {
+      project: projectInput,
       internal: z.boolean().optional().describe("Include internal skills."),
       external: z.boolean().optional().describe("Include external skills."),
     },
     outputSchema: { skills: z.array(skillStateSchema) },
     annotations,
-  }, async (filters) => response(() => ({ skills: listSkills(process.cwd(), filters) })));
+  }, async ({ project, ...filters }) => response(() => ({ skills: listSkills(toolProject(project), filters) })));
 
   const listDescription = "Use to inspect suggested dependencies. Returns catalog groups and package versions and states.";
   catalog.tools.push({ name: "deps_list", description: listDescription });
   server.registerTool("deps_list", {
     title: "List dependencies",
     description: listDescription,
-    inputSchema: { group },
+    inputSchema: { project: projectInput, group },
     outputSchema: { groups: z.array(dependencyGroupStateSchema) },
     annotations,
-  }, async ({ group }) => response(() => ({ groups: listDependencies(process.cwd(), group) })));
+  }, async ({ project, group }) => response(() => ({ groups: listDependencies(toolProject(project), group) })));
 
   const checkDescription = "Use to verify dependencies for a group or the project's defaults and for copied components. Returns missing and outdated package names.";
   catalog.tools.push({ name: "deps_check", description: checkDescription });
   server.registerTool("deps_check", {
     title: "Check dependencies",
     description: checkDescription,
-    inputSchema: { group },
+    inputSchema: { project: projectInput, group },
     outputSchema: { ok: z.boolean(), missing: z.array(z.string()), outdated: z.array(z.string()) },
     annotations,
-  }, async ({ group }) => response(() => ({ ...checkDependencies(process.cwd(), group) }), (data) => data.ok === false));
+  }, async ({ project, group }) => response(() => ({ ...checkDependencies(toolProject(project), group) }), (data) => data.ok === false));
 }

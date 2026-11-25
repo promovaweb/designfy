@@ -1,12 +1,13 @@
 /** Detects web projects and reads or writes their designfy.json configuration. */
-import { existsSync, linkSync, mkdtempSync, readFileSync, renameSync, rmSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
+import { existsSync, linkSync, mkdtempSync, readFileSync, renameSync, rmSync, statSync, writeFileSync } from "node:fs";
+import { join, resolve } from "node:path";
 import { z } from "zod";
 import { classifyFsError, error } from "../app/errors.ts";
 import { ExitCode } from "../app/exit-codes.ts";
 
 export const frameworks = ["astro", "next", "react-vite", "react", "unknown"] as const;
 export const packageManagers = ["bun", "pnpm", "yarn", "npm"] as const;
+export const PROJECT_VARIABLE = "DESIGNFY_PROJECT";
 export type Framework = (typeof frameworks)[number];
 export type PackageManager = (typeof packageManagers)[number];
 
@@ -51,6 +52,21 @@ const lockfiles: readonly [string, PackageManager][] = [
   ["yarn.lock", "yarn"],
   ["package-lock.json", "npm"],
 ];
+
+/** Resolves an optional project directory against the caller's working directory. */
+export function resolveProjectDirectory(cwd: string, project?: string): string {
+  if (project === undefined) return cwd;
+  const path = resolve(cwd, project);
+  try {
+    if (!project || !statSync(path).isDirectory()) throw error.notFound(`Project directory not found: ${path}`, { path });
+  } catch (cause) {
+    if (["ENOENT", "ENOTDIR"].includes((cause as NodeJS.ErrnoException).code ?? "")) {
+      throw error.notFound(`Project directory not found: ${path}`, { path });
+    }
+    throw classifyFsError(cause, ExitCode.CONFIG, `Failed to inspect project directory ${path}`);
+  }
+  return path;
+}
 
 function readJson(path: string): unknown {
   let raw: string;

@@ -37,6 +37,7 @@ export function createThemeScreen() {
   let mode: Mode = "light";
   let groupIndex = 0;
   let loaded: Theme | undefined;
+  let loading: Promise<Theme> | undefined;
   let contrasts: ReturnType<typeof checkTheme>["contrast"] = [];
 
   function colorDetails(row: ThemeRow): string[] {
@@ -65,10 +66,15 @@ export function createThemeScreen() {
       try { files.push(findThemeFile(cwd)); } catch { /* The screen reports discovery errors. */ }
       return files;
     },
-    load(cwd) {
+    async load(cwd) {
+      const request = readTheme(cwd);
+      loading = request;
       try {
-        loaded = readTheme(cwd);
+        const theme = await request;
+        if (loading !== request) return [];
+        loaded = theme;
       } catch (error) {
+        if (loading !== request) return [];
         loaded = undefined;
         if (error instanceof AppError && error.code === ExitCode.NOT_FOUND) return [];
         throw error;

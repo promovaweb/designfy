@@ -1,8 +1,8 @@
 /** Exposes registry browsing and component copying as CLI subcommands. */
 import { ExitCode } from "../../app/exit-codes.ts";
 import { manifest } from "../../app/manifest.ts";
-import { frameworks, resolveProject, type Framework } from "../../design/project.ts";
-import { applyAdd, getItem, listItems, planAdd, type ItemFilters } from "../../design/registry.ts";
+import { detectProject, frameworks, resolveProject, type Framework } from "../../design/project.ts";
+import { applyAdd, getItem, listItems, planAdd, tailwindRegistryNote, type ItemFilters } from "../../design/registry.ts";
 import { blocks, table } from "../format.ts";
 import type { Command, OptionDefinition } from "../registry.ts";
 
@@ -27,15 +27,18 @@ const list: Command = {
   ],
   examples: [`${manifest.bin} components list --framework astro`],
   exitCodes: codes,
-  run: ({ options }) => {
-    const framework = (options.framework as Framework | undefined) ?? resolveProject(process.cwd()).framework;
+  run: ({ options, stderr }) => {
+    const cwd = process.cwd();
+    const framework = (options.framework as Framework | undefined) ?? resolveProject(cwd).framework;
+    const warning = tailwindRegistryNote(detectProject(cwd).tailwind);
+    if (warning) stderr(`Note: ${warning}`);
     const items = listItems({
       framework,
       category: options.category as string | undefined,
       surface: options.surface as ItemFilters["surface"],
     }).map(({ files, ...item }) => ({ ...item, files: files.map(({ content: _content, ...file }) => file) }));
     return {
-      data: { framework, items },
+      data: { framework, ...(warning ? { warning } : {}), items },
       text: () => items.length ? table(items.map((item) => [item.name, item.description])) : "No components matched.",
     };
   },
@@ -51,12 +54,15 @@ const show: Command = {
   ],
   examples: [`${manifest.bin} components show cn --framework react --source`],
   exitCodes: codes,
-  run: ({ args, options }) => {
-    const framework = (options.framework as Framework | undefined) ?? resolveProject(process.cwd()).framework;
+  run: ({ args, options, stderr }) => {
+    const cwd = process.cwd();
+    const framework = (options.framework as Framework | undefined) ?? resolveProject(cwd).framework;
+    const warning = tailwindRegistryNote(detectProject(cwd).tailwind);
+    if (warning) stderr(`Note: ${warning}`);
     const item = getItem(args[0]!, framework);
     const files = item.files.map(({ content, ...file }) => options.source ? { ...file, content } : file);
     return {
-      data: { framework, item: { ...item, files } },
+      data: { framework, ...(warning ? { warning } : {}), item: { ...item, files } },
       text: () => blocks(
         `${item.title}\n${item.description}`,
         table([
@@ -82,16 +88,19 @@ const add: Command = {
     frameworkOption,
     { name: "--path", argument: { name: "dir" }, description: "Copy files under this directory instead of the configured roots." },
     { name: "--overwrite", description: "Replace existing files whose content differs." },
+    { name: "--allow-tailwind3", description: "Copy Tailwind 4 registry files into a Tailwind 3 project with a warning." },
     { name: "--dry-run", description: "Report planned file changes without writing them." },
   ],
   examples: [`${manifest.bin} components add cn --framework react --dry-run`],
-  exitCodes: codes,
+  exitCodes: [...codes, ExitCode.CHECK_FAILED],
   run: (ctx) => {
     const plan = planAdd(process.cwd(), ctx.args, {
       framework: ctx.options.framework as Framework | undefined,
       path: ctx.options.path as string | undefined,
       overwrite: ctx.options.overwrite === true,
+      allowTailwind3: ctx.options["allow-tailwind3"] === true,
     });
+    if (plan.warning) ctx.stderr(`Warning: ${plan.warning}`);
     if (!plan.configured) ctx.stderr("Warning: designfy.json is missing. Using the default paths and alias.");
     const data = applyAdd(plan, { dryRun: ctx.options["dry-run"] === true });
     if (data.skipped.length) ctx.stderr("Warning: files with different content were skipped. Use --overwrite to replace them.");
@@ -114,6 +123,6 @@ export const componentsCommand: Command = {
   name: "components",
   description: "Browse and copy Designfy registry components.",
   examples: [`${manifest.bin} components list`],
-  exitCodes: codes,
+  exitCodes: add.exitCodes,
   subcommands: [list, show, add],
 };

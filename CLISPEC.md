@@ -46,7 +46,7 @@ mesma base atende a pessoa no terminal, os scripts e os agentes.
 | Command | Função |
 | --- | --- |
 | `init` | detecta o projeto (Astro, React com Vite, Next.js, Tailwind, shadcn) e grava `designfy.json` |
-| `status` | mostra o projeto detectado, skills, dependências, componentes e viewspecs |
+| `status` | mostra o projeto detectado, o major do Tailwind, skills, dependências, componentes e viewspecs |
 | `skills list` | catálogo de skills internas e externas, com o estado no projeto |
 | `skills install [names...]` | instala skills pelo `skills` CLI; `--all`, `--internal`, `--external`, `--agent`, `--global`, `--dry-run` |
 | `skills update [names...]` | atualiza as skills instaladas |
@@ -54,9 +54,9 @@ mesma base atende a pessoa no terminal, os scripts e os agentes.
 | `deps list` | grupos de bibliotecas sugeridas, com a versão conferida e o estado no `package.json` |
 | `deps check` | compara o `package.json` com o catálogo e com o que os componentes copiados pedem |
 | `deps install [groups-or-packages...]` | instala pelo gerenciador do projeto (`npm`, `pnpm`, `bun`, `yarn`); `--dry-run` |
-| `components list` | componentes do registro, por categoria e framework |
-| `components show <name>` | arquivos, dependências, variações e uso de um componente |
-| `components add <names...>` | copia para o projeto, na pasta de `designfy.json`; `--framework`, `--path`, `--overwrite`, `--dry-run` |
+| `components list` | componentes do registro, por categoria e framework, com aviso em Tailwind 3 |
+| `components show <name>` | arquivos, dependências, variações e uso de um componente, com aviso em Tailwind 3 |
+| `components add <names...>` | copia para o projeto, na pasta de `designfy.json`; `--framework`, `--path`, `--overwrite`, `--dry-run`. Em Tailwind 3, exige `--allow-tailwind3` (exit code 10) |
 | `mcp servers` | catálogo de servidores MCP sugeridos (Designfy, shadcn e Playwright; o ReUI entra pelo registro `@reui` no servidor do shadcn) |
 | `mcp setup [servers...]` | grava a entrada nos arquivos de projeto de Claude Code, Codex, OpenCode, Cursor e Gemini CLI; `--client`, `--dry-run` |
 | `palette generate` | escala OKLCH e tokens semânticos a partir de uma cor base e de uma harmonia da roda de cores; `--format css\|json\|tailwind` |
@@ -67,14 +67,18 @@ mesma base atende a pessoa no terminal, os scripts e os agentes.
 | `catalog list` | catálogo de componentes comuns de interface, por superfície, categoria e tipo de tela |
 | `catalog show <id>` | propósito, anatomia, variações, estados e onde está a implementação |
 | `catalog search <text>` | busca no catálogo |
-| `theme show` | tema do Tailwind do projeto: cores, fontes, escala, raios, espaçamento e movimento |
-| `theme check` | contraste dos pares do tema e papéis que faltam |
+| `theme show` | tokens e fontes do tema Tailwind 3 ou 4, incluindo config no Tailwind 3 |
+| `theme check` | contraste dos pares do tema e papéis que faltam no CSS ou no config Tailwind 3 |
 | `viewspec guide` | o guia do projeto, `VIEWSPEC.md` na raiz: seções, regras e aprendizados |
 | `viewspec list` | viewspecs do projeto, com status, tipo e progresso |
 | `viewspec show <id>` | um viewspec inteiro |
 | `viewspec progress` | resumo por status e próximo `id` livre |
 | `viewspec validate [id]` | confere o contrato sem alterar arquivos |
-| `tui`, `about`, `config`, `credentials`, `mcp`, `skill`, `doctor`, `completion` | herdados do starter kit |
+| `doctor` | verifica o ambiente, informa o major do Tailwind e avisa sobre a compatibilidade do registro |
+| `tui`, `about`, `config`, `credentials`, `mcp`, `skill`, `completion` | herdados do starter kit |
+
+`--project <dir>` (`-C`) seleciona a pasta de trabalho e tem precedência
+sobre `DESIGNFY_PROJECT`. Caminho inexistente retorna 6.
 
 ### Screens
 
@@ -104,9 +108,10 @@ painel de detalhe e os temas `terminal`, `night` e `day`.
 | `project_status` | projeto detectado e estado das instalações |
 | `skills_list` | catálogo de skills com o estado |
 | `deps_list`, `deps_check` | catálogo de bibliotecas e conferência do `package.json` |
-| `components_list`, `components_show`, `components_add` | registro de componentes e cópia para o projeto |
+| `components_list`, `components_show`, `components_add` | registro de componentes e cópia para o projeto. `allowTailwind3` autoriza a cópia com aviso |
 | `catalog_list`, `catalog_show`, `catalog_search` | catálogo de interface que as skills leem para escolher os fragmentos |
-| `theme_show`, `theme_check` | tema do Tailwind do projeto e contraste |
+| `theme_show`, `theme_check` | tema Tailwind 3 ou 4, fontes do tema e contraste |
+| `doctor` | diagnóstico do ambiente e de compatibilidade do registro |
 | `mcp_servers` | catálogo de servidores MCP |
 | `palette_generate`, `palette_wheel`, `palette_contrast` | paleta, harmonias e contraste |
 | `capture_run`, `capture_list` | capturas com o Playwright |
@@ -114,6 +119,7 @@ painel de detalhe e os temas `terminal`, `night` e `day`.
 
 Resources e prompts do starter kit seguem iguais. As tools que escrevem no
 projeto (`components_add`, `capture_run`) ficam fora do modo `--read-only`.
+As tools de projeto aceitam `project` para selecionar a pasta em cada chamada.
 
 ### Skills
 
@@ -169,6 +175,7 @@ O binário não guarda segredo próprio; o cofre vem do starter kit.
 | Spec | Status | Assunto |
 | --- | --- | --- |
 | [0001](specs/0001-fundacao-do-framework.md) | done | catálogos, skills, dependências, MCP, componentes, paleta, capturas, viewspec, TUI e tools |
+| [0002](specs/0002-tailwind-3-e-projetos.md) | done | Tailwind 3 e seleção de projeto |
 
 ## Notes
 
@@ -186,3 +193,4 @@ O binário não guarda segredo próprio; o cofre vem do starter kit.
   famílias; nenhum arquivo dele entrou no registro.
 - A captura roda o Playwright pelo Node do projeto. O binário compilado não
   leva o navegador.
+- 2026-11-24: spec 0002 (Tailwind 3 e seleção de projeto) concluída.

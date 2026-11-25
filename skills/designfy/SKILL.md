@@ -33,6 +33,7 @@ Leia só o que o estágio pede:
 | Entender o que foi pedido e classificar | [references/leitura-do-pedido.md](references/leitura-do-pedido.md) |
 | Escolher especialistas e fragmentos por tipo de tela | [references/roteamento.md](references/roteamento.md) |
 | Conduzir os estágios e os pontos de parada | [references/fluxo.md](references/fluxo.md) |
+| Entender e documentar um projeto que já tem interface, tema ou regras de design | [references/projeto-existente.md](references/projeto-existente.md) |
 | Preparar um projeto que ainda não tem o Designfy | [references/preparo-do-projeto.md](references/preparo-do-projeto.md) |
 | Fechar a entrega e registrar aprendizados | [references/entrega.md](references/entrega.md) |
 | Usar o binário `designfy` e o servidor MCP | [references/binario.md](references/binario.md) |
@@ -75,7 +76,11 @@ Modelos prontos em `assets/`: [pedido-de-esclarecimento.md](assets/pedido-de-esc
 10. **Nada é dado como pronto sem captura.** A tela só fecha depois de
     `designfy capture run` em celular e desktop e da passagem da
     `designfy-review`.
-11. **O guia aprende.** Toda preferência dita pela pessoa, toda escolha nova
+11. **Projeto existente: entender antes de mudar.** Num projeto com telas
+    prontas, tema próprio ou regras de design escritas, o primeiro resultado
+    é o guia descrevendo o que existe, com a fonte de cada regra. Tema,
+    Tailwind, dependências e componentes do projeto não mudam nessa etapa.
+12. **O guia aprende.** Toda preferência dita pela pessoa, toda escolha nova
     e todo achado de revisão entram em `## Aprendizados` do guia antes do
     relato final.
 
@@ -90,9 +95,11 @@ designfy viewspec progress --json
 designfy theme show --json
 ```
 
-Sem o binário, leia `designfy.json`, o `package.json`, o CSS com
-`@import "tailwindcss"`, o `VIEWSPEC.md` da raiz e a pasta `viewspec/`. Se o
-projeto ainda não tem `designfy.json`, siga
+Sem o binário, leia `designfy.json`, o `package.json`, o CSS do tema, o
+`VIEWSPEC.md` da raiz e a pasta `viewspec/`. Se o projeto ainda não tem
+`designfy.json` e já tem interface, tema ou documentos de design, siga
+[references/projeto-existente.md](references/projeto-existente.md) antes de
+qualquer gravação. Projeto novo segue
 [references/preparo-do-projeto.md](references/preparo-do-projeto.md).
 
 ### 2. Ler o pedido
@@ -105,8 +112,9 @@ tela, pergunte com o modelo de `assets/pedido-de-esclarecimento.md`.
 ### 3. Garantir o guia
 
 Com `guide: missing`, chame a `designfy-viewspec` no modo guia. Ela cria o
-`VIEWSPEC.md` da raiz a partir do tema que já existe, do que a pessoa disser
-e de uma entrevista curta. Com guia, releia as seções ligadas ao tipo de
+`VIEWSPEC.md` da raiz a partir das instruções e dos documentos de design do
+projeto, do tema que já existe, do que a pessoa disser e de uma entrevista
+curta só sobre o que essas fontes não respondem. Com guia, releia as seções ligadas ao tipo de
 tela e anote os identificadores das regras que se aplicam.
 
 ### 4. Escolher os fragmentos
@@ -162,7 +170,8 @@ a captura registrada, guia com os aprendizados, e o relato de
 
 ## Marcos
 
-- Projeto lido e, quando preciso, preparado.
+- Projeto lido, com as fontes de design existentes documentadas no guia, e,
+  quando preciso, preparado.
 - Pedido classificado, com as perguntas respondidas.
 - Guia `VIEWSPEC.md` presente e lido.
 - Viewspec da tela escrito e aprovado quando havia escolha em aberto.

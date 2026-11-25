@@ -3,6 +3,10 @@
 O que fazer quando o projeto ainda não tem o Designfy. Execute os comandos
 pelo agente; não entregue a lista para a pessoa rodar.
 
+Projeto com telas prontas, tema próprio ou regras de design escritas passa
+antes por [projeto-existente.md](projeto-existente.md). Nele, os passos 3 e 4
+abaixo não instalam nem criam nada: o tema que existe é descrito no guia.
+
 ## 1. Detectar
 
 ```bash
@@ -40,6 +44,8 @@ opcionais entram quando a tela pedir: `forms`, `tables`, `charts`,
 
 Projeto sem Tailwind 4: a instalação traz o pacote, mas a ligação com o
 build é da especialista de tema. Passe para a `designfy-design-system`.
+Projeto que já usa Tailwind 3 não recebe os grupos padrão: a migração é uma
+tarefa própria, pedida pela pessoa.
 
 ## 4. Tema
 

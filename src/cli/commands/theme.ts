@@ -3,7 +3,7 @@ import { error } from "../../app/errors.ts";
 import { ExitCode } from "../../app/exit-codes.ts";
 import { manifest } from "../../app/manifest.ts";
 import {
-  checkTheme, readTheme, requiredThemeRoles, themeGroups,
+  checkTheme, readTheme, requiredThemeRoles, themeGroups, themeSources,
   type Theme, type ThemeGroup, type ThemeToken, type ThemeValue,
 } from "../../design/theme.ts";
 import { blocks, section, table, useColors } from "../format.ts";
@@ -52,13 +52,18 @@ const show: Command = {
   ],
   examples: [`${manifest.bin} theme show --group colors`, `${manifest.bin} theme show --file src/index.css --json`],
   exitCodes: codes,
-  run: ({ options }) => {
-    const data = readTheme(process.cwd(), { file: options.file as string | undefined });
+  run: async ({ options, stderr }) => {
+    const data = await readTheme(process.cwd(), { file: options.file as string | undefined });
+    for (const warning of data.warnings) stderr(`Warning: ${warning}`);
     const group = options.group as ThemeGroup | undefined;
     return {
-      data: group ? { file: data.file, files: data.files, [group]: data[group] } : data,
+      data: group ? { ...themeSources(data), [group]: data[group] } : data,
       text: () => blocks(
-        data.file,
+        `Tailwind ${data.tailwind}`,
+        table([
+          ...data.files.map((file, index): [string, string] => [index === 0 ? "CSS" : "", file]),
+          ...(data.configFile ? [["Config", data.configFile] as [string, string]] : []),
+        ]),
         ...(group ? [groupText(data, group) || `No ${group} tokens found.`] :
           [...themeGroups, "weights", "other"].map((key) => groupText(data, key as ThemeGroup | "weights" | "other"))),
       ),
@@ -72,9 +77,10 @@ const check: Command = {
   options: [fileOption],
   examples: [`${manifest.bin} theme check`, `${manifest.bin} theme check --file app/globals.css --json`],
   exitCodes: [...codes, ExitCode.CHECK_FAILED],
-  run: ({ options }) => {
+  run: async ({ options, stderr }) => {
     const cwd = process.cwd();
-    const theme = readTheme(cwd, { file: options.file as string | undefined });
+    const theme = await readTheme(cwd, { file: options.file as string | undefined });
+    for (const warning of theme.warnings) stderr(`Warning: ${warning}`);
     const result = checkTheme(theme, { requiredRoles: requiredThemeRoles(cwd) });
     const failures = result.contrast.filter(({ status }) => status === "fail" || status === "unresolved")
       .map(({ mode, foreground, background, ratio }) =>

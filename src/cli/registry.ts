@@ -141,6 +141,13 @@ export const GLOBAL_OPTIONS: readonly OptionDefinition[] = Object.freeze([
     description: "Disable ANSI colors in text output. Same as NO_COLOR=1.",
     recursive: true,
   },
+  {
+    name: "--project",
+    aliases: ["-C"],
+    argument: { name: "dir" },
+    description: "Run from this project directory. Defaults to DESIGNFY_PROJECT or the current directory.",
+    recursive: true,
+  },
 ]);
 
 /** Finds a subcommand by name or alias. */

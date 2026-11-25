@@ -4,8 +4,9 @@ import { dirname, resolve } from "node:path";
 import { classifyFsError, error } from "../app/errors.ts";
 import { ExitCode } from "../app/exit-codes.ts";
 import { parseColor, toHex, wcagContrast, type Oklch } from "./color.ts";
-import { readProjectConfig, resolveProject } from "./project.ts";
+import { detectProject, readProjectConfig, resolveProject } from "./project.ts";
 import { loadRegistry } from "./registry.ts";
+import { readTailwindConfig } from "./theme-config.ts";
 
 export const themeGroups = ["colors", "fonts", "text", "radius", "spacing", "shadows", "breakpoints", "motion"] as const;
 export type ThemeGroup = (typeof themeGroups)[number];
@@ -27,9 +28,16 @@ export interface ThemeTextToken extends ThemeToken {
   lineHeight: ThemeToken | null;
 }
 
-export interface Theme {
+/** Tailwind version, sources and diagnostics shared by full and group results. */
+export interface ThemeSources {
   file: string;
   files: string[];
+  tailwind: 3 | 4;
+  configFile: string | null;
+  warnings: string[];
+}
+
+export interface Theme extends ThemeSources {
   colors: ThemeToken[];
   fonts: ThemeToken[];
   text: ThemeTextToken[];
@@ -55,8 +63,7 @@ interface ContrastCheck {
   status: "pass" | "fail" | "missing" | "unresolved";
 }
 
-export interface ThemeCheck {
-  file: string;
+export interface ThemeCheck extends ThemeSources {
   ok: boolean;
   contrast: ContrastCheck[];
   missingRoles: { role: string; modes: Mode[] }[];
@@ -154,16 +161,18 @@ function cssFiles(directory: string): string[] {
   }
 }
 
-function containsTailwind(file: string, active = new Set<string>()): boolean {
+function containsTailwind(file: string, tailwind: 3 | 4, active = new Set<string>()): boolean {
   const key = realpathSync(file);
   if (active.has(key)) return false;
   active.add(key);
   try {
     for (const statement of statements(readCss(file))) {
       const target = importTarget(statement);
-      if (target === "tailwindcss") return true;
+      if (tailwind === 3
+        ? target === "tailwindcss/base" || (!statement.opens && /^@tailwind\s+base$/i.test(statement.text))
+        : target === "tailwindcss") return true;
       const imported = target && localImport(file, target);
-      if (imported && isFile(imported) && containsTailwind(imported, active)) return true;
+      if (imported && isFile(imported) && containsTailwind(imported, tailwind, active)) return true;
     }
     return false;
   } finally {
@@ -180,44 +189,54 @@ export function findThemeFile(cwd: string, override?: string): string {
     throw error.notFound(`Theme stylesheet not found: ${file}. Run "${hint}".`, { file, hint });
   }
 
+  return discoverThemeFile(cwd, detectProject(cwd).tailwind === 3 ? 3 : 4);
+}
+
+function discoverThemeFile(cwd: string, tailwind: 3 | 4): string {
+  const hint = "designfy components add designfy-theme";
   const styles = readProjectConfig(cwd)?.paths?.styles ?? "src/styles";
   const directories = new Set([styles, "src/styles", "src/app"].map((path) => resolve(cwd, path)));
   for (const directory of directories) {
     const candidates = isFile(directory) ? [directory] : cssFiles(directory);
-    const match = candidates.find((file) => containsTailwind(file));
+    const match = candidates.find((file) => containsTailwind(file, tailwind));
     if (match) return match;
   }
   for (const path of ["src/index.css", "app/globals.css"]) {
     const file = resolve(cwd, path);
-    if (isFile(file) && containsTailwind(file)) return file;
+    if (isFile(file) && containsTailwind(file, tailwind)) return file;
   }
 
   throw error.notFound(`No Tailwind stylesheet found. Run "${hint}".`, { hint });
 }
 
-type Scope = "theme" | "root" | "dark";
+type Scope = "theme" | "root" | Mode;
 interface Frame {
   scope?: Scope;
-  darkMedia: boolean;
+  media?: Mode;
   ignored: boolean;
 }
 
 function frameFor(selector: string, parent?: Frame): Frame {
-  const darkMedia = parent?.darkMedia === true ||
-    /^@media\b[^{}]*\(\s*prefers-color-scheme\s*:\s*dark\s*\)/i.test(selector);
+  const media = /^@media\b[^{}]*\(\s*prefers-color-scheme\s*:\s*(light|dark)\s*\)/i.exec(selector)?.[1]?.toLowerCase() as Mode | undefined;
+  const mode = media ?? parent?.media;
   const root = /(?:^|,)\s*:root\s*(?=,|$)/.test(selector);
-  const dark = /(?:^|,|:root|html)\s*(?:\.dark(?![\w-])|\[\s*data-theme\s*=\s*(?:"dark"|'dark'|dark)\s*\])\s*(?=,|$)/.test(selector);
+  const dataTheme = /(?:^|,)\s*(?::root|html)?\s*\[\s*data-theme\s*=\s*(?:"(light|dark)"|'(light|dark)'|(light|dark))\s*\]\s*(?=,|$)/.exec(selector);
+  const dark = /(?:^|,)\s*(?::root|html)?\s*\.dark\s*(?=,|$)/.test(selector);
   const theme = /^@theme(?:\s|$)/i.test(selector);
-  const ignored = parent?.ignored === true ||
-    (!root && !dark && !theme && !/^@(?:media|supports|layer|container)\b/i.test(selector));
-  const scope = dark || (darkMedia && (root || theme)) ? "dark" : root ? "root" : theme ? "theme" : undefined;
-  return { scope, darkMedia, ignored };
+  const explicit = dark ? "dark" : (dataTheme?.[1] ?? dataTheme?.[2] ?? dataTheme?.[3]) as Mode | undefined;
+  const scope = explicit ?? (root ? mode ?? "root" : theme ? mode ?? "theme" : undefined);
+  const ignored = parent?.ignored === true || (Boolean(explicit && mode && explicit !== mode)) ||
+    (!scope && !/^@(?:media|supports|layer|container)\b/i.test(selector));
+  return { scope, media: mode, ignored };
 }
 
 function collectTokens(file: string) {
   const files = new Set<string>();
   const active = new Set<string>();
-  const declarations = { theme: new Map<string, string>(), root: new Map<string, string>(), dark: new Map<string, string>() };
+  const declarations = {
+    theme: new Map<string, string>(), root: new Map<string, string>(),
+    light: new Map<string, string>(), dark: new Map<string, string>(),
+  };
   const keyframes = new Set<string>();
 
   function visit(path: string): void {
@@ -249,8 +268,12 @@ function collectTokens(file: string) {
   }
 
   visit(file);
-  const light = new Map([...declarations.theme, ...declarations.root]);
-  return { files: [...files], keyframes: [...keyframes], light, dark: new Map([...light, ...declarations.dark]) };
+  const base = [...declarations.theme, ...declarations.root];
+  return {
+    files: [...files], keyframes: [...keyframes],
+    light: new Map([...base, ...declarations.light]),
+    dark: new Map([...base, ...declarations.dark]),
+  };
 }
 
 function closingParen(value: string, start: number): number {
@@ -318,7 +341,7 @@ function resolver(declarations: ReadonlyMap<string, string>) {
     return (output + value.slice(offset)).trim();
   }
 
-  return resolveName;
+  return { resolveName, substitute };
 }
 
 const cssNumber = /^([+-]?(?:\d*\.\d+|\d+\.?\d*)(?:e[+-]?\d+)?)(%|deg|grad|turn|rad)?$/i;
@@ -356,12 +379,11 @@ function cssChannels(value: string): string | null {
   return "#" + values.map((channel) => Math.round(channel * 255).toString(16).padStart(2, "0")).join("");
 }
 
-const namedColors: Record<string, string> = { black: "#000000", white: "#ffffff" };
-
 function readColor(value: string | null): Oklch | null {
   if (value === null) return null;
   try {
-    return parseColor(cssChannels(value) ?? namedColors[value.toLowerCase()] ?? value);
+    const named = /^[a-z]+$/i.test(value) && value.toLowerCase() !== "transparent" ? Bun.color(value, "hex") : null;
+    return parseColor(cssChannels(value) ?? named ?? value);
   } catch {
     return null;
   }
@@ -382,43 +404,69 @@ const semanticColors = new Set([
 
 function classify(name: string): Exclude<ThemeGroup, "motion"> | "motion" | "weights" | "other" {
   if (name.startsWith("--color-") || semanticColors.has(name.slice(2)) || /^--chart-\d+$/.test(name)) return "colors";
-  if (name.startsWith("--font-weight-")) return "weights";
-  if (name.startsWith("--font-")) return "fonts";
-  if (name.startsWith("--text-")) return "text";
+  if (/^--font-weight(?:-|$)/.test(name)) return "weights";
+  if (/^--font(?:-|$)/.test(name)) return "fonts";
+  if (/^--text(?:-|$)/.test(name)) return "text";
   if (/^--radius(?:-|$)/.test(name)) return "radius";
   if (/^--spacing(?:-|$)/.test(name)) return "spacing";
-  if (name.startsWith("--shadow-")) return "shadows";
-  if (name.startsWith("--breakpoint-")) return "breakpoints";
-  if (/^--(?:ease|animate|duration)-/.test(name)) return "motion";
+  if (/^--shadow(?:-|$)/.test(name)) return "shadows";
+  if (/^--breakpoint(?:-|$)/.test(name)) return "breakpoints";
+  if (/^--(?:ease|animate|duration)(?:-|$)/.test(name)) return "motion";
   return "other";
 }
 
-/** Reads Tailwind and shadcn variables, preserving declarations and resolving both theme modes. */
-export function readTheme(cwd: string, { file }: { file?: string } = {}): Theme {
-  const path = findThemeFile(cwd, file);
+/** Selects the source metadata also included with a single token group. */
+export function themeSources({ file, files, tailwind, configFile, warnings }: Theme): ThemeSources {
+  return { file, files, tailwind, configFile, warnings };
+}
+
+/** Reads Tailwind and shadcn tokens, preserving declarations and resolving both theme modes. */
+export async function readTheme(cwd: string, { file }: { file?: string } = {}): Promise<Theme> {
+  const tailwind = detectProject(cwd).tailwind === 3 ? 3 : 4;
+  const path = file === undefined ? discoverThemeFile(cwd, tailwind) : findThemeFile(cwd, file);
   const { files, keyframes, light, dark } = collectTokens(path);
   const resolveLight = resolver(light);
   const resolveDark = resolver(dark);
+  const configFile = tailwind === 3
+    ? ["ts", "mts", "js", "mjs", "cjs"].map((ext) => resolve(cwd, `tailwind.config.${ext}`)).find(isFile) ?? null
+    : null;
+  const warnings: string[] = [];
+  let configTokens = new Map<string, string>();
+  if (configFile) {
+    try {
+      const config = await readTailwindConfig(configFile);
+      configTokens = config.declarations;
+      keyframes.push(...[...config.keyframes].filter((name) => !keyframes.includes(name)));
+    } catch {
+      warnings.push(`Could not load Tailwind config ${configFile}. Showing CSS tokens only. Check the config and its imports.`);
+    }
+  }
   const theme: Theme = {
-    file: path, files, colors: [], fonts: [], text: [], weights: [], radius: [], spacing: [],
+    file: path, files, tailwind, configFile, warnings, colors: [], fonts: [], text: [], weights: [], radius: [], spacing: [],
     shadows: [], breakpoints: [], motion: { tokens: [], keyframes }, other: [],
   };
 
   function token(name: string, isColor = false): ThemeToken {
-    function value(declared: string | undefined, resolved: string | null): ThemeValue | null {
+    function value(declarations: ReadonlyMap<string, string>, resolveValue: ReturnType<typeof resolver>): ThemeValue | null {
+      const config = configTokens.get(name);
+      const declared = config ?? declarations.get(name);
       if (declared === undefined) return null;
+      const resolved = config === undefined
+        ? resolveValue.resolveName(name)
+        : resolveValue.substitute(config.replaceAll("<alpha-value>", "1"));
       const parsed = isColor ? readColor(resolved) : null;
       return { declared, resolved: isColor ? (parsed && toHex(parsed)) : resolved };
     }
-    return { name, light: value(light.get(name), resolveLight(name)), dark: value(dark.get(name), resolveDark(name)) };
+    return { name, light: value(light, resolveLight), dark: value(dark, resolveDark) };
   }
 
-  for (const name of dark.keys()) {
+  const names = new Set([...light.keys(), ...dark.keys(), ...configTokens.keys()]);
+  for (const name of names) {
     const group = classify(name);
     if (group === "text") {
       const companion = `${name}--line-height`;
-      if (name.endsWith("--line-height") && dark.has(name.slice(0, -"--line-height".length))) continue;
-      theme.text.push({ ...token(name), lineHeight: dark.has(companion) ? token(companion) : null });
+      if (name.endsWith("--line-height") && names.has(name.slice(0, -"--line-height".length))) continue;
+      theme.text.push({ ...token(name), lineHeight: names.has(companion) ? token(companion) : null });
     } else if (group === "motion") {
       theme.motion.tokens.push(token(name));
     } else {
@@ -478,5 +526,5 @@ export function checkTheme(theme: Theme, { requiredRoles = [] }: { requiredRoles
     const key = status === "pass" ? "passed" : status === "fail" ? "failed" : status;
     summary[key]++;
   }
-  return { file: theme.file, ok: summary.failed === 0 && summary.unresolved === 0 && !missingRoles.length, contrast, missingRoles, summary };
+  return { ...themeSources(theme), ok: summary.failed === 0 && summary.unresolved === 0 && !missingRoles.length, contrast, missingRoles, summary };
 }

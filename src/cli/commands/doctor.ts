@@ -6,6 +6,8 @@ import { ExitCode } from "../../app/exit-codes.ts";
 import { paths } from "../../config/paths.ts";
 import { getMasterKey, masterKeySource } from "../../config/crypto.ts";
 import { readVault } from "../../config/credentials.ts";
+import { detectProject } from "../../design/project.ts";
+import { tailwindRegistryNote } from "../../design/registry.ts";
 import { findThemeFile } from "../../design/theme.ts";
 import type { Command } from "../registry.ts";
 
@@ -16,7 +18,7 @@ export interface DoctorCheck {
 }
 
 /** Collects independent checks without writing files or exposing secrets. */
-export function collectDoctorChecks(runtime = { version: Bun.version, stdin: Boolean(process.stdin.isTTY), stdout: Boolean(process.stdout.isTTY) }) {
+export function collectDoctorChecks(runtime = { version: Bun.version, stdin: Boolean(process.stdin.isTTY), stdout: Boolean(process.stdout.isTTY) }, cwd = process.cwd()) {
   const checks: DoctorCheck[] = [];
   const add = (name: string, status: DoctorCheck["status"], detail: string) => checks.push({ name, status, detail });
   add("bun", Bun.semver.satisfies(runtime.version, ">=1.4.4") ? "ok" : "fail", `${runtime.version}; minimum 1.4.4`);
@@ -49,7 +51,6 @@ export function collectDoctorChecks(runtime = { version: Bun.version, stdin: Boo
     const executable = Bun.which(program);
     add(program, executable ? "ok" : "warn", executable ?? "Not found on PATH");
   }
-  const cwd = process.cwd();
   for (const file of ["designfy.json", "VIEWSPEC.md"]) {
     try {
       const present = statSync(join(cwd, file)).isFile();
@@ -57,6 +58,14 @@ export function collectDoctorChecks(runtime = { version: Bun.version, stdin: Boo
     } catch (cause) {
       add(file, "warn", (cause as NodeJS.ErrnoException).code === "ENOENT" ? "Not created" : "Cannot access file");
     }
+  }
+  try {
+    const major = detectProject(cwd).tailwind;
+    const note = tailwindRegistryNote(major);
+    add("tailwind", major === null || note ? "warn" : "ok",
+      major === null ? "Tailwind major not detected" : `Tailwind ${major}${note ? `. ${note}` : ""}`);
+  } catch (cause) {
+    add("tailwind", "warn", cause instanceof Error ? cause.message : "Cannot detect Tailwind major");
   }
   try {
     add("tailwind-theme", "ok", findThemeFile(cwd));

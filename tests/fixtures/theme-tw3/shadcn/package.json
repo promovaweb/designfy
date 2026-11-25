@@ -1,0 +1,7 @@
+{
+  "name": "theme-tw3-shadcn-fixture",
+  "private": true,
+  "type": "module",
+  "dependencies": { "react": "^19.0.0" },
+  "devDependencies": { "tailwindcss": "^3.4.17" }
+}

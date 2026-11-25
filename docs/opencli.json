@@ -75,6 +75,24 @@
         "name": "--no-color",
         "description": "Disable ANSI colors in text output. Same as NO_COLOR=1.",
         "recursive": true
+      },
+      {
+        "name": "--project",
+        "description": "Run from this project directory. Defaults to DESIGNFY_PROJECT or the current directory.",
+        "aliases": [
+          "-C"
+        ],
+        "recursive": true,
+        "arguments": [
+          {
+            "name": "dir",
+            "required": true,
+            "arity": {
+              "minimum": 1,
+              "maximum": 1
+            }
+          }
+        ]
       }
     ],
     "commands": [
@@ -1109,6 +1127,10 @@
                 "description": "Replace existing files whose content differs."
               },
               {
+                "name": "--allow-tailwind3",
+                "description": "Copy Tailwind 4 registry files into a Tailwind 3 project with a warning."
+              },
+              {
                 "name": "--dry-run",
                 "description": "Report planned file changes without writing them."
               }
@@ -1140,6 +1162,10 @@
               {
                 "code": 7,
                 "description": "PERMISSION: Permission denied on the file system."
+              },
+              {
+                "code": 10,
+                "description": "CHECK_FAILED: A check reported missing or invalid items."
               }
             ]
           }
@@ -1171,6 +1197,10 @@
           {
             "code": 7,
             "description": "PERMISSION: Permission denied on the file system."
+          },
+          {
+            "code": 10,
+            "description": "CHECK_FAILED: A check reported missing or invalid items."
           }
         ]
       },

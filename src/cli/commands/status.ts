@@ -71,6 +71,8 @@ export const statusCommand: Command = {
         ["TypeScript", data.project.typescript ? "yes" : "no"],
         ["Package manager", data.project.packageManager],
         ["Tailwind major", data.project.tailwind?.toString() ?? "none"],
+        ...(data.project.tailwind !== data.detected.tailwind
+          ? [["Detected Tailwind major", data.detected.tailwind?.toString() ?? "none"] as [string, string]] : []),
         ["shadcn", data.project.shadcn ? "yes" : "no"],
         ["Skills installed", String(data.skillsInstalled)],
         ["Dependencies present", String(data.dependenciesPresent)],

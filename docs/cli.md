@@ -24,6 +24,7 @@
 | `--skill [topic]` | Documentação embutida. Topics: `cli`, `tui`, `mcp`, `config`, `exit-codes`, `reference`. |
 | `--opencli` | Descrição OpenCLI 0.1 da árvore de commands em JSON. |
 | `--no-color` | Desliga cores ANSI. `NO_COLOR=1` tem o mesmo efeito. |
+| `--project <dir>`, `-C <dir>` | Executa na pasta indicada. Sobrescreve `DESIGNFY_PROJECT`. Pasta inexistente sai com 6. |
 
 ## Saída em texto e em JSON
 
@@ -52,14 +53,16 @@ Confira `data.ok` em `doctor`, `data.valid` em `viewspec validate` e
 
 ## Commands
 
-Execute os commands de projeto na raiz do site ou da aplicação. As options
-globais também valem para os subcommands. Use `--skill reference` para
+Os commands de projeto usam a pasta de trabalho. Use `{{bin}} -C ./website status`
+para selecionar a raiz do site a partir de outra pasta. Caminhos relativos
+passados aos commands (como `theme show --file`) partem da raiz selecionada.
+As options globais também valem para os subcommands. Use `--skill reference` para
 consultar argumentos, valores aceitos e exit codes pelo registry.
 
 | Command | Options locais e comportamento |
 | --- | --- |
 | `init` | Detecta framework e Tailwind pelo `package.json`, shadcn pelo `components.json` e gerenciador pelo lockfile. `--framework <framework>`, `--components-path <path>` e `--styles-path <path>` ajustam o resultado. `--dry-run` exibe a proposta. `--force` substitui o arquivo. Sem `package.json`, sai com 6. |
-| `status` | Compara a detecção atual com a configuração em vigor. Conta skills, dependências, itens copiados e viewspecs válidos por status. Mostra o próximo ID livre, o guia com suas contagens e o caminho do CSS do Tailwind. |
+| `status` | Compara a detecção atual com a configuração em vigor. Conta skills, dependências, itens copiados e viewspecs válidos por status. Mostra o próximo ID livre, o guia com suas contagens, o major do Tailwind e o caminho do CSS. |
 | `skills list` | Lista skills internas e externas com estado `project`, `global` ou `no`. `--internal` e `--external` selecionam os tipos. |
 | `skills install [names...]` | Instala nomes indicados ou as recomendações compatíveis com o projeto. `--all` inclui todos os frameworks. `--internal` e `--external` filtram. `--agent <agents>` aceita nomes separados por vírgula. `--global` instala no escopo global. `--dry-run` imprime o plano. Nome desconhecido sai com 6. |
 | `skills update [names...]` | Atualiza as skills instaladas. Sem nomes, atualiza todas no escopo escolhido. `--global` seleciona o escopo global. |
@@ -70,11 +73,11 @@ consultar argumentos, valores aceitos e exit codes pelo registry.
 | `catalog list` | Lista fragmentos por `--surface <surface>` (`site`, `system`, `both`), `--category <id>` e `--kind <kind>` (tipo de tela do viewspec). |
 | `catalog show <id>` | Exibe propósito, anatomia, estados, tokens e fontes de implementação. ID desconhecido sai com 6. |
 | `catalog search <text>` | Busca uma expressão no catálogo. Use aspas quando houver espaços. |
-| `components list` | Lista itens do registro por `--framework <framework>`, `--category <category>` e `--surface <surface>`. Usa o framework do projeto por padrão. Next.js e React com Vite usam o registro React. |
-| `components show <name>` | Exibe arquivos e dependências. `--framework <framework>` escolhe o registro e `--source` inclui o código-fonte. Nome desconhecido sai com 6. |
-| `components add <names...>` | Copia cada item e suas dependências do registro. `--framework <framework>` escolhe o registro. `--path <dir>` substitui a pasta de destino. `--overwrite` substitui arquivos diferentes. `--dry-run` exibe o plano, inclusive dependências pendentes. Sem `--overwrite`, o comando preserva arquivos diferentes e avisa. |
-| `theme show` | Lê o CSS do Tailwind e seus imports locais. `--file <path>` escolhe o CSS. `--group <group>` restringe a `colors`, `fonts`, `text`, `radius`, `spacing`, `shadows`, `breakpoints` ou `motion`. Sem CSS, sai com 6. |
-| `theme check` | Mede o contraste claro e escuro e verifica os papéis do registro. `--file <path>` escolhe o CSS. Sai com 10 por reprovação de contraste, par sem resolução ou papel obrigatório ausente. Pares opcionais com tokens ausentes são pulados e aparecem no resultado. |
+| `components list` | Lista itens do registro por `--framework <framework>`, `--category <category>` e `--surface <surface>`. Usa o framework do projeto por padrão. Next.js e React com Vite usam o registro React. Em Tailwind 3, avisa que os itens usam Tailwind 4. |
+| `components show <name>` | Exibe arquivos e dependências. `--framework <framework>` escolhe o registro e `--source` inclui o código-fonte. Nome desconhecido sai com 6. Em Tailwind 3, exibe o aviso de compatibilidade. |
+| `components add <names...>` | Copia cada item e suas dependências do registro. `--framework <framework>` escolhe o registro. `--path <dir>` substitui a pasta de destino. `--overwrite` substitui arquivos diferentes. `--dry-run` exibe o plano, inclusive dependências pendentes. Sem `--overwrite`, o comando preserva arquivos diferentes e avisa. Em Tailwind 3, sai com 10. `--allow-tailwind3` permite copiar os arquivos com aviso. |
+| `theme show` | Mostra o major, o CSS do Tailwind, seus imports locais e o arquivo de configuração do Tailwind 3, quando encontrado. `--file <path>` escolhe o CSS. `--group <group>` restringe a `colors`, `fonts`, `text`, `radius`, `spacing`, `shadows`, `breakpoints` ou `motion`. Sem CSS, sai com 6. |
+| `theme check` | Mede o contraste claro e escuro e verifica os papéis do registro, incluindo os declarados na configuração do Tailwind 3. `--file <path>` escolhe o CSS. Sai com 10 por reprovação de contraste, par sem resolução ou papel obrigatório ausente. Pares opcionais com tokens ausentes são pulados e aparecem no resultado. |
 | `palette generate` | Gera escalas e tokens claros e escuros com `--base <color>`. `--harmony <harmony>` acrescenta escalas de acento. `--format <format>` aceita `css` (padrão), `json` ou `tailwind`. `--out <file>` grava o resultado. |
 | `palette wheel <color>` | Mostra todas as harmonias em hex e OKLCH. |
 | `palette contrast <foreground> <background>` | Mede WCAG e APCA. `--min <ratio>` faz o command sair com 10 abaixo da razão WCAG indicada, de 1 a 21. |
@@ -93,8 +96,14 @@ consultar argumentos, valores aceitos e exit codes pelo registry.
 | `mcp servers` | Lista servidores sugeridos e seu estado nos arquivos de configuração do projeto. |
 | `mcp setup [servers...]` | Configura os servidores indicados ou os recomendados. `--client <clients>` aceita `claude`, `codex`, `opencode`, `cursor` e `gemini`, separados por vírgula. Usa os clientes detectados ou `claude`. `--force` substitui entradas diferentes e `--dry-run` imprime o plano. ID desconhecido sai com 6. |
 | `skill [topic]` | Tem o mesmo efeito de `--skill`. |
-| `doctor` | Confere o ambiente e a configuração local. Sai com 3 se uma verificação tiver estado `fail`. |
+| `doctor` | Confere o ambiente e a configuração local. Sai com 3 se uma verificação tiver estado `fail`. Mostra o major do Tailwind e avisa sobre o requisito do registro em projetos Tailwind 3. |
 | `completion <shell>` | Gera script para `bash`, `zsh` ou `fish`. |
+
+No Tailwind 3, a descoberta do tema procura `@tailwind base` ou
+`@import "tailwindcss/base"` e `tailwind.config.*` na raiz para completar
+os tokens. Se a configuração não carregar, o resultado traz um aviso e
+os tokens do CSS. Inspecione apenas projetos cujo código você confia,
+pois o comando executa o módulo de configuração.
 
 A paleta aceita `#RGB`, `#RRGGBB` e `oklch(L C H)`. As harmonias são
 `complementary`, `analogous`, `triadic`, `split-complementary`, `tetradic` e
