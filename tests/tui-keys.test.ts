@@ -5,6 +5,15 @@ import { screens } from "../src/tui/screens/index.ts";
 import type { Screen } from "../src/tui/screen.ts";
 import { withTui } from "./tui-fixture.ts";
 
+/** Polls until the predicate holds, rendering between attempts, so slow CI runners do not fail on timing. */
+async function until(setup: { renderOnce(): Promise<void>; renderer: { isDestroyed: boolean } }, predicate: () => boolean, budgetMs = 4000): Promise<void> {
+  const deadline = Date.now() + budgetMs;
+  while (!predicate() && Date.now() < deadline) {
+    await Bun.sleep(10);
+    if (!setup.renderer.isDestroyed) await setup.renderOnce();
+  }
+}
+
 test("Home shows numbered module cards with icons and screen keys", async () => {
   await withTui(async (setup) => {
     const frame = setup.captureCharFrame();
@@ -57,8 +66,7 @@ test("Escape closes help before quitting and reload reports success", async () =
     expect(setup.captureCharFrame()).toContain("Keys");
     setup.mockInput.pressEscape();
     // A lone Escape waits for the input parser to rule out an escape sequence.
-    await Bun.sleep(50);
-    await setup.renderOnce();
+    await until(setup, () => !setup.captureCharFrame().includes("Keys"));
     expect(setup.renderer.isDestroyed).toBe(false);
     expect(setup.captureCharFrame()).not.toContain("Keys");
     setup.mockInput.pressKey("r");
@@ -67,11 +75,11 @@ test("Escape closes help before quitting and reload reports success", async () =
     expect(setup.captureCharFrame()).toContain("Project environment");
     setup.mockInput.pressEscape();
     // A lone Escape waits for the input parser to rule out an escape sequence.
-    await Bun.sleep(50);
+    await until(setup, () => setup.captureCharFrame().split("\n")[0]!.includes("⌂ Home"));
     expect(setup.renderer.isDestroyed).toBe(false);
     expect(setup.captureCharFrame().split("\n")[0]).toContain("⌂ Home");
     setup.mockInput.pressEscape();
-    await Bun.sleep(50);
+    await until(setup, () => setup.renderer.isDestroyed);
     expect(setup.renderer.isDestroyed).toBe(true);
   }, "project");
 });
