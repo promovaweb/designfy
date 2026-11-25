@@ -101,6 +101,11 @@ describe("cli", () => {
     expect(r.code).toBe(0);
     expect(r.stdout).toContain("# CLI");
     expect(r.stdout).toContain("# MCP");
+    expect(r.stdout).toContain("# Arquitetura");
+    expect(r.stdout).toContain("# Contrato do VIEWSPEC.md");
+    const fullJson = await run(["--skill", "--json"]);
+    expect(fullJson.code).toBe(0);
+    expect(JSON.parse(fullJson.stdout).data.markdown).toBe(r.stdout.trimEnd());
     expect(r.stdout).toContain(`\`${manifest.bin} credentials set\``);
     const topic = await run(["--skill", "exit-codes", "--json"]);
     expect(JSON.parse(topic.stdout).data.topic).toBe("exit-codes");

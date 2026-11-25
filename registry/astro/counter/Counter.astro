@@ -1,0 +1,187 @@
+---
+/**
+ * Counter: Displays the final number in markup and animates a presentation-only value when visible.
+ * Motion: An ease-out counter plays once in view. Changes can roll digits or count down.
+ * Catalog: counter
+ */
+import { cn } from "@designfy/components/lib/cn";
+
+interface Props {
+  /** Final value. */
+  value: number;
+  /** Initial value for the animation. */
+  from?: number;
+  /** Text before the number. */
+  prefix?: string;
+  /** Text after the number. */
+  suffix?: string;
+  /** Separate metric label. */
+  label?: string;
+  /** BCP 47 locale used when formatting the value. */
+  locale?: string;
+  /** Animation duration in milliseconds, bounded to 600–1200. */
+  duration?: number;
+  /** Count once in view, roll changed digits, or count down from the starting value. */
+  variant?: "once" | "roll" | "countdown";
+  /** Politely announce changes to the final number. */
+  live?: boolean;
+  /** Additional classes on the root element. */
+  class?: string;
+}
+
+const {
+  value,
+  from = 0,
+  prefix = "",
+  suffix = "",
+  label,
+  locale = "en",
+  duration = 900,
+  variant = "once",
+  live = false,
+  class: className,
+} = Astro.props;
+const formatted = Number.isFinite(value)
+  ? value.toLocaleString(locale, { maximumFractionDigits: 12 })
+  : String(value);
+---
+
+<span
+  data-site-counter
+  data-state="idle"
+  data-value={value}
+  data-from={from}
+  data-duration={duration}
+  data-variant={variant}
+  lang={locale}
+  class={cn(
+    "inline-flex max-w-full flex-col font-heading tabular-nums",
+    className,
+  )}
+>
+  <span class="sr-only" aria-live={live ? "polite" : undefined}
+    >{prefix}{formatted}{suffix}</span
+  >
+  <span aria-hidden="true" class="inline-grid">
+    <span class="invisible col-start-1 row-start-1"
+      >{prefix}{formatted}{suffix}</span
+    >
+    <span class="col-start-1 row-start-1"
+      >{prefix}<span data-counter-number>{formatted}</span>{suffix}</span
+    >
+  </span>
+  {
+    label && (
+      <span class="mt-2 font-sans text-sm text-muted-foreground">{label}</span>
+    )
+  }
+</span>
+
+<script is:inline>
+  (() => {
+    function bind(root) {
+      const number = root.querySelector("[data-counter-number]");
+      if (!number) return;
+      const target = Number(root.dataset.value);
+      const startValue = Number(root.dataset.from);
+      const duration = Math.min(
+        1200,
+        Math.max(600, Number(root.dataset.duration) || 900),
+      );
+      const format = new Intl.NumberFormat(root.lang, {
+        maximumFractionDigits: 12,
+      });
+      const final = format.format(target);
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+      if (
+        reduced.matches ||
+        !Number.isFinite(target) ||
+        !Number.isFinite(startValue)
+      ) {
+        root.dataset.state = "done";
+        return;
+      }
+      let frame = 0;
+      function enter() {
+        if (root.dataset.variant === "roll") {
+          const previous = root.dataset.previous;
+          root.dataset.previous = final;
+          root.dataset.state = "done";
+          if (previous === undefined || previous === final || !number) return;
+          const changed = Array.from(final, (char, index) => {
+            const digit = document.createElement("span");
+            digit.textContent = char;
+            digit.className = "inline-block";
+            if (
+              /\d/.test(char) &&
+              char !== previous[previous.length - final.length + index]
+            ) {
+              digit.classList.add("animate-df-fade-up");
+            }
+            return digit;
+          });
+          number.replaceChildren(...changed);
+          return;
+        }
+        const initial =
+          root.dataset.variant === "countdown"
+            ? Math.max(target, startValue)
+            : startValue;
+        const started = performance.now();
+        root.dataset.state = "counting";
+        function tick(now) {
+          if (!number) return;
+          const elapsed = reduced.matches
+            ? 1
+            : Math.min(1, (now - started) / duration);
+          const progress = 1 - (1 - elapsed) ** 4;
+          number.textContent =
+            elapsed === 1
+              ? final
+              : format.format(initial + (target - initial) * progress);
+          if (elapsed < 1) frame = requestAnimationFrame(tick);
+          else root.dataset.state = "done";
+        }
+        frame = requestAnimationFrame(tick);
+      }
+      const observer =
+        root.dataset.variant !== "roll" && "IntersectionObserver" in window
+          ? new IntersectionObserver((entries) => {
+              if (!entries.some((entry) => entry.isIntersecting)) return;
+              enter();
+              observer?.disconnect();
+            })
+          : undefined;
+      if (observer) observer.observe(root);
+      else enter();
+      return () => {
+        cancelAnimationFrame(frame);
+        observer?.disconnect();
+      };
+    }
+
+    function prepare() {
+      document
+        .querySelectorAll("[data-site-counter]:not([data-site-bound])")
+        .forEach((root) => {
+          root.setAttribute("data-site-bound", "");
+          const dispose = bind(root);
+          if (dispose)
+            document.addEventListener(
+              "astro:before-swap",
+              () => {
+                dispose();
+                root.removeAttribute("data-site-bound");
+              },
+              { once: true },
+            );
+        });
+    }
+
+    prepare();
+    if (!document.documentElement.hasAttribute("data-site-counter-listener")) {
+      document.documentElement.setAttribute("data-site-counter-listener", "");
+      document.addEventListener("astro:page-load", prepare);
+    }
+  })();
+</script>

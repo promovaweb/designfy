@@ -1,0 +1,10 @@
+/* Provides both the Tailwind import and an intentional local import cycle. */
+@import "tailwindcss";
+@import "./globals.css";
+@import url("./type.css");
+:root { --background: #fff; --foreground: #000; }
+@media (prefers-color-scheme: dark) {
+  @layer base {
+    :root { --background: #111; --foreground: #fff; }
+  }
+}

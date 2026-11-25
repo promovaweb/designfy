@@ -1,0 +1,242 @@
+---
+/**
+ * HeroMedia: Opens with art-directed imagery or optional silent video behind the headline.
+ * Motion: The hero copy fades in, and foreground users can pause any decorative media motion.
+ * Catalog: hero-media
+ */
+import { cn } from "@designfy/components/lib/cn";
+
+type Action = { label: string; href: string };
+type Image = {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  mobileSrc?: string;
+  position?: string;
+};
+
+interface Props {
+  /** Page headline. */
+  headline: string;
+  /** Supporting sentence. */
+  lead: string;
+  /** Main link. */
+  primaryAction: Action;
+  /** Desktop image and optional mobile crop. Also serves as the video poster. */
+  image: Image;
+  /** Optional video source for wide screens without data saver. */
+  video?: string;
+  /** Heading level. Use one when this is the page hero. */
+  headingLevel?: 1 | 2;
+  /** Text over a scrim or within a solid panel. */
+  variant?: "overlay" | "panel";
+  /** Name of the pause control. */
+  pauseLabel?: string;
+  /** Name of the resume control. */
+  resumeLabel?: string;
+  /** Additional classes on the root element. */
+  class?: string;
+}
+
+const {
+  headline,
+  lead,
+  primaryAction,
+  image,
+  video,
+  headingLevel = 1,
+  variant = "overlay",
+  pauseLabel = "Pause background motion",
+  resumeLabel = "Resume background motion",
+  class: className,
+} = Astro.props;
+const Heading = headingLevel === 1 ? "h1" : "h2";
+---
+
+<section
+  data-site-hero-media
+  class={cn(
+    "relative isolate flex min-h-[min(42rem,75svh)] flex-col justify-end overflow-hidden bg-muted",
+    className,
+  )}
+>
+  <picture class="absolute inset-0 -z-20 block overflow-hidden">
+    {
+      image.mobileSrc && (
+        <source srcset={image.mobileSrc} media="(max-width: 767px)" />
+      )
+    }
+    <img
+      src={image.src}
+      alt={image.alt}
+      width={image.width}
+      height={image.height}
+      style={`--media-position: ${image.position ?? "center"}`}
+      fetchpriority="high"
+      class="size-full object-cover object-(--media-position) motion-safe:[animation:site-media-scale_12s_var(--ease-out-quart)_both]"
+    />
+  </picture>
+  {
+    video && (
+      <video
+        hidden
+        muted
+        loop
+        playsinline
+        aria-hidden="true"
+        preload="none"
+        poster={image.src}
+        data-src={video}
+        class="pointer-events-none absolute inset-0 -z-20 size-full object-cover [&[hidden]]:hidden!"
+      />
+    )
+  }
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0 -z-10 bg-linear-to-t from-background via-background/95 to-background/15"
+  >
+  </div>
+  <div class="df-container py-14 md:py-20">
+    <div
+      class={cn(
+        "max-w-2xl animate-df-fade-in",
+        variant === "panel" && "rounded-2xl bg-background p-6 sm:p-10",
+      )}
+    >
+      <Heading class="break-words font-heading text-display font-semibold"
+        >{headline}</Heading
+      >
+      <p class="mt-4 max-w-prose text-lead text-muted-foreground">{lead}</p>
+      <a
+        href={primaryAction.href}
+        class="df-press inline-flex min-h-12 min-w-11 items-center justify-center rounded-lg bg-primary px-5 py-2 text-center text-sm font-semibold text-primary-foreground hover:bg-primary/90 mt-6 w-full min-[480px]:w-auto"
+        >{primaryAction.label}</a
+      >
+    </div>
+    <button
+      hidden
+      type="button"
+      data-media-pause
+      data-pause={pauseLabel}
+      data-resume={resumeLabel}
+      aria-pressed="false"
+      class="df-press mt-4 min-h-11 min-w-11 rounded-lg bg-background px-3 text-sm [&[hidden]]:hidden!"
+      >{pauseLabel}</button
+    >
+  </div>
+  <style is:inline>
+    @keyframes site-media-scale {
+      to {
+        transform: scale(1.05);
+      }
+    }
+  </style>
+</section>
+
+<script is:inline>
+  (() => {
+    function bind(root) {
+      const abort = new AbortController();
+      const control = root.querySelector("[data-media-pause]");
+      const picture = root.querySelector("picture");
+      const video = root.querySelector("video");
+      const media = matchMedia("(min-width: 768px)");
+      const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+      let visible = true;
+      let paused = false;
+      function sync() {
+        const connection = navigator.connection;
+        const videoAllowed =
+          media.matches && !reduced.matches && !connection?.saveData;
+        const active =
+          visible &&
+          !paused &&
+          !reduced.matches &&
+          !root.matches(":hover, :focus-within");
+        picture?.toggleAttribute("data-df-paused", !active);
+        if (control) control.hidden = reduced.matches;
+        if (!video) return;
+        video.hidden = !videoAllowed || !video.getAttribute("src");
+        if (videoAllowed && active) {
+          if (!video.getAttribute("src") && video.dataset.src)
+            video.src = video.dataset.src;
+          video
+            .play()
+            .then(() => {
+              if (!video.paused) video.hidden = false;
+            })
+            .catch(() => {
+              video.hidden = true;
+            });
+        } else video.pause();
+      }
+      for (const name of [
+        "pointerenter",
+        "pointerleave",
+        "focusin",
+        "focusout",
+      ]) {
+        root.addEventListener(name, () => queueMicrotask(sync), {
+          signal: abort.signal,
+        });
+      }
+      control?.addEventListener(
+        "click",
+        () => {
+          paused = !paused;
+          control.setAttribute("aria-pressed", String(paused));
+          control.textContent =
+            (paused ? control.dataset.resume : control.dataset.pause) ?? "";
+          sync();
+        },
+        { signal: abort.signal },
+      );
+      for (const query of [media, reduced])
+        query.addEventListener("change", sync, { signal: abort.signal });
+      const observer =
+        "IntersectionObserver" in window
+          ? new IntersectionObserver(([entry]) => {
+              visible = entry.isIntersecting;
+              sync();
+            })
+          : undefined;
+      observer?.observe(root);
+      sync();
+      return () => {
+        abort.abort();
+        observer?.disconnect();
+        video?.pause();
+      };
+    }
+
+    function prepare() {
+      document
+        .querySelectorAll("[data-site-hero-media]:not([data-site-bound])")
+        .forEach((root) => {
+          root.setAttribute("data-site-bound", "");
+          const dispose = bind(root);
+          if (dispose)
+            document.addEventListener(
+              "astro:before-swap",
+              () => {
+                dispose();
+                root.removeAttribute("data-site-bound");
+              },
+              { once: true },
+            );
+        });
+    }
+
+    prepare();
+    if (
+      !document.documentElement.hasAttribute("data-site-hero-media-listener")
+    ) {
+      document.documentElement.setAttribute(
+        "data-site-hero-media-listener",
+        "",
+      );
+      document.addEventListener("astro:page-load", prepare);
+    }
+  })();
+</script>

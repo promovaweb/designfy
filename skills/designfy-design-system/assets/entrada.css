@@ -1,0 +1,22 @@
+/*
+ * CSS de entrada do projeto: a ordem dos imports importa.
+ * Astro: src/styles/global.css · React com Vite: src/index.css · Next.js: app/globals.css
+ */
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* Fontes servidas do próprio projeto (só as usadas em --df-font-*). */
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/manrope";
+
+/* Tokens do tema: única fonte de cor, tipo, forma e movimento. */
+@import "./designfy-theme.css";
+
+/* Animações, revelações e utilidades de movimento. */
+@import "./designfy-motion.css";
+
+/* Presets de fundo (opcional; só se o projeto usa o componente Background). */
+@import "./designfy-backgrounds.css";
+
+/* Estilos de texto longo, usados pelo componente prose. */
+@plugin "@tailwindcss/typography";

@@ -1,0 +1,7 @@
+@import "./styles/designfy-theme.css";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "./styles/designfy-motion.css";
+@import "./styles/designfy-backgrounds.css";
+
+@source "./components/designfy";

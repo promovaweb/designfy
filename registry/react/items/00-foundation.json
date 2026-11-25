@@ -1,0 +1,249 @@
+[
+  {
+    "name": "cn",
+    "type": "registry:lib",
+    "title": "Class name helper",
+    "description": "Combines conditional classes and resolves conflicting Tailwind utilities.",
+    "categories": [
+      "utilities"
+    ],
+    "dependencies": [
+      "clsx",
+      "tailwind-merge"
+    ],
+    "devDependencies": [],
+    "registryDependencies": [],
+    "files": [
+      {
+        "path": "registry/react/lib/cn.ts",
+        "type": "registry:lib",
+        "target": "lib/cn.ts"
+      }
+    ],
+    "meta": {
+      "motion": false,
+      "surface": "both"
+    }
+  },
+  {
+    "name": "designfy-theme",
+    "type": "registry:style",
+    "title": "Designfy theme",
+    "description": "Defines theme roles, type scales, radii, layout utilities, and motion tokens for Tailwind CSS.",
+    "categories": [
+      "styles"
+    ],
+    "dependencies": [],
+    "devDependencies": [
+      "tailwindcss@^4"
+    ],
+    "registryDependencies": [],
+    "files": [
+      {
+        "path": "registry/shared/styles/designfy-theme.css",
+        "type": "registry:style",
+        "target": "designfy-theme.css"
+      }
+    ],
+    "meta": {
+      "motion": false,
+      "surface": "both",
+      "targetRoot": "styles"
+    }
+  },
+  {
+    "name": "designfy-motion",
+    "type": "registry:style",
+    "title": "Designfy motion",
+    "description": "Provides Tailwind animation utilities and styles for reveals, interactions, and reduced motion.",
+    "categories": [
+      "styles"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "designfy-theme",
+      "designfy-motion-runtime"
+    ],
+    "files": [
+      {
+        "path": "registry/shared/styles/designfy-motion.css",
+        "type": "registry:style",
+        "target": "designfy-motion.css"
+      }
+    ],
+    "meta": {
+      "motion": true,
+      "surface": "both",
+      "targetRoot": "styles"
+    }
+  },
+  {
+    "name": "designfy-motion-runtime",
+    "type": "registry:lib",
+    "title": "Designfy motion runtime",
+    "description": "Observes reveals, pauses offscreen loops, and starts counters as they enter view.",
+    "categories": [
+      "utilities"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [],
+    "files": [
+      {
+        "path": "registry/shared/scripts/designfy-motion.ts",
+        "type": "registry:lib",
+        "target": "lib/designfy-motion.ts"
+      }
+    ],
+    "meta": {
+      "motion": true,
+      "surface": "both"
+    }
+  },
+  {
+    "name": "background-styles",
+    "type": "registry:style",
+    "title": "Background pattern styles",
+    "description": "Provides theme-driven CSS for all background presets, fades, and reduced motion.",
+    "categories": [
+      "layout"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [],
+    "files": [
+      {
+        "path": "registry/shared/backgrounds/designfy-backgrounds.css",
+        "type": "registry:style",
+        "target": "designfy-backgrounds.css"
+      }
+    ],
+    "meta": {
+      "motion": true,
+      "surface": "both",
+      "targetRoot": "styles",
+      "catalog": "background-pattern"
+    }
+  },
+  {
+    "name": "background",
+    "type": "registry:component",
+    "title": "Background pattern",
+    "description": "Places a theme-driven pattern and an optional fade behind React content.",
+    "categories": [
+      "layout"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "background-styles"
+    ],
+    "files": [
+      {
+        "path": "registry/react/background/background.tsx",
+        "type": "registry:component",
+        "target": "background/background.tsx"
+      },
+      {
+        "path": "registry/react/background/presets.ts",
+        "type": "registry:lib",
+        "target": "background/presets.ts"
+      }
+    ],
+    "meta": {
+      "motion": true,
+      "surface": "both",
+      "targetRoot": "components",
+      "catalog": "background-pattern"
+    }
+  },
+  {
+    "name": "reveal",
+    "type": "registry:component",
+    "title": "Reveal",
+    "description": "Reveals content once on scroll and can stagger its children.",
+    "categories": [
+      "motion"
+    ],
+    "dependencies": [
+      "motion"
+    ],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/reveal/reveal.tsx",
+        "type": "registry:component",
+        "target": "reveal/reveal.tsx"
+      }
+    ],
+    "meta": {
+      "motion": true,
+      "surface": "both",
+      "catalog": "reveal"
+    }
+  },
+  {
+    "name": "section",
+    "type": "registry:component",
+    "title": "Section",
+    "description": "Wraps page content with shared spacing, optional heading and lead, and a choice of surfaces.",
+    "categories": [
+      "layout"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-theme",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/section/section.tsx",
+        "type": "registry:component",
+        "target": "section/section.tsx"
+      }
+    ],
+    "meta": {
+      "motion": true,
+      "surface": "both",
+      "catalog": "section"
+    }
+  },
+  {
+    "name": "hero-split",
+    "type": "registry:component",
+    "title": "Split hero",
+    "description": "Pairs a headline and actions with a framed visual in a responsive, animated layout.",
+    "categories": [
+      "hero"
+    ],
+    "dependencies": [
+      "motion"
+    ],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-theme",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/hero-split/hero-split.tsx",
+        "type": "registry:component",
+        "target": "hero-split/hero-split.tsx"
+      }
+    ],
+    "meta": {
+      "motion": true,
+      "surface": "site",
+      "catalog": "hero-split"
+    }
+  }
+]

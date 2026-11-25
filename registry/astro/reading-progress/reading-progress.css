@@ -1,0 +1,53 @@
+/*
+ * Reading progress: a thin bar fixed to the top edge that fills with the
+ * scroll of the page.
+ *
+ * The fill scales on the X axis from a scroll timeline, so the bar needs no
+ * script. Browsers without scroll-driven animations hide the bar instead of
+ * showing a line that never moves, and reduced motion hides it too.
+ */
+
+.df-reading-progress {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: 30;
+  height: 2px;
+  pointer-events: none;
+  background-color: transparent;
+}
+
+.df-reading-progress-fill {
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  background-color: var(--primary);
+}
+
+@supports (animation-timeline: scroll()) {
+  .df-reading-progress-fill {
+    animation: df-reading-progress linear both;
+    animation-timeline: scroll(root block);
+  }
+}
+
+@supports not (animation-timeline: scroll()) {
+  .df-reading-progress {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .df-reading-progress {
+    display: none;
+  }
+}
+
+@keyframes df-reading-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}

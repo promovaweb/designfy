@@ -1,0 +1,82 @@
+---
+/**
+ * AuthorBox: says who wrote the content, with the short bio and the links of
+ * the person.
+ *
+ * The avatar sits above the text on phones and beside it from 640 px. The name
+ * is a heading at `headingLevel`; every link carries its own name. Without a
+ * bio or links the block keeps only what it received.
+ *
+ * Slots: none.
+ * Motion: the block reveals once when it enters the viewport, through Reveal
+ * and the motion runtime. Under reduced motion it starts in its final state.
+ *
+ * Catalog: author-box
+ */
+import Reveal from "@designfy/components/reveal/Reveal.astro";
+
+interface Avatar {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+}
+
+interface Link {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  /** Name of the person. */
+  name: string;
+  /** What the person does, in a few words. */
+  role?: string;
+  /** Two or three sentences about the person. */
+  bio?: string;
+  /** Portrait of the person. */
+  avatar?: Avatar;
+  /** Official links of the person. */
+  links?: Link[];
+  /** Heading level of the name. Default 3. */
+  headingLevel?: 2 | 3 | 4;
+  class?: string;
+}
+
+const { name, role, bio, avatar, links, headingLevel = 3, class: className } = Astro.props;
+const Heading = `h${headingLevel}` as "h2" | "h3" | "h4";
+---
+
+<Reveal class:list={["flex flex-col gap-5 rounded-xl border border-border bg-card p-6 sm:flex-row sm:items-start md:p-8", className]}>
+  {
+    avatar && (
+      <img
+        src={avatar.src}
+        alt={avatar.alt}
+        width={avatar.width}
+        height={avatar.height}
+        loading="lazy"
+        decoding="async"
+        class="size-16 shrink-0 rounded-full bg-muted object-cover"
+      />
+    )
+  }
+  <div class="flex min-w-0 flex-col gap-2">
+    <Heading class="font-heading text-title font-semibold text-foreground">{name}</Heading>
+    {role && <p class="text-sm font-medium text-primary">{role}</p>}
+    {bio && <p class="max-w-[60ch] text-sm leading-relaxed text-muted-foreground">{bio}</p>}
+    {
+      links && links.length > 0 && (
+        <ul class="mt-1 flex flex-wrap gap-x-5 gap-y-1">
+          {links.map((link) => (
+            <li>
+              <a href={link.href} class="df-underline inline-flex min-h-11 items-center text-sm font-medium text-foreground sm:min-h-6">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</Reveal>

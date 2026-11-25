@@ -10,6 +10,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { paths, exists, ensureBaseDir } from "./paths.ts";
 import { classifyFsError, error } from "../app/errors.ts";
 import { ExitCode } from "../app/exit-codes.ts";
+import { screenIds } from "../tui/screens/ids.ts";
 
 /** Type accepted by a settings key. */
 export type SettingType = "string" | "number" | "boolean" | "enum";
@@ -43,8 +44,8 @@ export const SETTINGS_SCHEMA: readonly SettingDefinition[] = Object.freeze([
     key: "tui.initialTab",
     type: "enum",
     default: "overview",
-    values: ["overview", "settings", "credentials", "docs", "about"],
-    description: "Tab opened when the TUI starts.",
+    values: screenIds,
+    description: "Screen opened when the TUI starts. The overview ID opens Home.",
   },
   {
     key: "tui.theme",
@@ -70,7 +71,38 @@ export const SETTINGS_SCHEMA: readonly SettingDefinition[] = Object.freeze([
     key: "tui.mouse",
     type: "boolean",
     default: true,
-    description: "Mouse support in the TUI: click tabs, key bar items, help rows and list rows; wheel scrolls. Turn off to let the terminal select text.",
+    description: "Mouse support in the TUI: click cards, key bar items, help rows and list rows; wheel scrolls. Turn off to let the terminal select text.",
+  },
+  {
+    key: "skills.source",
+    type: "string",
+    default: "promovaweb/designfy",
+    description: "Repository source for internal skills.",
+  },
+  {
+    key: "skills.agents",
+    type: "string",
+    default: "universal,claude-code,codex,opencode",
+    description: "Comma-separated list of agents that receive installed skills.",
+  },
+  {
+    key: "deps.packageManager",
+    type: "enum",
+    values: ["auto", "npm", "pnpm", "bun", "yarn"],
+    default: "auto",
+    description: "Package manager used to install dependencies. Auto uses the project configuration or lockfile.",
+  },
+  {
+    key: "capture.viewports",
+    type: "string",
+    default: "mobile,desktop",
+    description: "Comma-separated viewport presets for screen captures.",
+  },
+  {
+    key: "capture.outDir",
+    type: "string",
+    default: ".designfy/captures",
+    description: "Project-relative directory for capture runs.",
   },
   {
     key: "telemetry.enabled",

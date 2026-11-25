@@ -30,6 +30,8 @@ export const ExitCode = {
   NO_TTY: 8,
   /** The MCP server failed to start or lost the stdio transport. */
   MCP: 9,
+  /** A check reported missing or invalid items. */
+  CHECK_FAILED: 10,
   /** User input cancelled or process interrupted (Ctrl+C). */
   INTERRUPTED: 130,
 } as const;
@@ -49,6 +51,7 @@ export const exitCodeDescriptions: ReadonlyArray<{ code: ExitCode; name: string;
     { code: ExitCode.PERMISSION, name: "PERMISSION", description: "Permission denied on the file system." },
     { code: ExitCode.NO_TTY, name: "NO_TTY", description: "The TUI requires an interactive terminal (TTY)." },
     { code: ExitCode.MCP, name: "MCP", description: "The MCP server failed to start or lost the stdio transport." },
+    { code: ExitCode.CHECK_FAILED, name: "CHECK_FAILED", description: "A check reported missing or invalid items." },
     { code: ExitCode.INTERRUPTED, name: "INTERRUPTED", description: "Input cancelled or process interrupted." },
   ]);
 

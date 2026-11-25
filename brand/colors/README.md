@@ -1,18 +1,17 @@
-# Paleta do Termfy Starter Kit
+# Paleta do Designfy
 
-| Família | Base | Papel |
+| Cor | Valor | Uso |
 | --- | --- | --- |
-| Petróleo | `#00161E` | estrutura, texto e superfícies escuras |
-| Turquesa | `#2AD5BE` | janela do terminal e vínculo com a Promovaweb |
-| Lima | `#A3E635` | conector com agentes pelo MCP |
+| Petróleo | `#00161E` | Placa do ícone, traços e nome na variante clara |
+| Menta | `#C6F4ED` | Traços sobre a placa e na variante escura |
+| Turquesa | `#2AD5BE` | Base da família primária da Promovaweb |
+| Âmbar | `#FFB224` | Componente e rastro do ícone. Acento semântico no tema escuro |
+| Âmbar escuro | `#996300` | Acento semântico no tema claro |
+| Neutro claro | `#F2F8F9` | Superfície clara, texto e nome da assinatura no tema escuro |
 
-O símbolo usa lima `#A3E635` (500) sobre petróleo e `#4D7C0F` (600) na versão
-para fundo claro. A escala do acento segue a escala `lime` do Tailwind,
-ajustada para manter esses dois valores.
+As famílias `primary` e `neutral` usam as mesmas escalas do Herdrfy. O
+Brandfy gera a escala `accent` de 50 a 950 a partir do âmbar em `accent.500`.
+O token `accent` aplica o tom de cada tema.
 
-No light mode, use acento textual `#4D7C0F`. No dark mode, use `#A3E635`.
-A escala completa e os estados ficam em `palette.json`; os pares aprovados
-ficam em `../accessibility.md`.
-
-Esta paleta vale para a marca do projeto no GitHub. As cores da TUI do
-binário ficam em `src/tui/theme.ts`.
+Consulte as escalas em [palette.json](palette.json) e as medições em
+[accessibility.md](../accessibility.md).

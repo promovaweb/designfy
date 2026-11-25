@@ -24,6 +24,7 @@ import {
   button,
   link,
 } from "../components.ts";
+import { SHORT_HEIGHT } from "../spacing.ts";
 import type { Screen, ScreenContext } from "../screen.ts";
 
 /** Copies the repository URL, falling back to the project site. */
@@ -50,6 +51,11 @@ function copyLink(ctx: ScreenContext): void {
   else ctx.notify("This terminal does not accept clipboard writes (OSC 52)", "warn");
 }
 
+function aboutLayout(ctx: ScreenContext) {
+  const layout = ctx.layout();
+  return { compact: layout === "compact", layout, short: ctx.short?.() ?? ctx.renderer.height < SHORT_HEIGHT };
+}
+
 export const aboutScreen: Screen = {
   id: "about",
   title: "About",
@@ -60,11 +66,10 @@ export const aboutScreen: Screen = {
     const { renderer, theme } = ctx;
     const d = aboutData();
     ctx.status(`${d.title} v${d.version}`);
-    const layout = ctx.layout();
-    const compact = layout === "compact";
+    const { layout, compact, short } = aboutLayout(ctx);
     const space = ctx.space;
     const root = new BoxRenderable(renderer, { flexDirection: "row", flexGrow: 1, minHeight: 0, gap: space.gapX });
-    const shared = compact ? scrollPanel(renderer, theme, { title: "About", active: true }) : undefined;
+    const shared = compact ? scrollPanel(renderer, theme, { title: "About", active: true, focusKey: "Tab" }) : undefined;
     const left = new BoxRenderable(renderer, { flexDirection: "column", flexGrow: 1, flexBasis: 0, minWidth: 0, minHeight: 0, gap: space.gapY });
     const right = new BoxRenderable(renderer, { flexDirection: "column", flexGrow: 1, flexBasis: 0, minWidth: 0, minHeight: 0, gap: space.gapY });
     if (shared) root.add(shared);
@@ -77,7 +82,7 @@ export const aboutScreen: Screen = {
         shared.add(heading(renderer, theme, title));
         return shared;
       }
-      const card = scrollPanel(renderer, theme, { title, height, flexGrow: 0, active: title === "Binary" });
+      const card = scrollPanel(renderer, theme, { title, height, flexGrow: 0, focusKey: "Tab", active: title === "Binary" });
       card.flexShrink = 1;
       column.add(card);
       return card;
@@ -125,7 +130,7 @@ export const aboutScreen: Screen = {
     const creditLines = d.credits.reduce((total, credit) => total + 1 + Math.ceil(Bun.stringWidth(credit.role) / creditWidth), 0);
     const credits = section("Credits", 5 + creditLines + (layout === "wide" ? Math.max(0, d.credits.length - 1) : 0), right);
     d.credits.forEach((credit, index) => {
-      if (index && layout === "wide") credits.add(spacer(renderer, space.gapY));
+      if (index && layout === "wide" && !short) credits.add(spacer(renderer, space.gapY));
       const row = new BoxRenderable(renderer, { flexDirection: "row", height: 1, flexShrink: 0, gap: space.labelGap });
       const name = new TextRenderable(renderer, { content: credit.name, fg: theme.textStrong, flexShrink: 0, wrapMode: "none" });
       row.add(name);

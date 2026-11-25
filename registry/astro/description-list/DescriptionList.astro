@@ -1,0 +1,76 @@
+---
+/** Groups record attributes with inline actions and copy confirmation. Motion: confirmation pops in. Catalog: description-list. */
+interface Props {
+  /** Optional grouping heading. */
+  title?: string;
+  /** Level for the grouping heading. */
+  headingLevel?: 2 | 3 | 4;
+  /** Attributes in reading order. */
+  items: readonly {
+    /** Attribute label. */
+    term: string;
+    /** Value, or an accessible dash when omitted. */
+    value?: string | number;
+    /** Optional clipboard text. */
+    copy?: string;
+    /** Optional inline link. */
+    action?: { href: string; label: string };
+  }[];
+  /** Inline labels, stacked labels, or framed group. */
+  variant?: "columns" | "stacked" | "card";
+  /** Additional classes. */
+  class?: string;
+}
+const { title, headingLevel = 2, items, variant = "columns", class: className } = Astro.props;
+const Heading = `h${headingLevel}` as const;
+---
+<section data-description-list class:list={["min-w-0", variant === "card" && "rounded-xl border border-border bg-card p-5 sm:p-6", className]}>
+  {title && <Heading class="mb-3 font-heading text-lg font-semibold">{title}</Heading>}
+  <dl class="divide-y divide-border">
+    {items.map((item) => <div class:list={["grid min-w-0 gap-1 py-3", variant !== "stacked" && "sm:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] sm:items-baseline sm:gap-4"]}>
+      <dt class="text-sm text-muted-foreground">{item.term}</dt>
+      <dd class="flex min-w-0 flex-wrap items-center gap-x-2 text-sm font-medium">
+        <span class="min-w-0 wrap-anywhere">{item.value == null || item.value === "" ? <><span aria-hidden="true">—</span><span class="sr-only">No value</span></> : item.value}</span>
+        {item.action && <a href={item.action.href} class="df-press inline-flex min-h-11 items-center rounded-md px-2 text-primary hover:bg-accent">{item.action.label}</a>}
+        {item.copy !== undefined && <button hidden type="button" data-copy={item.copy} data-term={item.term} aria-label={`Copy ${item.term}`} class="df-press size-11 place-items-center rounded-md hover:bg-muted">
+          <svg data-copy-icon aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
+          <svg data-copy-check class="hidden text-success motion-safe:animate-df-pop" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>
+        </button>}
+      </dd>
+    </div>)}
+  </dl>
+  <span role="status" class="sr-only"></span>
+</section>
+<script is:inline>
+  (() => {
+    const setup = () => document.querySelectorAll("[data-description-list]").forEach((region) => {
+      if (region.dataset.copyReady || !navigator.clipboard) return;
+      region.dataset.copyReady = "true";
+      for (const button of region.querySelectorAll("button[data-copy]")) {
+        button.hidden = false;
+        button.classList.add("grid");
+        button.addEventListener("click", async () => {
+          const status = region.querySelector('[role="status"]');
+          try {
+            await navigator.clipboard.writeText(button.dataset.copy);
+            for (const previous of region.querySelectorAll("[data-copied]")) {
+              delete previous.dataset.copied;
+              previous.querySelector("[data-copy-icon]").classList.remove("hidden");
+              previous.querySelector("[data-copy-check]").classList.add("hidden");
+            }
+            button.dataset.copied = "true";
+            button.querySelector("[data-copy-icon]").classList.add("hidden");
+            button.querySelector("[data-copy-check]").classList.remove("hidden");
+            status.textContent = "Copied " + button.dataset.term;
+          } catch {
+            status.textContent = "Could not copy " + button.dataset.term;
+          }
+        });
+      }
+    });
+    setup();
+    if (window.designfyDescriptionListSetup) return;
+    window.designfyDescriptionListSetup = true;
+    document.addEventListener("astro:page-load", setup);
+  })();
+</script>

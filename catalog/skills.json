@@ -1,0 +1,167 @@
+{
+  "schemaVersion": 1,
+  "skills": [
+    {
+      "name": "designfy",
+      "title": "Designfy",
+      "kind": "internal",
+      "source": "promovaweb/designfy",
+      "group": "core",
+      "frameworks": [],
+      "default": true,
+      "description": "Orchestrator: receives the request, reads the project, writes the viewspec and calls the specialist skills in order."
+    },
+    {
+      "name": "designfy-viewspec",
+      "title": "Viewspec",
+      "kind": "internal",
+      "source": "promovaweb/designfy",
+      "group": "core",
+      "frameworks": [],
+      "default": true,
+      "description": "Contract, creation and execution of the viewspec of a page or screen."
+    },
+    {
+      "name": "designfy-design-system",
+      "title": "Design system",
+      "kind": "internal",
+      "source": "promovaweb/designfy",
+      "group": "foundation",
+      "frameworks": [],
+      "default": true,
+      "description": "Tokens, palette and color wheel, typography, spacing, backgrounds, themes and dark mode."
+    },
+    {
+      "name": "designfy-components",
+      "title": "Components",
+      "kind": "internal",
+      "source": "promovaweb/designfy",
+      "group": "foundation",
+      "frameworks": [],
+      "default": true,
+      "description": "Componentization with shadcn, ReUI and Tailwind in React and Astro, states and the Designfy registry."
+    },
+    {
+      "name": "designfy-motion",
+      "title": "Motion",
+      "kind": "internal",
+      "source": "promovaweb/designfy",
+      "group": "foundation",
+      "frameworks": [],
+      "default": true,
+      "description": "Movement: entrance, scroll, hover, state transitions, counters and reduced motion."
+    },
+    {
+      "name": "designfy-websites",
+      "title": "Websites",
+      "kind": "internal",
+      "source": "promovaweb/designfy",
+      "group": "surfaces",
+      "frameworks": [],
+      "default": true,
+      "description": "Sites and landing pages: structure, hero, sections, navigation, footer and conversion."
+    },
+    {
+      "name": "designfy-content",
+      "title": "Content",
+      "kind": "internal",
+      "source": "promovaweb/designfy",
+      "group": "surfaces",
+      "frameworks": [],
+      "default": true,
+      "description": "Blogs and articles: text layout, reading, table of contents, video embeds and media."
+    },
+    {
+      "name": "designfy-systems",
+      "title": "Systems",
+      "kind": "internal",
+      "source": "promovaweb/designfy",
+      "group": "surfaces",
+      "frameworks": [],
+      "default": true,
+      "description": "System screens: shell, tables, forms, dashboards, counters, CRUD and settings pages."
+    },
+    {
+      "name": "designfy-responsive",
+      "title": "Responsive",
+      "kind": "internal",
+      "source": "promovaweb/designfy",
+      "group": "quality",
+      "frameworks": [],
+      "default": true,
+      "description": "Phone, tablet and desktop: breakpoints, container queries, touch and tables on small screens."
+    },
+    {
+      "name": "designfy-accessibility",
+      "title": "Accessibility",
+      "kind": "internal",
+      "source": "promovaweb/designfy",
+      "group": "quality",
+      "frameworks": [],
+      "default": true,
+      "description": "WCAG 2.2: contrast, focus, keyboard, screen readers, forms and motion."
+    },
+    {
+      "name": "designfy-review",
+      "title": "Review",
+      "kind": "internal",
+      "source": "promovaweb/designfy",
+      "group": "quality",
+      "frameworks": [],
+      "default": true,
+      "description": "Review with Playwright captures on phone and desktop and the finish checklist."
+    },
+    {
+      "name": "hallmark",
+      "title": "Hallmark",
+      "kind": "external",
+      "source": "nutlope/hallmark",
+      "group": "external",
+      "frameworks": [],
+      "default": true,
+      "description": "Design skill for new pages that look designed: floor of gates, dealt direction and the sloplint script."
+    },
+    {
+      "name": "shadcn",
+      "title": "shadcn/ui",
+      "kind": "external",
+      "source": "shadcn/ui",
+      "group": "external",
+      "frameworks": ["react", "react-vite", "next", "astro"],
+      "default": true,
+      "description": "Official shadcn skill: adds, searches, fixes and composes components and registries in projects with components.json."
+    },
+    {
+      "name": "migrate-radix-to-base",
+      "title": "Radix to Base UI",
+      "kind": "external",
+      "source": "shadcn/ui",
+      "group": "external",
+      "frameworks": ["react", "react-vite", "next"],
+      "default": false,
+      "description": "Official shadcn skill that migrates components and projects from Radix UI to Base UI."
+    },
+    {
+      "name": "astrofy",
+      "title": "Astrofy",
+      "kind": "external",
+      "source": "promovaweb/astrofy",
+      "group": "external",
+      "frameworks": ["astro"],
+      "default": false,
+      "all": true,
+      "description": "Promovaweb skill library for Astro projects: architecture, pages, SEO, content and deploy. Installs every skill of the source."
+    },
+    {
+      "name": "brandfy",
+      "title": "Brandfy",
+      "kind": "external",
+      "source": "promovaweb/brandfy",
+      "group": "external",
+      "frameworks": [],
+      "default": false,
+      "all": true,
+      "description": "Promovaweb skill library for brand creation: strategy, logo, palette, tokens and manual. Installs every skill of the source."
+    }
+  ]
+}

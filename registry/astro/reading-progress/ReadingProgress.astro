@@ -1,0 +1,27 @@
+---
+/**
+ * ReadingProgress: the thin bar on the top edge that shows how far the person
+ * is in a long text.
+ *
+ * Decorative: the bar is aria-hidden and the same information is in the page
+ * structure. The fill scales on the X axis from a scroll timeline, without a
+ * script; browsers without scroll-driven animations and people with reduced
+ * motion see no bar.
+ *
+ * Slots: none.
+ * Motion: transform scaleX tied to the scroll position.
+ *
+ * Catalog: reading-progress
+ */
+import "./reading-progress.css";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div aria-hidden="true" class:list={["df-reading-progress", className]}>
+  <div class="df-reading-progress-fill"></div>
+</div>

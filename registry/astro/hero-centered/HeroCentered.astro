@@ -1,0 +1,114 @@
+---
+/**
+ * HeroCentered: Centers the page headline and action, with optional background, media and inline form.
+ * Slots or React nodes: background, visual, form.
+ * Motion: CSS entrance staggers headline, lead and actions before the optional media.
+ * Catalog: hero-centered
+ */
+import { cn } from "@designfy/components/lib/cn";
+
+type Action = { label: string; href: string };
+
+interface Props {
+  /** Page headline. */
+  headline: string;
+  /** One sentence that supports the headline. */
+  lead: string;
+  /** Heading level. Use level one for the page hero. */
+  headingLevel?: 1 | 2;
+  /** Main call to action; the form can take its place. */
+  primaryAction?: Action;
+  /** Secondary link. */
+  secondaryAction?: Action;
+  /** Additional classes on the root element. */
+  class?: string;
+}
+
+const {
+  headline,
+  lead,
+  headingLevel = 1,
+  primaryAction,
+  secondaryAction,
+  class: className,
+} = Astro.props;
+const Heading = headingLevel === 1 ? "h1" : "h2";
+---
+
+<section
+  class={cn("relative isolate overflow-clip border-b border-border", className)}
+>
+  {
+    Astro.slots.has("background") && (
+      <div
+        aria-hidden="true"
+        class="pointer-events-none absolute inset-0 -z-10"
+      >
+        <slot name="background" />
+      </div>
+    )
+  }
+  <div
+    class="df-container flex flex-col items-center py-16 text-center md:py-24 lg:py-28"
+  >
+    <Heading class="max-w-[17ch] font-heading text-display font-semibold">
+      <span class="sr-only">{headline}</span>
+      <span aria-hidden="true"
+        >{
+          headline
+            .split(/\s+/)
+            .map((word, index) => (
+              <span
+                class="inline-block animate-df-fade-up [animation-delay:var(--word-delay)]"
+                style={`--word-delay: ${index * 20 + "ms"}`}
+              >
+                {word}
+              </span>
+            ))
+            .flatMap((word, index) => (index ? [" ", word] : [word]))
+        }</span
+      >
+    </Heading>
+    <p
+      class="mt-6 max-w-[52ch] animate-df-fade-up text-lead text-muted-foreground [animation-delay:80ms]"
+    >
+      {lead}
+    </p>
+    {
+      (primaryAction || secondaryAction) && (
+        <div class="mt-8 flex w-full animate-df-fade-up flex-col gap-3 [animation-delay:160ms] min-[480px]:w-auto min-[480px]:flex-row">
+          {primaryAction && (
+            <a
+              href={primaryAction.href}
+              class="df-press inline-flex min-h-12 min-w-11 items-center justify-center rounded-lg bg-primary px-5 py-2 text-center text-sm font-semibold text-primary-foreground hover:bg-primary/90 "
+            >
+              {primaryAction.label}
+            </a>
+          )}
+          {secondaryAction && (
+            <a
+              href={secondaryAction.href}
+              class="df-press inline-flex min-h-12 min-w-11 items-center justify-center rounded-lg border border-border bg-background px-5 py-2 text-center text-sm font-semibold hover:bg-muted "
+            >
+              {secondaryAction.label}
+            </a>
+          )}
+        </div>
+      )
+    }
+    {
+      Astro.slots.has("form") && (
+        <div class="mt-8 w-full max-w-xl animate-df-fade-up [animation-delay:180ms]">
+          <slot name="form" />
+        </div>
+      )
+    }
+    {
+      Astro.slots.has("visual") && (
+        <div class="mt-12 w-full max-w-5xl overflow-hidden rounded-2xl border border-border animate-df-fade-up [animation-delay:240ms]">
+          <slot name="visual" />
+        </div>
+      )
+    }
+  </div>
+</section>

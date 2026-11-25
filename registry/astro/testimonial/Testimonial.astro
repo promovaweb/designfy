@@ -1,0 +1,205 @@
+---
+/**
+ * Testimonial: Presents attributed testimonials as a single quote, grid or manually controlled carousel.
+ * Motion: Quotes reveal on scroll; the carousel moves only when someone swipes or uses the controls.
+ * Catalog: testimonial
+ */
+import { cn } from "@designfy/components/lib/cn";
+
+type Quote = {
+  quote: string;
+  name: string;
+  role?: string;
+  company?: string;
+  cite?: string;
+  photo?: { src: string; alt: string; width: number; height: number };
+};
+
+interface Props {
+  /** Section heading. */
+  title: string;
+  /** Supporting sentence. */
+  lead?: string;
+  /** Heading level in the page outline. */
+  headingLevel?: 2 | 3 | 4 | 5 | 6;
+  /** Quotes with attribution and optional photos. */
+  items: Quote[];
+  /** Presentation of the quotes. */
+  variant?: "single" | "grid" | "carousel";
+  /** Previous quote button text. */
+  previousLabel?: string;
+  /** Next quote button text. */
+  nextLabel?: string;
+  /** Additional classes on the root element. */
+  class?: string;
+}
+
+const {
+  title,
+  lead,
+  headingLevel = 2,
+  items,
+  variant = "single",
+  previousLabel = "Previous",
+  nextLabel = "Next",
+  class: className,
+} = Astro.props;
+const Heading = `h${headingLevel}` as "h2";
+const carousel = variant === "carousel";
+---
+
+<section data-site-testimonial class={cn("df-section bg-muted/60", className)}>
+  <div class="df-container">
+    <header data-df-reveal="up" class="mb-10 md:mb-14">
+      <Heading class="font-heading text-headline font-semibold">{title}</Heading
+      >
+      {
+        lead && (
+          <p class="mt-4 max-w-2xl text-lead text-muted-foreground">{lead}</p>
+        )
+      }
+    </header>
+    <ul
+      data-testimonial-track
+      data-df-stagger
+      aria-label={carousel ? title : undefined}
+      tabindex={carousel ? 0 : undefined}
+      class={cn(
+        "grid gap-6",
+        variant === "grid" && "md:grid-cols-2",
+        carousel &&
+          "grid-flow-col auto-cols-[100%] snap-x snap-mandatory overflow-x-auto",
+      )}
+    >
+      {
+        (variant === "single" ? items.slice(0, 1) : items).map((item) => (
+          <li
+            data-df-reveal="up"
+            class={cn(
+              "min-w-0 snap-start",
+              variant === "grid" && "border-t border-border pt-6",
+            )}
+          >
+            <figure
+              class={cn(
+                "max-w-4xl",
+                variant === "grid"
+                  ? "max-w-xl"
+                  : "border-s-2 border-primary ps-6 sm:ps-10",
+              )}
+            >
+              <blockquote
+                cite={item.cite}
+                class={cn(
+                  "text-pretty font-heading font-semibold",
+                  variant === "grid" ? "text-title" : "text-headline",
+                )}
+              >
+                <p>{item.quote}</p>
+              </blockquote>
+              <figcaption class="mt-6 flex items-center gap-4 text-sm">
+                {item.photo && (
+                  <img
+                    src={item.photo.src}
+                    alt={item.photo.alt}
+                    width={item.photo.width}
+                    height={item.photo.height}
+                    loading="lazy"
+                    class="size-12 rounded-full object-cover"
+                  />
+                )}
+                <div>
+                  <span class="block font-semibold">{item.name}</span>
+                  {(item.role || item.company) && (
+                    <span class="text-muted-foreground">
+                      {[item.role, item.company].filter(Boolean).join(" · ")}
+                    </span>
+                  )}
+                </div>
+              </figcaption>
+            </figure>
+          </li>
+        ))
+      }
+    </ul>
+    {
+      carousel && items.length > 1 && (
+        <div class="mt-4 flex gap-2">
+          <button
+            hidden
+            type="button"
+            data-slide="-1"
+            class="df-press inline-flex min-h-12 min-w-11 items-center justify-center rounded-lg border border-border bg-background px-5 py-2 text-center text-sm font-semibold hover:bg-muted"
+          >
+            {previousLabel}
+          </button>
+          <button
+            hidden
+            type="button"
+            data-slide="1"
+            class="df-press inline-flex min-h-12 min-w-11 items-center justify-center rounded-lg border border-border bg-background px-5 py-2 text-center text-sm font-semibold hover:bg-muted"
+          >
+            {nextLabel}
+          </button>
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<script is:inline>
+  (() => {
+    function bind(root) {
+      const track = root.querySelector("[data-testimonial-track]");
+      if (!track) return;
+      const abort = new AbortController();
+      const controls = root.querySelectorAll("[data-slide]");
+      for (const control of controls) {
+        control.hidden = false;
+        control.addEventListener(
+          "click",
+          () => {
+            const distance = track.clientWidth * Number(control.dataset.slide);
+            track.scrollBy({
+              left: track.matches(":dir(rtl)") ? -distance : distance,
+              behavior: matchMedia("(prefers-reduced-motion: reduce)").matches
+                ? "instant"
+                : "smooth",
+            });
+          },
+          { signal: abort.signal },
+        );
+      }
+      return () => abort.abort();
+    }
+
+    function prepare() {
+      document
+        .querySelectorAll("[data-site-testimonial]:not([data-site-bound])")
+        .forEach((root) => {
+          root.setAttribute("data-site-bound", "");
+          const dispose = bind(root);
+          if (dispose)
+            document.addEventListener(
+              "astro:before-swap",
+              () => {
+                dispose();
+                root.removeAttribute("data-site-bound");
+              },
+              { once: true },
+            );
+        });
+    }
+
+    prepare();
+    if (
+      !document.documentElement.hasAttribute("data-site-testimonial-listener")
+    ) {
+      document.documentElement.setAttribute(
+        "data-site-testimonial-listener",
+        "",
+      );
+      document.addEventListener("astro:page-load", prepare);
+    }
+  })();
+</script>

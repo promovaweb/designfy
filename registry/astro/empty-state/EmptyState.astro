@@ -1,0 +1,21 @@
+---
+/** Explains an empty region. Slots: illustration, primaryAction, secondaryAction. Motion: soft entrance and decorative rise. Catalog: empty-state. */
+interface Props {
+  /** Plain statement of what is empty. */
+  title: string;
+  /** Reason and next step. */
+  description: string;
+  /** Heading level within the parent region. */
+  headingLevel?: 1 | 2 | 3 | 4;
+  /** Additional classes. */
+  class?: string;
+}
+const { title, description, headingLevel = 2, class: className } = Astro.props;
+const Heading = `h${headingLevel}` as const;
+---
+<section class:list={["grid justify-items-center gap-3 px-4 py-10 text-center motion-safe:animate-df-fade-in sm:py-14", className]}>
+  {Astro.slots.has("illustration") && <div aria-hidden="true" class="mb-2 text-primary motion-safe:animate-df-fade-up"><slot name="illustration" /></div>}
+  <Heading class="font-heading text-title font-semibold">{title}</Heading>
+  <p class="max-w-[44ch] text-sm text-muted-foreground">{description}</p>
+  {(Astro.slots.has("primaryAction") || Astro.slots.has("secondaryAction")) && <div class="mt-2 flex flex-wrap justify-center gap-2"><slot name="primaryAction" /><slot name="secondaryAction" /></div>}
+</section>

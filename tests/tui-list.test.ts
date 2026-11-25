@@ -37,7 +37,8 @@ test("empty lists do not activate or move", async () => {
     setup.renderer.root.add(list.box);
     list.select(0); list.move(1);
     expect(list.selected()).toBe(-1);
-    await setup.renderOnce(); expect(setup.captureCharFrame()).toContain("EMPTY");
+    await setup.renderOnce(); expect(setup.captureCharFrame()).toContain("╭─ Empty");
+    expect(setup.captureCharFrame()).toContain("No items");
   } finally { setup.renderer.destroy(); }
 });
 

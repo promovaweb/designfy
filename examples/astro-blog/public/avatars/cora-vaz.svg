@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="Retrato de amostra de Cora Vaz">
+  <style>
+  :root { --bg: #edf1f2; --ink: #2b3d43; --muted: #b6c6ca; --accent: #2f7f7a; --soft: #d7e2e4; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #151c1f; --ink: #dce8ea; --muted: #33434a; --accent: #74d6cc; --soft: #223036; }
+  }
+</style>
+  <rect width="128" height="128" fill="var(--soft)" />
+  <circle cx="64" cy="52" r="22" fill="var(--accent)" fill-opacity="0.35" />
+  <path d="M20 128c0-24 20-40 44-40s44 16 44 40Z" fill="var(--accent)" fill-opacity="0.35" />
+  <text x="64" y="70" text-anchor="middle" fill="var(--ink)" font-family="ui-sans-serif, system-ui, sans-serif" font-size="34" font-weight="600">CV</text>
+</svg>

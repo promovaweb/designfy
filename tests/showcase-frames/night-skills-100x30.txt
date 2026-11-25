@@ -1,0 +1,30 @@
+    ◆ Designfy   v0.1.0  › ⇌ Skills  fixture-pro...· react-vite   T night   linux-x64 · Bun 0.0.0
+    ← Back   ⇌ Skills  Install, update and remove selected skills
+   Kind: all
+   ╭─ Tab · Skills · 0 marked ───────╮  ╭─ Tab · Details ───────────────────────────────────────╮
+   │ Internal · 11                  ┃│  │ Designfy                                              │
+   │ > □ designfy       ● Installed ┃│  │ Orchestrator: receives the request, reads the         │
+   │   internal · project           ┃│  │ project, writes the viewspec and calls the specialist │
+   │ ▏ □ desig...iewspec○ Available ┃│  │ skills in order.                                      │
+   │   internal · no                ┃│  │ Source            promovaweb/designfy                 │
+   │ ▏ □ desig...-system○ Available ┃│  │ Kind              internal                            │
+   │   internal · no                ┃│  │ Scope             project                             │
+   │ ▏ □ desig...ponents○ Available ┃│  │ ● Installed                                           │
+   │   internal · no                ┃│  │                                                       │
+   │ ▏ □ designfy-motion○ Available ┃│  │                                                       │
+   │   internal · no                ┃│  │                                                       │
+   │ ▏ □ desig...ebsites○ Available ┃│  │                                                       │
+   │   internal · no                ┃│  │                                                       │
+   │ ▏ □ desig...content○ Available ┃│  │                                                       │
+   │   internal · no                ┃│  │                                                       │
+   │ ▏ □ desig...systems○ Available ┃│  │                                                       │
+   │   internal · no                ││  │                                                       │
+   │ ▏ □ desig...ponsive○ Available ││  │                                                       │
+   │   internal · no                ││  │                                                       │
+   │ ▏ □ desig...ibility○ Available ││  │                                                       │
+   │   internal · no                ││  │                                                       │
+   │ ▏ □ designfy-review○ Available ││  │                                                       │
+   │   internal · no                ││  │                                                       │
+   │ External · 5                   ││  │                                                       │
+   ╰─────────────────────────────────╯  ╰───────────────────────────────────────────────────────╯
+    g  next kind   i  install marked   u  update marked   d  remove marked  │   ?  help   q  quit

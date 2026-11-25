@@ -1,0 +1,78 @@
+---
+/**
+ * Section: the container of every top-level block of a page.
+ *
+ * Gives the block the shared width (df-container), gutters and vertical
+ * rhythm (df-section), an optional header (title and lead) and an optional
+ * tinted band. The heading level comes from `headingLevel`; there is no
+ * label above the heading.
+ *
+ * Slots: default (content), `background` (decorative layer behind the
+ * content, for example a Background component).
+ * Motion: the header is marked for the CSS reveal on scroll.
+ */
+interface Props {
+  /** Section heading. Rendered at `headingLevel`. */
+  title?: string;
+  /** One or two sentences under the heading. */
+  lead?: string;
+  /** Heading level of the title. Default 2. */
+  headingLevel?: 2 | 3;
+  /** Alignment of the header. Default "start". */
+  align?: "start" | "center";
+  /** Width of the content. "narrow" is the reading measure. Default "default". */
+  width?: "narrow" | "default" | "wide";
+  /** Surface of the band. Default "plain". */
+  tone?: "plain" | "muted" | "card";
+  /** Anchor id; the heading is linked to the section with aria-labelledby. */
+  id?: string;
+  /** Marks the header for the CSS reveal on scroll. Default true. */
+  reveal?: boolean;
+  class?: string;
+}
+
+const {
+  title,
+  lead,
+  headingLevel = 2,
+  align = "start",
+  width = "default",
+  tone = "plain",
+  id,
+  reveal = true,
+  class: className,
+} = Astro.props;
+
+const Heading = `h${headingLevel}` as "h2" | "h3";
+const headingId = id && title ? `${id}-title` : undefined;
+const widthClass = { narrow: "mx-auto max-w-3xl", default: "", wide: "max-w-none" }[width];
+const toneClass = { plain: "", muted: "bg-muted/60", card: "bg-card" }[tone];
+---
+
+<section id={id} aria-labelledby={headingId} class:list={["relative isolate df-section", toneClass, className]}>
+  {
+    Astro.slots.has("background") && (
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        <slot name="background" />
+      </div>
+    )
+  }
+  <div class:list={["df-container", widthClass]}>
+    {
+      (title || lead) && (
+        <header
+          data-df-reveal={reveal ? "up" : undefined}
+          class:list={["mb-10 flex flex-col gap-4 md:mb-14", align === "center" ? "items-center text-center" : "items-start"]}
+        >
+          {title && (
+            <Heading id={headingId} class="max-w-[24ch] font-heading text-headline font-semibold text-foreground">
+              {title}
+            </Heading>
+          )}
+          {lead && <p class="max-w-[60ch] text-lead text-muted-foreground">{lead}</p>}
+        </header>
+      )
+    }
+    <slot />
+  </div>
+</section>

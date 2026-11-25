@@ -1,0 +1,76 @@
+---
+/**
+ * Modelo: página de artigo com os itens do registro do Designfy (Astro).
+ * O conteúdo vem da coleção `blog`. Ajuste os caminhos ao alias do projeto.
+ */
+import { getCollection, getEntry, render } from "astro:content";
+import Base from "@/layouts/Base.astro";
+import SiteHeader from "@/components/designfy/site-header/SiteHeader.astro";
+import SiteFooter from "@/components/designfy/site-footer/SiteFooter.astro";
+import ReadingProgress from "@/components/designfy/reading-progress/ReadingProgress.astro";
+import ArticleHeader from "@/components/designfy/article-header/ArticleHeader.astro";
+import Prose from "@/components/designfy/prose/Prose.astro";
+import TableOfContents from "@/components/designfy/table-of-contents/TableOfContents.astro";
+import AuthorBox from "@/components/designfy/author-box/AuthorBox.astro";
+import PostCard from "@/components/designfy/post-card/PostCard.astro";
+import Section from "@/components/designfy/section/Section.astro";
+import CtaBand from "@/components/designfy/cta-band/CtaBand.astro";
+import { site } from "@/data/site";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+const author = await getEntry(post.data.author);
+const related = (await getCollection("blog", ({ data, id }) => !data.draft && id !== post.id && data.category === post.data.category))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+const sections = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
+---
+
+<Base title={post.data.title} description={post.data.description}>
+  <SiteHeader brand={site.brand} links={site.links} action={site.action} />
+  {sections.length >= 4 && <ReadingProgress />}
+
+  <main id="conteudo">
+    <article class="df-container py-10 md:py-14">
+      <ArticleHeader
+        title={post.data.title}
+        lead={post.data.description}
+        category={{ label: post.data.category, href: `/blog/categoria/${post.data.category}/` }}
+        author={{ name: author.data.name, href: `/blog/autor/${author.id}/`, avatar: author.data.avatar }}
+        date={post.data.pubDate}
+        updated={post.data.updatedDate}
+        cover={post.data.cover ? { src: post.data.cover, alt: post.data.coverAlt ?? "" } : undefined}
+      />
+
+      <div class="mt-10 grid gap-12 xl:grid-cols-[minmax(0,1fr)_16rem]">
+        <Prose><Content /></Prose>
+        {sections.length >= 4 && <TableOfContents headings={sections} />}
+      </div>
+
+      <AuthorBox class="mt-14" name={author.data.name} bio={author.data.bio} avatar={author.data.avatar} links={author.data.links} />
+    </article>
+
+    {
+      related.length > 0 && (
+        <Section title="Continue lendo" tone="muted">
+          <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-df-stagger>
+            {related.map((item) => (
+              <li class="min-w-0" data-df-reveal>
+                <PostCard title={item.data.title} excerpt={item.data.description} href={`/blog/${item.id}/`} date={item.data.pubDate} cover={item.data.cover ? { src: item.data.cover, alt: "" } : undefined} headingLevel={3} />
+              </li>
+            ))}
+          </ul>
+        </Section>
+      )
+    }
+
+    <CtaBand title={site.cta.title} lead={site.cta.lead} action={site.action} />
+  </main>
+
+  <SiteFooter brand={site.brand} columns={site.footer.columns} legal={site.footer.legal} />
+</Base>

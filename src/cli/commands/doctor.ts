@@ -1,10 +1,12 @@
 /** Read-only environment diagnostics shared by CLI and MCP. */
 import { statSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 import { manifest } from "../../app/manifest.ts";
 import { ExitCode } from "../../app/exit-codes.ts";
 import { paths } from "../../config/paths.ts";
 import { getMasterKey, masterKeySource } from "../../config/crypto.ts";
 import { readVault } from "../../config/credentials.ts";
+import { findThemeFile } from "../../design/theme.ts";
 import type { Command } from "../registry.ts";
 
 export interface DoctorCheck {
@@ -43,6 +45,24 @@ export function collectDoctorChecks(runtime = { version: Bun.version, stdin: Boo
     add("master-key", source === "none" ? "warn" : "ok", source);
   } catch { add("master-key", "fail", `${source}; unavailable or invalid`); }
   inspect("credentials", paths.credentials(), () => { readVault(); }, "Vault decrypted successfully");
+  for (const program of ["node", "npx"]) {
+    const executable = Bun.which(program);
+    add(program, executable ? "ok" : "warn", executable ?? "Not found on PATH");
+  }
+  const cwd = process.cwd();
+  for (const file of ["designfy.json", "VIEWSPEC.md"]) {
+    try {
+      const present = statSync(join(cwd, file)).isFile();
+      add(file, present ? "ok" : "warn", present ? "Project file exists" : "Not a regular file");
+    } catch (cause) {
+      add(file, "warn", (cause as NodeJS.ErrnoException).code === "ENOENT" ? "Not created" : "Cannot access file");
+    }
+  }
+  try {
+    add("tailwind-theme", "ok", findThemeFile(cwd));
+  } catch (cause) {
+    add("tailwind-theme", "warn", cause instanceof Error ? cause.message : "Cannot locate theme stylesheet");
+  }
   add("binary", "ok", `${manifest.bin} ${manifest.version}`);
   add("platform", "ok", `${process.platform}-${process.arch}`);
   return { checks, ok: checks.every((check) => check.status !== "fail") };
@@ -50,7 +70,7 @@ export function collectDoctorChecks(runtime = { version: Bun.version, stdin: Boo
 
 export const doctorCommand: Command = {
   name: "doctor",
-  description: "Check runtime, terminal, settings, key source and vault readability without changing files.",
+  description: "Check runtime, terminal, settings, credentials and project setup without changing files.",
   exitCodes: [ExitCode.CONFIG],
   run: () => {
     const data = collectDoctorChecks();

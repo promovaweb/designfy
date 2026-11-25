@@ -1,8 +1,7 @@
 /**
  * Visual components shared by the screens.
  *
- * `panel` creates a rounded card with a separate uppercase caption, optionally with
- * an icon. `keyValueRow` builds "label  value" with a dimmed label. `list`
+ * `panel` creates a rounded card with a title in its border. `keyValueRow` builds "label  value" with a dimmed label. `list`
  * stacks items with a marker. `button` and `listPanel` are clickable and
  * show hover; each one runs the same function as its keyboard shortcut.
  * Components inherit the screen's layout constraints in wide, medium and
@@ -42,10 +41,11 @@ export interface TitleIcon {
   name: IconName;
 }
 
-/** A card keeps its caption outside the bordered content area. */
+/** A rounded panel owns its border and the viewport inside. */
 class Card<T extends BoxRenderable> extends BoxRenderable {
   /** The bordered box or scroll viewport that owns the card content. */
   readonly body: T;
+  private fullTitle = "";
 
   constructor(renderer: CliRenderer, theme: Theme, options: PanelOptions, body: T) {
     super(renderer, {
@@ -55,9 +55,33 @@ class Card<T extends BoxRenderable> extends BoxRenderable {
       width: options.width, height: options.height, overflow: "hidden",
     });
     this.body = body;
-    const title = options.icon ? withIcon(options.icon.icons, options.icon.name, options.title.toUpperCase()) : options.title.toUpperCase();
-    super.add(new TextRenderable(renderer, { content: title, fg: theme.textDim, attributes: TextAttributes.BOLD, height: 1, flexShrink: 0, wrapMode: "none" }));
+    body.onSizeChange = () => this.updateTitle();
+    const label = options.icon ? withIcon(options.icon.icons, options.icon.name, options.title) : options.title;
+    const title = options.focusKey ? `${options.focusKey} · ${label}` : label;
+    this.appearance(theme, title, options.active ?? false);
+    if (options.focusKey) {
+      const update = () => {
+        if (!renderer.isDestroyed && !body.isDestroyed) this.appearance(theme, title, body.focused);
+      };
+      body.on("focused", update);
+      body.on("blurred", update);
+    }
     super.add(body);
+  }
+
+  /** Updates the border title and colors for focus or an operation phase. */
+  appearance(theme: Theme, title: string, active = false, tone?: ColorInput): void {
+    this.fullTitle = title;
+    this.updateTitle();
+    this.body.titleColor = tone ?? (active ? theme.accent : theme.textDim);
+    this.body.borderColor = tone ?? (active ? theme.borderActive : theme.border);
+    this.body.backgroundColor = active ? theme.surfaceHigh : theme.surface;
+  }
+
+  private updateTitle(): void {
+    const width = this.body.width;
+    const title = width > 0 ? fitText(this.fullTitle, width - 6) : this.fullTitle;
+    this.body.title = title ? ` ${title} ` : undefined;
   }
 
   /** Adds a decoration after the card body without entering its scroll content. */
@@ -66,7 +90,7 @@ class Card<T extends BoxRenderable> extends BoxRenderable {
   /** Focuses the native viewport so keyboard scrolling remains available. */
   override focus(): void { this.body.focus(); }
 
-  /** Adds screen content inside the border, below the separate caption. */
+  /** Adds screen content inside the bordered viewport. */
   override add(child: Parameters<BoxRenderable["add"]>[0], index?: number): number {
     return this.body.add(child, index);
   }
@@ -80,9 +104,10 @@ interface PanelOptions {
   width?: number | "auto" | `${number}%`;
   height?: number | "auto" | `${number}%`;
   active?: boolean;
+  focusKey?: string;
 }
 
-/** Creates a card with an uppercase caption and padded rounded border. */
+/** Creates a card with a title inside its rounded border. */
 export function panel(renderer: CliRenderer, theme: Theme, options: PanelOptions): Card<BoxRenderable> {
   const space = spacingFor(renderer.width);
   const body = new BoxRenderable(renderer, {
@@ -117,7 +142,7 @@ export function thinScrollbar(renderer: CliRenderer, box: ScrollBoxRenderable, t
   else host.add(overlay);
 }
 
-/** Creates a captioned card with a keyboard- and wheel-scrollable body. */
+/** Creates a titled card with a keyboard- and wheel-scrollable body. */
 export function scrollPanel(renderer: CliRenderer, theme: Theme, options: PanelOptions): Card<ScrollBoxRenderable> {
   const space = spacingFor(renderer.width);
   const body = new ScrollBoxRenderable(renderer, {
@@ -159,10 +184,10 @@ export function keyValueRow(
   keyWidth: number,
   valueColor?: ColorInput,
 ): BoxRenderable {
-  const row = new BoxRenderable(renderer, { flexDirection: "row", height: 1 });
+  const row = new BoxRenderable(renderer, { flexDirection: "row", flexShrink: 0, minWidth: 0 });
   row.add(
     new TextRenderable(renderer, {
-      content: key.padEnd(keyWidth),
+      content: key, width: keyWidth, wrapMode: "none",
       fg: theme.textDim,
       selectable: false,
       flexShrink: 0,
@@ -173,7 +198,7 @@ export function keyValueRow(
     new TextRenderable(renderer, {
       content: value,
       fg: valueColor ?? theme.text,
-      wrapMode: "none",
+      wrapMode: "word",
       flexShrink: 1,
       minWidth: 0,
     }),
@@ -282,69 +307,65 @@ export function spacer(renderer: CliRenderer, height = 1): BoxRenderable {
   return new BoxRenderable(renderer, { height });
 }
 
-/**
- * Creates a scrollable selection list. move changes the highlight silently;
- * select highlights and activates an item. Empty lists return selected() = -1.
- * Screens may forward keys to box.handleKeyPress or call move/select in onKey.
- * Mouse: a click on a row selects it, hover marks the row under the pointer
- * and the wheel scrolls the list.
- */
+/** A list label with optional styled content and a nonselectable group heading. */
+export interface TuiListItem {
+  content: string | StyledText;
+  group?: string;
+  detail?: string;
+  state?: StatusKind;
+  stateLabel?: string;
+  checked?: boolean;
+}
+
+/** Creates a selectable list with group counts, semantic rows and focus styling. */
 export function listPanel(
   renderer: CliRenderer,
   theme: Theme,
   options: {
     title: string;
-    items: string[];
+    items: readonly (string | TuiListItem)[];
+    empty?: string;
     onSelect?: (index: number) => void;
+    icons?: IconSet;
+    width?: number;
+    active?: boolean;
   },
 ) {
-  const card = scrollPanel(renderer, theme, { title: options.title, active: true });
+  const card = scrollPanel(renderer, theme, { title: options.title, width: options.width, active: options.active ?? true });
   const box = card.body;
-  let index = options.items.length ? 0 : -1;
+  const icons = options.icons ?? currentIcons();
+  let index = -1;
   let hovered = -1;
-  /** Builds one row with mouse selection and hover routed through shared state. */
-  function createRow(item: string, i: number): TextRenderable {
-    const row = new TextRenderable(renderer, {
-      content: item,
-      height: 1,
-      flexShrink: 0,
-      wrapMode: "none",
-      fg: theme.text,
-      selectable: false,
-    });
-    function updateHover(inside: boolean): void {
-      hovered = inside ? i : -1;
-      paint();
-    }
+  let rows: { box: BoxRenderable; edge: TextRenderable; name: TextRenderable; detail: TextRenderable }[] = [];
+  let items: readonly TuiListItem[] | undefined;
+  let title = options.title;
+  let focused = options.active ?? true;
 
-    clickable(renderer, row, {
-      onClick: () => select(i),
-      onHover: updateHover,
-    });
-    box.add(row);
-    return row;
-  }
-
-  const rows = options.items.map(createRow);
-
-  /** Repaints selection and hover without activating an item. */
   function paint(): void {
+    if (renderer.isDestroyed || box.isDestroyed) return;
     for (const [i, row] of rows.entries()) {
-      row.content = `${i === index ? ">" : " "} ${options.items[i]}`;
-      row.fg = i === index ? theme.accent : i === hovered ? theme.textStrong : theme.text;
-      row.bg = i === index ? theme.surfaceHigh : theme.surface;
+      if (row.edge.isDestroyed) continue;
+      const item = items![i]!;
+      const active = i === index;
+      const fg = active ? (focused ? theme.selectionText : theme.accent) : i === hovered ? theme.textStrong : theme.text;
+      row.box.backgroundColor = active ? (focused ? theme.selection : theme.surfaceHigh) : i % 2 ? theme.surfaceHigh : theme.surface;
+      row.edge.content = active ? "> " : (item.state ? `${icons.designfy === "*" ? "|" : "▏"} ` : "  ");
+      row.edge.fg = active ? theme.accent : item.state ? theme[statusStyles[item.state].color] : theme.border;
+      row.name.fg = fg;
+      row.name.attributes = active || item.detail ? TextAttributes.BOLD : TextAttributes.NONE;
+      const checked = item.checked === undefined ? "" : icons.designfy === "*" ? (item.checked ? "[x] " : "[ ] ") : item.checked ? "■ " : "□ ";
+      row.name.content = typeof item.content === "string" ? checked + item.content : new StyledText([{ __isChunk: true, text: checked }, ...item.content.chunks]);
+      row.detail.content = item.detail ? `  ${item.detail}` : "";
     }
   }
 
-  /** Clamps the selection and keeps it inside the scroll viewport. */
   function highlight(next: number): void {
     if (!rows.length || !Number.isFinite(next)) return;
     index = Math.max(0, Math.min(rows.length - 1, Math.trunc(next)));
     paint();
-    box.scrollChildIntoView(rows[index]!);
+    box.scrollChildIntoView(rows[index]!.box);
   }
 
-  /** Selects a display index and reports it without activating the row. */
   function select(next: number): void {
     if (!rows.length || !Number.isFinite(next)) return;
     highlight(next);
@@ -353,6 +374,61 @@ export function listPanel(
 
   function move(delta: number): void {
     highlight(index + delta);
+  }
+
+  function refreshTitle(next = title, active = focused): void {
+    if (renderer.isDestroyed || box.isDestroyed) return;
+    title = next;
+    focused = active;
+    card.appearance(theme, title, focused);
+    paint();
+  }
+
+  function setItems(next: readonly (string | TuiListItem)[], selected = index): void {
+    const normalized = next.map((item) => typeof item === "string" ? { content: item } : item);
+    const rebuild = items?.length !== normalized.length || normalized.some((item, i) =>
+      item.group !== items?.[i]?.group || Boolean(item.detail) !== Boolean(items?.[i]?.detail)
+      || item.state !== items?.[i]?.state || item.stateLabel !== items?.[i]?.stateLabel);
+    items = normalized;
+    if (rebuild) {
+      for (const child of box.getChildren()) child.destroyRecursively();
+      const counts = new Map<string, number>();
+      for (const { group } of items) if (group) counts.set(group, (counts.get(group) ?? 0) + 1);
+      let group: string | undefined;
+      hovered = -1;
+      rows = items.map((item, i) => {
+        if (item.group && item.group !== group) {
+          box.add(new TextRenderable(renderer, {
+            content: `${item.group} · ${counts.get(item.group)}`, attributes: TextAttributes.BOLD,
+            height: 1, flexShrink: 0, wrapMode: "none", fg: theme.textDim, truncate: true,
+          }));
+        }
+        group = item.group;
+        const row = new BoxRenderable(renderer, { height: item.detail ? 2 : 1, flexDirection: "column", flexShrink: 0, minWidth: 0, overflow: "hidden" });
+        const first = new BoxRenderable(renderer, { height: 1, flexDirection: "row", flexShrink: 0, minWidth: 0 });
+        const edge = new TextRenderable(renderer, { width: 2, flexShrink: 0, wrapMode: "none", selectable: false });
+        const name = new TextRenderable(renderer, { flexGrow: 1, minWidth: 0, truncate: true, wrapMode: "none", selectable: false });
+        const detail = new TextRenderable(renderer, { height: 1, flexShrink: 0, fg: theme.textDim, truncate: true, wrapMode: "none", selectable: false });
+        first.add(edge);
+        first.add(name);
+        if (item.state) first.add(statusTag(renderer, theme, icons, item.state, item.stateLabel));
+        row.add(first);
+        row.add(detail);
+        detail.visible = Boolean(item.detail);
+        clickable(renderer, row, {
+          onClick: () => { card.focus(); select(i); },
+          onHover: (inside) => {
+            hovered = inside ? i : hovered === i ? -1 : hovered;
+            paint();
+          },
+        });
+        box.add(row);
+        return { box: row, edge, name, detail };
+      });
+    }
+    if (rebuild && !rows.length) box.add(dim(renderer, theme, options.empty ?? "No items"));
+    if (!rows.length) index = -1;
+    else highlight(selected);
   }
 
   function handleKeyPress(key: KeyEvent): boolean {
@@ -372,9 +448,17 @@ export function listPanel(
   }
 
   box.handleKeyPress = handleKeyPress;
-  highlight(index);
   card.handleKeyPress = handleKeyPress;
-  return { box: card, select, selected: () => index, move };
+  box.on("focused", () => refreshTitle(title, true));
+  box.on("blurred", () => refreshTitle(title, false));
+  setItems(options.items);
+  return { box: card, select, selected: () => index, move, setItems, title: refreshTitle };
+}
+
+/** Matches a case- and accent-insensitive query against a list row. */
+export function matchesFilter(text: string, query: string): boolean {
+  const fold = (value: string) => value.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
+  return fold(text).includes(fold(query.trim()));
 }
 
 /** A sortable table column, measured in terminal cells. */
@@ -471,17 +555,22 @@ export function table(
   }
   header.onSizeChange = layoutColumns;
   body.onSizeChange = layoutColumns;
-  /** Applies the selected-row colors to every cell in the table. */
+  /** Applies the selection marker, background and text treatment to the table cells. */
   function paint(): void {
+    if (renderer.isDestroyed || body.isDestroyed) return;
     for (const [i, node] of rowNodes.entries()) {
-      (node.getChildren()[0] as TextRenderable).content = i === index ? "› " : "  ";
-      node.backgroundColor = theme.surface;
+      if (node.isDestroyed) continue;
+      const selected = i === index;
+      (node.getChildren()[0] as TextRenderable).content = selected ? "› " : "  ";
+      node.backgroundColor = selected ? (body.focused ? theme.selection : theme.surfaceHigh) : i % 2 ? theme.surfaceHigh : theme.surface;
       for (const child of node.getChildren()) {
-        (child as TextRenderable).fg = i === index ? theme.accent : theme.text;
-        (child as TextRenderable).attributes = i === index ? TextAttributes.BOLD : TextAttributes.NONE;
+        (child as TextRenderable).fg = selected ? (body.focused ? theme.selectionText : theme.accent) : theme.text;
+        (child as TextRenderable).attributes = selected ? TextAttributes.BOLD : TextAttributes.NONE;
       }
     }
   }
+  body.on("focused", paint);
+  body.on("blurred", paint);
   /** Reports a clamped display index without activating the selected row. */
   function select(next: number): void {
     if (!rows.length || !Number.isFinite(next)) return;
@@ -506,6 +595,7 @@ export function table(
       for (const column of options.columns) node.add(cell(row[column.key] ?? "", column));
       /** A second click on the same selected row activates it. */
       function clickRow(): void {
+        body.focus();
         const activate = lastClicked === i && index === i;
         select(i);
         lastClicked = i;
@@ -601,6 +691,7 @@ export function table(
   rebuild();
   return {
     box,
+    focusTarget: body,
     move,
     select,
     selected: () => index,
@@ -763,4 +854,83 @@ export function link(
     onHover: updateHover,
   });
   return box;
+}
+
+/** Semantic status names and their shared icon and color roles. */
+export const statusStyles = {
+  ok: { icon: "ok", color: "ok", label: "Done" },
+  pending: { icon: "pending", color: "warn", label: "Pending" },
+  error: { icon: "error", color: "error", label: "Failed" },
+  available: { icon: "available", color: "textDim", label: "Available" },
+  installed: { icon: "installed", color: "ok", label: "Installed" },
+  outdated: { icon: "outdated", color: "warn", label: "Outdated" },
+  working: { icon: "working", color: "accent", label: "In progress" },
+  next: { icon: "next", color: "accent", label: "Next" },
+} as const;
+
+export type StatusKind = keyof typeof statusStyles;
+
+/** Creates an inline status with an optional fill for a state that needs action. */
+export function statusTag(renderer: CliRenderer, theme: Theme, icons: IconSet, state: StatusKind, label: string = statusStyles[state].label, fill = false): TextRenderable {
+  const role = statusStyles[state];
+  const color = theme[role.color];
+  const text = withIcon(icons, role.icon, label);
+  return new TextRenderable(renderer, {
+    content: fill ? ` ${text} ` : text,
+    fg: fill ? theme.primaryText : color, ...(fill ? { bg: color, width: Bun.stringWidth(text) + 2 } : {}),
+    flexShrink: 0, wrapMode: "none", height: 1,
+  });
+}
+
+/** Builds one line with independently colored text segments. */
+export function segments(renderer: CliRenderer, parts: readonly (readonly [string, ColorInput])[]): TextRenderable {
+  return new TextRenderable(renderer, {
+    content: new StyledText(parts.map(([text, color]) => ({ __isChunk: true, text, fg: parseColor(color) }))),
+    height: 1, flexShrink: 0, wrapMode: "none", truncate: true, minWidth: 0,
+  });
+}
+
+/** Displays a thin progress track, count and percentage in a single line. */
+export function meter(renderer: CliRenderer, theme: Theme, value: number, total: number, options: { width?: number; label?: string; usage?: boolean; color?: ColorInput } = {}): TextRenderable {
+  const ratio = total > 0 ? Math.min(1, Math.max(0, value / total)) : 0;
+  const percent = ratio === 1 ? 100 : Math.floor(ratio * 100);
+  const width = options.width ?? 8;
+  const full = Math.floor(ratio * width);
+  const color = options.color ?? (options.usage && ratio > 0.9 ? theme.error : options.usage && ratio > 0.75 ? theme.warn : theme.primary);
+  return segments(renderer, [
+    [options.label ? `${options.label} ` : "", theme.textDim],
+    ["━".repeat(full), color],
+    ["━".repeat(width - full), theme.border],
+    [` ${value}/${total} ${percent}%`, theme.textStrong],
+  ]);
+}
+
+/** Draws horizontal bars on the same scale with a label and absolute count. */
+export function barChart(renderer: CliRenderer, theme: Theme, values: readonly (readonly [string, number, ColorInput?])[], width = 8): BoxRenderable {
+  const box = new BoxRenderable(renderer, { flexDirection: "column", flexShrink: 0, minWidth: 0 });
+  const max = Math.max(1, ...values.map(([, value]) => value));
+  const labelWidth = Math.max(0, ...values.map(([label]) => Bun.stringWidth(label)));
+  for (const [label, value, color] of values) {
+    const count = value > 0 ? Math.max(1, Math.round(value / max * width)) : 0;
+    box.add(segments(renderer, [
+      [label + " ".repeat(labelWidth - Bun.stringWidth(label) + 1), theme.textDim],
+      ["━".repeat(count), color ?? theme.primary],
+      [" ".repeat(width - count), theme.border],
+      [` ${value}`, theme.textStrong],
+    ]));
+  }
+  return box;
+}
+
+/** Scales a short history into one terminal-cell column per point. */
+export function sparkline(values: readonly number[]): string {
+  if (!values.length) return "";
+  const min = Math.min(...values);
+  const span = Math.max(1, Math.max(...values) - min);
+  return values.map((value) => "▁▂▃▄▅▆▇█"[Math.round((value - min) / span * 7)]).join("");
+}
+
+/** Reserves a readable list width while leaving most room for the preview. */
+export function listWidth(width: number, preferred: number): number {
+  return Math.max(28, Math.min(preferred, Math.floor(width * 0.4)));
 }

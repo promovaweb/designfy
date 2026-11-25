@@ -1,6 +1,6 @@
 # Configuração e credenciais
 
-Tudo que o binário persiste fica em `~/.{{bin}}/`:
+Preferências e credenciais do usuário ficam em `~/.{{bin}}/`.
 
 | Arquivo | Conteúdo | Permissão |
 | --- | --- | --- |
@@ -13,17 +13,22 @@ testes e CI.
 
 ## settings.json
 
-Keys em notação de ponto. O schema do esqueleto:
+Use notação de ponto para acessar as keys pelo CLI.
 
 | Key | Tipo | Padrão | Função |
 | --- | --- | --- | --- |
 | `output.format` | `text` ou `json` | `text` | formato padrão da saída do CLI |
 | `output.colors` | boolean | `true` | cores ANSI na saída de texto |
 | `tui.icons` | `auto`, `nerd`, `unicode` ou `ascii` | `auto` | conjunto de ícones da TUI; `auto` usa `nerd` no Ghostty, no Kitty, no WezTerm e no Omarchy, `ascii` no console Linux e `unicode` nos demais terminais |
-| `tui.initialTab` | `overview`, `settings`, `credentials`, `docs` ou `about` | `overview` | aba aberta ao iniciar a TUI |
+| `tui.initialTab` | `overview`, `theme`, `catalog`, `components`, `skills`, `deps`, `mcp`, `viewspecs`, `captures`, `project`, `settings`, `credentials`, `docs` ou `about` | `overview` | tela aberta ao iniciar a TUI. `overview` abre a Home |
 | `tui.motion` | boolean | `true` | animações curtas de diálogos e toasts; `false` deixa a interface estática |
 | `tui.mouse` | boolean | `true` | mouse na TUI: clique, hover e roda. `false` devolve a seleção de texto ao terminal |
 | `tui.theme` | `terminal`, `night` ou `day` | `terminal` | paleta da TUI |
+| `skills.source` | string | `promovaweb/designfy` | repositório das skills internas |
+| `skills.agents` | string | `universal,claude-code,codex,opencode` | agentes de destino, separados por vírgula |
+| `deps.packageManager` | `auto`, `npm`, `pnpm`, `bun` ou `yarn` | `auto` | gerenciador usado na instalação. `auto` usa a configuração do projeto ou o lockfile |
+| `capture.viewports` | string | `mobile,desktop` | viewports separados por vírgula |
+| `capture.outDir` | string | `.designfy/captures` | pasta das capturas, relativa ao projeto por padrão |
 | `telemetry.enabled` | boolean | `false` | reservado para projetos derivados |
 
 Commands:
@@ -40,6 +45,25 @@ Commands:
 Keys fora do schema são aceitas como texto. Para que uma key nova ganhe tipo,
 padrão e documentação, acrescente-a a `SETTINGS_SCHEMA` em
 `src/config/settings.ts`.
+
+## designfy.json
+
+`init` grava a configuração na raiz do projeto. Quando o arquivo existe,
+os campos definidos nele prevalecem sobre os valores detectados. Os caminhos
+de projeto e o alias podem ser ajustados no próprio arquivo.
+
+| Campo | Valor |
+| --- | --- |
+| `schemaVersion` | `1` |
+| `framework` | `astro`, `next`, `react-vite`, `react` ou `unknown` |
+| `typescript` | Booleano detectado pelo `tsconfig.json` ou pela dependência `typescript` |
+| `packageManager` | `bun`, `pnpm`, `yarn` ou `npm`, escolhido pelo lockfile. O padrão é `npm` |
+| `tailwind` | Versão maior de `tailwindcss` ou `null` |
+| `shadcn` | Booleano que indica a presença de `components.json` |
+| `paths.components` | Pasta para os componentes copiados. Padrão `src/components/designfy` |
+| `paths.styles` | Pasta para estilos copiados e entrada de busca do tema. Padrão `src/styles` |
+| `paths.viewspec` | Pasta das especificações de tela. Padrão `viewspec` |
+| `aliases.components` | Alias que substitui `@designfy/components` nos arquivos copiados. Padrão `@/components/designfy` |
 
 ## credentials.json
 
@@ -98,6 +122,9 @@ resposta de tool MCP.
 | --- | --- |
 | `{{BIN}}_HOME` | troca `~/.{{bin}}/` por outra pasta |
 | `{{BIN}}_MASTER_KEY` | master key em hex; dispensa `master.key` |
+| `DESIGNFY_CATALOG_DIR` | pasta com JSONs de catálogo para substituir os embutidos |
+| `DESIGNFY_REGISTRY_FILE` | caminho de um JSON com os registros embutidos `react` e `astro`, incluindo `content` por arquivo |
+| `DESIGNFY_E2E` | `1` habilita o teste de captura com Playwright |
 | `NO_COLOR` | desliga cores na saída de texto |
 
 ## Rotação da master key

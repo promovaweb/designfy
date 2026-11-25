@@ -1,0 +1,34 @@
+---
+/**
+ * Category pages of the blog: the posts of one category, with the filters
+ * marking the page being read. The pages are real routes, not query strings.
+ */
+import Base from "../../../layouts/Base.astro";
+import ArchivePage from "../../../components/ArchivePage.astro";
+import { allPosts, categories, categoryFilters, toCard, type CategoryRecord } from "../../../lib/site";
+
+export async function getStaticPaths() {
+  return categories.map((category) => ({ params: { category: category.slug }, props: { category } }));
+}
+
+interface Props {
+  category: CategoryRecord;
+}
+
+const { category } = Astro.props;
+const posts = await allPosts();
+const grid = posts.filter((post) => post.data.category === category.slug).map(toCard);
+---
+
+<Base title={category.label} description={category.description}>
+  <ArchivePage
+    title={category.label}
+    lead={category.description}
+    note="Blog de amostra. A cooperativa, as pessoas e os números são fictícios."
+    filters={categoryFilters(category.slug)}
+    posts={grid}
+    page={1}
+    total={1}
+    base={`/blog/categoria/${category.slug}`}
+  />
+</Base>

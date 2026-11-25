@@ -40,6 +40,8 @@ export interface OptionDefinition {
     /** For options with an optional value (`--skill [topic]`). */
     optional?: boolean;
   };
+  /** May be given more than once; the parser joins the values with commas. */
+  repeatable?: boolean;
   /** Available in every subcommand (OpenCLI `recursive`). */
   recursive?: boolean;
   /** Value assumed when the option is not given. */

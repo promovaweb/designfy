@@ -1,0 +1,105 @@
+---
+/**
+ * Home of the example: the presentation of the fictional cooperative, a sample
+ * reading panel, the latest posts and the three categories as rows.
+ */
+import Base from "../layouts/Base.astro";
+import PostList from "@/components/designfy/post-list/PostList.astro";
+import { allPosts, categories, toCard } from "../lib/site";
+
+const posts = await allPosts();
+const latest = posts.slice(0, 3).map(toCard);
+const week = [5, 11, 8, 14, 7, 18, 12];
+---
+
+<Base
+  title="Início"
+  description="Amostra de blog com os componentes de conteúdo do Designfy: cooperativa, estações e pessoas fictícias."
+>
+  <section class="df-container grid items-center gap-10 pt-14 pb-10 md:pt-20 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-16">
+    <div class="flex flex-col items-start gap-5">
+      <h1 class="animate-df-fade-up max-w-[18ch] font-heading text-display font-semibold text-balance text-foreground">
+        A chuva da serra, escrita à mão desde 1962
+      </h1>
+      <p class="animate-df-fade-up max-w-[54ch] text-lead text-muted-foreground [animation-delay:80ms]">
+        A cooperativa Serra Clara mantém três estações, um caderno por inverno e uma regra: toda leitura precisa de
+        outra pessoa para conferir.
+      </p>
+      <div class="flex w-full animate-df-fade-up flex-col gap-3 [animation-delay:160ms] sm:w-auto sm:flex-row">
+        <a
+          href="/blog/"
+          class="df-press inline-flex min-h-12 items-center justify-center rounded-lg bg-primary px-6 text-base font-semibold text-primary-foreground hover:bg-primary/90"
+        >
+          Ler o diário
+        </a>
+        <a
+          href="/blog/categoria/arquivo/"
+          class="df-press inline-flex min-h-12 items-center justify-center rounded-lg border border-border bg-background px-6 text-base font-medium text-foreground hover:bg-muted"
+        >
+          Abrir o arquivo
+        </a>
+      </div>
+      <p class="animate-df-fade-up text-sm text-muted-foreground [animation-delay:220ms]">
+        Blog de amostra: a cooperativa, as pessoas e os números são fictícios.
+      </p>
+    </div>
+
+    <div class="animate-df-fade-up [animation-delay:140ms]" aria-hidden="true">
+      <div class="rounded-xl border border-border bg-card p-6 shadow-sm shadow-foreground/5">
+        <div class="flex items-baseline justify-between gap-4">
+          <p class="font-heading text-base font-semibold text-foreground">Estação Cruzeiro</p>
+          <p class="font-mono text-xs text-muted-foreground">amostra</p>
+        </div>
+        <p class="mt-6 font-heading text-headline font-semibold tabular-nums text-foreground">18,5 mm</p>
+        <p class="text-sm text-muted-foreground">Leitura de hoje, conferida por duas pessoas.</p>
+        <div class="mt-6 flex h-24 items-end gap-2">
+          {
+            week.map((value) => (
+              <div class="flex-1 rounded-sm bg-primary/25" style={`height: ${value * 5}px`} />
+            ))
+          }
+        </div>
+        <div class="mt-3 flex justify-between border-t border-border pt-3 font-mono text-xs text-muted-foreground">
+          <span>seg</span>
+          <span>ter</span>
+          <span>qua</span>
+          <span>qui</span>
+          <span>sex</span>
+          <span>sáb</span>
+          <span>dom</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="ultimos" class="df-container df-section">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <h2 id="ultimos" class="font-heading text-headline font-semibold text-foreground">Últimos textos</h2>
+      <a href="/blog/" class="df-underline text-sm font-medium text-primary">Ver todos</a>
+    </div>
+    <div class="mt-8">
+      <PostList posts={latest} headingLevel={3} />
+    </div>
+  </section>
+
+  <section aria-labelledby="categorias" class="df-container pb-16">
+    <h2 id="categorias" class="font-heading text-title font-semibold text-foreground">Categorias</h2>
+    <ul class="mt-6 divide-y divide-border border-y border-border">
+      {
+        categories.map((category) => (
+          <li>
+            <a
+              href={`/blog/categoria/${category.slug}/`}
+              class="group flex min-h-16 flex-wrap items-baseline justify-between gap-x-6 gap-y-1 py-4"
+            >
+              <span class="font-heading text-base font-semibold text-foreground group-hover:text-primary">
+                {category.label}
+              </span>
+              <span class="max-w-[52ch] text-sm text-muted-foreground">{category.description}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</Base>

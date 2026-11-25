@@ -80,7 +80,12 @@ export function parse(root: Command, argv: readonly string[]): Parsed {
             accepted: def.argument.values,
           });
         }
-        options[key] = value === undefined ? true : value;
+        const previous = options[key];
+        options[key] = value === undefined
+          ? true
+          : def.repeatable && typeof previous === "string"
+            ? `${previous},${value}`
+            : value;
       } else {
         if (inlineValue !== undefined) {
           throw error.usage(`Option ${def.name} does not take a value.`, { option: def.name });

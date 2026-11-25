@@ -1,0 +1,49 @@
+---
+/**
+ * Archive page of the example: the page header, the post list (featured post,
+ * grid, category filters) and the pagination. Shared by the blog index, the
+ * numbered pages and the category pages.
+ */
+import PostList from "@/components/designfy/post-list/PostList.astro";
+import Pagination from "./Pagination.astro";
+import type { CardData } from "../lib/site";
+
+interface Props {
+  title: string;
+  lead: string;
+  note?: string;
+  filters: { label: string; href: string; current?: boolean }[];
+  featured?: CardData;
+  posts: CardData[];
+  page: number;
+  total: number;
+  base: string;
+}
+
+const { title, lead, note, filters, featured, posts, page, total, base } = Astro.props;
+---
+
+<header class="df-container pt-12 pb-8 md:pt-16 md:pb-10">
+  <div class="flex max-w-[62ch] flex-col gap-4">
+    <h1 class="animate-df-fade-up font-heading text-headline font-semibold text-balance text-foreground">{title}</h1>
+    <p class="animate-df-fade-up text-lead text-muted-foreground [animation-delay:80ms]">{lead}</p>
+    {note && <p class="animate-df-fade-up text-sm text-muted-foreground [animation-delay:140ms]">{note}</p>}
+  </div>
+</header>
+
+<div class="df-container pb-16">
+  <div class="border-t border-border pt-8">
+    <PostList
+      posts={posts}
+      featured={featured}
+      categories={filters}
+      emptyTitle="Nenhum texto nesta categoria"
+      emptyText="As leituras desta categoria ainda estão no caderno de campo. Elas aparecem aqui na próxima coleta."
+      emptyAction={{ label: "Ver todos os textos", href: "/blog/" }}
+    >
+      {total > 1 && (
+        <Pagination slot="pagination" page={page} total={total} base={base} label={`Paginação de ${title}`} />
+      )}
+    </PostList>
+  </div>
+</div>

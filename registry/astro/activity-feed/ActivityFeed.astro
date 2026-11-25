@@ -1,0 +1,45 @@
+---
+/** Timestamped events ordered newest first. Slot: older, for a pagination link. Motion: items enter with a short slide. Catalog: activity-feed. */
+interface Props {
+  /** Heading of the event list. */
+  title: string;
+  /** Heading level. */
+  headingLevel?: 2 | 3 | 4;
+  /** Events sorted by date descending by the component. */
+  entries: readonly {
+    /** Stable event identifier. */
+    id: string;
+    /** ISO timestamp. */
+    dateTime: string;
+    /** Formatted timestamp. */
+    time: string;
+    /** Actor or source. */
+    actor: string;
+    /** Event description. */
+    action: string;
+    /** Optional detail. */
+    detail?: string;
+  }[];
+  /** Indicates that events are being loaded. */
+  loading?: boolean;
+  /** Empty message. */
+  emptyMessage?: string;
+  /** Additional classes. */
+  class?: string;
+}
+const { title, headingLevel = 2, entries, loading, emptyMessage, class: className } = Astro.props;
+const Heading = `h${headingLevel}` as const;
+const sorted = [...entries].sort((a, b) => Date.parse(b.dateTime) - Date.parse(a.dateTime));
+---
+<section aria-busy={loading || undefined} class:list={["min-w-0 rounded-xl border border-border bg-card p-5 sm:p-6", className]}>
+  <Heading class="mb-5 font-heading text-lg font-semibold">{title}</Heading>
+  {entries.length ? <ol class="ms-1 border-s border-border">
+    {sorted.map((item) => <li class="relative min-w-0 space-y-1 ps-5 pb-5 last:pb-1 motion-safe:animate-df-slide-in-right">
+      <span aria-hidden="true" class="absolute -start-1 top-1.5 size-2 rounded-full bg-primary ring-4 ring-card"></span>
+      <time datetime={item.dateTime} class="block text-xs tabular-nums text-muted-foreground">{item.time}</time>
+      <p class="text-sm"><strong class="font-semibold">{item.actor}</strong> {item.action}</p>
+      {item.detail && <div class="text-sm text-muted-foreground">{item.detail}</div>}
+    </li>)}
+  </ol> : <p class="rounded-lg bg-muted px-3 py-4 text-sm text-muted-foreground" role="status">{loading ? "Loading activity…" : emptyMessage ?? "No activity yet."}</p>}
+  {Astro.slots.has("older") && <div class="mt-4"><slot name="older" /></div>}
+</section>

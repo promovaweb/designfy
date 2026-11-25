@@ -1,0 +1,58 @@
+/* Exercises a shadcn theme with all known contrast pairs. */
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* :root { --background: #777; } */
+:root {
+  --background: oklch(1 0 0);
+  --foreground: #000;
+  --primary: hsl(0 0% 12%);
+  --primary-foreground: rgb(255 255 255);
+  --muted: #eee;
+  --muted-foreground: #222;
+  --card: #fcfcfc;
+  --card-foreground: var(--foreground);
+  --accent: #003;
+  --accent-foreground: var(--primary-foreground);
+  --destructive: #900;
+  --destructive-foreground: #fff;
+  --missing: var(--absent);
+  --self: var(--self, #999);
+  --cycle-a: var(--cycle-b);
+  --cycle-b: var(--cycle-a);
+  --opaque: "literal; { brace } var(--unknown)";
+  --inline-block: calc(2 * var(--spacing));
+}
+.dark {
+  --background: #000;
+  --foreground: #fff;
+  --primary: hsl(0.5turn 0% 89%);
+  --primary-foreground: #000;
+  --muted: #111;
+  --muted-foreground: rgb(90%, 90%, 90%);
+  --card: #111;
+  --accent: #ccf;
+  --destructive: #f44;
+  --destructive-foreground: #000;
+}
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-chain: var(--missing, var(--cycle-a, var(--self, var(--foreground))));
+  --color-mix-test: color-mix(in oklch, var(--foreground), transparent 10%);
+  --font-sans: var(--font-other, "Example Sans", sans-serif);
+  --font-weight-bold: 700;
+  --text-sm: .875rem;
+  --text-sm--line-height: 1.25rem;
+  --radius: .625rem;
+  --radius-lg: var(--radius);
+  --spacing: .25rem;
+  --spacing-card: 1rem;
+  --shadow-sm: 0 1px 2px #000;
+  --breakpoint-xl: 80rem;
+  --ease-in: ease-in;
+  --animate-in: enter 100ms ease-in;
+  --duration-in: 100ms;
+  @keyframes enter { from { opacity: 0 } to { opacity: 1 } }
+}

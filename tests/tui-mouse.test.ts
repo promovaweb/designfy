@@ -5,21 +5,24 @@ import { button, listPanel, panel } from "../src/tui/components.ts";
 import { themes } from "../src/tui/theme.ts";
 import { framePoint, withTui } from "./tui-fixture.ts";
 
-test("clicking tab 5 opens About and the tab wheel moves in both directions", async () => {
+test("clicking a Home card opens its module and the Back chip and brand return Home", async () => {
   await withTui(async (setup) => {
-    await setup.mockMouse.click(...framePoint(setup, "5 ℹ About"), 2);
+    await setup.mockMouse.click(...framePoint(setup, "a ℹ About"), 2);
     await setup.renderOnce();
-    expect(setup.captureCharFrame()).toContain("ENVIRONMENT");
-    await setup.mockMouse.click(...framePoint(setup, "5 ℹ About"));
+    expect(setup.captureCharFrame().split("\n")[0]).toContain("⌂ Home");
+    await setup.mockMouse.click(...framePoint(setup, "a ℹ About"));
     await setup.renderOnce();
-    expect(setup.captureCharFrame()).toContain("CREDITS");
-    await setup.mockMouse.scroll(...framePoint(setup, "5 ℹ About"), "down");
+    expect(setup.captureCharFrame()).toContain("Credits");
+    await setup.mockMouse.click(...framePoint(setup, "← Back"));
     await setup.renderOnce();
-    expect(setup.captureCharFrame()).toContain("ENVIRONMENT");
-    await setup.mockMouse.scroll(...framePoint(setup, "1 ⌂ Overview"), "down");
+    expect(setup.captureCharFrame().split("\n")[0]).toContain("⌂ Home");
+    await setup.mockMouse.click(...framePoint(setup, "1 ◐ Theme"));
     await setup.renderOnce();
-    expect(setup.captureCharFrame()).toContain("SETTING DETAILS");
-  });
+    expect(setup.captureCharFrame().split("\n")[0]).toContain("› ◐ Theme");
+    await setup.mockMouse.click(...framePoint(setup, "◆ Designfy"));
+    await setup.renderOnce();
+    expect(setup.captureCharFrame().split("\n")[0]).toContain("⌂ Home");
+  }, "overview", { width: 140, height: 40 });
 });
 test("clicking quit in the key bar destroys the renderer", async () => {
   await withTui(async (setup) => {
@@ -32,7 +35,7 @@ test("a key bar screen action copies MCP config and reports its result", async (
     await setup.mockMouse.click(...framePoint(setup, "copy MCP config", true));
     await setup.renderOnce();
     expect(setup.captureCharFrame()).toMatch(/copied|OSC 52/);
-  });
+  }, "project");
 });
 test("clicking a help action runs it and closes the help", async () => {
   await withTui(async (setup) => {
@@ -43,7 +46,7 @@ test("clicking a help action runs it and closes the help", async () => {
     await setup.renderOnce();
     expect(setup.captureCharFrame()).toContain("Reloaded");
     expect(setup.captureCharFrame()).not.toContain("Keys");
-  });
+  }, "project");
 });
 test("list row clicks select and activate while right clicks and wheel do not activate", async () => {
   const setup = await createTestRenderer({ width: 50, height: 10 });
@@ -89,34 +92,18 @@ test("About clipboard errors become a status message", async () => {
     expect(setup.captureCharFrame()).toMatch(/Copied|OSC 52/);
   }, "about");
 });
-test("tabs after the ninth remain reachable by click and wheel", async () => {
-  const { screens } = await import("../src/tui/screens/index.ts");
-  const { BoxRenderable } = await import("@opentui/core");
-  const registry = screens as import("../src/tui/screen.ts").Screen[];
-  const originalLength = registry.length;
-  for (let index = originalLength; index < 10; index++) {
-    registry.push({
-      id: `extra-${index}`, title: `Extra${index + 1}`, description: "Additional tab fixture",
-      mount: ({ renderer, notify }) => {
-        notify(`Opened Extra${index + 1}`);
-        return new BoxRenderable(renderer, {});
-      },
-    });
-  }
-  try {
-    await withTui(async (setup) => {
-      await setup.mockMouse.click(...framePoint(setup, "Extra10"));
+test("the narrow Home scrolls to tool modules and keeps cards clickable", async () => {
+  await withTui(async (setup) => {
+    for (let attempt = 0; attempt < 40 && !setup.captureCharFrame().includes("0 ⚙ Settings"); attempt++) {
+      await setup.mockMouse.scroll(18, 5, "down");
       await setup.renderOnce();
-      expect(setup.captureCharFrame()).toContain("Opened Extra10");
-      await setup.mockMouse.scroll(...framePoint(setup, "Extra10"), "up");
-      await setup.renderOnce();
-      expect(setup.captureCharFrame()).toContain("Opened Extra9");
-      setup.mockInput.pressKey("1");
-      await setup.renderOnce();
-      expect(setup.captureCharFrame()).toContain("ENVIRONMENT");
-      setup.mockInput.pressKey("9");
-      await setup.renderOnce();
-      expect(setup.captureCharFrame()).not.toContain("ENVIRONMENT");
-    });
-  } finally { registry.splice(originalLength); }
+    }
+    await setup.mockMouse.click(...framePoint(setup, "0 ⚙ Settings"));
+    await setup.renderOnce();
+    expect(setup.captureCharFrame().split("\n")[0]).toContain("› ⚙ Settings");
+    setup.mockInput.pressBackspace();
+    setup.mockInput.pressKey("c");
+    await setup.renderOnce();
+    expect(setup.captureCharFrame()).toContain("No credentials");
+  }, "overview", { width: 60, height: 16 });
 });

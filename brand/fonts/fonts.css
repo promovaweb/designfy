@@ -1,35 +1,10 @@
 /**
- * Webfontes locais da marca.
- * Edite este arquivo somente ao substituir os binários e suas licenças.
+ * Declares the local variable fonts used by the Designfy brand.
  */
 @font-face {
   font-family: "Inter";
   font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("./inter-latin.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("./inter-latin.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("./inter-latin.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 700;
+  font-weight: 400 700;
   font-display: swap;
   src: url("./inter-latin.woff2") format("woff2");
 }
@@ -37,31 +12,7 @@
 @font-face {
   font-family: "Manrope";
   font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("./manrope-latin.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Manrope";
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("./manrope-latin.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Manrope";
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url("./manrope-latin.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Manrope";
-  font-style: normal;
-  font-weight: 800;
+  font-weight: 500 800;
   font-display: swap;
   src: url("./manrope-latin.woff2") format("woff2");
 }

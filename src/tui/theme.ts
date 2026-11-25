@@ -48,6 +48,12 @@ export interface Theme {
   barText: ColorInput;
   keyBackground: ColorInput;
   keyText: ColorInput;
+  selection: ColorInput;
+  selectionText: ColorInput;
+  primary: ColorInput;
+  primaryText: ColorInput;
+  brandBackground: ColorInput;
+  brandText: ColorInput;
 }
 
 /** ANSI slots of the 16-color palette, by name. */
@@ -74,43 +80,55 @@ export const ANSI = {
 export const themes: Record<"night" | "day", Theme> = {
   night: {
     name: "night",
-    background: "#1a1b26",
-    surface: "#1f2335",
-    surfaceHigh: "#24283b",
-    border: "#3b4261",
-    borderActive: "#7aa2f7",
-    text: "#c0caf5",
-    textDim: "#565f89",
-    textStrong: "#e0e6ff",
-    accent: "#7aa2f7",
-    accentSecondary: "#bb9af7",
-    ok: "#9ece6a",
-    warn: "#e0af68",
-    error: "#f7768e",
-    barBackground: "#16161e",
-    barText: "#a9b1d6",
-    keyBackground: "#3d59a1",
-    keyText: "#ffffff",
+    background: "#00161E",
+    surface: "#05232C",
+    surfaceHigh: "#10333D",
+    border: "#40656C",
+    borderActive: "#2AD5BE",
+    text: "#D7EDEA",
+    textDim: "#9DBBB9",
+    textStrong: "#F0FFFD",
+    accent: "#C6F4ED",
+    accentSecondary: "#FFB224",
+    ok: "#72DBA0",
+    warn: "#FFB224",
+    error: "#FFA0A4",
+    barBackground: "#082B34",
+    barText: "#ABC7C6",
+    keyBackground: "#C6F4ED",
+    keyText: "#00161E",
+    selection: "#19454F",
+    selectionText: "#F0FFFD",
+    primary: "#2AD5BE",
+    primaryText: "#00161E",
+    brandBackground: "#FFB224",
+    brandText: "#00161E",
   },
   day: {
     name: "day",
-    background: "#e1e2e7",
-    surface: "#d6d8df",
-    surfaceHigh: "#c4c8da",
-    border: "#a8aecb",
-    borderActive: "#2e7de9",
-    text: "#3760bf",
-    textDim: "#848cb5",
-    textStrong: "#1b2a5e",
-    accent: "#2e7de9",
-    accentSecondary: "#9854f1",
-    ok: "#587539",
-    warn: "#8c6c3e",
-    error: "#f52a65",
-    barBackground: "#c4c8da",
-    barText: "#3760bf",
-    keyBackground: "#2e7de9",
-    keyText: "#ffffff",
+    background: "#F4FCFA",
+    surface: "#EAF7F4",
+    surfaceHigh: "#D7F1EA",
+    border: "#719992",
+    borderActive: "#08796D",
+    text: "#153C3D",
+    textDim: "#466764",
+    textStrong: "#00161E",
+    accent: "#005A51",
+    accentSecondary: "#855100",
+    ok: "#17653C",
+    warn: "#825000",
+    error: "#9A273A",
+    barBackground: "#DBF1EC",
+    barText: "#2E5451",
+    keyBackground: "#005A51",
+    keyText: "#F4FCFA",
+    selection: "#BCE8E0",
+    selectionText: "#00161E",
+    primary: "#005A51",
+    primaryText: "#F4FCFA",
+    brandBackground: "#FFB224",
+    brandText: "#00161E",
   },
 };
 
@@ -267,6 +285,12 @@ export function terminalTheme(colors?: TerminalColors | null): Theme {
     barText: ref(slots.textDim),
     keyBackground: ref(slots.accent),
     keyText: ref(slots.keyText),
+    selection: ref(slots.surfaceHigh),
+    selectionText: foreground,
+    primary: ref(slots.accent),
+    primaryText: ref(slots.keyText),
+    brandBackground: ref(slots.accent),
+    brandText: ref(slots.keyText),
   };
 }
 

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Pôster de amostra do vídeo">
+  <style>
+  :root { --bg: #edf1f2; --ink: #2b3d43; --muted: #b6c6ca; --accent: #2f7f7a; --soft: #d7e2e4; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #151c1f; --ink: #dce8ea; --muted: #33434a; --accent: #74d6cc; --soft: #223036; }
+  }
+</style>
+  <rect width="1280" height="720" fill="var(--bg)" />
+  <rect x="40" y="40" width="1200" height="640" fill="none" stroke="var(--muted)" />
+  <g stroke="var(--ink)" stroke-width="3" stroke-linecap="round" fill="none">
+    <path d="M180 470h320" stroke-opacity="0.7" />
+    <path d="M180 530h220" stroke-opacity="0.4" />
+    <circle cx="940" cy="360" r="150" stroke="var(--accent)" />
+    <path d="M900 292v136l112-68Z" fill="var(--accent)" fill-opacity="0.25" stroke="var(--accent)" />
+  </g>
+  <text x="72" y="650" fill="var(--muted)" font-family="ui-sans-serif, system-ui, sans-serif" font-size="22">amostra</text>
+</svg>

@@ -1,0 +1,118 @@
+---
+/**
+ * Steps: Connects the steps of a process horizontally or as a vertical timeline.
+ * Motion: An entrance observer draws each connector in sequence while the step content reveals.
+ * Catalog: steps
+ */
+import { cn } from "@designfy/components/lib/cn";
+
+type Step = {
+  title: string;
+  description: string;
+  code?: string;
+  image?: { src: string; alt: string; width: number; height: number };
+};
+
+interface Props {
+  /** Section heading. */
+  title: string;
+  /** Supporting sentence. */
+  lead?: string;
+  /** Heading level in the page outline. */
+  headingLevel?: 2 | 3 | 4 | 5 | 6;
+  /** Process steps in their required order. */
+  items: Step[];
+  /** Timeline arrangement from tablet width. */
+  variant?: "horizontal" | "vertical";
+  /** Additional classes on the root element. */
+  class?: string;
+}
+
+const {
+  title,
+  lead,
+  headingLevel = 2,
+  items,
+  variant = "horizontal",
+  class: className,
+} = Astro.props;
+const Heading = `h${headingLevel}` as "h2";
+const ItemHeading = `h${Math.min(6, headingLevel + 1)}` as "h3";
+const columns = Math.max(1, items.length);
+---
+
+<section class={cn("df-section bg-muted/60", className)}>
+  <div class="df-container">
+    <header data-df-reveal="up" class="mb-10 md:mb-14">
+      <Heading class="font-heading text-headline font-semibold">{title}</Heading
+      >
+      {
+        lead && (
+          <p class="mt-4 max-w-2xl text-lead text-muted-foreground">{lead}</p>
+        )
+      }
+    </header>
+    <ol
+      role="list"
+      data-df-stagger
+      style={`--step-columns: ${columns}`}
+      class={cn(
+        "grid",
+        variant === "horizontal" &&
+          "md:grid-cols-[repeat(var(--step-columns),minmax(0,1fr))]",
+        variant === "vertical" && "max-w-3xl",
+      )}
+    >
+      {
+        items.map((step, index) => (
+          <li
+            data-df-reveal="up"
+            class={cn(
+              "group relative grid min-w-0 grid-cols-[auto_minmax(0,1fr)] gap-4 pb-8 last:pb-0",
+              variant === "horizontal" && "md:grid-cols-1 md:pb-0 md:pe-6",
+            )}
+          >
+            {index < items.length - 1 && (
+              <span
+                aria-hidden="true"
+                class={cn(
+                  "absolute start-5 top-5 h-full w-px origin-top bg-primary/40 motion-safe:transition-transform motion-safe:duration-(--duration-slower) [transition-delay:var(--step-delay)] motion-safe:[.js_.group:not([data-df-visible])_&]:scale-y-0",
+                  variant === "horizontal" &&
+                    "md:h-px md:w-full md:origin-left motion-safe:md:[.js_.group:not([data-df-visible])_&]:scale-x-0 motion-safe:md:[.js_.group:not([data-df-visible])_&]:scale-y-100",
+                )}
+                style={`--step-delay: ${index * 60 + "ms"}`}
+              />
+            )}
+            <span
+              aria-hidden="true"
+              class="relative grid size-10 place-items-center rounded-full border border-primary/40 bg-background font-mono text-sm font-semibold text-primary"
+            >
+              {index + 1}
+            </span>
+            <div class="min-w-0">
+              <ItemHeading class="text-title font-semibold">
+                {step.title}
+              </ItemHeading>
+              <p class="mt-2 text-muted-foreground">{step.description}</p>
+              {step.code && (
+                <pre class="mt-4 overflow-x-auto rounded-lg bg-background p-4 font-mono text-sm">
+                  <code>{step.code}</code>
+                </pre>
+              )}
+              {step.image && (
+                <img
+                  src={step.image.src}
+                  alt={step.image.alt}
+                  width={step.image.width}
+                  height={step.image.height}
+                  loading="lazy"
+                  class="mt-4 h-auto w-full rounded-lg"
+                />
+              )}
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

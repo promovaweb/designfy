@@ -1,0 +1,4 @@
+{
+  "paths": { "components": "src/components/designfy", "styles": "src/styles" },
+  "aliases": { "components": "@/components/designfy" }
+}

@@ -1,0 +1,4 @@
+/* Exercises delegated Tailwind imports and a later dark override. */
+@import "./tokens.css";
+@import "tw-animate-css";
+[data-theme="dark"] { --foreground: #101010; --color-dark-only: #123; }

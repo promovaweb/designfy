@@ -4,6 +4,7 @@ import { BoxRenderable, InputRenderable, TextRenderable, PasteEvent } from "@ope
 import type { TestRendererSetup } from "@opentui/core/testing";
 import { screens } from "../src/tui/screens/index.ts";
 import type { Screen, ScreenContext } from "../src/tui/screen.ts";
+import { writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { HOME_VARIABLE } from "../src/config/paths.ts";
 import { TOAST_MS } from "../src/tui/overlays.ts";
@@ -47,7 +48,7 @@ async function fixture(run: (setup: TestRendererSetup, ctx: ScreenContext, state
   finally { registry.splice(registry.indexOf(screen), 1); }
 }
 
-test("palette opens by Ctrl+K and colon, filters, executes by Enter/click and navigates across tabs", async () => {
+test("palette opens by Ctrl+K and colon, filters, executes by Enter/click and navigates across modules", async () => {
   await fixture(async (setup, _ctx, state) => {
     setup.mockInput.pressKey("k", { ctrl: true }); await setup.renderOnce();
     expect(setup.captureCharFrame()).toContain("Commands");
@@ -60,7 +61,7 @@ test("palette opens by Ctrl+K and colon, filters, executes by Enter/click and na
     setup.mockInput.pressKey(":"); await setup.renderOnce(); await escape(setup);
     expect(setup.captureCharFrame()).not.toContain("command(s)"); expect(setup.renderer.isDestroyed).toBe(false);
     setup.mockInput.pressKey(":"); await setup.mockInput.typeText("Go to Docs"); await setup.renderOnce();
-    setup.mockInput.pressEnter(); await setup.renderOnce(); expect(setup.captureCharFrame()).toContain("TOPICS");
+    setup.mockInput.pressEnter(); await setup.renderOnce(); expect(setup.captureCharFrame()).toContain("Topics");
     setup.mockInput.pressKey(":"); await setup.mockInput.typeText("Fixture: count"); await setup.renderOnce();
     setup.mockInput.pressEnter(); await setup.renderOnce(); expect(state.calls).toBe(3); expect(setup.captureCharFrame()).toContain("Mounted 1");
   });
@@ -148,12 +149,14 @@ test("toasts stack at three, dismiss on click and expire using TOAST_MS", async 
   } finally { clock.mockRestore(); }
 });
 
-for (const [width, height] of [[60, 16], [80, 24], [120, 32]]) {
-  test(`layout at ${width}x${height} preserves the complete global key bar`, async () => {
+for (const [width, height] of [[60, 16], [80, 24], [130, 32]] as const) {
+  test(`layout at ${width}x${height} keeps mandatory key chips and drops whole hints`, async () => {
     await withTui(async (setup) => {
-      const bar = setup.captureCharFrame().trimEnd().split("\n").at(-1)!;
-      expect(bar).toContain("help"); expect(bar).toContain("quit"); expect(bar).toContain("commands");
-      expect(Bun.stringWidth(bar)).toBeLessThanOrEqual(width!);
+      const bar = setup.captureCharFrame().split("\n")[height - 1]!;
+      expect(bar.trim()).toMatch(/Enter\/e +edit.+│.+\? +help +q +quit$/);
+      if (width < 80) expect(bar).not.toContain("commands");
+      if (width >= 130) expect(bar).toMatch(/\^K +commands/);
+      expect(Bun.stringWidth(bar.trimEnd())).toBeLessThanOrEqual(width - (width < 80 ? 1 : 3));
     }, "settings", { width, height });
   });
 }
@@ -163,17 +166,20 @@ test("small-terminal state and resize remount the screen at each layout boundary
     setup.resize(80, 24); await setup.renderOnce(); expect(state.mounts).toBe(2);
     setup.resize(60, 16); await setup.renderOnce(); expect(state.mounts).toBe(3);
     setup.resize(59, 15); await setup.renderOnce(); expect(setup.captureCharFrame()).toContain("Terminal too small");
-    setup.resize(120, 10); await setup.renderOnce(); expect(setup.captureCharFrame()).toContain("Terminal too small");
-    setup.resize(120, 32); await setup.renderOnce(); expect(state.mounts).toBe(4);
+    setup.resize(110, 10); await setup.renderOnce(); expect(setup.captureCharFrame()).toContain("Terminal too small");
+    setup.resize(110, 32); await setup.renderOnce(); expect(state.mounts).toBe(4);
     expect(setup.captureCharFrame()).toContain("Mounted 4");
   });
 });
 
-test("Settings and Credentials focus cycles with Tab and leaves tab navigation available", async () => {
+test("Settings and Credentials focus cycles with Tab and leaves module navigation available", async () => {
   await withTui(async (setup) => {
     setCredential("service.token", "private");
-    for (const key of ["2", "3"]) {
-      setup.mockInput.pressKey(key); await setup.renderOnce();
+    setup.mockInput.pressKey("0");
+    for (const tab of ["Settings", "Credentials"]) {
+      if (tab === "Credentials") { setup.mockInput.pressBackspace(); setup.mockInput.pressKey("c"); }
+      await setup.renderOnce();
+      expect(setup.captureCharFrame().split("\n")[0]).toContain(tab);
       setup.mockInput.pressTab(); const focused = setup.renderer.currentFocusedRenderable;
       expect(focused).not.toBeNull(); expect(focused?.constructor.name).toBe("ScrollBoxRenderable");
       setup.mockInput.pressTab();
@@ -186,7 +192,7 @@ test("Settings and Credentials focus cycles with Tab and leaves tab navigation a
       setup.mockInput.pressTab({ shift: true });
       expect(setup.renderer.currentFocusedRenderable).toBe(details);
     }
-    setup.mockInput.pressKey("1"); await setup.renderOnce(); expect(setup.captureCharFrame()).toContain("ENVIRONMENT"); expect(setup.renderer.currentFocusedRenderable === null).toBe(true);
+    setup.mockInput.pressBackspace(); await setup.renderOnce(); expect(setup.captureCharFrame().split("\n")[0]).toContain("⌂ Home"); expect(setup.renderer.currentFocusedRenderable === null).toBe(true);
   });
 });
 
@@ -197,7 +203,7 @@ test("watch refreshes settings from disk, including updates received while a mod
     expect(setup.captureCharFrame()).toContain("Updated from disk");
     expect(setup.captureCharFrame()).toContain("false");
     setup.mockInput.pressKey("?"); await setup.renderOnce();
-    setPath(settings, "custom.marker", "disk-update-marker"); writeSettings(settings);
+    setPath(settings, "capture.outDir", "disk-update-marker"); writeSettings(settings);
     await Bun.sleep(320); await escape(setup); await Bun.sleep(320); await setup.renderOnce();
     expect(setup.captureCharFrame()).toContain("disk-update-marker");
   }, "settings");
@@ -253,12 +259,12 @@ test("Tab includes a focusable root and Shift+Tab starts at the last actual pane
   }, { mount: (ctx) => new InputRenderable(ctx.renderer, { width: 20 }) });
 });
 
-test("cached tabs restore status and modal paste cannot reach a focused editor", async () => {
+test("cached modules restore status and modal paste cannot reach a focused editor", async () => {
   await withTui(async (setup) => {
-    setup.mockInput.pressKey("5"); setup.mockInput.pressKey("1"); await setup.renderOnce();
+    setup.mockInput.pressKey("0"); setup.mockInput.pressKey("9"); await setup.renderOnce();
     const bar = setup.captureCharFrame().trimEnd().split("\n").at(-1)!;
     expect(bar).toContain("credentials · defaults");
-  });
+  }, "project");
   let input: InputRenderable;
   await fixture(async (setup, ctx) => {
     input.focus(); const pending = ctx.confirm({ title: "Protect editor", message: "Paste stays in the modal" });
@@ -278,8 +284,8 @@ test("watch discovers a HOME directory created after mounting and closes on shut
     const nested = join(original, "created-later", "data"); process.env[HOME_VARIABLE] = nested;
     // Switching away and back remounts Settings at another width and registers
     // its watches against the nearest existing ancestor of the future HOME.
-    setup.mockInput.pressKey("1"); setup.mockInput.pressKey("2");
-    const settings = defaultSettings(); setPath(settings, "custom.marker", "first-write-marker"); writeSettings(settings);
+    setup.mockInput.pressKey("1"); setup.mockInput.pressKey("0");
+    const settings = defaultSettings(); setPath(settings, "capture.outDir", "first-write-marker"); writeSettings(settings);
     await Bun.sleep(350); await setup.renderOnce(); expect(setup.captureCharFrame()).toContain("first-write-marker");
     setup.renderer.destroy(); setPath(settings, "custom.marker", "after-shutdown"); writeSettings(settings);
     await Bun.sleep(300); expect(setup.renderer.isDestroyed).toBe(true);
@@ -297,5 +303,81 @@ test("prompt validation exceptions keep the modal usable and replacement/destroy
     expect(await ctx.confirm({ title: "After shutdown", message: "Nothing to mount" })).toBe(false);
     expect(await ctx.prompt({ title: "After shutdown", label: "Value" })).toBeUndefined();
     expect(await ctx.choose({ title: "After shutdown", items: [] })).toBeUndefined();
+  });
+});
+
+const skillHints = [
+  "g +next kind", "i +install marked", "u +update marked", "d +remove marked",
+  "Space +toggle mark", "a +mark all", "n +clear marks", "/ +filter", "r +reload",
+];
+
+for (const [width, height] of [[60, 16], [80, 24], [100, 30], [130, 40], [200, 60]] as const) {
+  test(`Skills key bar fits ${width} columns without clipped or reordered hints`, async () => {
+    await withTui(async (setup) => {
+      const bar = setup.captureCharFrame().split("\n")[height - 1]!;
+      expect(bar.trim()).toMatch(/\? +help +q +quit$/);
+      const divider = bar.indexOf("│");
+      expect(divider).toBeGreaterThan(0);
+      const prefix = bar.slice(0, divider);
+      const positions = skillHints.map((hint) => prefix.search(new RegExp(hint)));
+      const kept = positions.filter((position) => position >= 0);
+      expect(positions.slice(0, kept.length)).toEqual(kept);
+      expect(kept).toEqual([...kept].sort((a, b) => a - b));
+      expect(kept.length).toBeGreaterThan(1);
+      if (width === 200) expect(kept).toHaveLength(skillHints.length);
+      expect(Bun.stringWidth(bar.trimEnd())).toBeLessThanOrEqual(width - (width < 80 ? 1 : 3));
+    }, "skills", { width, height });
+  });
+}
+
+test("the required help chip stays clickable in a narrow terminal", async () => {
+  await fixture(async (setup, ctx) => {
+    setup.resize(60, 16);
+    ctx.status("界".repeat(40));
+    await setup.renderOnce();
+    const bar = setup.captureCharFrame().split("\n")[15]!;
+    expect(bar.trim()).toMatch(/\? +help +q +quit$/);
+    const [x, y] = framePoint(setup, "?  help", true);
+    await setup.mockMouse.click(x, y);
+    await setup.renderOnce();
+    expect(setup.captureCharFrame()).toContain("Keys");
+  });
+});
+
+test("help shows module keys first and scrolls to the mouse note", async () => {
+  await withTui(async (setup) => {
+    setup.mockInput.pressKey("?");
+    await setup.renderOnce();
+    const frame = setup.captureCharFrame();
+    expect(frame.indexOf("open")).toBeLessThan(frame.indexOf("Global"));
+    setup.mockInput.pressKey("END");
+    await setup.renderOnce();
+    expect(setup.captureCharFrame()).toContain("scroll a list or reading panel");
+  }, "overview", { width: 60, height: 16 });
+});
+
+test("Home reloads watched project data and recommends the current next step", async () => {
+  await withTui(async (setup) => {
+    const previous = process.cwd();
+    process.chdir(process.env[HOME_VARIABLE]!);
+    try {
+      setup.mockInput.pressKey("9");
+      setup.mockInput.pressBackspace();
+      for (let i = 0; i < 30 && !setup.captureCharFrame().includes("Run init"); i++) {
+        await Bun.sleep(10);
+        await setup.renderOnce();
+      }
+      expect(setup.captureCharFrame()).toContain("Run init");
+      writeFileSync("designfy.json", "{}");
+      for (let i = 0; i < 50 && !setup.captureCharFrame().includes("Add the theme"); i++) {
+        await Bun.sleep(20);
+        await setup.renderOnce();
+      }
+      expect(setup.captureCharFrame()).toContain("Add the theme");
+      expect(setup.captureCharFrame()).toContain("Updated from disk");
+      setup.mockInput.pressEnter();
+      await setup.renderOnce();
+      expect(setup.captureCharFrame().split("\n")[0]).toContain("› ◐ Theme");
+    } finally { process.chdir(previous); }
   });
 });

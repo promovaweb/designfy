@@ -1,6 +1,6 @@
 /** Verifies diagnostic health, redaction and MCP parity. */
 import { afterEach, beforeEach, expect, test } from "bun:test";
-import { chmodSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { chmodSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
@@ -78,4 +78,31 @@ test("CLI without a TTY exits successfully with warnings and fails only for fail
   const failure = run();
   expect(failure.exitCode).toBe(ExitCode.CONFIG);
   expect(JSON.parse(failure.stdout.toString()).data.ok).toBe(false);
+});
+
+test("missing Node tools and project files are warnings, and detecting project files clears them", () => {
+  const run = () => Bun.spawnSync([process.execPath, "run", join(import.meta.dir, "../src/main.ts"), "doctor", "--json"], {
+    cwd: dir,
+    env: { ...process.env, PATH: dir },
+    stdin: "ignore",
+  });
+  const before = run();
+  expect(before.exitCode).toBe(ExitCode.SUCCESS);
+  const missing = JSON.parse(before.stdout.toString()).data.checks;
+  for (const name of ["node", "npx", "designfy.json", "VIEWSPEC.md", "tailwind-theme"]) {
+    expect(missing).toContainEqual(expect.objectContaining({ name, status: "warn" }));
+  }
+
+  writeFileSync(join(dir, "designfy.json"), "{}");
+  writeFileSync(join(dir, "VIEWSPEC.md"), "");
+  mkdirSync(join(dir, "src/styles"), { recursive: true });
+  const theme = join(dir, "src/styles/global.css");
+  writeFileSync(theme, '@import "tailwindcss";');
+  const after = run();
+  expect(after.exitCode).toBe(ExitCode.SUCCESS);
+  const checks = JSON.parse(after.stdout.toString()).data.checks;
+  for (const name of ["designfy.json", "VIEWSPEC.md", "tailwind-theme"]) {
+    expect(checks).toContainEqual(expect.objectContaining({ name, status: "ok" }));
+  }
+  expect(checks).toContainEqual({ name: "tailwind-theme", status: "ok", detail: theme });
 });

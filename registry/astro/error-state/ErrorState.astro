@@ -1,0 +1,30 @@
+---
+/** Communicates a failure. Slot: action, a retry or way back. Motion: region fades in. Catalog: error-state. */
+interface Props {
+  /** Plain statement of what failed. */
+  title: string;
+  /** Explanation and recovery instructions. */
+  description: string;
+  /** Level of the displayed heading. */
+  headingLevel?: 1 | 2 | 3 | 4;
+  /** Announce the new message when replacing content. */
+  announce?: boolean;
+  /** Inline region or full page. */
+  variant?: "inline" | "page";
+  /** Optional support reference. */
+  code?: string;
+  /** Additional classes. */
+  class?: string;
+}
+const { title, description, headingLevel = 2, announce, variant = "inline", code, class: className } = Astro.props;
+const Heading = `h${headingLevel}` as const;
+---
+<section class:list={["grid justify-items-center gap-3 px-4 py-10 text-center motion-safe:animate-df-fade-in sm:py-14", variant === "page" && "min-h-[65svh] content-center", className]}>
+  <svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" class="mb-2 text-destructive" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.7 18 13.7 4a2 2 0 0 0-3.4 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3Z"/><path d="M12 9v4m0 4h.01"/></svg>
+  <div role={announce ? "alert" : undefined} class="space-y-2">
+    <Heading class="font-heading text-title font-semibold">{title}</Heading>
+    <p class="max-w-[44ch] text-sm text-muted-foreground">{description}</p>
+  </div>
+  {code && <p class="font-mono text-xs text-muted-foreground">Support code: {code}</p>}
+  {Astro.slots.has("action") && <div class="mt-2"><slot name="action" /></div>}
+</section>

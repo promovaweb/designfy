@@ -1,0 +1,32 @@
+---
+/**
+ * Blog index of the example: the featured post, the first page of the grid and
+ * the category filters.
+ */
+import Base from "../../layouts/Base.astro";
+import ArchivePage from "../../components/ArchivePage.astro";
+import { PAGE_SIZE, allPosts, categoryFilters, toCard } from "../../lib/site";
+
+const posts = await allPosts();
+const featuredEntry = posts.find((post) => post.data.featured) ?? posts[0]!;
+const rest = posts.filter((post) => post.id !== featuredEntry.id);
+const grid = rest.slice(0, PAGE_SIZE).map(toCard);
+const total = Math.max(1, Math.ceil(rest.length / PAGE_SIZE));
+---
+
+<Base
+  title="Blog"
+  description="Leituras de campo, arquivo e instrumentos da cooperativa Serra Clara. Blog de amostra dos componentes de conteúdo do Designfy."
+>
+  <ArchivePage
+    title="Diário da Serra Clara"
+    lead="Três cadernos, uma serra e a mesma pergunta: o que a chuva deixa escrito quando ninguém está olhando?"
+    note="Blog de amostra. A cooperativa, as pessoas e os números são fictícios."
+    filters={categoryFilters()}
+    featured={toCard(featuredEntry)}
+    posts={grid}
+    page={1}
+    total={total}
+    base="/blog"
+  />
+</Base>

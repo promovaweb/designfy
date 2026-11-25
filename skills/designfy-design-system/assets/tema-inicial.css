@@ -1,0 +1,300 @@
+/*
+ * Designfy theme: the single source of color, type, shape and motion values.
+ *
+ * Every Designfy component reads these roles through Tailwind utilities
+ * (bg-background, text-foreground, font-heading, rounded-lg, ease-out-expo).
+ * Change the values here, or regenerate the color block with
+ * `designfy palette generate --base <color> --harmony <type> --format css`,
+ * and every component follows. No component carries a literal color or font.
+ *
+ * Import order in the project's entry CSS:
+ *   @import "./designfy-theme.css";     (includes Tailwind CSS)
+ *   @import "tw-animate-css";            (optional)
+ *   @import "./designfy-motion.css";
+ *   @import "./designfy-backgrounds.css";   (optional)
+ */
+
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  color-scheme: light;
+
+  /* Surfaces and text */
+  --background: oklch(0.985 0.004 195);
+  --foreground: oklch(0.21 0.02 215);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.21 0.02 215);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.21 0.02 215);
+  --muted: oklch(0.955 0.008 200);
+  --muted-foreground: oklch(0.47 0.025 215);
+
+  /* Brand and actions */
+  --primary: oklch(0.47 0.085 192);
+  --primary-foreground: oklch(0.985 0.01 190);
+  --secondary: oklch(0.94 0.012 200);
+  --secondary-foreground: oklch(0.27 0.03 215);
+  --accent: oklch(0.93 0.05 80);
+  --accent-foreground: oklch(0.32 0.07 65);
+
+  /* Status */
+  --destructive: oklch(0.55 0.2 27);
+  --destructive-foreground: oklch(0.985 0.01 27);
+  --success: oklch(0.5 0.12 155);
+  --success-foreground: oklch(0.985 0.01 155);
+  --warning: oklch(0.52 0.12 70);
+  --warning-foreground: oklch(0.985 0.01 85);
+  --info: oklch(0.5 0.13 250);
+  --info-foreground: oklch(0.985 0.01 250);
+
+  /* Lines and focus */
+  --border: oklch(0.9 0.01 205);
+  --input: oklch(0.86 0.014 205);
+  --ring: oklch(0.47 0.085 192);
+
+  /* Data series */
+  --chart-1: oklch(0.52 0.1 192);
+  --chart-2: oklch(0.68 0.15 70);
+  --chart-3: oklch(0.55 0.13 280);
+  --chart-4: oklch(0.6 0.14 20);
+  --chart-5: oklch(0.58 0.11 140);
+
+  /* System shell */
+  --sidebar: oklch(0.97 0.006 200);
+  --sidebar-foreground: oklch(0.27 0.02 215);
+  --sidebar-primary: oklch(0.47 0.085 192);
+  --sidebar-primary-foreground: oklch(0.985 0.01 190);
+  --sidebar-accent: oklch(0.93 0.014 200);
+  --sidebar-accent-foreground: oklch(0.24 0.02 215);
+  --sidebar-border: oklch(0.9 0.01 205);
+  --sidebar-ring: oklch(0.47 0.085 192);
+
+  /* Shape */
+  --radius: 0.625rem;
+
+  /* Type */
+  --df-font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --df-font-heading: "Manrope Variable", "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --df-font-mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", Menlo, monospace;
+
+  /* Layout */
+  --container-max: 75rem;
+  --gutter: clamp(1rem, 4vw, 2rem);
+  --section-space: clamp(3.5rem, 8vw, 6rem);
+  --header-height: 4rem;
+
+  /* Motion */
+  --duration-instant: 100ms;
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 500ms;
+  --duration-slower: 800ms;
+  --stagger: 60ms;
+  --reveal-distance: 1rem;
+}
+
+.dark {
+  color-scheme: dark;
+
+  --background: oklch(0.17 0.018 215);
+  --foreground: oklch(0.95 0.01 195);
+  --card: oklch(0.21 0.02 215);
+  --card-foreground: oklch(0.95 0.01 195);
+  --popover: oklch(0.22 0.022 215);
+  --popover-foreground: oklch(0.95 0.01 195);
+  --muted: oklch(0.25 0.02 215);
+  --muted-foreground: oklch(0.72 0.022 205);
+
+  --primary: oklch(0.8 0.12 185);
+  --primary-foreground: oklch(0.18 0.03 200);
+  --secondary: oklch(0.28 0.022 215);
+  --secondary-foreground: oklch(0.95 0.01 195);
+  --accent: oklch(0.36 0.06 75);
+  --accent-foreground: oklch(0.93 0.07 85);
+
+  --destructive: oklch(0.7 0.17 25);
+  --destructive-foreground: oklch(0.18 0.04 25);
+  --success: oklch(0.76 0.14 155);
+  --success-foreground: oklch(0.18 0.04 155);
+  --warning: oklch(0.82 0.14 80);
+  --warning-foreground: oklch(0.2 0.04 80);
+  --info: oklch(0.76 0.11 245);
+  --info-foreground: oklch(0.18 0.04 250);
+
+  --border: oklch(0.31 0.02 215);
+  --input: oklch(0.36 0.022 215);
+  --ring: oklch(0.8 0.12 185);
+
+  --chart-1: oklch(0.8 0.12 185);
+  --chart-2: oklch(0.82 0.14 80);
+  --chart-3: oklch(0.74 0.13 285);
+  --chart-4: oklch(0.74 0.15 20);
+  --chart-5: oklch(0.78 0.14 145);
+
+  --sidebar: oklch(0.2 0.02 215);
+  --sidebar-foreground: oklch(0.9 0.012 200);
+  --sidebar-primary: oklch(0.8 0.12 185);
+  --sidebar-primary-foreground: oklch(0.18 0.03 200);
+  --sidebar-accent: oklch(0.27 0.022 215);
+  --sidebar-accent-foreground: oklch(0.95 0.01 195);
+  --sidebar-border: oklch(0.31 0.02 215);
+  --sidebar-ring: oklch(0.8 0.12 185);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  --font-sans: var(--df-font-sans);
+  --font-heading: var(--df-font-heading);
+  --font-mono: var(--df-font-mono);
+}
+
+@theme {
+  /* Display sizes for headings; body sizes stay the Tailwind defaults. */
+  --text-display: clamp(2.5rem, 1.6rem + 4vw, 4.5rem);
+  --text-display--line-height: 1.05;
+  --text-display--letter-spacing: -0.03em;
+  --text-headline: clamp(1.875rem, 1.4rem + 2.2vw, 3rem);
+  --text-headline--line-height: 1.1;
+  --text-headline--letter-spacing: -0.025em;
+  --text-title: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
+  --text-title--line-height: 1.25;
+  --text-title--letter-spacing: -0.015em;
+  --text-lead: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+  --text-lead--line-height: 1.6;
+
+  /* Easing curves. Arrivals use an out curve, exits an in curve. */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-quart: cubic-bezier(0.5, 0, 0.75, 0);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-spring: linear(0, 0.36 9%, 0.7 19%, 0.92 30%, 1.02 42%, 1.04 52%, 1.01 68%, 1);
+}
+
+@layer base {
+  html,
+  body {
+    overflow-x: clip;
+  }
+
+  html {
+    scroll-padding-top: calc(var(--header-height) + 1rem);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  * {
+    border-color: var(--border);
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--df-font-sans);
+    font-feature-settings: "cv11", "ss01";
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--df-font-heading);
+    text-wrap: balance;
+    overflow-wrap: break-word;
+    min-width: 0;
+  }
+
+  p,
+  li {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: color-mix(in oklab, var(--primary) 28%, transparent);
+    color: var(--foreground);
+  }
+
+  :root {
+    caret-color: var(--primary);
+    scrollbar-color: color-mix(in oklab, var(--foreground) 28%, transparent) transparent;
+  }
+
+  :where(a, button, [role="button"], input, select, textarea, summary) {
+    touch-action: manipulation;
+  }
+}
+
+/* Container used by sections: capped and centred, gutters grow with the viewport. */
+@utility df-container {
+  width: 100%;
+  max-width: calc(var(--container-max) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Reading measure for long text. */
+@utility df-measure {
+  max-width: 68ch;
+}
+
+/* Vertical rhythm between page sections. */
+@utility df-section {
+  padding-block: var(--section-space);
+}

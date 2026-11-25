@@ -1,0 +1,424 @@
+/*
+ * Designfy motion: keyframes, animation tokens and motion utilities.
+ *
+ * Rules every animation here follows:
+ * - only transform, opacity, clip-path, mask and background-position move;
+ * - content is visible without JavaScript: reveals hide only under the
+ *   `.js` class the reveal script adds to <html>, or run as scroll-driven
+ *   CSS animations where the browser supports them;
+ * - every loop pauses on hover and focus and when the element is off screen
+ *   (`data-df-paused`), and everything stops under prefers-reduced-motion;
+ * - durations and curves come from the tokens in designfy-theme.css.
+ *
+ * Tailwind 4 turns each `--animate-*` variable into an `animate-*` utility.
+ */
+
+@theme {
+  --animate-df-fade-in: df-fade-in var(--duration-slow) var(--ease-out-quart) both;
+  --animate-df-fade-up: df-fade-up var(--duration-slow) var(--ease-out-expo) both;
+  --animate-df-fade-down: df-fade-down var(--duration-slow) var(--ease-out-expo) both;
+  --animate-df-scale-in: df-scale-in var(--duration-slow) var(--ease-out-expo) both;
+  --animate-df-slide-in-left: df-slide-in-left var(--duration-slow) var(--ease-out-expo) both;
+  --animate-df-slide-in-right: df-slide-in-right var(--duration-slow) var(--ease-out-expo) both;
+  --animate-df-mask-up: df-mask-up var(--duration-slower) var(--ease-out-expo) both;
+  --animate-df-marquee: df-marquee var(--df-marquee-duration, 40s) linear infinite;
+  --animate-df-marquee-reverse: df-marquee var(--df-marquee-duration, 40s) linear infinite reverse;
+  --animate-df-shimmer: df-shimmer 1.8s linear infinite;
+  --animate-df-pulse-soft: df-pulse-soft 2.4s var(--ease-in-out-quart) infinite;
+  --animate-df-float: df-float 6s var(--ease-in-out-quart) infinite;
+  --animate-df-pan: df-pan 24s linear infinite;
+  --animate-df-spin-slow: df-spin 14s linear infinite;
+  --animate-df-draw: df-draw var(--duration-slower) var(--ease-out-quart) both;
+  --animate-df-shake: df-shake 320ms var(--ease-out-quart) 1;
+  --animate-df-pop: df-pop var(--duration-base) var(--ease-spring) both;
+  --animate-df-check: df-draw 320ms var(--ease-out-quart) both;
+  --animate-df-collapse-down: df-collapse-down var(--duration-base) var(--ease-out-quart) both;
+  --animate-df-collapse-up: df-collapse-up var(--duration-fast) var(--ease-in-quart) both;
+  --animate-df-border-beam: df-border-beam 6s linear infinite;
+
+  @keyframes df-marquee {
+    to {
+      transform: translate3d(calc(-100% - var(--df-marquee-gap, 2rem)), 0, 0);
+    }
+  }
+  @keyframes df-shimmer {
+    from {
+      background-position: 200% 0;
+    }
+    to {
+      background-position: -200% 0;
+    }
+  }
+  @keyframes df-pulse-soft {
+    50% {
+      opacity: 0.55;
+    }
+  }
+  @keyframes df-float {
+    50% {
+      transform: translate3d(0, -0.5rem, 0);
+    }
+  }
+  @keyframes df-pan {
+    to {
+      background-position: var(--df-pan-x, 100%) var(--df-pan-y, 0);
+    }
+  }
+  @keyframes df-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes df-draw {
+    from {
+      stroke-dashoffset: var(--df-path-length, 1);
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  @keyframes df-shake {
+    20% {
+      transform: translate3d(-4px, 0, 0);
+    }
+    40% {
+      transform: translate3d(4px, 0, 0);
+    }
+    60% {
+      transform: translate3d(-2px, 0, 0);
+    }
+    80% {
+      transform: translate3d(2px, 0, 0);
+    }
+  }
+  @keyframes df-pop {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes df-collapse-down {
+    from {
+      grid-template-rows: 0fr;
+      opacity: 0;
+    }
+    to {
+      grid-template-rows: 1fr;
+      opacity: 1;
+    }
+  }
+  @keyframes df-collapse-up {
+    from {
+      grid-template-rows: 1fr;
+      opacity: 1;
+    }
+    to {
+      grid-template-rows: 0fr;
+      opacity: 0;
+    }
+  }
+  @keyframes df-border-beam {
+    to {
+      offset-distance: 100%;
+    }
+  }
+}
+
+/* Reveal and view-transition selectors use these keyframes without animation classes. */
+@keyframes df-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes df-fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, var(--reveal-distance), 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes df-fade-down {
+  from {
+    opacity: 0;
+    transform: translate3d(0, calc(var(--reveal-distance) * -1), 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes df-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes df-slide-in-left {
+  from {
+    opacity: 0;
+    transform: translate3d(calc(var(--reveal-distance) * -1.5), 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes df-slide-in-right {
+  from {
+    opacity: 0;
+    transform: translate3d(calc(var(--reveal-distance) * 1.5), 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes df-mask-up {
+  from {
+    clip-path: inset(100% 0 0 0);
+    transform: translate3d(0, 1.5rem, 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    transform: none;
+  }
+}
+
+/*
+ * Reveal on scroll.
+ *
+ * Markup: <div data-df-reveal="up" style="--df-i: 2">…</div>
+ * Values: up (default), down, left, right, scale, fade, mask.
+ * A parent with data-df-stagger numbers its direct children in CSS.
+ *
+ * Without JavaScript and without scroll-driven animations the content is
+ * simply visible. With the reveal script, <html class="js"> hides the
+ * element until the script adds data-df-visible. With scroll-driven
+ * animations and no script, the element animates as it enters the view.
+ */
+@layer components {
+  [data-df-stagger] > * {
+    --df-i: 0;
+  }
+  [data-df-stagger] > :nth-child(2) {
+    --df-i: 1;
+  }
+  [data-df-stagger] > :nth-child(3) {
+    --df-i: 2;
+  }
+  [data-df-stagger] > :nth-child(4) {
+    --df-i: 3;
+  }
+  [data-df-stagger] > :nth-child(5) {
+    --df-i: 4;
+  }
+  [data-df-stagger] > :nth-child(6) {
+    --df-i: 5;
+  }
+  [data-df-stagger] > :nth-child(7) {
+    --df-i: 6;
+  }
+  [data-df-stagger] > :nth-child(n + 8) {
+    --df-i: 7;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .js [data-df-reveal]:not([data-df-visible]) {
+      opacity: 0;
+    }
+
+    .js [data-df-reveal][data-df-visible] {
+      animation: df-fade-up var(--duration-slow) var(--ease-out-expo) both;
+      animation-delay: calc(var(--df-i, 0) * var(--stagger));
+    }
+    .js [data-df-reveal="down"][data-df-visible] {
+      animation-name: df-fade-down;
+    }
+    .js [data-df-reveal="left"][data-df-visible] {
+      animation-name: df-slide-in-left;
+    }
+    .js [data-df-reveal="right"][data-df-visible] {
+      animation-name: df-slide-in-right;
+    }
+    .js [data-df-reveal="scale"][data-df-visible] {
+      animation-name: df-scale-in;
+    }
+    .js [data-df-reveal="fade"][data-df-visible] {
+      animation-name: df-fade-in;
+    }
+    .js [data-df-reveal="mask"][data-df-visible] {
+      animation-name: df-mask-up;
+      animation-duration: var(--duration-slower);
+    }
+
+    @supports (animation-timeline: view()) {
+      html:not(.js) [data-df-reveal] {
+        animation: df-fade-up linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 40%;
+      }
+      html:not(.js) [data-df-reveal="scale"] {
+        animation-name: df-scale-in;
+      }
+      html:not(.js) [data-df-reveal="fade"] {
+        animation-name: df-fade-in;
+      }
+    }
+  }
+}
+
+/* Marquee: a track whose children are duplicated once by the component. */
+@utility df-marquee {
+  display: flex;
+  overflow: hidden;
+  gap: var(--df-marquee-gap, 2rem);
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+
+  & > * {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: var(--df-marquee-gap, 2rem);
+    min-width: 100%;
+    animation: var(--animate-df-marquee);
+  }
+
+  &[data-df-direction="right"] > * {
+    animation-direction: reverse;
+  }
+
+  &:hover > *,
+  &:focus-within > *,
+  &[data-df-paused] > * {
+    animation-play-state: paused;
+  }
+}
+
+/* Skeleton shimmer built from theme roles. */
+@utility df-shimmer {
+  background-image: linear-gradient(
+    100deg,
+    transparent 30%,
+    color-mix(in oklab, var(--foreground) 8%, transparent) 50%,
+    transparent 70%
+  );
+  background-size: 200% 100%;
+  animation: var(--animate-df-shimmer);
+}
+
+/* Hover lift for interactive cards: one signal, on the container. */
+@utility df-lift {
+  transition-property: transform, box-shadow, border-color;
+  transition-duration: var(--duration-base);
+  transition-timing-function: var(--ease-out-quart);
+
+  @media (hover: hover) {
+    &:hover {
+      transform: translate3d(0, -2px, 0);
+      border-color: color-mix(in oklab, var(--foreground) 24%, transparent);
+    }
+  }
+
+  &:active {
+    transform: translate3d(0, 0, 0) scale(0.99);
+  }
+}
+
+/* Press feedback for buttons and other controls. */
+@utility df-press {
+  transition-property: transform, background-color, color, border-color, box-shadow;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-out-quart);
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+/* Underline that grows from the left on hover and focus. */
+@utility df-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition: background-size var(--duration-base) var(--ease-out-quart);
+
+  &:hover,
+  &:focus-visible {
+    background-size: 100% 1px;
+  }
+}
+
+/* Collapsible panel: animate grid rows, never height. */
+@utility df-collapse {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--duration-base) var(--ease-out-quart);
+
+  & > * {
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  &[data-df-open] {
+    grid-template-rows: 1fr;
+  }
+}
+
+/* Loops stop when their element leaves the viewport (set by the script). */
+[data-df-paused],
+[data-df-paused] * {
+  animation-play-state: paused !important;
+}
+
+/* View transitions between pages and states. */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) {
+    animation: df-fade-in var(--duration-fast) var(--ease-in-quart) reverse both;
+  }
+  ::view-transition-new(root) {
+    animation: df-fade-in var(--duration-base) var(--ease-out-quart) both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  [data-df-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+
+  .df-marquee > * {
+    animation: none;
+  }
+
+  /* A spinner or progress that must keep running opts back in. */
+  .df-keep-motion {
+    animation-duration: revert !important;
+    animation-iteration-count: revert !important;
+  }
+}

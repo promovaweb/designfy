@@ -1,0 +1,40 @@
+    ◆ Designfy   v0.1.0  ⌂ Home  fixture-project · react-vite                                             T night   linux-x64 · Bun 0.0.0
+
+    › Install dependencies   [Enter]
+
+   ╭─ 1 ◐ Theme ─────────────────────────────╮  ╭─ 2 ≡ Catalog ────────────────────────────╮  ╭─ 3 λ Components ────────────────────────╮
+   │ globals.css                             │  │ 80 patterns                              │  │ Registry · react-vite                   │
+   │ ██ ██ ░░ ░░ ░░ ░░ ░░              ╭─ ⌨ Keys ───────────────────────────────────────────────────╮d ━━━━━━━━ 0/58 0%                 │
+   │ ✓ 18.88:1 FG / BG                 │                                                            │                                   │
+   │ Inter, sans-serif                 │  ⌂ Home                                                    │                                   │
+   ╰───────────────────────────────────│  Enter             open                                    │───────────────────────────────────╯
+                                       │  r                 ↻ reload                                │
+   ╭─ 4 ⇌ Skills ──────────────────────│  Arrows / hjkl     move across cards                       │MCP ───────────────────────────────╮
+   │ Installed ━━━━━━━━ 1/16 6%        │  c                 ◈ Credentials                           │vers in catalog                    │
+   │ 11 internal · 5 external          │  d                 ≡ Docs                                  │ude 0  ○ codex 0                   │
+   │ ● designfy installed              │  a                 ℹ About                                 │ncode 0  ○ cursor 0                │
+   │                                   │  Global                                                    │ini 0                              │
+   ╰───────────────────────────────────│  Ctrl+K  :         ⌨ command palette                       │───────────────────────────────────╯
+                                       │  1 … 9  0          open a numbered module                  │
+   ╭─ 7 ≡ Viewspecs ───────────────────│  T                 ◐ change theme                          │
+   │ ✓ Guide · 33 rules                │  Tab  Shift+Tab    next / previous panel                   │
+   │ Draft            0                │  Esc  Backspace    ← back to Home; Esc on Home quits       │
+   │ Active  ━━━━━━━━ 1                │  ?  q  Ctrl+C      help / quit                             │
+   │ Waiting          0                │  Mouse                                                     │
+   │ Done             0                │  click             open a card or run an action            │
+   │ Archive          0                │  wheel             scroll a list or reading panel          │
+   │ Checklist ━━━━━━━━ 1/6 16%        │  Shift+drag        select text in most terminals           │
+   ╰───────────────────────────────────│                                                            │
+                                       ╰────────────────────────────────────────────────────────────╯
+   ╭─ 9 ⌂ Project ───────────────────────────╮  ╭─ 0 ⚙ Settings ───────────────────────────╮  ╭─ c ◈ Credentials ───────────────────────╮
+   │ react-vite · npm                        │  │ 13 settings                              │  │ 0 credentials                           │
+   │ Tailwind 4 · shadcn no                  │  │ night                                    │  │ Project and user vault                  │
+   ╰─────────────────────────────────────────╯  ╰──────────────────────────────────────────╯  ╰─────────────────────────────────────────╯
+
+   ╭─ d ≡ Docs ──────────────────────────────╮  ╭─ a ℹ About ──────────────────────────────╮
+   │ 6 topics                                │  │ v0.1.0                                   │
+   │ Built-in reference                      │  │ Designfy                                 │
+   ╰─────────────────────────────────────────╯  ╰──────────────────────────────────────────╯
+   1 installed  ·  0 copied  ·  12 missing deps  ·  1 open viewspecs  ·  1 overflowX
+
+    Enter  open   r  reload  │   T  theme   ^K  commands   ?  help   q  quit

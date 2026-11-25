@@ -1,0 +1,40 @@
+    ◆ Designfy   v0.1.0  › ⇌ Skills  fixture-project · react-vite                                         T night   linux-x64 · Bun 0.0.0
+    ← Back   ⇌ Skills  Install, update and remove selected skills
+
+   Kind: all
+
+   ╭─ Tab · Skills · 0 marked ──────────────╮  ╭─ Tab · Details ────────────────────────────────────────────────────────────────────────╮
+   │ Internal · 11                         ┃│  │ Designfy                                                                               │
+   │ > □ designfy              ● Installed ┃│  │ Orchestrator: receives the request, reads the project, writes the viewspec and calls   │
+   │   internal · project                  ┃│  │ the specialist skills in order.                                                        │
+   │ ▏ □ designfy-viewspec     ○ Available ┃│  │ Source            promovaweb/designfy                                                  │
+   │   internal · no                       ┃│  │ Kind              internal                                                             │
+   │ ▏ □ designfy-design-system○ Available ┃│  │ Scope             project                                                              │
+   │   internal · no                       ┃│  │ ● Installed                                                                            │
+   │ ▏ □ designfy-components   ○ Available ┃│  │                                                                                        │
+   │   internal · no                       ┃│  │                                                                                        │
+   │ ▏ □ designfy-motion       ○ Available ┃│  │                                                                                        │
+   │   internal · no                       ┃│  │                                                                                        │
+   │ ▏ □ designfy-websites     ○ Available ┃│  │                                                                                        │
+   │   internal · no                       ┃│  │                                                                                        │
+   │ ▏ □ designfy-content      ○ Available ┃│  │                                                                                        │
+   │   internal · no                       ┃│  │                                                                                        │
+   │ ▏ □ designfy-systems      ○ Available ┃│  │                                                                                        │
+   │   internal · no                       ┃│  │                                                                                        │
+   │ ▏ □ designfy-responsive   ○ Available ┃│  │                                                                                        │
+   │   internal · no                       ┃│  │                                                                                        │
+   │ ▏ □ designfy-accessibility○ Available ┃│  │                                                                                        │
+   │   internal · no                       ┃│  │                                                                                        │
+   │ ▏ □ designfy-review       ○ Available ┃│  │                                                                                        │
+   │   internal · no                       ┃│  │                                                                                        │
+   │ External · 5                          ┃│  │                                                                                        │
+   │ ▏ □ hallmark              ○ Available ┃│  │                                                                                        │
+   │   external · no                       ┃│  │                                                                                        │
+   │ ▏ □ shadcn                ○ Available ┃│  │                                                                                        │
+   │   external · no                       ┃│  │                                                                                        │
+   │ ▏ □ migrate-radix-to-base ○ Available ││  │                                                                                        │
+   │   external · no                       ││  │                                                                                        │
+   │ ▏ □ astrofy               ○ Available ││  │                                                                                        │
+   ╰────────────────────────────────────────╯  ╰────────────────────────────────────────────────────────────────────────────────────────╯
+
+    g  next kind   i  install marked   u  update marked   d  remove marked   Space  toggle mark   a  mark all  │   ?  help   q  quit

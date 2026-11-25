@@ -1,0 +1,57 @@
+---
+/**
+ * Reveal: brings its slot into view once, when it enters the viewport.
+ *
+ * CSS only. The effect comes from designfy-motion.css through
+ * `data-df-reveal`; the motion runtime (designfy-motion.ts) marks the
+ * element when it becomes visible. Without JavaScript the content is
+ * visible, and browsers with scroll-driven animations animate it in CSS.
+ *
+ * Motion: opacity plus a 16 px translate (or scale, or a clip mask) in
+ * 0.5 s with an ease-out curve, once. `stagger` numbers the direct children
+ * so each one starts 60 ms after the previous.
+ */
+interface Props {
+  /** Direction or kind of the entrance. Default "up". */
+  effect?: "up" | "down" | "left" | "right" | "scale" | "fade" | "mask";
+  /** Position in a sequence; multiplies the stagger token. */
+  index?: number;
+  /** Reveal each direct child in sequence instead of the wrapper. */
+  stagger?: boolean;
+  /** HTML tag of the wrapper. Default "div". */
+  as?: "div" | "section" | "ul" | "ol" | "li" | "header" | "footer" | "article";
+  class?: string;
+}
+
+const { effect = "up", index, stagger = false, as: Tag = "div", class: className } = Astro.props;
+const style = index !== undefined ? `--df-i: ${index}` : undefined;
+---
+
+{
+  stagger ? (
+    <Tag class={className} data-df-stagger data-df-stagger-effect={effect}>
+      <slot />
+    </Tag>
+  ) : (
+    <Tag class={className} data-df-reveal={effect} style={style}>
+      <slot />
+    </Tag>
+  )
+}
+
+<script>
+  import { initDesignfyMotion } from "@designfy/components/lib/designfy-motion";
+
+  // Children of a staggered wrapper become reveals of their own.
+  function prepare() {
+    document.querySelectorAll<HTMLElement>("[data-df-stagger]").forEach((parent) => {
+      const effect = parent.dataset.dfStaggerEffect ?? "up";
+      Array.from(parent.children).forEach((child) => {
+        if (!child.hasAttribute("data-df-reveal")) child.setAttribute("data-df-reveal", effect);
+      });
+    });
+    initDesignfyMotion();
+  }
+  prepare();
+  document.addEventListener("astro:page-load", prepare);
+</script>

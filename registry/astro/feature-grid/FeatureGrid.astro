@@ -1,0 +1,114 @@
+---
+/**
+ * FeatureGrid: Presents comparable capabilities in a responsive list with small visuals and optional links.
+ * Motion: Items enter in a scroll stagger and linked items respond on hover and focus.
+ * Catalog: feature-grid
+ */
+import { cn } from "@designfy/components/lib/cn";
+
+type Action = { label: string; href: string };
+type Feature = {
+  title: string;
+  description: string;
+  icon?: { src: string; width: number; height: number };
+  link?: Action;
+};
+
+interface Props {
+  /** Section heading. */
+  title: string;
+  /** Supporting sentence. */
+  lead?: string;
+  /** Heading level in the page outline. */
+  headingLevel?: 2 | 3 | 4 | 5 | 6;
+  /** Features in reading order. */
+  items: Feature[];
+  /** Desktop columns or a list separated by rules. */
+  variant?: "three" | "two" | "dividers";
+  /** Additional classes on the root element. */
+  class?: string;
+}
+
+const {
+  title,
+  lead,
+  headingLevel = 2,
+  items,
+  variant = "three",
+  class: className,
+} = Astro.props;
+const Heading = `h${headingLevel}` as "h2";
+const ItemHeading = `h${Math.min(6, headingLevel + 1)}` as "h3";
+---
+
+<section class={cn("df-section", className)}>
+  <div class="df-container">
+    <header data-df-reveal="up" class="mb-10 md:mb-14">
+      <Heading class="font-heading text-headline font-semibold">{title}</Heading
+      >
+      {
+        lead && (
+          <p class="mt-4 max-w-2xl text-lead text-muted-foreground">{lead}</p>
+        )
+      }
+    </header>
+    <ul
+      data-df-stagger
+      class={cn(
+        "grid gap-6",
+        variant === "dividers"
+          ? "gap-0 divide-y divide-border"
+          : "sm:grid-cols-2",
+        variant === "three" && "lg:grid-cols-3",
+      )}
+    >
+      {
+        items.map((item) => (
+          <li
+            data-df-reveal="up"
+            class={cn(
+              "min-w-0 break-words",
+              variant === "dividers"
+                ? "grid items-baseline gap-2 py-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)_auto] md:gap-8"
+                : "border-t border-border pt-6",
+            )}
+          >
+            <div class="flex min-w-0 items-center gap-3 sm:flex-wrap">
+              {item.icon && (
+                <img
+                  src={item.icon.src}
+                  alt=""
+                  width={item.icon.width}
+                  height={item.icon.height}
+                  class={cn(
+                    "shrink-0 object-contain",
+                    variant === "two" ? "size-10 sm:size-16" : "size-6",
+                  )}
+                />
+              )}
+              <ItemHeading class="text-title font-semibold">
+                {item.title}
+              </ItemHeading>
+            </div>
+            <p
+              class={cn(
+                "text-muted-foreground",
+                variant !== "dividers" && "mt-3",
+              )}
+            >
+              {item.description}
+            </p>
+            {item.link && (
+              <a
+                href={item.link.href}
+                class="inline-flex min-h-11 items-center font-semibold text-primary hover:underline mt-2 w-fit"
+              >
+                {item.link.label}
+              </a>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

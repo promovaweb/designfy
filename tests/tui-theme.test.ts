@@ -6,8 +6,9 @@ import { join } from "node:path";
 import { RGBA, type CliRenderer, type TerminalColors } from "@opentui/core";
 import { createTestRenderer } from "@opentui/core/testing";
 import { HOME_VARIABLE, MASTER_KEY_VARIABLE } from "../src/config/paths.ts";
-import { writeSettings } from "../src/config/settings.ts";
+import { getPath, readSettings, writeSettings } from "../src/config/settings.ts";
 import { mountTui } from "../src/tui/index.ts";
+import { framePoint, withTui } from "./tui-fixture.ts";
 import { chooseTerminalSlots, contrast, DEFAULT_TERMINAL_SLOTS, resolveTheme, terminalTheme, themeName, themes, type Theme } from "../src/tui/theme.ts";
 
 /** Builds an OSC response with only palette and default colors populated. */
@@ -177,15 +178,57 @@ describe("theme resolution", () => {
     expect(themeName()).toBe("terminal");
   });
 
-  test("mounts terminal references and displays Overview", async () => {
+  test("opens the saved module and lets an explicit ID override it", async () => {
+    writeSettings({ tui: { initialTab: "theme" } });
+    for (const [options, title] of [[{}, "Theme"], [{ initialTab: "skills" }, "Skills"]] as const) {
+      const setup = await createTestRenderer({ width: 100, height: 30 });
+      const closed = mountTui(setup.renderer, options, themes.night);
+      try {
+        await setup.renderOnce();
+        expect(setup.captureCharFrame().split("\n")[0]).toContain(title);
+      } finally {
+        setup.renderer.destroy();
+        await closed;
+      }
+    }
+  });
+
+  test("mounts terminal references and displays Home", async () => {
     const setup = await createTestRenderer({ width: 120, height: 32 });
     const closed = mountTui(setup.renderer, { initialTab: "overview" }, terminalTheme());
     try {
       await setup.renderOnce();
-      expect(setup.captureCharFrame()).toContain("Overview");
+      expect(setup.captureCharFrame()).toContain("Home");
     } finally {
       setup.renderer.destroy();
       await closed;
     }
   });
+});
+
+for (const theme of Object.values(themes)) {
+  test(`${theme.name} text, selection and chips use readable brand colors`, () => {
+    for (const [foreground, background] of [
+      [theme.text, theme.surface], [theme.textDim, theme.surfaceHigh], [theme.textStrong, theme.surface],
+      [theme.barText, theme.barBackground], [theme.keyText, theme.keyBackground],
+      [theme.selectionText, theme.selection], [theme.brandText, theme.brandBackground],
+    ]) expect(contrast(rgb(String(foreground)), rgb(String(background)))).toBeGreaterThanOrEqual(4.5);
+  });
+}
+
+test("T and the header chip cycle themes in the open module and persist each choice", async () => {
+  await withTui(async (setup) => {
+    setup.mockInput.pressKey("t", { shift: true });
+    await setup.renderOnce();
+    expect(setup.captureCharFrame().split("\n")[0]).toMatch(/Theme.+T day/);
+    expect(getPath(readSettings(), "tui.theme")).toBe("day");
+    await setup.mockMouse.click(...framePoint(setup, "T day"));
+    await setup.renderOnce();
+    expect(setup.captureCharFrame().split("\n")[0]).toMatch(/Theme.+T terminal/);
+    expect(getPath(readSettings(), "tui.theme")).toBe("terminal");
+    setup.mockInput.pressKey("t", { shift: true });
+    await setup.renderOnce();
+    expect(setup.captureCharFrame().split("\n")[0]).toMatch(/Theme.+T night/);
+    expect(getPath(readSettings(), "tui.theme")).toBe("night");
+  }, "theme");
 });

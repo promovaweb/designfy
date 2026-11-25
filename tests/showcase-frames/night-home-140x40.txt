@@ -1,0 +1,40 @@
+    ◆ Designfy   v0.1.0  ⌂ Home  fixture-project · react-vite                                             T night   linux-x64 · Bun 0.0.0
+
+    › Install dependencies   [Enter]
+
+   ╭─ 1 ◐ Theme ─────────────────────────────╮  ╭─ 2 ≡ Catalog ────────────────────────────╮  ╭─ 3 λ Components ────────────────────────╮
+   │ globals.css                             │  │ 80 patterns                              │  │ Registry · react-vite                   │
+   │ ██ ██ ░░ ░░ ░░ ░░ ░░                    │  │ site   ━━━━━━━━━━━━ 32                   │  │ Copied ━━━━━━━━ 0/58 0%                 │
+   │ ✓ 18.88:1 FG / BG                       │  │ system ━━━━━━━━     22                   │  │                                         │
+   │ Inter, sans-serif                       │  │ both   ━━━━━━━━━━   26                   │  │                                         │
+   ╰─────────────────────────────────────────╯  ╰──────────────────────────────────────────╯  ╰─────────────────────────────────────────╯
+
+   ╭─ 4 ⇌ Skills ────────────────────────────╮  ╭─ 5 ◉ Deps ───────────────────────────────╮  ╭─ 6 ⇌ MCP ───────────────────────────────╮
+   │ Installed ━━━━━━━━ 1/16 6%              │  │ Present ━━━━━━━━ 1/13 7%                 │  │ 3 servers in catalog                    │
+   │ 11 internal · 5 external                │  │ ! 12 missing                             │  │ ○ claude 0  ○ codex 0                   │
+   │ ● designfy installed                    │  │                                          │  │ ○ opencode 0  ○ cursor 0                │
+   │                                         │  │                                          │  │ ○ gemini 0                              │
+   ╰─────────────────────────────────────────╯  ╰──────────────────────────────────────────╯  ╰─────────────────────────────────────────╯
+
+   ╭─ 7 ≡ Viewspecs ─────────────────────────╮  ╭─ 8 ❯ Captures ───────────────────────────╮
+   │ ✓ Guide · 33 rules                      │  │ 2026-11-24-test                          │
+   │ Draft            0                      │  │ 2026-11-24 · 1 shots                     │
+   │ Active  ━━━━━━━━ 1                      │  │ ✗ 1 overflowX                            │
+   │ Waiting          0                      │  │                                          │
+   │ Done             0                      │  │                                          │
+   │ Archive          0                      │  │                                          │
+   │ Checklist ━━━━━━━━ 1/6 16%              │  │                                          │
+   ╰─────────────────────────────────────────╯  ╰──────────────────────────────────────────╯
+
+   ╭─ 9 ⌂ Project ───────────────────────────╮  ╭─ 0 ⚙ Settings ───────────────────────────╮  ╭─ c ◈ Credentials ───────────────────────╮
+   │ react-vite · npm                        │  │ 13 settings                              │  │ 0 credentials                           │
+   │ Tailwind 4 · shadcn no                  │  │ night                                    │  │ Project and user vault                  │
+   ╰─────────────────────────────────────────╯  ╰──────────────────────────────────────────╯  ╰─────────────────────────────────────────╯
+
+   ╭─ d ≡ Docs ──────────────────────────────╮  ╭─ a ℹ About ──────────────────────────────╮
+   │ 6 topics                                │  │ v0.1.0                                   │
+   │ Built-in reference                      │  │ Designfy                                 │
+   ╰─────────────────────────────────────────╯  ╰──────────────────────────────────────────╯
+   1 installed  ·  0 copied  ·  12 missing deps  ·  1 open viewspecs  ·  1 overflowX
+
+    Enter  open   r  reload  │   T  theme   ^K  commands   ?  help   q  quit

@@ -1,0 +1,143 @@
+---
+/**
+ * PostList: the body of a blog index, a category page or a related list.
+ *
+ * A featured card, then the grid of post cards, with the category filters as
+ * links to real pages, a pagination slot and an empty state for a filter
+ * without results. Neither the featured post nor the cards come with data from
+ * the component: every post arrives through props, and the caller keeps the
+ * featured one out of the grid.
+ *
+ * Slots: `pagination` (the controls under the list).
+ * Motion: CSS only. The featured card reveals once and the cards of the grid
+ * reveal in a stagger of 60 ms as they enter. Under reduced motion everything
+ * is in place from the first paint.
+ *
+ * Catalog: post-list
+ */
+import Reveal from "@designfy/components/reveal/Reveal.astro";
+import PostCard from "@designfy/components/post-card/PostCard.astro";
+
+interface Category {
+  label: string;
+  href: string;
+  /** Marks the filter of the page being read. */
+  current?: boolean;
+}
+
+interface Card {
+  title: string;
+  href: string;
+  excerpt?: string;
+  category?: { label: string; href: string };
+  author?: string;
+  date?: { iso: string; label: string };
+  readingTime?: string;
+  cover?: { src: string; alt: string; width: number; height: number };
+}
+
+interface Props {
+  /** Posts of the grid, in reading order. */
+  posts: Card[];
+  /** The post shown above the grid, larger. */
+  featured?: Card;
+  /** Category filters, as links to real pages. */
+  categories?: Category[];
+  /** Accessible name of the filter navigation. Default "Categories". */
+  categoriesLabel?: string;
+  /** Heading of the empty state. */
+  emptyTitle?: string;
+  /** One sentence about what will appear here. */
+  emptyText?: string;
+  /** The action that leaves the empty state. */
+  emptyAction?: { label: string; href: string };
+  /** Heading level of the cards. Default 3. */
+  headingLevel?: 2 | 3;
+  class?: string;
+}
+
+const {
+  posts,
+  featured,
+  categories,
+  categoriesLabel = "Categories",
+  emptyTitle,
+  emptyText,
+  emptyAction,
+  headingLevel = 3,
+  class: className,
+} = Astro.props;
+const empty = posts.length === 0 && featured === undefined;
+const EmptyHeading = `h${headingLevel}` as "h2" | "h3";
+const hasPagination = Astro.slots.has("pagination");
+---
+
+<div class:list={["min-w-0", className]}>
+  {
+    categories && categories.length > 0 && (
+      <nav aria-label={categoriesLabel} class="mb-8">
+        <ul class="flex flex-wrap gap-2">
+          {categories.map((category) => (
+            <li>
+              <a
+                href={category.href}
+                aria-current={category.current ? "page" : undefined}
+                class:list={[
+                  "df-press inline-flex min-h-11 items-center rounded-full border px-4 text-sm font-medium transition-colors duration-(--duration-fast)",
+                  category.current
+                    ? "border-transparent bg-primary text-primary-foreground"
+                    : "border-border bg-background text-muted-foreground hover:bg-muted hover:text-foreground",
+                ]}
+              >
+                {category.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    )
+  }
+
+  {
+    featured && (
+      <Reveal class="mb-8 md:mb-12">
+        <PostCard {...featured} variant="featured" headingLevel={headingLevel === 2 ? 2 : 3} />
+      </Reveal>
+    )
+  }
+
+  {
+    empty && (
+      <div class="flex flex-col items-start gap-4 rounded-xl bg-muted/50 px-6 py-12 sm:items-center sm:text-center">
+        <EmptyHeading class="font-heading text-title font-semibold text-balance text-foreground">{emptyTitle}</EmptyHeading>
+        {emptyText && <p class="max-w-[46ch] text-muted-foreground">{emptyText}</p>}
+        {emptyAction && (
+          <a
+            href={emptyAction.href}
+            class="df-press mt-2 inline-flex min-h-11 items-center rounded-lg bg-primary px-5 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
+          >
+            {emptyAction.label}
+          </a>
+        )}
+      </div>
+    )
+  }
+
+  {
+    posts.length > 0 && (
+      <Reveal as="ul" stagger class="grid grid-cols-1 gap-6 sm:grid-cols-[repeat(2,minmax(0,1fr))] lg:grid-cols-[repeat(3,minmax(0,1fr))]">
+        {posts.map((post) => (
+          <li class="flex min-w-0">
+            <PostCard {...post} headingLevel={headingLevel} class="w-full" />
+          </li>
+        ))}
+      </Reveal>
+    )
+  }
+
+  {hasPagination && (
+    <div class="mt-12 flex justify-center">
+      <slot name="pagination" />
+    </div>
+  )}
+</div>

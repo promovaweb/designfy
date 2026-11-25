@@ -1,0 +1,59 @@
+---
+/**
+ * Site header of the example: brand, the three category pages and the theme
+ * toggle. Simple on purpose; the framework's own site header is another item.
+ */
+import ThemeToggle from "./ThemeToggle.astro";
+import { categories, site } from "../lib/site";
+
+const path = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-30 border-b border-border bg-background/85 backdrop-blur">
+  <div class="df-container flex min-h-16 items-center justify-between gap-4">
+    <a href="/" class="flex min-w-0 items-center gap-2.5">
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 32 32"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="size-7 shrink-0 text-primary"
+      >
+        <path d="M3 24.5 11 9l6 10.5L21 13l8 11.5H3Z" />
+        <path d="M9 27.5h14" />
+      </svg>
+      <span class="truncate font-heading text-base font-semibold text-foreground">{site.name}</span>
+    </a>
+
+    <div class="flex items-center gap-2 sm:gap-5">
+      <nav aria-label="Seções do blog" class="flex items-center gap-4 text-sm">
+        <a
+          href="/blog/"
+          aria-current={path.startsWith("/blog/") ? "page" : undefined}
+          class="df-underline font-medium text-muted-foreground hover:text-foreground aria-[current=page]:text-foreground"
+        >
+          Blog
+        </a>
+        <ul class="hidden items-center gap-4 sm:flex">
+          {
+            categories.map((category) => (
+              <li>
+                <a
+                  href={`/blog/categoria/${category.slug}/`}
+                  aria-current={path === `/blog/categoria/${category.slug}/` ? "page" : undefined}
+                  class="df-underline font-medium text-muted-foreground hover:text-foreground aria-[current=page]:text-foreground"
+                >
+                  {category.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+      <ThemeToggle />
+    </div>
+  </div>
+</header>

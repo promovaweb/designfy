@@ -1,0 +1,16 @@
+/*
+ * Entry CSS of the example: the Designfy theme, motion and prose styles, with
+ * the two typefaces of the theme. The files come from `npm run designfy:sync`.
+ *
+ * The synced component folder is gitignored, so Tailwind skips it in the
+ * automatic scan; the explicit sources below bring it back.
+ */
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/manrope";
+@import "./styles/designfy-theme.css";
+@import "tw-animate-css";
+@import "./styles/designfy-motion.css";
+@import "./styles/designfy-prose.css";
+
+@source "./components/designfy/**/*.astro";
+@source "./components/designfy/**/*.ts";

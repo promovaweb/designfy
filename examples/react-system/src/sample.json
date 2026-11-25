@@ -1,0 +1,28 @@
+{
+  "orders": [
+    { "id": "PL-1040", "customer": "Sample Studio", "status": "Packed", "total": 240, "date": "2026-11-20", "email": "studio@example.test" },
+    { "id": "PL-1039", "customer": "Demo Supply", "status": "In transit", "total": 180, "date": "2026-11-19", "email": "supply@example.test" },
+    { "id": "PL-1038", "customer": "Example Workshop", "status": "Delivered", "total": 320, "date": "2026-11-18", "email": "workshop@example.test" },
+    { "id": "PL-1037", "customer": "Sample Depot", "status": "Delivered", "total": 120, "date": "2026-11-17", "email": "depot@example.test" },
+    { "id": "PL-1036", "customer": "Demo Press", "status": "Packed", "total": 260, "date": "2026-11-16", "email": "press@example.test" },
+    { "id": "PL-1035", "customer": "Example Books", "status": "In transit", "total": 80, "date": "2026-11-15", "email": "books@example.test" },
+    { "id": "PL-1034", "customer": "Sample Archive", "status": "Delivered", "total": 400, "date": "2026-11-14", "email": "archive@example.test" },
+    { "id": "PL-1033", "customer": "Demo Market", "status": "Delivered", "total": 160, "date": "2026-11-13", "email": "market@example.test" }
+  ],
+  "trend": [
+    { "day": "Mon", "current": 36, "prior": 32 }, { "day": "Tue", "current": 48, "prior": 38 },
+    { "day": "Wed", "current": 42, "prior": 44 }, { "day": "Thu", "current": 66, "prior": 42 },
+    { "day": "Fri", "current": 62, "prior": 48 }, { "day": "Sat", "current": 74, "prior": 53 },
+    { "day": "Sun", "current": 80, "prior": 58 }
+  ],
+  "distribution": [
+    { "status": "Packed", "count": 72 }, { "status": "In transit", "count": 124 },
+    { "status": "Delivered", "count": 184 }, { "status": "Queued", "count": 40 }
+  ],
+  "activity": [
+    { "id": "1", "dateTime": "2026-11-20T10:40:00Z", "time": "Today · 10:40", "actor": "Sample Operator", "action": "packed PL-1040.", "detail": "Two items are ready for pickup." },
+    { "id": "2", "dateTime": "2026-11-20T09:20:00Z", "time": "Today · 09:20", "actor": "Demo Carrier", "action": "collected PL-1039." },
+    { "id": "3", "dateTime": "2026-11-19T15:00:00Z", "time": "Yesterday · 15:00", "actor": "Example Desk", "action": "confirmed PL-1038 was delivered." },
+    { "id": "4", "dateTime": "2026-11-18T12:00:00Z", "time": "Nov 18 · 12:00", "actor": "Sample Operator", "action": "created PL-1038." }
+  ]
+}

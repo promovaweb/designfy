@@ -1,0 +1,40 @@
+    ◆ Designfy   v0.1.0  › ≡ Viewspecs  fixture-project · react-vite                                      T night   linux-x64 · Bun 0.0.0
+    ← Back   ≡ Viewspecs  Read the project guide, viewspecs and checklist progress
+
+   Mesa de Pedidos · Rules: @pessoa: 11, @agente: 14, @revisão: 8 · 2 pending proposals
+   screens · Status: all
+
+   ╭─ Tab · Viewspecs ──────────────────────╮  ╭─ Tab · Details ────────────────────────────────────────────────────────────────────────╮
+   │ in_progress · 1                        │  │ 0002 Dashboard de vendas                                                              ┃│
+   │ > 0002 Dashb... de vendas… in progress │  │ Kind              dashboard                                                           ┃│
+   │   dashboard · 1/6 checks               │  │ Status            in_progress                                                         ┃│
+   │                                        │  │ Checklist ━━━━━━━━ 1/6 16%                                                            ┃│
+   │                                        │  │ By status                                                                             ┃│
+   │                                        │  │ draft                    0                                                            ┃│
+   │                                        │  │ in progress ━━━━━━━━━━━━ 1                                                            ┃│
+   │                                        │  │ blocked                  0                                                            ┃│
+   │                                        │  │ done                     0                                                            ┃│
+   │                                        │  │ archived                 0                                                            ┃│
+   │                                        │  │ Checklist                                                                             ┃│
+   │                                        │  │ [x] k2a9 Shell e cabeçalho da página                                                  ┃│
+   │                                        │  │ [ ] p0x4 Contadores com o estado de carregamento                                      ┃│
+   │                                        │  │ [ ] m7d1 Contagem animada com versão parada                                           ┃│
+   │                                        │  │ [ ] r3c8 Tabela como cartões no celular                                               ┃│
+   │                                        │  │ [ ] a1f5 Resumo em texto do gráfico                                                   ┃│
+   │                                        │  │ [ ] v9e2 Capturas em celular e desktop revisadas                                      ┃│
+   │                                        │  │ Objetivo                                                                              ││
+   │                                        │  │ A gerente comercial abre a tela de manhã para saber se a meta do dia está             ││
+   │                                        │  │ no ritmo. A ação principal é abrir a lista de pedidos em atraso.                      ││
+   │                                        │  │ Conteúdo                                                                              ││
+   │                                        │  │ Receita, pedidos, ticket médio e conversão do dia e do mês, vindos de                 ││
+   │                                        │  │ `GET /api/sales/summary`. Tabela com os 20 pedidos mais recentes.                     ││
+   │                                        │  │ Estrutura                                                                             ││
+   │                                        │  │ 1. Cabeçalho da página com título, período e a ação "Pedidos em atraso".              ││
+   │                                        │  │ 2. Quatro contadores em linha.                                                        ││
+   │                                        │  │ 3. Gráfico de área da receita no período.                                             ││
+   │                                        │  │ 4. Tabela dos pedidos recentes.                                                       ││
+   │                                        │  │ Estados                                                                               ││
+   │                                        │  │ Carregando: esqueleto com a forma de cada região. Vazio: período sem                  ││
+   ╰────────────────────────────────────────╯  ╰────────────────────────────────────────────────────────────────────────────────────────╯
+
+    Enter  read full file   s  next status   v  guide / screens   /  filter   r  reload  │   Esc  back   T  theme   ?  help   q  quit

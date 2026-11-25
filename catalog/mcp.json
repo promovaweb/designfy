@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "servers": [
+    {
+      "id": "designfy",
+      "title": "Designfy",
+      "description": "Components, palette, captures and viewspecs of this project.",
+      "command": "designfy",
+      "args": ["mcp"],
+      "url": "https://github.com/promovaweb/designfy",
+      "default": true
+    },
+    {
+      "id": "shadcn",
+      "title": "shadcn/ui",
+      "description": "Official shadcn server: browses, searches and installs items from the registries declared in components.json.",
+      "command": "npx",
+      "args": ["shadcn@latest", "mcp"],
+      "url": "https://ui.shadcn.com/docs/mcp",
+      "default": true
+    },
+    {
+      "id": "playwright",
+      "title": "Playwright",
+      "description": "Official Playwright server: drives a browser to navigate, click and read the rendered page.",
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"],
+      "url": "https://github.com/microsoft/playwright-mcp",
+      "default": false
+    }
+  ]
+}

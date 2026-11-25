@@ -1,0 +1,206 @@
+---
+/**
+ * TableOfContents: the list of the headings of the page with the current one
+ * marked.
+ *
+ * The rail is sticky from 1280 px and shows a marker that slides from heading
+ * to heading; below that width the same list becomes a collapsible block.
+ * `variant` picks "auto" (the responsive pair), "rail" or "block", for pages
+ * that already own the column.
+ *
+ * Slots: none.
+ * Motion: the marker slides with a transform in --duration-base; links change
+ * color in --duration-fast. An IntersectionObserver band under the header
+ * sets the current heading, and a click moves the marker immediately. The
+ * script is idempotent and runs again on astro:page-load.
+ *
+ * Catalog: table-of-contents
+ */
+interface Item {
+  /** id of the heading in the page. */
+  id: string;
+  /** Link text, usually the heading text. */
+  label: string;
+  /** Heading depth, used for the indentation. Default 2. */
+  depth?: 2 | 3 | 4;
+}
+
+interface Props {
+  /** Headings of the page, in reading order. */
+  items: Item[];
+  /** Accessible name of the nav. Default "On this page". */
+  label?: string;
+  /** Visible title of the rail and of the block. */
+  title?: string;
+  /** "auto" shows the block below 1280 px and the rail above it. Default "auto". */
+  variant?: "auto" | "rail" | "block";
+  /** Distance from the top of the viewport that marks the current heading, in px. Default 96. */
+  offset?: number;
+  class?: string;
+}
+
+const { items, label = "On this page", title, variant = "auto", offset = 96, class: className } = Astro.props;
+const showBlock = variant !== "rail";
+const showRail = variant !== "block";
+const depthClass = (depth: Item["depth"] | undefined) => (depth === 3 ? "pl-7" : depth === 4 ? "pl-10" : "pl-4");
+---
+
+<nav aria-label={label} data-df-toc data-df-toc-offset={offset} class:list={["min-w-0", className]}>
+  {
+    showBlock && (
+      <details class:list={["group rounded-lg border border-border bg-muted/40 px-4 py-1", variant === "auto" && "xl:hidden"]}>
+        <summary class="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 text-sm font-semibold text-foreground [&::-webkit-details-marker]:hidden">
+          <span>{title ?? label}</span>
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.75"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="size-4 shrink-0 text-muted-foreground transition-transform duration-(--duration-base) ease-out-quart group-open:rotate-180"
+          >
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+        </summary>
+        <ul class="flex flex-col gap-0.5 pb-2">
+          {
+            items.map((item) => (
+              <li>
+                <a
+                  href={`#${item.id}`}
+                  data-df-toc-link
+                  class:list={[
+                    "flex min-h-11 items-center gap-2 py-1 pr-2 text-sm text-muted-foreground transition-colors duration-(--duration-fast) ease-out-quart hover:text-foreground xl:min-h-8",
+                    depthClass(item.depth),
+                  ]}
+                >
+                  <span aria-hidden="true" data-df-toc-dot class="size-1.5 shrink-0 rounded-full bg-primary opacity-0 transition-opacity duration-(--duration-fast)" />
+                  <span class="min-w-0 text-pretty">{item.label}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </details>
+    )
+  }
+
+  {
+    showRail && (
+      <div
+        class:list={[
+          "sticky top-[calc(var(--header-height)+1.5rem)] max-h-[calc(100svh-var(--header-height)-3rem)] overflow-y-auto",
+          variant === "auto" && "hidden xl:block",
+        ]}
+      >
+        {title && <p class="mb-3 text-sm font-semibold text-foreground">{title}</p>}
+        <div class="relative">
+          <span
+            aria-hidden="true"
+            data-df-toc-marker
+            class="absolute top-0 left-0 h-5 w-px bg-primary transition-transform duration-(--duration-base) ease-out-quart"
+            style="transform: translate3d(0, var(--df-toc-y, 0px), 0)"
+          />
+          <ul class="flex flex-col gap-0.5 border-l border-border">
+            {
+              items.map((item) => (
+                <li>
+                  <a
+                    href={`#${item.id}`}
+                    data-df-toc-link
+                    class:list={[
+                      "flex min-h-11 items-center py-1 pr-2 text-sm text-muted-foreground transition-colors duration-(--duration-fast) ease-out-quart hover:text-foreground xl:min-h-8",
+                      depthClass(item.depth),
+                    ]}
+                  >
+                    <span class="min-w-0 text-pretty">{item.label}</span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    )
+  }
+</nav>
+
+<script>
+  // Marks the heading under the header in every table of contents of the page.
+  let observer: IntersectionObserver | undefined;
+
+  function initTableOfContents() {
+    const navs = Array.from(document.querySelectorAll<HTMLElement>("[data-df-toc]"));
+    if (navs.length === 0) return;
+
+    const byId = new Map<string, { nav: HTMLElement; link: HTMLAnchorElement; dot: HTMLElement | null }[]>();
+    for (const nav of navs) {
+      nav.querySelectorAll<HTMLAnchorElement>("a[data-df-toc-link]").forEach((link) => {
+        const id = (link.getAttribute("href") ?? "").replace(/^#/, "");
+        if (!id) return;
+        const entries = byId.get(id) ?? [];
+        entries.push({ nav, link, dot: link.querySelector<HTMLElement>("[data-df-toc-dot]") });
+        byId.set(id, entries);
+      });
+    }
+
+    const headings = Array.from(byId.keys())
+      .map((id) => document.getElementById(id))
+      .filter((heading): heading is HTMLElement => heading !== null);
+    if (headings.length === 0) return;
+
+    const place = (nav: HTMLElement) => {
+      const marker = nav.querySelector<HTMLElement>("[data-df-toc-marker]");
+      const active = nav.querySelector<HTMLElement>('a[aria-current="location"]');
+      const frame = marker?.parentElement;
+      if (!marker || !active || !frame) return;
+      const y = active.offsetTop + active.offsetHeight / 2 - marker.offsetHeight / 2;
+      frame.style.setProperty("--df-toc-y", `${y}px`);
+    };
+
+    const activate = (id: string) => {
+      byId.forEach((entries, key) => {
+        for (const { link, dot } of entries) {
+          if (key === id) link.setAttribute("aria-current", "location");
+          else link.removeAttribute("aria-current");
+          link.classList.toggle("font-medium", key === id);
+          link.classList.toggle("text-foreground", key === id);
+          link.classList.toggle("text-muted-foreground", key !== id);
+          if (dot) dot.classList.toggle("opacity-0", key !== id);
+        }
+      });
+      navs.forEach(place);
+    };
+
+    activate(headings[0]!.id);
+    const offset = Number(navs[0]!.dataset.dfTocOffset ?? 96);
+    observer?.disconnect();
+    observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible.length > 0) activate((visible[0]!.target as HTMLElement).id);
+      },
+      { rootMargin: `-${offset}px 0px -66% 0px` },
+    );
+    headings.forEach((heading) => observer!.observe(heading));
+
+    for (const nav of navs) {
+      if (nav.dataset.dfTocReady === "true") continue;
+      nav.dataset.dfTocReady = "true";
+      nav.addEventListener("click", (event) => {
+        const link = (event.target as Element | null)?.closest<HTMLAnchorElement>("a[data-df-toc-link]");
+        if (!link) return;
+        const id = (link.getAttribute("href") ?? "").replace(/^#/, "");
+        if (id) activate(id);
+      });
+      window.addEventListener("resize", () => place(nav));
+    }
+  }
+
+  initTableOfContents();
+  document.addEventListener("astro:page-load", initTableOfContents);
+</script>

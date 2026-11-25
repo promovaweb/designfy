@@ -1,0 +1,91 @@
+---
+/** Shared sample site shell with pre-paint theme selection, public navigation and footer. */
+import AnnouncementBar from "@/components/designfy/announcement-bar/AnnouncementBar.astro";
+import SiteHeader from "@/components/designfy/site-header/SiteHeader.astro";
+import SiteFooter from "@/components/designfy/site-footer/SiteFooter.astro";
+import ThemeToggle from "@/components/designfy/theme-toggle/ThemeToggle.astro";
+import { brand, footerGroups, preview, routes } from "./sample";
+import "./styles/site.css";
+
+interface Props {
+  /** Page title displayed in the browser. */
+  title: string;
+}
+const { title } = Astro.props;
+const links = routes.map((entry) => ({
+  ...entry,
+  current: entry.href === Astro.url.pathname,
+}));
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} · Fieldnote</title>
+    <script is:inline>
+      (() => {
+        let theme;
+        try {
+          theme = localStorage.getItem("designfy-theme");
+        } catch {}
+        document.documentElement.classList.toggle(
+          "dark",
+          theme === "dark" ||
+            (theme !== "light" &&
+              matchMedia("(prefers-color-scheme: dark)").matches),
+        );
+      })();
+    </script>
+  </head>
+  <body>
+    <AnnouncementBar
+      message="Fieldnote is a fictional research workspace."
+      action={{ label: "See the sample", href: "/landing/" }}
+      dismissLabel="Dismiss announcement"
+    />
+    <SiteHeader
+      {brand}
+      {links}
+      primaryAction={preview}
+      secondary={footerGroups
+        .slice(1)
+        .map(({ title, links }) => ({ label: title, links }))}
+    >
+      <svg
+        slot="brandVisual"
+        aria-hidden="true"
+        viewBox="0 0 32 32"
+        class="size-7 text-primary"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <rect x="3" y="3" width="26" height="26" rx="7"></rect><path
+          d="M10 11h12m-12 5h12m-12 5h6"
+          stroke-linecap="round"></path>
+      </svg>
+      <ThemeToggle slot="utilities" />
+      <ThemeToggle
+        slot="mobileUtilities"
+        class="[&_details]:w-fit [&_[role=group]]:start-0"
+      />
+    </SiteHeader>
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <SiteFooter
+      {brand}
+      description="A sample workspace for keeping research and decisions together."
+      groups={footerGroups}
+      legal="Fieldnote is a fictional Designfy example."
+      variant={Astro.url.pathname === "/pricing/" ? "statement" : "columns"}
+    />
+    <script>
+      import { initDesignfyMotion } from "@/components/designfy/lib/designfy-motion";
+      initDesignfyMotion();
+      document.addEventListener("astro:page-load", () => initDesignfyMotion());
+    </script>
+  </body>
+</html>

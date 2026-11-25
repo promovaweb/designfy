@@ -1,0 +1,3 @@
+/* Provides typography and a second animation through an imported stylesheet. */
+@theme { --font-heading: "Test"; }
+@keyframes leave { to { opacity: 0; } }

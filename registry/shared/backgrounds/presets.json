@@ -1,0 +1,5185 @@
+[
+  {
+    "slug": "signal-grid",
+    "sourceId": "reactbd-signal-grid",
+    "name": "Signal Grid",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "2 linear-gradient layers + 1 radial-gradient layer + tiles 48px 48px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "zinc-paper",
+    "sourceId": "reactbd-zinc-paper",
+    "name": "Zinc Paper",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border"
+    ],
+    "technique": "1 radial-gradient layer + 1 linear-gradient layer + tiles 18px 18px",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "dusk-horizon",
+    "sourceId": "reactbd-dusk-horizon",
+    "name": "Dusk Horizon",
+    "category": "gradients",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "accent",
+      "primary"
+    ],
+    "technique": "1 linear-gradient layer",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "frost-panel",
+    "sourceId": "reactbd-frost-panel",
+    "name": "Frost Panel",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "muted"
+    ],
+    "technique": "1 repeating-linear-gradient layer + 2 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "cyan-mesh",
+    "sourceId": "reactbd-cyan-mesh",
+    "name": "Cyan Mesh",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "3 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "signal-drift",
+    "sourceId": "reactbd-signal-drift",
+    "name": "Signal Drift",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": true,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "2 linear-gradient layers + 1 radial-gradient layer + tiles 48px 48px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "orbit-glow",
+    "sourceId": "reactbd-orbit-glow",
+    "name": "Orbit Glow",
+    "category": "effects",
+    "tone": "dark",
+    "animated": true,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "3 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "pulse-veil",
+    "sourceId": "reactbd-pulse-veil",
+    "name": "Pulse Veil",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": true,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "studio-navy-hairline",
+    "sourceId": "studio-navy-hairline",
+    "name": "Navy Hairline",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "2 linear-gradient layers + tiles 32px 32px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-yellow-corner-wash",
+    "sourceId": "studio-yellow-corner-wash",
+    "name": "Yellow Corner Wash",
+    "category": "gradients",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-ivory-dot-sheet",
+    "sourceId": "studio-ivory-dot-sheet",
+    "name": "Ivory Dot Sheet",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer + tiles 16px 16px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-mist-crosshatch",
+    "sourceId": "studio-mist-crosshatch",
+    "name": "Mist Crosshatch",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 repeating-linear-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-cloud-horizon",
+    "sourceId": "studio-cloud-horizon",
+    "name": "Cloud Horizon",
+    "category": "gradients",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "muted"
+    ],
+    "technique": "1 linear-gradient layer",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "studio-sand-mesh",
+    "sourceId": "studio-sand-mesh",
+    "name": "Sand Mesh",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "2 linear-gradient layers + tiles 28px 28px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-quiet-columns",
+    "sourceId": "studio-quiet-columns",
+    "name": "Quiet Columns",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 repeating-linear-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-letterpress-lines",
+    "sourceId": "studio-letterpress-lines",
+    "name": "Letterpress Lines",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 repeating-linear-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-pale-diagonal",
+    "sourceId": "studio-pale-diagonal",
+    "name": "Pale Diagonal",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 repeating-linear-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-sky-wash",
+    "sourceId": "studio-sky-wash",
+    "name": "Sky Wash",
+    "category": "gradients",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "muted"
+    ],
+    "technique": "1 linear-gradient layer",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "studio-cream-spotlight",
+    "sourceId": "studio-cream-spotlight",
+    "name": "Cream Spotlight",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "studio-soft-blueprint",
+    "sourceId": "studio-soft-blueprint",
+    "name": "Soft Blueprint",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "2 linear-gradient layers + tiles 64px 64px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-graph-paper",
+    "sourceId": "studio-graph-paper",
+    "name": "Graph Paper",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "4 linear-gradient layers + tiles 8px 8px, 40px 40px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-legal-pad",
+    "sourceId": "studio-legal-pad",
+    "name": "Legal Pad",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent"
+    ],
+    "technique": "1 repeating-linear-gradient layer + 1 linear-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-vellum",
+    "sourceId": "studio-vellum",
+    "name": "Vellum",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer + tiles 14px 18px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-linen",
+    "sourceId": "studio-linen",
+    "name": "Linen",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "2 repeating-linear-gradient layers",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-whisper-stripes",
+    "sourceId": "studio-whisper-stripes",
+    "name": "Whisper Stripes",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 repeating-linear-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-ivory-vignette",
+    "sourceId": "studio-ivory-vignette",
+    "name": "Ivory Vignette",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-ledger",
+    "sourceId": "studio-ledger",
+    "name": "Ledger",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent"
+    ],
+    "technique": "1 repeating-linear-gradient layer + 1 linear-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-polar-dots",
+    "sourceId": "studio-polar-dots",
+    "name": "Polar Dots",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer + tiles 20px 20px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-soft-dual-glow",
+    "sourceId": "studio-soft-dual-glow",
+    "name": "Soft Dual Glow",
+    "category": "gradients",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent"
+    ],
+    "technique": "2 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-editorial-rules",
+    "sourceId": "studio-editorial-rules",
+    "name": "Editorial Rules",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 linear-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-cool-slate-wash",
+    "sourceId": "studio-cool-slate-wash",
+    "name": "Cool Slate Wash",
+    "category": "gradients",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "muted"
+    ],
+    "technique": "1 linear-gradient layer",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "studio-paper-sheen",
+    "sourceId": "studio-paper-sheen",
+    "name": "Paper Sheen",
+    "category": "effects",
+    "tone": "light",
+    "animated": true,
+    "roles": [
+      "background",
+      "border",
+      "primary"
+    ],
+    "technique": "1 linear-gradient layer + 1 radial-gradient layer + tiles 18px 18px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-navy-void",
+    "sourceId": "studio-navy-void",
+    "name": "Navy Void",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-blueprint-dark",
+    "sourceId": "studio-blueprint-dark",
+    "name": "Blueprint Dark",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "2 linear-gradient layers + tiles 40px 40px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-amber-horizon",
+    "sourceId": "studio-amber-horizon",
+    "name": "Amber Horizon",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent"
+    ],
+    "technique": "1 linear-gradient layer",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "studio-gold-dust",
+    "sourceId": "studio-gold-dust",
+    "name": "Gold Dust",
+    "category": "decorative",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer + tiles 18px 18px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-carbon-lines",
+    "sourceId": "studio-carbon-lines",
+    "name": "Carbon Lines",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "border"
+    ],
+    "technique": "1 repeating-linear-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-ink-mesh",
+    "sourceId": "studio-ink-mesh",
+    "name": "Ink Mesh",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "primary"
+    ],
+    "technique": "2 linear-gradient layers + 1 radial-gradient layer + tiles 24px 24px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-ember-corner",
+    "sourceId": "studio-ember-corner",
+    "name": "Ember Corner",
+    "category": "effects",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-void-dots",
+    "sourceId": "studio-void-dots",
+    "name": "Void Dots",
+    "category": "decorative",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "foreground"
+    ],
+    "technique": "1 radial-gradient layer + tiles 22px 22px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-night-cross",
+    "sourceId": "studio-night-cross",
+    "name": "Night Cross",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 repeating-linear-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-deep-wash",
+    "sourceId": "studio-deep-wash",
+    "name": "Deep Wash",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "studio-scan-glow",
+    "sourceId": "studio-scan-glow",
+    "name": "Scan Glow",
+    "category": "effects",
+    "tone": "dark",
+    "animated": true,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 linear-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-signal-pulse-navy",
+    "sourceId": "studio-signal-pulse-navy",
+    "name": "Signal Pulse Navy",
+    "category": "effects",
+    "tone": "dark",
+    "animated": true,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-oled-grid",
+    "sourceId": "studio-oled-grid",
+    "name": "OLED Grid",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "border"
+    ],
+    "technique": "2 linear-gradient layers + tiles 48px 48px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-midnight-graph",
+    "sourceId": "studio-midnight-graph",
+    "name": "Midnight Graph",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "primary"
+    ],
+    "technique": "4 linear-gradient layers + tiles 8px 8px, 40px 40px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-constellation",
+    "sourceId": "studio-constellation",
+    "name": "Constellation",
+    "category": "decorative",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "foreground",
+      "primary"
+    ],
+    "technique": "2 radial-gradient layers + tiles 28px 36px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-console-stripes",
+    "sourceId": "studio-console-stripes",
+    "name": "Console Stripes",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "border"
+    ],
+    "technique": "1 repeating-linear-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-deep-vignette",
+    "sourceId": "studio-deep-vignette",
+    "name": "Deep Vignette",
+    "category": "effects",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "muted"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-night-ledger",
+    "sourceId": "studio-night-ledger",
+    "name": "Night Ledger",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "primary"
+    ],
+    "technique": "1 repeating-linear-gradient layer + 1 linear-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-navy-pin-dots",
+    "sourceId": "studio-navy-pin-dots",
+    "name": "Navy Pin Dots",
+    "category": "decorative",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer + tiles 20px 20px",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "studio-graphite-rules",
+    "sourceId": "studio-graphite-rules",
+    "name": "Graphite Rules",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "border"
+    ],
+    "technique": "1 repeating-linear-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-deep-dual-glow",
+    "sourceId": "studio-deep-dual-glow",
+    "name": "Deep Dual Glow",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent"
+    ],
+    "technique": "2 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-quiet-aurora",
+    "sourceId": "studio-quiet-aurora",
+    "name": "Quiet Aurora",
+    "category": "effects",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent",
+      "chart-3"
+    ],
+    "technique": "3 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "studio-obsidian-wash",
+    "sourceId": "studio-obsidian-wash",
+    "name": "Obsidian Wash",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 linear-gradient layer",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "studio-night-notebook",
+    "sourceId": "studio-night-notebook",
+    "name": "Night Notebook",
+    "category": "decorative",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "foreground"
+    ],
+    "technique": "1 radial-gradient layer + tiles 16px 16px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "beach",
+    "sourceId": "beach",
+    "name": "Beach",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent",
+      "muted"
+    ],
+    "technique": "1 radial-gradient layer + 1 linear-gradient layer",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "top-gradient-radial",
+    "sourceId": "top-gradient-radial",
+    "name": "Top Gradient Radial",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": [
+      "top-violet-radial",
+      "top-slate-radial",
+      "dark-horizon-glow-top",
+      "crimson-depth-top",
+      "emerald-void-top",
+      "violet-abyss-top",
+      "azure-depths-top",
+      "orchid-depths-top"
+    ]
+  },
+  {
+    "slug": "bottom-gradient-radial",
+    "sourceId": "bottom-gradient-radial",
+    "name": "Bottom Gradient Radial",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": [
+      "bottom-violet-radial",
+      "bottom-slate-radial"
+    ]
+  },
+  {
+    "slug": "top-violet-radial",
+    "sourceId": "top-violet-radial",
+    "name": "Top Violet Radial",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "top-gradient-radial",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "bottom-violet-radial",
+    "sourceId": "bottom-violet-radial",
+    "name": "Bottom Violet Radial",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "bottom-gradient-radial",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "top-slate-radial",
+    "sourceId": "top-slate-radial",
+    "name": "Top Slate Radial",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "top-gradient-radial",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "bottom-slate-radial",
+    "sourceId": "bottom-slate-radial",
+    "name": "Bottom Slate Radial",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "bottom-gradient-radial",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "top-teal-glow",
+    "sourceId": "top-teal-glow",
+    "name": "Top Teal Glow",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": [
+      "top-pink-glow",
+      "top-amber-glow",
+      "top-emerald-glow"
+    ]
+  },
+  {
+    "slug": "bottom-teal-glow",
+    "sourceId": "bottom-teal-glow",
+    "name": "Bottom Teal Glow",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": [
+      "bottom-pink-glow",
+      "bottom-amber-glow",
+      "bottom-emerald-glow",
+      "dark-horizon-glow",
+      "emerald-void",
+      "violet-abyss"
+    ]
+  },
+  {
+    "slug": "top-pink-glow",
+    "sourceId": "top-pink-glow",
+    "name": "Top Pink Glow",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "top-teal-glow",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "bottom-pink-glow",
+    "sourceId": "bottom-pink-glow",
+    "name": "Bottom Pink Glow",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "bottom-teal-glow",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "top-amber-glow",
+    "sourceId": "top-amber-glow",
+    "name": "Top Amber Glow",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "top-teal-glow",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "bottom-amber-glow",
+    "sourceId": "bottom-amber-glow",
+    "name": "Bottom Amber Glow",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "bottom-teal-glow",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "top-emerald-glow",
+    "sourceId": "top-emerald-glow",
+    "name": "Top Emerald Glow",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "top-teal-glow",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "bottom-emerald-glow",
+    "sourceId": "bottom-emerald-glow",
+    "name": "Bottom Emerald Glow",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "bottom-teal-glow",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "dark-horizon-glow",
+    "sourceId": "dark-horizon-glow",
+    "name": "Dark Horizon Glow",
+    "category": "decorative",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "bottom-teal-glow",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "crimson-depth",
+    "sourceId": "crimson-depth",
+    "name": "Crimson Depth",
+    "category": "decorative",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": [
+      "azure-depths",
+      "orchid-depths"
+    ]
+  },
+  {
+    "slug": "emerald-void",
+    "sourceId": "emerald-void",
+    "name": "Emerald Void",
+    "category": "decorative",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "bottom-teal-glow",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "violet-abyss",
+    "sourceId": "violet-abyss",
+    "name": "Violet Abyss",
+    "category": "decorative",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "bottom-teal-glow",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "azure-depths",
+    "sourceId": "azure-depths",
+    "name": "Azure Depths",
+    "category": "decorative",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "crimson-depth",
+    "legibility": "needs-fade"
+  },
+  {
+    "slug": "orchid-depths",
+    "sourceId": "orchid -depths",
+    "name": "Orchid  Depths",
+    "category": "decorative",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "crimson-depth",
+    "legibility": "needs-fade"
+  },
+  {
+    "slug": "dark-horizon-glow-top",
+    "sourceId": "dark-horizon-glow-top",
+    "name": "Dark Horizon Glow Top",
+    "category": "decorative",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "top-gradient-radial",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "crimson-depth-top",
+    "sourceId": "crimson-depth-top",
+    "name": "Crimson Depth Top",
+    "category": "decorative",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "top-gradient-radial",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "emerald-void-top",
+    "sourceId": "emerald-void-top",
+    "name": "Emerald Void Top",
+    "category": "decorative",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "top-gradient-radial",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "violet-abyss-top",
+    "sourceId": "violet-abyss-top",
+    "name": "Violet Abyss Top",
+    "category": "decorative",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "top-gradient-radial",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "azure-depths-top",
+    "sourceId": "azure-depths-top",
+    "name": "Azure Depths Top",
+    "category": "decorative",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "top-gradient-radial",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "orchid-depths-top",
+    "sourceId": "orchid-depths-top",
+    "name": "Orchid Depths Top",
+    "category": "decorative",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "top-gradient-radial",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "purple-gradient-grid-right",
+    "sourceId": "purple-gradient-grid-right",
+    "name": "Purple Gradient Grid Right",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "primary"
+    ],
+    "technique": "2 linear-gradient layers + 1 radial-gradient layer + tiles 96px 64px",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "purple-gradient-grid-left",
+    "sourceId": "purple-gradient-grid-left",
+    "name": "Purple Gradient Grid Left",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "primary"
+    ],
+    "technique": "2 linear-gradient layers + 1 radial-gradient layer + tiles 96px 64px",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "dual-gradient-overlay-strong",
+    "sourceId": "dual-gradient-overlay-strong",
+    "name": "Dual Gradient Overlay",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "primary"
+    ],
+    "technique": "2 linear-gradient layers + 2 radial-gradient layers + tiles 48px 48px",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "dual-gradient-overlay-strong-swapped",
+    "sourceId": "dual-gradient-overlay-strong-swapped",
+    "name": "Dual Gradient Overlay Swapped",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "primary"
+    ],
+    "technique": "2 linear-gradient layers + 2 radial-gradient layers + tiles 48px 48px",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "dual-gradient-overlay-top",
+    "sourceId": "dual-gradient-overlay-top",
+    "name": "Dual Gradient Overlay (Top)",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "primary"
+    ],
+    "technique": "2 linear-gradient layers + 2 radial-gradient layers + tiles 48px 48px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "dual-gradient-overlay-bottom",
+    "sourceId": "dual-gradient-overlay-bottom",
+    "name": "Dual Gradient Overlay (Bottom)",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "primary"
+    ],
+    "technique": "2 linear-gradient layers + 2 radial-gradient layers + tiles 48px 48px",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "purple-corner-grid",
+    "sourceId": "purple-corner-grid",
+    "name": "Purple Corner Grid",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "primary"
+    ],
+    "technique": "2 linear-gradient layers + 2 radial-gradient layers + tiles 20px 20px",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "grid-dual-purple-glow",
+    "sourceId": "grid-dual-purple-glow",
+    "name": "Grid Dual Purple Glow",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "primary"
+    ],
+    "technique": "2 linear-gradient layers + 2 radial-gradient layers + tiles 96px 64px",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "grid-quad-purple-glow",
+    "sourceId": "grid-quad-purple-glow",
+    "name": "Grid Quad Purple Glow",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "primary"
+    ],
+    "technique": "2 linear-gradient layers + 4 radial-gradient layers + tiles 96px 64px",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "top-fade-grid",
+    "sourceId": "top-fade-grid",
+    "name": "Top Fade Grid",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + tiles 20px 30px + mask",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "bottom-fade-grid",
+    "sourceId": "bottom-fade-grid",
+    "name": "Bottom Fade Grid",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + tiles 20px 30px + mask",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "diagonal-fade-grid-left",
+    "sourceId": "diagonal-fade-grid-left",
+    "name": "Diagonal Fade Grid Left",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + tiles 32px 32px + mask",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "diagonal-fade-grid-right",
+    "sourceId": "diagonal-fade-grid-right",
+    "name": "Diagonal Fade Grid Right",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + tiles 32px 32px + mask",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "diagonal-fade-bottom-grid-left",
+    "sourceId": "diagonal-fade-bottom-grid-Left",
+    "name": "Diagonal Fade Bottom Grid Left",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + tiles 32px 32px + mask",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "diagonal-fade-bottom-grid-right",
+    "sourceId": "diagonal-fade-bottom-grid-right",
+    "name": "Diagonal Fade Bottom Grid Right",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + tiles 32px 32px + mask",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "diagonal-fade-center-grid",
+    "sourceId": "diagonal-fade-center-grid",
+    "name": "Diagonal Fade Center Grid",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + tiles 32px 32px + mask",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "diagonal-cross-grid",
+    "sourceId": "diagonal-cross-grid",
+    "name": "Diagonal Cross Grid",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border"
+    ],
+    "technique": "2 linear-gradient layers + tiles 40px 40px",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "diagonal-cross-grid-top",
+    "sourceId": "diagonal-cross-grid-top",
+    "name": "Diagonal Cross Grid Top",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + tiles 40px 40px + mask",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "diagonal-cross-grid-bottom",
+    "sourceId": "diagonal-cross-grid-bottom",
+    "name": "Diagonal Cross Grid Bottom",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + tiles 40px 40px + mask",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "diagonal-cross-top-right-fade-grid",
+    "sourceId": "diagonal-cross-top-right-fade-grid",
+    "name": "Diagonal Cross Top Right Fade Grid",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + tiles 40px 40px + mask",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "diagonal-cross-top-left-fade-grid",
+    "sourceId": "diagonal-cross-top-left-fade-grid",
+    "name": "Diagonal Cross Top Left Fade Grid",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + tiles 40px 40px + mask",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "diagonal-cross-bottom-right-fade-grid",
+    "sourceId": "diagonal-cross-Bottom-right-fade-grid",
+    "name": "Diagonal Cross Bottom Right Fade Grid",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + tiles 40px 40px + mask",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "diagonal-cross-bottom-left-fade-grid",
+    "sourceId": "diagonal-cross-Bottom-left-fade-grid",
+    "name": "Diagonal Cross Bottom Left Fade Grid",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + tiles 40px 40px + mask",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "diagonal-cross-center-fade-grid",
+    "sourceId": "diagonal-cross-center-fade-grid",
+    "name": "Diagonal Cross Center Fade Grid",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + tiles 40px 40px + mask",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "dashed-grid-light",
+    "sourceId": "dashed-grid-light",
+    "name": "Dashed Grid Light",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + tiles 20px 20px + mask",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "dashed-top-fade-grid",
+    "sourceId": "dashed-top-fade-grid",
+    "name": "Dashed Top Fade Grid",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + tiles 20px 20px + mask",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "dashed-bottom-fade-grid",
+    "sourceId": "dashed-bottom-fade-grid",
+    "name": "Dashed Bottom Fade Grid",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + tiles 20px 20px + mask",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "dashed-top-left-fade-grid",
+    "sourceId": "dashed-top-left-fade-grid",
+    "name": "Dashed Top Left Fade Grid",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + tiles 20px 20px + mask",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "dashed-top-right-fade-grid",
+    "sourceId": "dashed-top-right-fade-grid",
+    "name": "Dashed Top Right Fade Grid",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + tiles 20px 20px + mask",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "dashed-bottom-right-fade-grid",
+    "sourceId": "dashed-bottom-right-fade-grid",
+    "name": "Dashed Bottom Right Fade Grid",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + tiles 20px 20px + mask",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "dashed-bottom-left-fade-grid",
+    "sourceId": "dashed-bottom-left-fade-grid",
+    "name": "Dashed Bottom Left Fade Grid",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + tiles 20px 20px + mask",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "dashed-center-fade-grid",
+    "sourceId": "dashed-center-fade-grid",
+    "name": "Dashed Center Fade Grid",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + tiles 20px 20px + mask",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "left-masked-basic-grid",
+    "sourceId": "left-masked-basic-grid",
+    "name": "Left Masked Basic Grid",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + tiles 40px 40px + mask",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "right-masked-basic-grid",
+    "sourceId": "right-masked-basic-grid",
+    "name": "Right Masked Basic Grid",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + tiles 40px 40px + mask",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "left-masked-diagonal-cross-grid",
+    "sourceId": "left-masked-diagonal-cross-grid",
+    "name": "Left Masked Diagonal Cross Grid",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + tiles 40px 40px + mask",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "right-masked-diagonal-cross-grid",
+    "sourceId": "right-masked-diagonal-cross-grid",
+    "name": "Right Masked Diagonal Cross Grid",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + tiles 40px 40px + mask",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "left-masked-dashed-grid-light",
+    "sourceId": "left-masked-dashed-grid-light",
+    "name": "Left Masked Dashed Grid Light",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + tiles 20px 20px + mask",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "right-masked-dashed-grid-light",
+    "sourceId": "right-masked-dashed-grid-light",
+    "name": "Right Masked Dashed Grid Light",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + tiles 20px 20px + mask",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "left-masked-concentric-squares-light",
+    "sourceId": "left-masked-concentric-squares-light",
+    "name": "Left Masked Concentric Squares - Light",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "4 repeating-linear-gradient layers + mask",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "right-masked-concentric-squares-light",
+    "sourceId": "right-masked-concentric-squares-light",
+    "name": "Right Masked Concentric Squares - Light",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "4 repeating-linear-gradient layers + mask",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "left-masked-circuit-board-light",
+    "sourceId": "left-masked-circuit-board-light",
+    "name": "Left Masked Circuit Board - Light",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "primary",
+      "foreground"
+    ],
+    "technique": "2 repeating-linear-gradient layers + 2 radial-gradient layers + tiles 40px 40px + mask",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "right-masked-circuit-board-light",
+    "sourceId": "right-masked-circuit-board-light",
+    "name": "Right Masked Circuit Board - Light",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "primary",
+      "foreground"
+    ],
+    "technique": "2 repeating-linear-gradient layers + 2 radial-gradient layers + tiles 40px 40px + mask",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "left-masked-circuit-board",
+    "sourceId": "left-masked-circuit-board",
+    "name": "Left Masked Circuit Board",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "4 linear-gradient layers + tiles 50px 50px, 10px 10px + mask",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "right-masked-circuit-board",
+    "sourceId": "right-masked-circuit-board",
+    "name": "Right Masked Circuit Board",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "4 linear-gradient layers + tiles 50px 50px, 10px 10px + mask",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "left-masked-white-grid-with-dots",
+    "sourceId": "left-masked-white-grid-with-dots",
+    "name": "Left Masked White Grid with Dots",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "primary",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + 1 radial-gradient layer + tiles 20px 20px + mask",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "right-masked-white-grid-with-dots",
+    "sourceId": "right-masked-white-grid-with-dots",
+    "name": "Right Masked White Grid with Dots",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "primary",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + 1 radial-gradient layer + tiles 20px 20px + mask",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "left-masked-noise-texture-darker-dots",
+    "sourceId": "left-masked-noise-texture-darker-dots",
+    "name": "Left Masked Noise Texture (Darker Dots)",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "foreground"
+    ],
+    "technique": "1 radial-gradient layer + tiles 20px 20px + mask",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "right-masked-noise-texture-darker-dots",
+    "sourceId": "right-masked-noise-texture-darker-dots",
+    "name": "Right Masked Noise Texture (Darker Dots)",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "foreground"
+    ],
+    "technique": "1 radial-gradient layer + tiles 20px 20px + mask",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "dark-radial-glow",
+    "sourceId": "dark-radial-glow",
+    "name": "Dark Radial Glow",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "muted"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "blue-radial-glow",
+    "sourceId": "blue-radial-glow",
+    "name": "Blue Radial Glow",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "purple-radial-glow",
+    "sourceId": "purple-radial-glow",
+    "name": "Purple Radial Glow",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": [
+      "cyan-radial-glow",
+      "orange-radial-glow",
+      "pink-radial-glow",
+      "gold-radial-glow",
+      "red-radial-glow",
+      "lime-radial-glow"
+    ]
+  },
+  {
+    "slug": "cyan-radial-glow",
+    "sourceId": "cyan-radial-glow",
+    "name": "Cyan Radial Glow",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "purple-radial-glow",
+    "legibility": "needs-fade"
+  },
+  {
+    "slug": "orange-radial-glow",
+    "sourceId": "orange-radial-glow",
+    "name": "Orange Radial Glow",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "purple-radial-glow",
+    "legibility": "needs-fade"
+  },
+  {
+    "slug": "pink-radial-glow",
+    "sourceId": "pink-radial-glow",
+    "name": "Pink Radial Glow",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "purple-radial-glow",
+    "legibility": "needs-fade"
+  },
+  {
+    "slug": "gold-radial-glow",
+    "sourceId": "gold-radial-glow",
+    "name": "Gold Radial Glow",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "purple-radial-glow",
+    "legibility": "needs-fade"
+  },
+  {
+    "slug": "red-radial-glow",
+    "sourceId": "red-radial-glow",
+    "name": "Red Radial Glow",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "purple-radial-glow",
+    "legibility": "needs-fade"
+  },
+  {
+    "slug": "lime-radial-glow",
+    "sourceId": "lime-radial-glow",
+    "name": "Lime Radial Glow",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "purple-radial-glow",
+    "legibility": "needs-fade"
+  },
+  {
+    "slug": "emerald-radial-glow",
+    "sourceId": "emerald-radial-glow",
+    "name": "Emerald Radial Glow",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "aurora-waves",
+    "sourceId": "aurora-waves",
+    "name": "Aurora Waves",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": true,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 linear-gradient layer + 1 repeating-linear-gradient layer + 1 radial-gradient layer + blending",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "aurora-dream-corner-whispers",
+    "sourceId": "aurora-dream-corner-whispers",
+    "name": "Aurora Dream Corner Whispers",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent"
+    ],
+    "technique": "4 radial-gradient layers + 1 linear-gradient layer",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "aurora-dream-soft-harmony",
+    "sourceId": "aurora-dream-soft-harmony",
+    "name": "Aurora Dream Soft Harmony",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent"
+    ],
+    "technique": "4 radial-gradient layers + 1 linear-gradient layer",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "aurora-dream-diagonal-flow",
+    "sourceId": "aurora-dream-diagonal-flow",
+    "name": "Aurora Dream Diagonal Flow",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent"
+    ],
+    "technique": "4 radial-gradient layers + 1 linear-gradient layer",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "aurora-dream-vivid-bloom",
+    "sourceId": "aurora-dream-vivid-bloom",
+    "name": "Aurora Dream Vivid Bloom",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent"
+    ],
+    "technique": "4 radial-gradient layers + 1 linear-gradient layer",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "dreamy-sky-pink-glow",
+    "sourceId": "dreamy-sky-pink-glow",
+    "name": "Dreamy Sky Pink Glow",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent"
+    ],
+    "technique": "2 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "peachy-mint-dream",
+    "sourceId": "peachy-mint-dream",
+    "name": "Peachy Mint Dream",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent"
+    ],
+    "technique": "1 linear-gradient layer",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "soft-pastel-dream",
+    "sourceId": "soft-pastel-dream",
+    "name": "Soft Pastel Dream",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent",
+      "muted",
+      "chart-3"
+    ],
+    "technique": "1 linear-gradient layer",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "dreamy-sunset-gradient",
+    "sourceId": "dreamy-sunset-gradient",
+    "name": "Dreamy Sunset Gradient",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "accent",
+      "chart-3",
+      "primary"
+    ],
+    "technique": "1 linear-gradient layer + 3 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "soft-morning-mist",
+    "sourceId": "soft-morning-mist",
+    "name": "Soft Morning Mist",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "muted"
+    ],
+    "technique": "1 linear-gradient layer + 3 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "peachy-sunrise-glow",
+    "sourceId": "peachy-sunrise-glow",
+    "name": "Peachy Sunrise Glow",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "muted"
+    ],
+    "technique": "1 linear-gradient layer + 3 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "mint-fresh-breeze",
+    "sourceId": "mint-fresh-breeze",
+    "name": "Mint Fresh Breeze",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "muted"
+    ],
+    "technique": "1 linear-gradient layer + 3 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "cotton-candy-sky",
+    "sourceId": "cotton-candy-sky",
+    "name": "Cotton Candy Sky",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "muted",
+      "accent"
+    ],
+    "technique": "1 linear-gradient layer",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "cotton-candy-sky-reverse",
+    "sourceId": "cotton-candy-sky-reverse",
+    "name": "Cotton Candy Sky Reverse",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "muted",
+      "accent"
+    ],
+    "technique": "1 linear-gradient layer",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "spring-meadow-mist",
+    "sourceId": "spring-meadow-mist",
+    "name": "Spring Meadow Mist",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "muted"
+    ],
+    "technique": "1 linear-gradient layer",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "ocean-breeze-fade",
+    "sourceId": "ocean-breeze-fade",
+    "name": "Ocean Breeze Fade",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "accent",
+      "muted",
+      "primary"
+    ],
+    "technique": "1 linear-gradient layer",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "lavender-blush-left-flow",
+    "sourceId": "lavender-blush-left-flow",
+    "name": "Lavender Blush Left Flow",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "muted"
+    ],
+    "technique": "1 linear-gradient layer",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "lavender-blush-right-flow",
+    "sourceId": "lavender-blush-right-flow",
+    "name": "Lavender Blush Right Flow",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "muted"
+    ],
+    "technique": "1 linear-gradient layer",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "minty-cloud-drift",
+    "sourceId": "minty-cloud-drift",
+    "name": "Minty Cloud Drift",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "muted"
+    ],
+    "technique": "1 linear-gradient layer",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "rose-gold-whisper",
+    "sourceId": "rose-gold-whisper",
+    "name": "Rose Gold Whisper",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "accent",
+      "primary"
+    ],
+    "technique": "1 linear-gradient layer",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "aurora-silk-fade",
+    "sourceId": "aurora-silk-fade",
+    "name": "Aurora Silk Fade",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "muted",
+      "accent"
+    ],
+    "technique": "1 linear-gradient layer",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "beige-texture",
+    "sourceId": "beige-texture",
+    "name": "Warm Beige",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "muted"
+    ],
+    "technique": "3 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "soft-warm-pastel-texture",
+    "sourceId": "soft-warm-pastel-texture",
+    "name": "Soft Warm Pastel",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "3 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "warm-light-apricot-coral",
+    "sourceId": "warm-light-apricot-coral",
+    "name": "Warm Light Apricot & Coral",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "muted"
+    ],
+    "technique": "3 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "warm-pastel-coral-cream",
+    "sourceId": "warm-pastel-coral-cream",
+    "name": "Warm Soft Coral & Cream",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "muted"
+    ],
+    "technique": "3 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "soft-yellow-glow",
+    "sourceId": "soft-yellow-glow",
+    "name": "Soft Yellow Glow",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer + blending",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": [
+      "soft-dark-yellow-glow"
+    ]
+  },
+  {
+    "slug": "soft-dark-yellow-glow",
+    "sourceId": "soft-dark-yellow-glow",
+    "name": "Soft Dark Yellow Glow",
+    "category": "effects",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer + blending",
+    "variantOf": "soft-yellow-glow",
+    "legibility": "needs-fade"
+  },
+  {
+    "slug": "orange-soft-glow",
+    "sourceId": "orange-soft-glow",
+    "name": "Orange Soft Glow",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer + blending",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "soft-green-glow",
+    "sourceId": "soft-green-glow",
+    "name": "Soft Green Glow",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "purple-center-glow",
+    "sourceId": "purple-center-glow",
+    "name": "Purple Center Glow",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": [
+      "indigo-center-glow",
+      "lime-center-glow",
+      "sunrise-glow",
+      "soft-lavender-center-glow",
+      "soft-pink-glow",
+      "light-sky-blue-glow",
+      "sunny-glow"
+    ]
+  },
+  {
+    "slug": "green-center-glow",
+    "sourceId": "green-center-glow",
+    "name": "Green Center Glow",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "indigo-center-glow",
+    "sourceId": "indigo-center-glow",
+    "name": "Indigo Center Glow",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "purple-center-glow",
+    "legibility": "decorative-only"
+  },
+  {
+    "slug": "lime-center-glow",
+    "sourceId": "lime-center-glow",
+    "name": "Lime Center  Glow",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "purple-center-glow",
+    "legibility": "decorative-only"
+  },
+  {
+    "slug": "sunrise-glow",
+    "sourceId": "sunrise-glow",
+    "name": "Sunrise Glow",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "purple-center-glow",
+    "legibility": "decorative-only"
+  },
+  {
+    "slug": "soft-lavender-center-glow",
+    "sourceId": "soft lavender-center-glow",
+    "name": "Soft Lavender Center Glow",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "purple-center-glow",
+    "legibility": "decorative-only"
+  },
+  {
+    "slug": "soft-pink-glow",
+    "sourceId": "soft-pink-glow",
+    "name": "Soft Pink Glow",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "purple-center-glow",
+    "legibility": "decorative-only"
+  },
+  {
+    "slug": "light-sky-blue-glow",
+    "sourceId": "light-sky-blue-glow",
+    "name": "Light Sky Blue Glow",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "purple-center-glow",
+    "legibility": "decorative-only"
+  },
+  {
+    "slug": "sunny-glow",
+    "sourceId": "sunny-glow",
+    "name": "Sunny Glow",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "purple-center-glow",
+    "legibility": "decorative-only"
+  },
+  {
+    "slug": "purple-glow-bg",
+    "sourceId": "purple-glow-bg",
+    "name": "Purple Glow Right",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer + filter",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": [
+      "teal-glow-bg",
+      "warm-orange-glow-bg",
+      "cool-blue-glow-bg"
+    ]
+  },
+  {
+    "slug": "teal-glow-bg",
+    "sourceId": "teal-glow-bg",
+    "name": "Teal Glow Right",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer + filter",
+    "variantOf": "purple-glow-bg",
+    "legibility": "needs-fade"
+  },
+  {
+    "slug": "warm-orange-glow-bg",
+    "sourceId": "warm-orange-glow-bg",
+    "name": "Warm Orange Glow Right",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer + filter",
+    "variantOf": "purple-glow-bg",
+    "legibility": "needs-fade"
+  },
+  {
+    "slug": "cool-blue-glow-bg",
+    "sourceId": "cool-blue-glow-bg",
+    "name": "Cool Blue Glow Right",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer + filter",
+    "variantOf": "purple-glow-bg",
+    "legibility": "needs-fade"
+  },
+  {
+    "slug": "purple-glow-bg-left",
+    "sourceId": "purple-glow-bg-left",
+    "name": "Purple Glow Left",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer + filter",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": [
+      "teal-glow-bg-left",
+      "warm-orange-glow-bg-left",
+      "cool-blue-glow-bg-left"
+    ]
+  },
+  {
+    "slug": "teal-glow-bg-left",
+    "sourceId": "teal-glow-bg-left",
+    "name": "Teal Glow Left",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer + filter",
+    "variantOf": "purple-glow-bg-left",
+    "legibility": "needs-fade"
+  },
+  {
+    "slug": "warm-orange-glow-bg-left",
+    "sourceId": "warm-orange-glow-bg-left",
+    "name": "Warm Orange Glow Left",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer + filter",
+    "variantOf": "purple-glow-bg-left",
+    "legibility": "needs-fade"
+  },
+  {
+    "slug": "cool-blue-glow-bg-left",
+    "sourceId": "cool-blue-glow-bg-left",
+    "name": "Cool Blue Glow Left",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer + filter",
+    "variantOf": "purple-glow-bg-left",
+    "legibility": "needs-fade"
+  },
+  {
+    "slug": "purple-glow-bg-top",
+    "sourceId": "purple-glow-bg-top",
+    "name": "Purple Glow Top",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer + filter",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": [
+      "teal-glow-bg-top",
+      "warm-orange-glow-bg-top",
+      "cool-blue-glow-bg-top"
+    ]
+  },
+  {
+    "slug": "teal-glow-bg-top",
+    "sourceId": "teal-glow-bg-top",
+    "name": "Teal Glow Top",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer + filter",
+    "variantOf": "purple-glow-bg-top",
+    "legibility": "needs-fade"
+  },
+  {
+    "slug": "warm-orange-glow-bg-top",
+    "sourceId": "warm-orange-glow-bg-top",
+    "name": "Warm Orange Glow Top",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer + filter",
+    "variantOf": "purple-glow-bg-top",
+    "legibility": "needs-fade"
+  },
+  {
+    "slug": "cool-blue-glow-bg-top",
+    "sourceId": "cool-blue-glow-bg-top",
+    "name": "Cool Blue Glow Top",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer + filter",
+    "variantOf": "purple-glow-bg-top",
+    "legibility": "needs-fade"
+  },
+  {
+    "slug": "paper-texture",
+    "sourceId": "paper-texture",
+    "name": "Paper Texture",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border"
+    ],
+    "technique": "1 radial-gradient layer + 2 repeating-linear-gradient layers + tiles 8px 8px, 32px 32px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "diagonal-lines",
+    "sourceId": "diagonal-lines",
+    "name": "Diagonal Stripes",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border"
+    ],
+    "technique": "1 repeating-linear-gradient layer",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "diagonal-light",
+    "sourceId": "diagonal-light",
+    "name": "Diagonal Grid - Light",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border"
+    ],
+    "technique": "2 repeating-linear-gradient layers + tiles 40px 40px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "diagonal-light-green",
+    "sourceId": "diagonal-light-green",
+    "name": "Diagonal Grid - Electric",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "2 repeating-linear-gradient layers + tiles 40px 40px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": [
+      "diagonal-green-glow"
+    ]
+  },
+  {
+    "slug": "zigzag-lightning-light",
+    "sourceId": "zigzag-lightning-light",
+    "name": "Zigzag Lightning - Light",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "primary"
+    ],
+    "technique": "4 repeating-linear-gradient layers",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "circuit-board-light",
+    "sourceId": "circuit-board-light",
+    "name": "Circuit Board - Light",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "primary"
+    ],
+    "technique": "2 repeating-linear-gradient layers + 2 radial-gradient layers + tiles 40px 40px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "concentric-squares-light",
+    "sourceId": "concentric-squares-light",
+    "name": "Concentric Squares - Light",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border"
+    ],
+    "technique": "4 repeating-linear-gradient layers",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "woven-fabric-light",
+    "sourceId": "woven-fabric-light",
+    "name": "Woven Fabric - Light",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "primary"
+    ],
+    "technique": "4 repeating-linear-gradient layers",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "crosshatch-art-light",
+    "sourceId": "crosshatch-art-light",
+    "name": "Crosshatch Art - Light",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "primary"
+    ],
+    "technique": "4 repeating-linear-gradient layers",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "white-grid-with-dots",
+    "sourceId": "white-grid-with-dots",
+    "name": "White Grid with Dots",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "primary"
+    ],
+    "technique": "2 linear-gradient layers + 1 radial-gradient layer + tiles 20px 20px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "noise-texture-darker-dots",
+    "sourceId": "noise-texture-darker-dots",
+    "name": "Noise Texture (Darker Dots)",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "foreground"
+    ],
+    "technique": "1 radial-gradient layer + tiles 20px 20px",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "circuit-board",
+    "sourceId": "circuit-board",
+    "name": "Circuit Board",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border"
+    ],
+    "technique": "4 linear-gradient layers + tiles 50px 50px, 10px 10px",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "basic-grid",
+    "sourceId": "basic-grid",
+    "name": "Basic Grid",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border"
+    ],
+    "technique": "2 linear-gradient layers + tiles 40px 40px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "white-sphere-grid",
+    "sourceId": "white-sphere-grid",
+    "name": "White Sphere Grid",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "2 linear-gradient layers + 1 radial-gradient layer + tiles 32px 32px",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "magenta-orb-grid-light",
+    "sourceId": "magenta-orb-grid-light",
+    "name": "Magenta Orb Grid Light",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "2 linear-gradient layers + 1 radial-gradient layer + tiles 40px 40px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": [
+      "magenta-orb-grid"
+    ]
+  },
+  {
+    "slug": "dark-sphere-grid",
+    "sourceId": "dark-sphere-grid",
+    "name": "Dark Sphere Grid",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "2 linear-gradient layers + 1 radial-gradient layer + tiles 32px 32px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "magenta-orb-grid",
+    "sourceId": "magenta-orb-grid",
+    "name": "Magenta Orb Grid",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "2 linear-gradient layers + 1 radial-gradient layer + tiles 40px 40px",
+    "variantOf": "magenta-orb-grid-light",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "dark-basic-grid-slate",
+    "sourceId": "dark-basic-grid-slate",
+    "name": "Dark Basic Grid",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "2 linear-gradient layers + tiles 40px 40px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "dark-basic-grid-faded",
+    "sourceId": "dark-basic-grid-faded",
+    "name": "Dark Basic Grid (Faded)",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "2 linear-gradient layers + tiles 40px 40px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "black-basic-grid",
+    "sourceId": "black-basic-grid",
+    "name": "Black Basic Grid",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + tiles 40px 40px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "vercel-grid-subtle",
+    "sourceId": "vercel-grid-subtle",
+    "name": "Vercel Grid Subtle",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "border"
+    ],
+    "technique": "2 linear-gradient layers + tiles 60px 60px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "dark-grid-lines",
+    "sourceId": "dark-grid-lines",
+    "name": "Dark Grid Lines",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + tiles 20px 20px",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "pixel-grid-pattern",
+    "sourceId": "pixel-grid-pattern",
+    "name": "Pixel Grid Pattern",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + tiles 8px 8px",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "neon-vertical-lines",
+    "sourceId": "neon-vertical-lines",
+    "name": "Neon Vertical Lines",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "border"
+    ],
+    "technique": "1 repeating-linear-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "dark-dot-matrix",
+    "sourceId": "dark-dot-matrix",
+    "name": "Dark Dot Matrix",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "border"
+    ],
+    "technique": "2 radial-gradient layers + tiles 10px 10px",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "small-grid",
+    "sourceId": "small-grid",
+    "name": "Small Grid",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "border"
+    ],
+    "technique": "2 linear-gradient layers + tiles 20px 20px",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "black-grid-white-dots",
+    "sourceId": "black-grid-white-dots",
+    "name": "Black Grid with White Dots",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + 1 radial-gradient layer + tiles 20px 20px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": [
+      "dark-grid-white-dots"
+    ]
+  },
+  {
+    "slug": "dark-grid-white-dots",
+    "sourceId": "dark-grid-white-dots",
+    "name": "Dark Grid with White Dots",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + 1 radial-gradient layer + tiles 20px 20px",
+    "variantOf": "black-grid-white-dots",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "dark-dotted-grid",
+    "sourceId": "dark-dotted-grid",
+    "name": "Dark Dotted Grid",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent"
+    ],
+    "technique": "3 radial-gradient layers + tiles 20px 20px, 40px 40px, 60px 60px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "dark-white-dotted-grid",
+    "sourceId": "dark-white-dotted-grid",
+    "name": "Dark White Dotted Grid",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "foreground"
+    ],
+    "technique": "1 radial-gradient layer + tiles 30px 30px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "dark-noise-colored-high",
+    "sourceId": "dark-noise-colored-high",
+    "name": "Dark Noise Colored",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent"
+    ],
+    "technique": "3 radial-gradient layers + tiles 20px 20px, 30px 30px, 25px 25px",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "matrix-green",
+    "sourceId": "matrix-green",
+    "name": "Matrix Green",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "3 repeating-linear-gradient layers + tiles 24px 24px, 8px 8px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "diagonal-green-glow",
+    "sourceId": "diagonal-green-glow",
+    "name": "Diagonal Grid - Green Glow",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "2 repeating-linear-gradient layers + tiles 40px 40px",
+    "variantOf": "diagonal-light-green",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "diagonal-red-blue-glow",
+    "sourceId": "diagonal-red/blue-glow",
+    "name": "Diagonal Grid - Red/Blue Glow",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent"
+    ],
+    "technique": "2 repeating-linear-gradient layers + tiles 40px 40px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "diagonal-electric-erange",
+    "sourceId": "diagonal-electric erange",
+    "name": "Diagonal Grid - Electric Orange",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "2 repeating-linear-gradient layers + tiles 44px 44px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "complex-multiplier",
+    "sourceId": "complex-multiplier",
+    "name": "Complex Multiplier",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "primary",
+      "accent"
+    ],
+    "technique": "4 repeating-linear-gradient layers + 1 radial-gradient layer + tiles 80px 80px, 40px 40px, 60px 60px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "hexagonal-lines",
+    "sourceId": "hexagonal-lines",
+    "name": "Hexagonal Lines",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent"
+    ],
+    "technique": "3 repeating-linear-gradient layers + tiles 44px 44px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "diagonal-synthwave",
+    "sourceId": "diagonal-synthwave",
+    "name": "Diagonal Grid - Synthwave",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent"
+    ],
+    "technique": "2 repeating-linear-gradient layers + tiles 40px 40px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "gradient-left-diagonal-lines",
+    "sourceId": "gradient-left-diagonal-lines",
+    "name": "Gradient Left Diagonal Lines",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 repeating-linear-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "gradient-right-diagonal-lines",
+    "sourceId": "gradient-right-diagonal-lines",
+    "name": "Gradient Right Diagonal Lines",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 repeating-linear-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "cross-diagonal-lines",
+    "sourceId": "cross-diagonal-lines",
+    "name": "Cross Diagonal Lines",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "2 repeating-linear-gradient layers",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "multi-cross-diagonal-lines",
+    "sourceId": "multi-cross-diagonal-lines",
+    "name": "Multi Cross Diagonal Lines",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent"
+    ],
+    "technique": "2 repeating-linear-gradient layers",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "variable-spacing",
+    "sourceId": "variable-spacing",
+    "name": "Variable Spacing",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 repeating-linear-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "circuit-board-vibes",
+    "sourceId": "circuit-board-vibes",
+    "name": "Circuit Board Vibes",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent"
+    ],
+    "technique": "3 repeating-linear-gradient layers + tiles 80px 80px, 160px 160px, 320px 320px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "zigzag-lightning-dark",
+    "sourceId": "zigzag-lightning-dark",
+    "name": "Zigzag Lightning - Dark",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent"
+    ],
+    "technique": "4 repeating-linear-gradient layers",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "circuit-board-dark",
+    "sourceId": "circuit-board-dark",
+    "name": "Circuit Board - Dark",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "2 repeating-linear-gradient layers + 2 radial-gradient layers + tiles 40px 40px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "dark-circuit-board",
+    "sourceId": "dark-circuit-board",
+    "name": "Dark Circuit Board",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "border"
+    ],
+    "technique": "4 linear-gradient layers + tiles 50px 50px, 10px 10px",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "concentric-squares-dark",
+    "sourceId": "concentric-squares-dark",
+    "name": "Concentric Squares - Dark",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "4 repeating-linear-gradient layers",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "crosshatch-art-dark",
+    "sourceId": "crosshatch-art-dark",
+    "name": "Crosshatch Art - Dark",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "accent",
+      "primary"
+    ],
+    "technique": "4 repeating-linear-gradient layers",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "aurora-midnight-glow",
+    "sourceId": "aurora-midnight-glow",
+    "name": "Aurora Midnight Glow",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": [
+      "crimson-shadow-glow",
+      "emerald-depths-glow",
+      "violet-storm-glow",
+      "golden-horizon-glow",
+      "ocean-abyss-glow",
+      "rose-twilight-glow",
+      "copper-forge-glow",
+      "arctic-lights-glow",
+      "indigo-cosmos-glow",
+      "magenta-nebula-glow"
+    ]
+  },
+  {
+    "slug": "crimson-shadow-glow",
+    "sourceId": "crimson-shadow-glow",
+    "name": "Crimson Shadow Glow",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "aurora-midnight-glow",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "emerald-depths-glow",
+    "sourceId": "emerald-depths-glow",
+    "name": "Emerald Depths Glow",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "aurora-midnight-glow",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "violet-storm-glow",
+    "sourceId": "violet-storm-glow",
+    "name": "Violet Storm Glow",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "aurora-midnight-glow",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "golden-horizon-glow",
+    "sourceId": "golden-horizon-glow",
+    "name": "Golden Horizon Glow",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "aurora-midnight-glow",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "ocean-abyss-glow",
+    "sourceId": "ocean-abyss-glow",
+    "name": "Ocean Abyss Glow",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "aurora-midnight-glow",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "rose-twilight-glow",
+    "sourceId": "rose-twilight-glow",
+    "name": "Rose Twilight Glow",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "aurora-midnight-glow",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "copper-forge-glow",
+    "sourceId": "copper-forge-glow",
+    "name": "Copper Forge Glow",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "aurora-midnight-glow",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "arctic-lights-glow",
+    "sourceId": "arctic-lights-glow",
+    "name": "Arctic Lights Glow",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "aurora-midnight-glow",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "indigo-cosmos-glow",
+    "sourceId": "indigo-cosmos-glow",
+    "name": "Indigo Cosmos Glow",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "aurora-midnight-glow",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "pearl-mist-glow",
+    "sourceId": "pearl-mist-glow",
+    "name": "Pearl Mist Glow",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "foreground"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "magenta-nebula-glow",
+    "sourceId": "magenta-nebula-glow",
+    "name": "Magenta Nebula Glow",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "aurora-midnight-glow",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "pink-aurora-top",
+    "sourceId": "pink-aurora-top",
+    "name": "Pink Aurora Top",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "foreground",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "crystal-maze",
+    "sourceId": "crystal-maze",
+    "name": "Crystal Maze",
+    "category": "effects",
+    "tone": "light",
+    "animated": true,
+    "roles": [
+      "background",
+      "muted",
+      "primary"
+    ],
+    "technique": "2 repeating-linear-gradient layers + 1 linear-gradient layer + 1 radial-gradient layer + blending",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "moonlit-fog",
+    "sourceId": "moonlit-fog",
+    "name": "Moonlit Fog",
+    "category": "effects",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "foreground",
+      "primary"
+    ],
+    "technique": "2 radial-gradient layers + 1 linear-gradient layer + blending + filter",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "pastel-wave",
+    "sourceId": "pastel-wave",
+    "name": "Pastel Wave",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent"
+    ],
+    "technique": "1 linear-gradient layer",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "soft-blue-radial",
+    "sourceId": "soft-blue-radial",
+    "name": "Soft Blue Radial",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "morning-haze",
+    "sourceId": "morning-haze",
+    "name": "Morning Haze",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent"
+    ],
+    "technique": "3 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "midnight-mist",
+    "sourceId": "midnight-mist",
+    "name": "Midnight Mist",
+    "category": "effects",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "3 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "aurora-mystic-mist",
+    "sourceId": "aurora-mystic-mist",
+    "name": "Aurora Mystic Mist",
+    "category": "effects",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent",
+      "chart-3"
+    ],
+    "technique": "3 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "tropical-dusk-glow",
+    "sourceId": "tropical-dusk-glow",
+    "name": "Tropical Dusk Glow",
+    "category": "effects",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "accent",
+      "primary"
+    ],
+    "technique": "3 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "ember-glow",
+    "sourceId": "ember-glow",
+    "name": "Ember Glow",
+    "category": "effects",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "3 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "cosmic-aurora",
+    "sourceId": "cosmic-aurora",
+    "name": "Cosmic Aurora",
+    "category": "effects",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent",
+      "chart-3",
+      "chart-4"
+    ],
+    "technique": "4 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "midnight-ember",
+    "sourceId": "midnight-ember",
+    "name": "Midnight Ember",
+    "category": "effects",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "muted"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "deep-ocean-glow",
+    "sourceId": "deep-ocean-glow",
+    "name": "Deep Ocean Glow",
+    "category": "effects",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "muted"
+    ],
+    "technique": "3 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "cosmic-noise",
+    "sourceId": "cosmic-noise",
+    "name": "Cosmic Noise",
+    "category": "effects",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "foreground",
+      "muted"
+    ],
+    "technique": "2 radial-gradient layers + 1 linear-gradient layer",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "volcanic-ember",
+    "sourceId": "volcanic-ember",
+    "name": "Volcanic Ember",
+    "category": "effects",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "3 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "crimson-core-glow",
+    "sourceId": "crimson-core-glow",
+    "name": "Crimson Core Glow",
+    "category": "effects",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "muted",
+      "primary"
+    ],
+    "technique": "1 linear-gradient layer + 5 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "northern-aurora",
+    "sourceId": "northern-aurora",
+    "name": "Northern Aurora",
+    "category": "effects",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent",
+      "chart-3"
+    ],
+    "technique": "4 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "cosmic-sparkle",
+    "sourceId": "cosmic-sparkle",
+    "name": "Cosmic Sparkle",
+    "category": "effects",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent",
+      "muted",
+      "foreground"
+    ],
+    "technique": "3 radial-gradient layers + blending + filter",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "striped-dark",
+    "sourceId": "striped-dark",
+    "name": "Striped Dark",
+    "category": "geometric",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "foreground"
+    ],
+    "technique": "1 repeating-linear-gradient layer",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "midnight-aurora-glow",
+    "sourceId": "midnight-aurora-glow",
+    "name": "Midnight Aurora Glow",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "midnight-radial-glow",
+    "sourceId": "midnight-radial-glow",
+    "name": "Midnight Radial Glow",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "foreground"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "deep-navy-gold",
+    "sourceId": "deep-navy-gold",
+    "name": "Deep Navy & Gold",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "rich-burgundy",
+    "sourceId": "rich-burgundy",
+    "name": "Rich Burgundy",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "forest-emerald",
+    "sourceId": "forest-emerald",
+    "name": "Forest Emerald",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": [
+      "copper-bronze"
+    ]
+  },
+  {
+    "slug": "royal-purple",
+    "sourceId": "royal-purple",
+    "name": "Royal Purple",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "copper-bronze",
+    "sourceId": "copper-bronze",
+    "name": "Copper & Bronze",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "forest-emerald",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "steel-blue",
+    "sourceId": "steel-blue",
+    "name": "Steel Blue",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "warm-amber",
+    "sourceId": "warm-amber",
+    "name": "Warm Amber",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "moonlight-silver",
+    "sourceId": "moonlight-silver",
+    "name": "Moonlight Silver",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "foreground"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "center-spotlight-white",
+    "sourceId": "center-spotlight-white",
+    "name": "White Spotlight",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "foreground"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": [
+      "center-spotlight"
+    ]
+  },
+  {
+    "slug": "center-spotlight-blue",
+    "sourceId": "center-spotlight-blue",
+    "name": "Blue Spotlight",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": [
+      "center-spotlight-emerald",
+      "center-spotlight-crimson",
+      "center-spotlight-violet",
+      "center-spotlight-amber",
+      "center-spotlight-cyan",
+      "center-spotlight-rose"
+    ]
+  },
+  {
+    "slug": "center-spotlight-emerald",
+    "sourceId": "center-spotlight-emerald",
+    "name": "Emerald Spotlight",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "center-spotlight-blue",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "center-spotlight-crimson",
+    "sourceId": "center-spotlight-crimson",
+    "name": "Crimson Spotlight",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "center-spotlight-blue",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "center-spotlight-violet",
+    "sourceId": "center-spotlight-violet",
+    "name": "Violet Spotlight",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "center-spotlight-blue",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "center-spotlight-amber",
+    "sourceId": "center-spotlight-amber",
+    "name": "Amber Spotlight",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "center-spotlight-blue",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "center-spotlight-cyan",
+    "sourceId": "center-spotlight-cyan",
+    "name": "Cyan Spotlight",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "center-spotlight-blue",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "center-spotlight-rose",
+    "sourceId": "center-spotlight-rose",
+    "name": "Rose Spotlight",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "center-spotlight-blue",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "center-spotlight",
+    "sourceId": "center-spotlight",
+    "name": "Center Spotlight",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "foreground"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "center-spotlight-white",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "top-spotlight",
+    "sourceId": "top-spotlight",
+    "name": "Top Spotlight",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "foreground"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "aurora-edge-glow",
+    "sourceId": "aurora-edge-glow",
+    "name": "Aurora Edge Glow",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "foreground"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "purple-radial-bloom-light",
+    "sourceId": "purple-radial-bloom-light",
+    "name": "Purple Radial Bloom Light",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "purple-corner-less",
+    "sourceId": "purple-corner-less",
+    "name": "Purple Corner Less",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "2 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": [
+      "purple-corner-high",
+      "blue-corner-glow",
+      "green-corner-soft",
+      "orange-corner-warm",
+      "teal-corner-cool",
+      "yellow-corner-bright",
+      "indigo-corner-deep",
+      "rose-corner-elegant"
+    ]
+  },
+  {
+    "slug": "purple-corner-high",
+    "sourceId": "purple-corner-high",
+    "name": "Purple Corner High",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "2 radial-gradient layers",
+    "variantOf": "purple-corner-less",
+    "legibility": "decorative-only"
+  },
+  {
+    "slug": "blue-corner-glow",
+    "sourceId": "blue-corner-glow",
+    "name": "Blue Corner Glow",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "2 radial-gradient layers",
+    "variantOf": "purple-corner-less",
+    "legibility": "decorative-only"
+  },
+  {
+    "slug": "green-corner-soft",
+    "sourceId": "green-corner-soft",
+    "name": "Green Corner Soft",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "2 radial-gradient layers",
+    "variantOf": "purple-corner-less",
+    "legibility": "decorative-only"
+  },
+  {
+    "slug": "pink-corner-dream",
+    "sourceId": "pink-corner-dream",
+    "name": "Pink Corner Dream",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "muted"
+    ],
+    "technique": "2 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "orange-corner-warm",
+    "sourceId": "orange-corner-warm",
+    "name": "Orange Corner Warm",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "2 radial-gradient layers",
+    "variantOf": "purple-corner-less",
+    "legibility": "decorative-only"
+  },
+  {
+    "slug": "teal-corner-cool",
+    "sourceId": "teal-corner-cool",
+    "name": "Teal Corner Cool",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "2 radial-gradient layers",
+    "variantOf": "purple-corner-less",
+    "legibility": "decorative-only"
+  },
+  {
+    "slug": "yellow-corner-bright",
+    "sourceId": "yellow-corner-bright",
+    "name": "Yellow Corner Bright",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "2 radial-gradient layers",
+    "variantOf": "purple-corner-less",
+    "legibility": "decorative-only"
+  },
+  {
+    "slug": "indigo-corner-deep",
+    "sourceId": "indigo-corner-deep",
+    "name": "Indigo Corner Deep",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "2 radial-gradient layers",
+    "variantOf": "purple-corner-less",
+    "legibility": "decorative-only"
+  },
+  {
+    "slug": "rose-corner-elegant",
+    "sourceId": "rose-corner-elegant",
+    "name": "Rose Corner Elegant",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "2 radial-gradient layers",
+    "variantOf": "purple-corner-less",
+    "legibility": "decorative-only"
+  },
+  {
+    "slug": "violet-dream-sphere",
+    "sourceId": "violet-dream-sphere",
+    "name": "Violet Dream Sphere",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "lavender-cosmic-glow",
+    "sourceId": "lavender-cosmic-glow",
+    "name": "Lavender Cosmic Glow",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "purple-haze-burst",
+    "sourceId": "purple-haze-burst",
+    "name": "Purple Haze Burst",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "mystic-purple-orb",
+    "sourceId": "mystic-purple-orb",
+    "name": "Mystic Purple Orb",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "soft-rose-glow-right-corner",
+    "sourceId": "soft-rose-glow-right-corner",
+    "name": "Soft Rose Glow Right Corner",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "soft-rose-glow-left-corner",
+    "sourceId": "soft-rose-glow-left-corner",
+    "name": "Soft Rose Glow Left Corner",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "soft-rose-glow-corners",
+    "sourceId": "soft-rose-glow-corners",
+    "name": "Soft Rose Glow Dual Corners",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "2 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "prismatic-aurora-burst",
+    "sourceId": "prismatic-aurora-burst",
+    "name": "Prismatic Aurora Burst",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent",
+      "chart-3"
+    ],
+    "technique": "4 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "cosmic-nebula",
+    "sourceId": "cosmic-nebula",
+    "name": "Cosmic Nebula",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent"
+    ],
+    "technique": "4 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "stellar-mist",
+    "sourceId": "stellar-mist",
+    "name": "Stellar Mist",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent",
+      "chart-3",
+      "chart-4"
+    ],
+    "technique": "5 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "diagonal-striped-grid",
+    "sourceId": "diagonal-striped-grid",
+    "name": "Diagonal Striped Grid",
+    "category": "geometric",
+    "tone": "light",
+    "animated": true,
+    "roles": [
+      "background",
+      "primary",
+      "foreground"
+    ],
+    "technique": "2 linear-gradient layers + 1 repeating-linear-gradient layer + tiles 24px 24px + mask",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  }
+]

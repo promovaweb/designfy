@@ -1,0 +1,110 @@
+---
+/**
+ * FeatureSplit: Sets a feature explanation beside a large visual or a scrolling sequence of visuals.
+ * Slots or React nodes: visual.
+ * Motion: Visuals enter through a mask as they reach the viewport.
+ * Catalog: feature-split
+ */
+import { cn } from "@designfy/components/lib/cn";
+
+type Action = { label: string; href: string };
+type Image = { src: string; alt: string; width: number; height: number };
+
+interface Props {
+  /** Section heading. */
+  title: string;
+  /** Supporting sentence. */
+  lead?: string;
+  /** Heading level in the page outline. */
+  headingLevel?: 2 | 3 | 4 | 5 | 6;
+  /** Supporting bullets. */
+  points?: string[];
+  /** Link to learn or act. */
+  action?: Action;
+  /** Visual sequence. Multiple images enable sticky copy. */
+  images?: Image[];
+  /** Desktop placement of the visual. */
+  visualSide?: "start" | "end";
+  /** Additional classes on the root element. */
+  class?: string;
+}
+
+const {
+  title,
+  lead,
+  headingLevel = 2,
+  points,
+  action,
+  images,
+  visualSide = "end",
+  class: className,
+} = Astro.props;
+const Heading = `h${headingLevel}` as "h2";
+---
+
+<section class={cn("df-section border-t border-border", className)}>
+  <div class="df-container grid items-start gap-10 md:grid-cols-2 lg:gap-16">
+    <div
+      data-df-reveal="up"
+      class={cn(
+        "min-w-0 self-center",
+        visualSide === "start" && "md:order-2",
+        (images?.length ?? 0) > 1 && "md:sticky md:top-24 md:self-start",
+      )}
+    >
+      <Heading class="font-heading text-headline font-semibold">{title}</Heading
+      >
+      {
+        lead && (
+          <p class="mt-4 max-w-2xl text-lead text-muted-foreground">{lead}</p>
+        )
+      }
+      {
+        !!points?.length && (
+          <ul class="mt-6 list-disc space-y-2 ps-5 marker:text-primary">
+            {points.map((point) => (
+              <li>{point}</li>
+            ))}
+          </ul>
+        )
+      }
+      {
+        action && (
+          <a
+            href={action.href}
+            class="inline-flex min-h-11 items-center font-semibold text-primary hover:underline mt-5 w-fit"
+          >
+            {action.label}
+          </a>
+        )
+      }
+    </div>
+    {
+      Astro.slots.has("visual") && (
+        <div
+          data-df-reveal="mask"
+          class="min-w-0 overflow-hidden rounded-2xl bg-muted"
+        >
+          <slot name="visual" />
+        </div>
+      )
+    }
+    {
+      !!images?.length && (
+        <div class="grid min-w-0 gap-4">
+          {images.map((image) => (
+            <img
+              data-df-reveal="mask"
+              src={image.src}
+              alt={image.alt}
+              width={image.width}
+              height={image.height}
+              loading="lazy"
+              class="h-auto w-full rounded-2xl bg-muted"
+            />
+          ))}
+        </div>
+      )
+    }
+  </div>
+</section>

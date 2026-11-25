@@ -1,7 +1,7 @@
 # MCP
 
 `{{bin}} mcp` transforma o processo em um servidor Model Context Protocol
-sobre stdio. Nada mais é escrito em stdout; diagnósticos vão para stderr.
+sobre stdio. Stdout fica reservado para JSON-RPC. Diagnósticos vão para stderr.
 
 ## Configuração no cliente
 
@@ -27,9 +27,38 @@ Para desenvolvimento, sem compilar: `"command": "bun", "args": ["run", "src/main
 | `config_list` | nenhuma | keys de settings.json em vigor e o schema |
 | `config_get` | `key` | valor da key; `isError` quando não existe |
 | `credentials_status` | nenhuma | file, master key source, count e names |
+| `project_status` | nenhuma | detecção, configuração efetiva, contagens de instalações e viewspecs, guia e CSS do tema |
+| `skills_list` | `internal?`, `external?` | skills com estado de instalação |
+| `deps_list` | `group?` | grupos, faixas de versões e estado no projeto |
+| `deps_check` | `group?` | pacotes ausentes ou desatualizados, com `isError` quando a conferência reprova |
+| `catalog_list` | `surface?`, `category?`, `kind?` | fragmentos de interface filtrados |
+| `catalog_show` | `id` | propósito, anatomia, variações, estados, tokens e fontes |
+| `catalog_search` | `text` | fragmentos que correspondem à busca |
+| `components_list` | `framework?`, `category?`, `surface?` | metadados dos itens do registro |
+| `components_show` | `name`, `framework?`, `source?` | metadados, arquivos e conteúdo se solicitado |
+| `theme_show` | `file?`, `group?` | CSS de origem e tokens por grupo |
+| `theme_check` | `file?` | contraste em claro e escuro e papéis semânticos ausentes |
+| `palette_generate` | `base`, `harmony?` | escalas OKLCH, tokens claros e escuros e contraste |
+| `palette_wheel` | `color` | cores de cada harmonia em hex e OKLCH |
+| `palette_contrast` | `foreground`, `background` | razão WCAG, APCA e vereditos por uso |
+| `viewspec_guide` | nenhuma | guia do projeto, regras e propostas |
+| `viewspec_list` | `status?`, `kind?` | viewspecs com o progresso das checklists |
+| `viewspec_show` | `id` | front matter, seções e checklist da tela |
+| `viewspec_progress` | nenhuma | contagem por status, progresso das checklists e próximo ID livre |
+| `viewspec_validate` | `id?` | estado do guia e diagnósticos dos viewspecs por arquivo e linha |
+| `capture_list` | `outDir?` | manifestos de captura, do mais recente ao mais antigo |
+| `mcp_servers` | nenhuma | servidores sugeridos e estado nos arquivos de cada cliente |
+| `components_add` | `names`, `framework?`, `path?`, `overwrite?`, `dryRun?` | grava componentes e retorna arquivos e dependências. `dryRun` simula a cópia |
+| `capture_run` | `urls`, `viewports?`, `theme?`, `fullPage?`, `reducedMotion?`, `waitMs?`, `selector?`, `outDir?`, `name?` | visita URLs e grava imagens e manifesto |
 
-Nenhuma tool devolve o valor de uma credencial, e nenhuma tool grava. Escrita
-continua no CLI, onde há confirmação humana.
+As tools de projeto usam a pasta de trabalho do servidor. `?` indica
+entrada opcional. O cofre expõe pelo MCP apenas metadados.
+
+## Modo de leitura
+
+Inclua `--read-only` depois de `mcp` nos arguments do cliente para iniciar
+o servidor sem `components_add` e `capture_run`. Todas as outras tools
+continuam disponíveis. `mcp setup` configura arquivos de clientes pelo CLI.
 
 ## Resources
 
@@ -51,6 +80,7 @@ continua no CLI, onde há confirmação humana.
 ```bash
 {{bin}} mcp --list
 {{bin}} mcp --list --json
+{{bin}} mcp --list --read-only
 ```
 
 ## Testar
@@ -77,6 +107,7 @@ Nomes de tools usam `snake_case`. Tools que gravam ou chamam APIs externas
 precisam dizer isso na description e nunca devem ecoar segredos na resposta.
 
 A tool `doctor` usa a mesma coleta do command CLI: confere runtime, terminal,
-permissões da pasta, settings, origem da chave e leitura do cofre. Não grava
+permissões da pasta, settings, origem da chave, leitura do cofre,
+Node, npx, configuração do projeto, CSS do Tailwind e guia. Não grava
 arquivos e não retorna valores de credenciais. Cada check traz `name`,
 `status` (`ok`, `warn` ou `fail`) e `detail`.

@@ -15,7 +15,8 @@ import { controlSpacing } from "./spacing.ts";
  * - choose and palette: ↑/↓, j/k (choose), PgUp/PgDn, Home/End, Enter, Esc;
  *   rows are clickable and the wheel scrolls. The palette filters by the
  *   typed text (subsequence match on the label).
- * - help: rows with a command are clickable; Esc or ? closes it.
+ * - help: scroll with the wheel, arrows or page keys; command rows are clickable.
+ *   Esc or ? closes it.
  *
  * Toasts stack at the bottom right, close after a few seconds or on click,
  * and never take keyboard input. With `motion`, modals and toasts slide in
@@ -23,6 +24,7 @@ import { controlSpacing } from "./spacing.ts";
  */
 import {
   BoxRenderable,
+  ScrollBoxRenderable,
   TextRenderable,
   TextAttributes,
   type CliRenderer,
@@ -539,10 +541,17 @@ export class Overlays {
       height: lines + 4,
       cancel: () => undefined,
       build: (body, close) => {
+        const chrome = 2 + controlSpacing.modalY * 2;
+        const list = new ScrollBoxRenderable(this.renderer, {
+          height: Math.min(lines, Math.max(1, this.renderer.height - 2 - chrome)),
+          scrollY: true, scrollX: false,
+          contentOptions: { flexDirection: "column" },
+        });
+        body.add(list);
         for (const section of sections) {
-          body.add(new TextRenderable(this.renderer, { content: section.title, fg: this.theme.textDim, attributes: TextAttributes.BOLD, selectable: false }));
+          list.add(new TextRenderable(this.renderer, { content: section.title, fg: this.theme.textDim, attributes: TextAttributes.BOLD, selectable: false }));
           for (const row of section.rows) {
-            const line = new BoxRenderable(this.renderer, { flexDirection: "row", height: 1 });
+            const line = new BoxRenderable(this.renderer, { flexDirection: "row", height: 1, flexShrink: 0 });
             line.add(new TextRenderable(this.renderer, { content: row.key.padEnd(18), fg: this.theme.accent, flexShrink: 0, selectable: false }));
             const text = new TextRenderable(this.renderer, { content: row.icon ? withIcon(this.icons, row.icon, row.description) : row.description, fg: this.theme.text, wrapMode: "none", selectable: false });
             line.add(text);
@@ -556,12 +565,20 @@ export class Overlays {
                 onHover: (inside) => { text.fg = inside ? this.theme.accent : this.theme.text; },
               });
             }
-            body.add(line);
+            list.add(line);
           }
         }
         return {
           onKey: (key) => {
-            if (key.name === "escape" || key.name === "?" || key.name === "q") close();
+            switch (key.name) {
+              case "escape": case "?": case "q": close(); break;
+              case "up": list.scrollBy(-1); break;
+              case "down": list.scrollBy(1); break;
+              case "pageup": list.scrollBy(-list.viewport.height); break;
+              case "pagedown": list.scrollBy(list.viewport.height); break;
+              case "home": list.scrollTo(0); break;
+              case "end": list.scrollTo(Infinity); break;
+            }
           },
         };
       },

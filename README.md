@@ -1,206 +1,575 @@
-# Termfy Starter Kit
+<p align="center">
+  <a href="https://promovaweb.com/ferramentas/">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="brand/logo/logo-dark.svg">
+      <img alt="Designfy" src="brand/logo/logo-light.svg" width="320">
+    </picture>
+  </a>
+</p>
+
+<h1 align="center">Designfy</h1>
 
 <p align="center">
-  <a href="https://promovaweb.com/termfy/">
+  O framework visual que faz a interface de um projeto web sair desenhada, com
+  design system, componentes React e Astro e revisão por captura.
+</p>
+
+<p align="center">Um projeto da <a href="https://promovaweb.com">Promovaweb</a></p>
+
+<p align="center">
+  <a href="https://promovaweb.com">
     <picture>
-      <source type="image/svg+xml" srcset="brand/logo/icon.svg">
-      <img alt="Termfy Starter Kit" src="brand/logo/icon.png" width="112" height="112">
+      <source media="(prefers-color-scheme: dark)" srcset="https://promovaweb.com/promovaweb-logo-dark-586.png">
+      <img alt="Promovaweb" src="https://promovaweb.com/promovaweb-logo-light-586.png" width="180">
     </picture>
   </a>
 </p>
 
 <p align="center">
-  <a href="https://promovaweb.com/termfy/">Portal do Termfy</a> ·
-  <a href="https://promovaweb.com/docs/termfy/">Documentação</a> ·
+  <a href="docs/user/README.md">Guia do Usuário</a> ·
+  <a href="docs/README.md">Documentação</a> ·
   <a href="https://promovaweb.com/harness/">Harness</a> ·
-  <a href="https://promovaweb.com/ferramentas/">Ferramentas</a>
+  <a href="https://promovaweb.com/ferramentas/">Ferramentas</a> ·
+  <a href="https://promovaweb.com/planos?utm_source=github&utm_medium=readme&utm_campaign=designfy">Planos da Promovaweb</a> ·
+  <a href="CHANGELOG.md">Changelog</a>
 </p>
 
-<p align="center">Um projeto da <a href="https://promovaweb.com">Promovaweb</a></p>
+## O que é
 
-Esqueleto de binário em [Bun](https://bun.sh) para construir ferramentas de
-terminal com três modos no mesmo executável. É o template do GitHub do
-framework [Termfy](https://github.com/promovaweb/termfy), e já vem com as
-skills do framework instaladas em `.agents/skills/`.
+Um site feito por agente costuma sair com a mesma cara: paleta improvisada,
+tipografia padrão, um componente novo a cada página, nada se move e o celular
+fica para depois. O Designfy entrega o método e as peças para quem constrói um
+site em Astro ou um sistema em React com um agente de código: uma skill
+orquestradora que entende o pedido, escreve a especificação da tela e aciona as
+especialistas, um registro de componentes que leem o tema e uma revisão com
+capturas em celular e desktop.
 
-| Modo | Entrada | Para quem |
-| --- | --- | --- |
-| TUI | `termfy` sem argumentos, em terminal interativo | pessoas |
-| CLI | `termfy <command> [options]`, saída em texto ou `--json` | pessoas, scripts e agentes |
-| MCP | `termfy mcp`, servidor Model Context Protocol via stdio | agentes de IA |
+O mesmo executável atende a pessoa no terminal, os scripts de CI e o agente por
+MCP.
 
-Os três modos compartilham identidade, configuração (`~/.termfy/settings.json`),
-cofre de credenciais cifrado (`~/.termfy/credentials.json`) e a tabela de
-exit codes. A TUI usa o [OpenTUI](https://opentui.com); o CLI publica sua
-interface no formato [OpenCLI](https://opencli.org); o MCP usa o
-[SDK oficial](https://github.com/modelcontextprotocol/typescript-sdk).
+| Entrega | O que você recebe |
+| --- | --- |
+| Skill orquestradora e especialistas | a skill `designfy` recebe o pedido e chama viewspec, design system, componentes, movimento, sites, conteúdo, sistemas, responsivo, acessibilidade e revisão, dez especialistas no total |
+| Viewspec | o guia `VIEWSPEC.md` na raiz do projeto e um viewspec por tela em `viewspec/<id>-<slug>/VIEWSPEC.md`, com nove seções e checklist por especialista |
+| Catálogo de interface | 80 fragmentos comuns de site e de sistema, com propósito, anatomia, variações, estados, acessibilidade, tokens e fonte de implementação |
+| Registro de componentes | 58 itens React e 46 Astro sobre Tailwind 4, shadcn e Motion, copiados para o projeto com as dependências resolvidas |
+| Tema e paleta | leitura do tema do Tailwind do projeto, contraste WCAG 2.2 e APCA, escala OKLCH e harmonias da roda de cores |
+| Presets de fundo | 314 padrões de fundo por tema, categoria e legibilidade, gerados a partir do tema |
+| Capturas | Playwright em celular, tablet, desktop e tela larga, com manifesto de estouro horizontal e erros de console |
+| TUI | Home em menu e abas de tema, catálogo, componentes, skills, dependências, MCP, viewspecs e capturas |
+| MCP | tools de projeto, skills, dependências, catálogo, componentes, tema, paleta, capturas e viewspecs para o agente |
 
-Todo o código é em inglês: arquivos, identificadores, comentários, mensagens,
-commands, options, keys e campos do `--json`. A documentação é em português.
+A skill orquestradora é a porta de entrada do framework. Você descreve a tela,
+ela lê o projeto e o guia, classifica o pedido, escolhe os fragmentos no
+catálogo, monta o viewspec e passa cada parte para a especialista certa.
+
+## Instalação
+
+O Designfy ainda não tem pacote npm. A instalação é pelo repositório privado
+[`promovaweb/designfy`](https://github.com/promovaweb/designfy).
+
+### Do código-fonte
+
+```bash
+git clone git@github.com:promovaweb/designfy.git
+cd designfy
+bun install
+bun run build
+install -m 755 dist/designfy ~/.local/bin/designfy
+designfy --version
+```
+
+O build gera `dist/designfy` para a plataforma da máquina. Para os cinco alvos
+de release, use `bun run build:all`.
+
+### Do binário da release
+
+Baixe o executável da sua plataforma em
+[Releases](https://github.com/promovaweb/designfy/releases): `designfy-linux-x64`,
+`designfy-linux-arm64`, `designfy-darwin-x64`, `designfy-darwin-arm64` ou
+`designfy-windows-x64.exe`. Confira o arquivo com o `SHA256SUMS` da mesma
+release, dê permissão de execução e coloque no `PATH`.
+
+### Requisitos
+
+- Bun 1.4.4 ou superior para compilar e rodar o código. O executável da release
+  já leva o runtime.
+- [Node.js](https://nodejs.org) para dois trabalhos: o `npx skills`, que instala
+  as skills, e a captura, porque o Playwright roda num processo Node do projeto.
+- Acesso ao repositório privado, para o clone e para o `npx skills add` buscar
+  as skills internas.
+
+Para capturar telas, o projeto precisa do Playwright e do Chromium:
+
+```bash
+designfy deps install testing
+npx playwright install chromium
+```
+
+### Instalar a skill no agente
+
+```bash
+designfy skills install
+```
+
+O comando instala as skills internas padrão e as externas compatíveis com o
+framework detectado, pelo `npx skills add`.
+
+## Primeiros passos
+
+Na raiz do site ou da aplicação:
+
+```bash
+designfy init
+```
 
 ```text
-
-   ▌ Termfy  v0.13.0                                                        linux-x64 · Bun 1.4.4
-
-   1 ⌂ Overview    2 ⚙ Settings    3 ◈ Credentials    4 ≡ Docs    5 ℹ About
-   ━━━━━━━━━━━━
-
-   ENVIRONMENT                                      STATE
-   ╭───────────────────────────────────────────╮    ╭───────────────────────────────────────────╮
-   │                                           │    │                                           │
-   │  Binary     termfy v0.13.0                │    │  Settings     • defaults                  │
-   │  Runtime    Bun 1.4.4                     │    │  Vault        • empty                     │
-   │  Platform   linux-x64                     │    │  Master key   not created                 │
-   │                                           │    │                                           │
-   ╰───────────────────────────────────────────╯    ╰───────────────────────────────────────────╯
-
-   NEXT STEPS
-   ╭────────────────────────────────────────────────────────────────────────────────────────────╮
-   │                                                                                            │
-   │  IN THE TERMINAL                               FOR AGENTS                                  │
-   │  → termfy --help                               { "command": "termfy",                      │
-   │  → termfy credentials set <name>                 "args": ["mcp"] }                         │
-   │  → termfy --skill                                                                          │
-   │                                                                                            │
-   │  [c] copy MCP config    [r] reload                                                         │
-   │                                                                                            │
-   ╰────────────────────────────────────────────────────────────────────────────────────────────╯
-
-
-
-   0 credentials · defaults  r reload  c copy MCP config  ? help  q quit             ^K commands
-
+Wrote /projeto/designfy.json (react-vite).
 ```
 
-## Sobre o template
+O `init` detecta o framework pelo `package.json`, o Tailwind, o `components.json`
+do shadcn e o gerenciador pelo lockfile, e grava `designfy.json`.
 
-Este repositório é um template do GitHub. Clique em **Use this template**,
-abra o clone no agente e peça: "Use termfy-init para fazer o setup deste
-projeto". Informe o nome do executável e o propósito da ferramenta. O agente
-conduz a configuração e as verificações pela skill.
-
-A pasta [brand/](brand/README.md) é a marca deste template no GitHub. Num
-projeto criado a partir dele, troque `brand/` e o cabeçalho deste README pela
-sua marca ou remova os dois.
-
-O guia completo está em [docs/customize-template.md](docs/customize-template.md).
-Para atualizar ou reparar as skills, use `termfy-init` no modo de
-manutenção. O guia do método e o ebook ficam no
-[framework](https://github.com/promovaweb/termfy).
-
-## Requisitos
-
-Bun 1.4.4 ou superior. Node.js não é usado.
-
-## Rodar em desenvolvimento
+Confira o projeto:
 
 ```bash
-bun install
-bun run dev                 # TUI
-bun run dev -- --help       # help do CLI
-bun run dev -- about --json
-bun run dev -- mcp --list
+designfy status
 ```
 
-## Commands
+```text
+  Framework             react-vite
+  Detected framework    react-vite
+  TypeScript            yes
+  Package manager       bun
+  Tailwind major        4
+  shadcn                yes
+  Skills installed      1
+  Dependencies present  3
+  Components copied     0
+  Viewspecs             0
+    draft               0
+    in_progress         0
+    blocked             0
+    done                0
+    archived            0
+  Next viewspec ID      0001
+  Viewspec guide        not found
+  Tailwind theme        /projeto/src/styles/globals.css
+```
 
-| Command | Função |
-| --- | --- |
-| `termfy` | abre a TUI com as abas Overview, Settings, Credentials, Docs e About |
-| `termfy tui [--tab overview\|settings\|credentials\|docs\|about]` | abre a TUI em uma aba |
-| `termfy about` | version, executable, runtime, platform e credits |
-| `termfy config list\|get\|set\|unset\|path\|schema` | preferências em `settings.json` |
-| `termfy credentials set\|get\|list\|remove\|status\|clear` | segredos cifrados em `credentials.json` |
-| `termfy mcp [--list]` | servidor MCP via stdio |
-| `termfy skill [topic]` | documentação embutida |
-
-Options globais: `--help`, `--version`, `--json`, `--skill [topic]`,
-`--opencli`, `--no-color`. Referência completa em [docs/cli.md](docs/cli.md).
-
-## Documentação embutida
+Instale as dependências e as skills:
 
 ```bash
-termfy --skill            # tudo, em Markdown
-termfy --skill mcp        # uma seção: cli, tui, mcp, config, exit-codes
-termfy --opencli          # descrição OpenCLI em JSON
+designfy deps install
+designfy deps check
+designfy skills install
 ```
 
-A pasta [docs/](docs/README.md) entra no binário em tempo de build. Um agente
-lê a documentação sem acesso ao repositório.
-
-## Exit codes
-
-| Code | Name |
-| --- | --- |
-| 0 | `SUCCESS` |
-| 1 | `GENERIC_ERROR` |
-| 2 | `USAGE` |
-| 3 | `CONFIG` |
-| 4 | `CREDENTIALS` |
-| 5 | `NETWORK_OR_API` |
-| 6 | `NOT_FOUND` |
-| 7 | `PERMISSION` |
-| 8 | `NO_TTY` |
-| 9 | `MCP` |
-| 130 | `INTERRUPTED` |
-
-Detalhes em [docs/exit-codes.md](docs/exit-codes.md).
-
-## Configuração e credenciais
+Escreva a entrada do servidor MCP nos clientes do projeto:
 
 ```bash
-termfy config set tui.theme day
-termfy credentials set openai.api_key        # digita sem eco
-printf '%s' "$TOKEN" | termfy credentials set github.token --stdin
-termfy credentials status
+designfy mcp setup
 ```
 
-Os arquivos ficam em `~/.termfy/` com permissão 0600. As credenciais são
-cifradas com AES-256-GCM; a master key vem de `TERMFY_MASTER_KEY` ou de
-`~/.termfy/master.key`. Veja [docs/configuration.md](docs/configuration.md).
+Por fim, chame a skill com o pedido da tela:
 
-## MCP
+- "Use a skill designfy para criar a landing page de preços na rota `/precos`,
+  com o conteúdo de `src/content/precos.md`."
+- "Use a skill designfy para redesenhar o dashboard em `/app/vendas`, com
+  quatro contadores, um gráfico de receita e a tabela dos pedidos recentes."
+- "Use a skill designfy para montar o artigo `/blog/tailwind-4`, com índice,
+  bloco de código e embed de vídeo, e revisar com captura no celular e no
+  desktop."
+
+## Uso
+
+### Projeto
+
+```bash
+designfy init --framework astro --dry-run   # mostra o designfy.json sem gravar
+designfy init --force                        # substitui um arquivo existente
+designfy status --json
+```
+
+O `designfy.json` guarda o framework, o TypeScript, o gerenciador, a versão do
+Tailwind, o shadcn e os caminhos de componentes, estilos e viewspec. Quando o
+arquivo existe, os campos definidos nele prevalecem sobre a detecção.
+
+### Skills
+
+```bash
+designfy skills list
+```
+
+```text
+  designfy                Designfy (internal, no)
+  designfy-viewspec       Viewspec (internal, no)
+  designfy-design-system  Design system (internal, no)
+  designfy-components     Components (internal, no)
+  designfy-motion         Motion (internal, no)
+  designfy-websites       Websites (internal, no)
+  designfy-content        Content (internal, no)
+  designfy-systems        Systems (internal, no)
+  designfy-responsive     Responsive (internal, no)
+  designfy-accessibility  Accessibility (internal, no)
+  designfy-review         Review (internal, no)
+  hallmark                Hallmark (external, global)
+  shadcn                  shadcn/ui (external, no)
+```
+
+```bash
+designfy skills install --all
+designfy skills install designfy-review --agent codex
+designfy skills update
+designfy skills remove designfy-content
+```
+
+O estado de cada skill é `project`, `global` ou `no`. As internas vêm de
+`promovaweb/designfy`; as externas, do Hallmark, do shadcn/ui, do Astrofy e do
+Brandfy.
+
+### Catálogo e componentes
+
+```bash
+designfy catalog list --surface system
+designfy catalog show button
+designfy catalog search "empty state"
+```
+
+```text
+  button              Button (both, actions)
+  link                Text link (both, actions)
+  card                Card (both, containers)
+  badge               Badge (both, data-display)
+  avatar              Avatar (both, data-display)
+```
+
+O catálogo é a fonte que as skills leem para escolher os fragmentos de uma tela,
+antes de olhar para qualquer implementação.
+
+```bash
+designfy components list --surface system
+designfy components show cn
+designfy components add cn --framework react --dry-run
+```
+
+```text
+  Would write           /projeto/src/components/designfy/lib/cn.ts
+  Unchanged             None
+  Skipped               None
+  Missing npm packages  clsx, tailwind-merge
+  Missing dev packages  None
+  Install shadcn items  None
+```
+
+O `components add` copia o item e os itens exigidos, troca o marcador
+`@designfy/components` pelo alias do projeto e relata os pacotes npm e os itens
+`shadcn:` que faltam. Arquivo existente e diferente não é tocado sem
+`--overwrite`.
+
+### Tema e paleta
+
+```bash
+designfy theme show --group colors
+```
+
+```text
+  --color-background          light oklch(1 0 0) → #ffffff | dark oklch(0.16 0.02 220) → #040f13
+  --color-foreground          light oklch(0.2 0.02 220) → #0b181c | dark oklch(0.96 0.01 220) → #ebf3f6
+  --color-primary             light oklch(0.62 0.12 190) → #009a94 | dark oklch(0.78 0.12 190) → #3ed0c8
+  --color-muted-foreground    light oklch(0.45 0.02 220) → #49585d | dark oklch(0.45 0.02 220) → #49585d
+```
+
+```bash
+designfy theme check
+designfy palette wheel "#2AD5BE"
+designfy palette generate --base "#2AD5BE" --harmony triadic --format css --out src/styles/tokens.css
+designfy palette contrast "#00161E" "#C6F4ED"
+```
+
+```text
+  Foreground    #00161e
+  Background    #c6f4ed
+  WCAG ratio    15.50:1
+  APCA          Lc 93.0
+  Normal text   AA pass, AAA pass
+  Large text    AA pass, AAA pass
+  UI component  AA pass, AAA N/A
+```
+
+O `theme check` mede os pares de cor do tema nos dois modos e confere os papéis
+que o registro usa. Par abaixo de 4.5 ou papel obrigatório ausente sai com exit
+code 10.
+
+### Viewspec
+
+```bash
+designfy viewspec guide
+designfy viewspec list
+designfy viewspec progress
+designfy viewspec validate
+```
+
+```text
+  0002  Dashboard de vendas  |  dashboard  |  in_progress  |  1/6
+```
+
+```text
+  draft        0
+  in_progress  1
+  blocked      0
+  done         0
+  archived     0
+  Checklist    1/6
+  Next id      0001
+```
+
+O guia da raiz vale para todas as telas. Cada viewspec de tela guarda objetivo,
+conteúdo, estrutura, estados, responsivo, movimento, acessibilidade, checklist e
+notas. O binário lê e valida; quem escreve é a skill `designfy-viewspec`.
+
+### Capturas
+
+```bash
+designfy capture run http://localhost:4321/ --viewport mobile,desktop
+```
+
+```text
+  Run        demo
+  Directory  /projeto/.designfy/captures/demo
+  mobile     localhost-4321--mobile.png
+  desktop    localhost-4321--desktop.png
+```
+
+O `manifest.json` registra, por captura, o título, as medidas da página, os
+erros de console e `overflowX`, o sinal de conteúdo mais largo que a viewport.
+Viewports nomeados: `mobile` 390x844, `tablet` 820x1180, `desktop` 1440x900 e
+`wide` 1920x1080; `LARGURAxALTURA` aceita outra dimensão. Use `--theme dark`,
+`--reduced-motion`, `--fold` e `--selector` para recortar a revisão.
+
+```bash
+designfy capture list
+```
+
+```text
+  demo  2 screenshots (/projeto/.designfy/captures/demo)
+```
+
+### TUI
+
+`designfy` sem argumentos abre a Home em menu, com um próximo passo para o
+estado do projeto e um cartão por módulo. O quadro abaixo é o de referência,
+com a paleta `night`.
+
+```text
+    › Install dependencies   [Enter]
+
+   ╭─ 1 ◐ Theme ─────────────────────────────╮  ╭─ 2 ≡ Catalog ────────────────────────────╮  ╭─ 3 λ Components ────────────────────────╮
+   │ globals.css                             │  │ 80 patterns                              │  │ Registry · react-vite                   │
+   │ ██ ██ ░░ ░░ ░░ ░░ ░░                    │  │ site   ━━━━━━━━━━━━ 32                   │  │ Copied ━━━━━━━━ 0/58 0%                 │
+   │ ✓ 18.88:1 FG / BG                       │  │ system ━━━━━━━━     22                   │  │                                         │
+   │ Inter, sans-serif                       │  │ both   ━━━━━━━━━━   26                   │  │                                         │
+   ╰─────────────────────────────────────────╯  ╰──────────────────────────────────────────╯  ╰─────────────────────────────────────────╯
+
+    Enter  open   r  reload  │   T  theme   ^K  commands   ?  help   q  quit
+```
+
+Use `1` a `9` e `0` para abrir um módulo de qualquer lugar, `T` para alternar
+entre as paletas `terminal`, `night` e `day`, e `Ctrl+K` para a paleta de
+comandos. Abra uma aba direto com `designfy tui --tab theme`. As listas de
+skills, dependências e MCP têm seleção múltipla: `space` marca, `a` marca todas,
+`n` limpa e `i` instala as marcadas.
+
+## Uso com agentes
+
+### Skills
+
+As skills são arquivos de instrução que o agente lê. A `designfy` recebe o
+pedido e chama as especialistas na ordem do viewspec. O comando abaixo instala
+as internas e as externas compatíveis:
+
+```bash
+designfy skills install --agent claude-code,codex,opencode
+```
+
+Cada especialista cobre uma área: viewspec, design system, componentes,
+movimento, sites, conteúdo, sistemas, responsivo, acessibilidade e revisão.
+
+### MCP
+
+```bash
+designfy mcp
+```
 
 ```json
-{ "mcpServers": { "termfy": { "command": "termfy", "args": ["mcp"] } } }
+{ "mcpServers": { "designfy": { "command": "designfy", "args": ["mcp"] } } }
 ```
 
-Tools: `about`, `exit_codes`, `skill`, `config_list`, `config_get`,
-`credentials_status`. Resources: `termfy://about`, `termfy://exit-codes`,
-`termfy://skill`, `termfy://skill/{topic}`. Prompt: `operate`.
-Detalhes em [docs/mcp.md](docs/mcp.md).
+O `mcp setup` grava essa entrada nos arquivos de projeto de Claude Code, Codex,
+OpenCode, Cursor e Gemini CLI. Para desenvolvimento, sem compilar, use
+`"command": "bun", "args": ["run", "src/main.ts", "mcp"]`.
 
-## Estrutura
+| Grupo | Tools |
+| --- | --- |
+| Projeto | `project_status`, `doctor`, `about` |
+| Skills | `skills_list` |
+| Dependências | `deps_list`, `deps_check` |
+| Catálogo | `catalog_list`, `catalog_show`, `catalog_search` |
+| Componentes | `components_list`, `components_show`, `components_add` |
+| Tema e paleta | `theme_show`, `theme_check`, `palette_generate`, `palette_wheel`, `palette_contrast` |
+| Viewspec | `viewspec_guide`, `viewspec_list`, `viewspec_show`, `viewspec_progress`, `viewspec_validate` |
+| Capturas | `capture_run`, `capture_list` |
+| Servidores e configuração | `mcp_servers`, `skill`, `config_list`, `config_get`, `credentials_status`, `exit_codes` |
 
-```text
-src/        código do binário (app, cli, config, mcp, tui, skill)
-docs/       documentação embutida e opencli.json
-template/   stubs de command, screen e tool
-.agents/    skills do framework instaladas via npx skills (skills-lock.json)
-scripts/    build, init e checks
-tests/      bun test
-brand/      marca do template no GitHub (troque ou remova no projeto derivado)
-```
+As tools de projeto usam a pasta de trabalho do servidor. O cofre expõe pelo MCP
+apenas metadados.
 
-Arquitetura em [docs/architecture.md](docs/architecture.md).
-
-## Validar, compilar e publicar
+Para um agente que só consulta, inicie sem as tools que escrevem:
 
 ```bash
-bun run validate      # typecheck, testes, skills:check, opencli:check, docs:check, build
-bun run build         # dist/termfy
-bun run build:all     # linux-x64, linux-arm64, darwin-x64, darwin-arm64, windows-x64
+designfy mcp --read-only
 ```
 
-Releases seguem [docs/release.md](docs/release.md): versão em
-`package.json`, entrada no `CHANGELOG.md`, tag `vX.Y.Z` e GitHub Release com
-binários gerados pelo workflow. O guia do método em PDF e EPUB fica no
-framework, não aqui.
+O modo de leitura retira `components_add` e `capture_run`. Todas as outras tools
+continuam disponíveis. Veja a superfície sem iniciar o servidor com
+`designfy mcp --list`.
+
+## Saída para scripts
+
+Com `--json`, toda resposta segue o envelope `{ ok, command, data }` ou
+`{ ok, command, error }`.
+
+```json
+{
+  "ok": true,
+  "command": "designfy status",
+  "data": {
+    "detected": {
+      "framework": "react-vite",
+      "typescript": true,
+      "packageManager": "bun",
+      "tailwind": 4,
+      "shadcn": true
+    }
+  }
+}
+```
+
+```json
+{
+  "ok": false,
+  "command": "designfy viewspec guide",
+  "error": {
+    "code": 6,
+    "name": "NOT_FOUND",
+    "message": "Project guide VIEWSPEC.md is missing from the project root.",
+    "details": { "file": "/projeto/VIEWSPEC.md" }
+  }
+}
+```
+
+O exit code do processo é o mesmo de `error.code`. Algumas conferências entregam
+dados com exit code diferente de zero: confira `data.ok` no `doctor`,
+`data.valid` no `viewspec validate` e `data.errors` nas consultas de viewspecs.
+
+| Code | Name | Quando |
+| --- | --- | --- |
+| 0 | `SUCCESS` | operação concluída |
+| 1 | `GENERIC_ERROR` | falha inesperada sem classificação |
+| 2 | `USAGE` | arguments, options ou subcommand inválidos; binário sem argumentos fora de um TTY |
+| 3 | `CONFIG` | settings.json ausente, inválido ou key desconhecida |
+| 4 | `CREDENTIALS` | credentials.json ilegível, master key ausente ou credencial não encontrada |
+| 5 | `NETWORK_OR_API` | falha de rede, resposta de API fora do esperado ou processo externo que falhou |
+| 6 | `NOT_FOUND` | recurso, componente, arquivo ou guia inexistente |
+| 7 | `PERMISSION` | permissão negada no sistema de arquivos |
+| 8 | `NO_TTY` | a TUI exige um terminal interativo |
+| 9 | `MCP` | o servidor MCP falhou ao iniciar ou perdeu o transporte |
+| 10 | `CHECK_FAILED` | conferência reprovada, como dependência ausente, contraste insuficiente ou viewspec inválido |
+| 130 | `INTERRUPTED` | entrada cancelada ou processo interrompido com Ctrl+C |
+
+## Arquivos e segurança
+
+| Caminho | Conteúdo |
+| --- | --- |
+| `designfy.json` | projeto detectado, framework, gerenciador, Tailwind, shadcn e caminhos |
+| `VIEWSPEC.md` | guia de interface do projeto, com regras e aprendizados |
+| `viewspec/<id>-<slug>/VIEWSPEC.md` | especificação e checklist de uma tela |
+| `.designfy/captures/<run>/` | capturas e `manifest.json` de cada execução |
+| `~/.designfy/settings.json` | preferências, em texto claro, com permissão 0600 |
+| `~/.designfy/credentials.json` | cofre cifrado com AES-256-GCM, com permissão 0600 |
+| `~/.designfy/master.key` | master key em hexadecimal, com permissão 0600 |
+
+A pasta `~/.designfy/` nasce com 0700. O binário não guarda segredo próprio: o
+cofre vem do starter kit e fica para as credenciais que você cadastrar. A master
+key vem de `DESIGNFY_MASTER_KEY` quando a variável existe e, sem ela, de
+`master.key`. Para um nível acima, injete a chave por variável a partir de um
+gerenciador de segredos e não grave `master.key` em disco.
+
+O `designfy doctor` confere o ambiente sem gravar arquivo e sem mostrar
+segredos:
+
+```text
+✓ bun: 1.4.4; minimum 1.4.4
+✓ node: /usr/bin/node
+✓ npx: /home/usuario/.npm-global/bin/npx
+✓ designfy.json: Project file exists
+! VIEWSPEC.md: Not created
+✓ tailwind-theme: /projeto/src/styles/globals.css
+```
+
+`✓` aprova, `!` avisa e `✗` reprova o comando com exit code 3.
+
+## Documentação
+
+- [Guia do Usuário](docs/user/README.md), com onze capítulos: introdução e
+  instalação, preparar o projeto, skills, viewspec, tema e paleta, catálogo e
+  componentes, fundos e movimento, capturas e revisão, TUI, agentes e MCP, e
+  referência. Também em
+  [PDF](ebook/Designfy-Guia-do-Usuario-v0.1.0.pdf) e
+  [EPUB](ebook/Designfy-Guia-do-Usuario-v0.1.0.epub).
+- [Documentação técnica](docs/README.md): [CLI](docs/cli.md), [TUI](docs/tui.md),
+  [MCP](docs/mcp.md), [configuração](docs/configuration.md),
+  [exit codes](docs/exit-codes.md), [arquitetura](docs/architecture.md) e o
+  [contrato do viewspec](docs/viewspec.md).
+- Referência embutida: `designfy --skill` imprime a documentação inteira;
+  `designfy --skill cli` imprime só uma seção, com a referência gerada do
+  registry.
+- Ajuda de cada comando: `designfy <command> --help`.
+
+## Feito com
+
+| Projeto | Para quê |
+| --- | --- |
+| [Termfy](https://github.com/promovaweb/termfy) | framework de CLI, TUI e MCP que originou o binário |
+| [Tailwind CSS](https://tailwindcss.com) | tema, tokens e utilitários dos componentes |
+| [shadcn/ui](https://ui.shadcn.com) | componentes, primitives e formato do registro |
+| [ReUI](https://reui.io) | componentes e padrões que entram pelo registro do shadcn |
+| [Motion](https://motion.dev) | movimento dos componentes e das telas |
+| [Playwright](https://playwright.dev) | capturas em celular, tablet e desktop |
+| [Hallmark](https://github.com/nutlope/hallmark) | revisão de página gerada e lista de acabamento |
+| [Astro](https://astro.build) | sites que recebem os componentes Astro |
+| [React](https://react.dev) | sistemas e ilhas que recebem os componentes React |
+| [TanStack Table](https://tanstack.com/table) | tabelas de dados do catálogo |
+| [Recharts](https://recharts.org) | gráficos de dashboard |
+| [OpenTUI](https://github.com/sst/opentui) | interface do terminal |
+
+## Contribuir
+
+Este README cobre o uso. Para ambiente de desenvolvimento, organização do
+código, validação, skills, registro de componentes e releases, leia o
+[CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Promovaweb
+
+O Designfy é mantido pela [Promovaweb](https://promovaweb.com), comunidade de
+co-working digital onde profissionais aprendem a construir, automatizar e gerir
+negócios de tecnologia e IA. O código é privado por enquanto; o guia e a
+documentação deste repositório acompanham cada versão.
+
+Quer aplicar o Designfy em projetos de verdade, com acompanhamento? Conheça os
+[planos da Promovaweb](https://promovaweb.com/planos?utm_source=github&utm_medium=readme&utm_campaign=designfy).
 
 ## Licença
 
-Distribuído sob a [licença MIT](LICENSE), porque o starter kit é a base do
-binário de quem usa: a ferramenta que você cria a partir dele é sua e pode ter
-a licença que você escolher. O framework [Termfy](https://github.com/promovaweb/termfy),
-com as skills e o método, segue sob a GNU AGPL 3.0. A licença não concede o uso
-do nome e do logo do Termfy nem da marca Promovaweb.
+Distribuído sob a [GNU AGPL 3.0](LICENSE). A licença não concede o uso do nome e
+do logo do Designfy nem da marca Promovaweb (AGPL 3.0, seção 7, item e).

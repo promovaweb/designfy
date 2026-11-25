@@ -1,0 +1,70 @@
+---
+/**
+ * Pagination of the example: real links to the pages of a list, with the
+ * current page marked and the ends of the range shown as disabled text.
+ */
+interface Props {
+  /** Current page, counted from 1. */
+  page: number;
+  /** Number of pages. */
+  total: number;
+  /** Base path of the list, without the page segment. */
+  base: string;
+  /** Accessible name of the navigation. */
+  label?: string;
+}
+
+const { page, total, base, label = "Paginação" } = Astro.props;
+const href = (number: number) => (number === 1 ? `${base}/` : `${base}/page/${number}/`);
+const pages = Array.from({ length: total }, (_, index) => index + 1);
+const edge = "inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-medium text-muted-foreground";
+const link = "df-press inline-flex min-h-11 items-center rounded-lg border border-border px-3 text-sm font-medium text-foreground hover:bg-muted";
+---
+
+<nav aria-label={label} class="flex flex-wrap items-center justify-center gap-2">
+  {
+    page > 1 ? (
+      <a href={href(page - 1)} rel="prev" class={link}>
+        Anterior
+      </a>
+    ) : (
+      <span class={edge} aria-disabled="true">
+        Anterior
+      </span>
+    )
+  }
+
+  <ul class="flex items-center gap-1">
+    {
+      pages.map((number) => (
+        <li>
+          <a
+            href={href(number)}
+            aria-current={number === page ? "page" : undefined}
+            aria-label={`Página ${number}`}
+            class:list={[
+              "df-press inline-flex size-11 items-center justify-center rounded-lg border text-sm font-medium",
+              number === page
+                ? "border-transparent bg-primary text-primary-foreground"
+                : "border-border text-foreground hover:bg-muted",
+            ]}
+          >
+            {number}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+  {
+    page < total ? (
+      <a href={href(page + 1)} rel="next" class={link}>
+        Próxima
+      </a>
+    ) : (
+      <span class={edge} aria-disabled="true">
+        Próxima
+      </span>
+    )
+  }
+</nav>

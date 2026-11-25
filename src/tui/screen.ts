@@ -1,5 +1,5 @@
 /**
- * Contract of a TUI screen (tab).
+ * Contract of a TUI Home or module.
  *
  * Each screen lives in `screens/<id>.ts`, exports a `Screen` object (or a
  * factory when it keeps state) and is registered in `screens/index.ts`. The
@@ -26,7 +26,7 @@ import type { IconName, IconSet } from "./icons.ts";
 export type NotifyTone = "info" | "ok" | "warn" | "error";
 
 /**
- * Width class of the terminal: `wide` from 120 columns, `medium` from 80,
+ * Width class of the terminal: `wide` from 110 columns, `medium` from 80,
  * `compact` below 80. Below 60×16 the shell shows a "terminal too small"
  * message instead of the screen.
  */
@@ -68,24 +68,28 @@ export interface ScreenContext {
   icons: IconSet;
   /** Current width class; the shell remounts the screen when it changes. */
   layout: () => Layout;
+  /** True in a terminal with fewer than 32 lines. */
+  short?: () => boolean;
   /** Current layout spacing in terminal cells. */
   readonly space: ReturnType<typeof import("./spacing.ts").spacing>;
   /** True when `tui.motion` allows short animations. */
   motion: boolean;
-  /** Switches the active tab by id. */
+  /** Switches the active module by id. */
   goTo: (id: string) => void;
   /** Rebuilds the active screen from scratch (onLeave, mount, onEnter). */
   refresh: () => void;
   /** Shows a toast at the bottom right for a few seconds; toasts stack. */
   notify: (message: string, tone?: NotifyTone) => void;
   /** Sets the context text at the left of the status bar ("3 items", "saved 12:04"). */
-  status: (text: string) => void;
+  status: (text: string, tone?: NotifyTone) => void;
   /** Opens a yes/no dialog. Resolves true on confirm, false on cancel or Esc. */
   confirm: (options: ConfirmOptions) => Promise<boolean>;
   /** Opens a text dialog. Resolves the value, or undefined on Esc. */
   prompt: (options: PromptOptions) => Promise<string | undefined>;
   /** Opens a choice dialog. Resolves the chosen index, or undefined on Esc. */
   choose: (options: ChooseOptions) => Promise<number | undefined>;
+  /** Edits a live list filter in the key bar. */
+  filter?: (initial: string, change: (query: string) => void) => void;
   /** Closes the TUI. */
   quit: () => void;
 }
@@ -115,11 +119,11 @@ export interface KeyHint {
 export interface Screen {
   /** Stable identifier, used by `tui.initialTab` and `--tab`. */
   id: string;
-  /** Short tab title. */
+  /** Short module title. */
   title: string;
-  /** Icon shown in the tab. */
+  /** Icon shown on the Home card and in the module heading. */
   icon?: IconName;
-  /** Line describing the tab, shown in the help box and in the palette. */
+  /** Line describing the module, shown in the help box and in the palette. */
   description: string;
   /** Commands of the screen: key bar, help, palette, keys and clicks. */
   actions?: readonly ScreenAction[];
@@ -129,14 +133,16 @@ export interface Screen {
   watch?: () => readonly string[];
   /** Builds the content. Called on first display, on `refresh` and on layout change. */
   mount: (ctx: ScreenContext) => Renderable;
-  /** Called when the tab is shown. */
+  /** Called when the screen is shown. */
   onEnter?: (ctx: ScreenContext) => void;
-  /** Called when the tab is hidden or the TUI closes. */
+  /** Called when the screen is hidden or the TUI closes. */
   onLeave?: (ctx: ScreenContext) => void;
   /** Called when the terminal window loses focus; stop timers here. */
   onPause?: (ctx: ScreenContext) => void;
   /** Called when the terminal window gets focus back. */
   onResume?: (ctx: ScreenContext) => void;
+  /** Observes a key before global navigation, for pending screen confirmations. */
+  beforeKey?: (name: string, ctx: ScreenContext) => boolean;
   /** Keys handled by the screen itself, before `actions`. Returns `true` when consumed. */
   onKey?: (name: string, ctx: ScreenContext) => boolean;
 }

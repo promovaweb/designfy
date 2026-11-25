@@ -1,0 +1,13 @@
+/*
+ * Entry point for the sample site. Designfy CLI installs the role and motion styles.
+ */
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/manrope";
+@import "./designfy-theme.css";
+@import "tw-animate-css";
+@import "./designfy-motion.css";
+@import "./designfy-backgrounds.css";
+
+@source "../";
+
+@source "../components/designfy";

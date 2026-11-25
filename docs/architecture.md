@@ -22,6 +22,10 @@ src/
     settings.ts           settings.json e SETTINGS_SCHEMA
     crypto.ts             AES-256-GCM e master key
     credentials.ts        cofre cifrado
+  design/                 domínio do projeto, catálogos, registro, tema, paleta,
+                          viewspecs, capturas e configuração de clientes MCP
+  generated/
+    registry.ts           conteúdo embutido do registro de React e Astro
   mcp/
     server.ts             McpServer, stdio e catalog para `mcp --list`
     tools/                uma função de registro por grupo de tools
@@ -36,8 +40,7 @@ src/
     icons.ts              conjuntos de ícones nerd, unicode e ascii
     screen.ts             contrato Screen e ScreenContext
     components.ts         panel, table, listPanel, stateView, spinner, link
-    screens/              uma aba por arquivo: overview, settings,
-                          credentials, docs e about
+    screens/              uma aba por arquivo e índice das telas
   skill/
     index.ts              docs/ embutida + referência gerada do registry
 docs/                     documentação do binário; entra no --skill
@@ -46,6 +49,22 @@ template/                 stubs de command, screen, tool e banco SQLite opcional
 scripts/                  build, init e checks
 tests/                    bun test
 ```
+
+## Catálogos e registro
+
+`catalog/` contém os JSONs de skills, dependências, servidores MCP e
+fragmentos de interface. `src/design/` lê e valida esses dados e oferece as
+operações compartilhadas por CLI, TUI e MCP.
+
+`registry/<framework>/items/` guarda os fragmentos de React e Astro.
+`scripts/embed-registry.ts` gera os manifestos shadcn e incorpora os
+arquivos de origem em `src/generated/registry.ts` para `components add`.
+`registry:check` confere nomes, dependências, arquivos, IDs de
+`meta.catalog` e uso dos tokens antes de comparar as três saídas.
+Itens `registry:lib` e `registry:style` podem omitir o vínculo com o catálogo.
+
+`scripts/` reúne a geração do registro, a compilação, a conferência de
+OpenCLI, a cobertura da documentação e as verificações de skills.
 
 ## Fluxo de execução
 
@@ -66,7 +85,8 @@ transporte ou o renderer fechar.
 
 - `app/` não importa de nenhuma outra camada.
 - `config/` importa só de `app/`.
-- `cli/`, `mcp/` e `tui/` importam de `app/` e `config/`. `mcp/` e `tui/`
+- `design/` concentra o domínio e independe das interfaces.
+- `cli/`, `mcp/` e `tui/` usam `app/`, `config/` e `design/`. `mcp/` e `tui/`
   podem reutilizar funções de `cli/commands/*` que coletam dados (como
   `aboutData`). Fora do command `tui`, `cli/` não importa de `tui/`.
 - `skill/` importa de `cli/registry.ts` para gerar a referência.

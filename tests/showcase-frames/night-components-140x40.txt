@@ -1,0 +1,40 @@
+    ◆ Designfy   v0.1.0  › λ Components  fixture-project · react-vite                                     T night   linux-x64 · Bun 0.0.0
+    ← Back   λ Components  Browse and copy components from the registry
+
+   Framework: react
+
+   ╭─ Tab · Components · 0 marked ──────────╮  ╭─ Tab · Details ────────────────────────────────────────────────────────────────────────╮
+   │ actions · 1                           ┃│  │ Theme toggle                                                                           │
+   │ > □ theme-toggle                      ┃│  │ Switches the theme and persists a light, dark or system preference.                    │
+   │   Switches the th...ystem preference. ┃│  │ Type              registry:ui                                                          │
+   │ auth · 1                              ┃│  │ Files                                                                                  │
+   │   □ auth-card                         ┃│  │ theme-toggle/theme-toggle.tsx                                                          │
+   │   Signs a person ... a lost password. ┃│  │ Dependencies                                                                           │
+   │ containers · 1                        ┃│  │ lucide-react                                                                           │
+   │   □ card                              ││  │ Required items                                                                         │
+   │   Groups a single...ion and a footer. ││  │ cn                                                                                     │
+   │ content · 11                          ││  │ designfy-motion                                                                        │
+   │   □ article-header                    ││  │                                                                                        │
+   │   Opens an articl...in three layouts. ││  │                                                                                        │
+   │   □ author-box                        ││  │                                                                                        │
+   │   Introduces the ...d once on scroll. ││  │                                                                                        │
+   │   □ callout                           ││  │                                                                                        │
+   │   Sets a note, ti...icon of the kind. ││  │                                                                                        │
+   │   □ code-block                        ││  │                                                                                        │
+   │   Shows code with...ut a highlighter. ││  │                                                                                        │
+   │   □ figure                            ││  │                                                                                        │
+   │   Places an image...in when it loads. ││  │                                                                                        │
+   │   □ post-card                         ││  │                                                                                        │
+   │   Summarizes an a... container width. ││  │                                                                                        │
+   │   □ post-list                         ││  │                                                                                        │
+   │   Lays out a feat...d an empty state. ││  │                                                                                        │
+   │   □ prose                             ││  │                                                                                        │
+   │   Wraps long-form... and three sizes. ││  │                                                                                        │
+   │   □ reading-progress                  ││  │                                                                                        │
+   │   Draws the scrol...is not supported. ││  │                                                                                        │
+   │   □ table-of-contents                 ││  │                                                                                        │
+   │   Lists the headi...ollapsible block. ││  │                                                                                        │
+   │   □ video-embed                       ││  │                                                                                        │
+   ╰────────────────────────────────────────╯  ╰────────────────────────────────────────────────────────────────────────────────────────╯
+
+    f  switch framework   Enter  show files and dependencies   i  copy marked   Space  toggle mark   a  mark all  │   ?  help   q  quit

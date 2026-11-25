@@ -1,4 +1,4 @@
-/** Mounts the TUI on the OpenTUI test renderer and checks tabs by frame. */
+/** Mounts the TUI on the OpenTUI test renderer and checks Home and navigation by frame. */
 import { afterAll, beforeAll, describe, expect, test } from "bun:test";
 import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -17,7 +17,7 @@ beforeAll(async () => {
   dir = mkdtempSync(join(tmpdir(), "termfy-tui-"));
   process.env[HOME_VARIABLE] = dir;
   delete process.env[MASTER_KEY_VARIABLE];
-  setup = await createTestRenderer({ width: 120, height: 32 });
+  setup = await createTestRenderer({ width: 200, height: 32 });
   closed = mountTui(setup.renderer, { motion: false });
   await setup.renderOnce();
 });
@@ -35,22 +35,22 @@ afterAll(async () => {
 });
 
 describe("tui", () => {
-  test("opens on the Overview tab with header, panels and key bar", async () => {
+  test("opens on Home with header, menu and key bar", async () => {
     const frame = setup.captureCharFrame();
     expect(frame).toContain(manifest.title);
     expect(frame).toContain(`v${manifest.version}`);
-    expect(frame).toContain("Overview");
-    expect(frame).toContain("About");
-    expect(frame).toContain("ENVIRONMENT");
-    expect(frame).toContain("STATE");
+    expect(frame).toContain("Home");
+    expect(frame).toContain("Theme");
+    expect(frame).toContain("Catalog");
+    expect(frame).toContain("Components");
     expect(frame).toContain("quit");
   });
 
-  test("key 5 goes to About and ? opens the help", async () => {
-    setup.mockInput.pressKey("5");
+  test("the About shortcut opens the module and ? opens the help", async () => {
+    setup.mockInput.pressKey("a");
     await setup.renderOnce();
     let frame = setup.captureCharFrame();
-    expect(frame).toContain("CREDITS");
+    expect(frame).toContain("Credits");
     expect(frame).toContain("OpenTUI");
     setup.mockInput.pressKey("?");
     await setup.renderOnce();

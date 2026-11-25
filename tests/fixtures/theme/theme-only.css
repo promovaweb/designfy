@@ -1,0 +1,6 @@
+/* Exercises explicit file selection without a Tailwind package import. */
+@theme {
+  --color-brand: #abc;
+  --color-background: #fff;
+  --color-foreground: #333;
+}

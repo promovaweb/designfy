@@ -1,0 +1,175 @@
+---
+/**
+ * Faq: Provides native disclosure for answers and optional FAQPage metadata for eligible content.
+ * Motion: The shared collapse utility animates expansion. The disclosure indicator rotates with state.
+ * Catalog: faq
+ */
+import { cn } from "@designfy/components/lib/cn";
+
+type Question = { question: string; answer: string };
+
+interface Props {
+  /** Section heading. */
+  title: string;
+  /** Supporting sentence. */
+  lead?: string;
+  /** Heading level in the page outline. */
+  headingLevel?: 2 | 3 | 4 | 5 | 6;
+  /** Visible questions and answers in reading order. */
+  items: Question[];
+  /** Centered column or two columns with the intro on the left. */
+  variant?: "single" | "split";
+  /** Include FAQPage JSON-LD only for content that qualifies. */
+  structuredData?: boolean;
+  /** Additional classes on the root element. */
+  class?: string;
+}
+
+const {
+  title,
+  lead,
+  headingLevel = 2,
+  items,
+  variant = "single",
+  structuredData = false,
+  class: className,
+} = Astro.props;
+const Heading = `h${headingLevel}` as "h2";
+const schema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: items.map(({ question, answer }) => ({
+    "@type": "Question",
+    name: question,
+    acceptedAnswer: { "@type": "Answer", text: answer },
+  })),
+}).replace(/</g, "\\u003c");
+---
+
+<section
+  data-site-faq
+  class={cn("df-section border-y border-border", className)}
+>
+  <div
+    class={cn(
+      "df-container",
+      variant === "split"
+        ? "grid items-start gap-6 md:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)] md:gap-12"
+        : "max-w-4xl",
+    )}
+  >
+    <header data-df-reveal="up" class="mb-10 md:mb-14">
+      <Heading class="font-heading text-headline font-semibold">{title}</Heading
+      >
+      {
+        lead && (
+          <p class="mt-4 max-w-2xl text-lead text-muted-foreground">{lead}</p>
+        )
+      }
+    </header>
+    <div
+      data-df-reveal="up"
+      class="min-w-0 divide-y divide-border border-y border-border"
+    >
+      {
+        items.map(({ question, answer }) => (
+          <details class="group">
+            <summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-4 font-heading font-semibold hover:text-primary [&::-webkit-details-marker]:hidden">
+              {question}
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                class="size-5 shrink-0 motion-safe:transition-transform group-open:rotate-180"
+              >
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </summary>
+            <div
+              data-answer
+              class="df-collapse [[data-site-faq]:not([data-collapse-ready])_&]:grid-rows-[1fr]"
+            >
+              <div>
+                <p class="max-w-prose pb-5 text-muted-foreground">{answer}</p>
+              </div>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+  {structuredData && <script type="application/ld+json" set:html={schema} />}
+</section>
+
+<script is:inline>
+  (() => {
+    function bind(root) {
+      const abort = new AbortController();
+      root.setAttribute("data-collapse-ready", "");
+      const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+      for (const details of root.querySelectorAll("details")) {
+        const summary = details.querySelector("summary");
+        const panel = details.querySelector("[data-answer]");
+        if (!summary || !panel) continue;
+        let timer = 0;
+        summary.addEventListener(
+          "click",
+          (event) => {
+            if (reduced.matches) return;
+            event.preventDefault();
+            clearTimeout(timer);
+            if (panel.hasAttribute("data-df-open")) {
+              panel.removeAttribute("data-df-open");
+              timer = window.setTimeout(() => {
+                details.open = false;
+              }, 250);
+            } else {
+              details.open = true;
+              panel.getBoundingClientRect();
+              panel.setAttribute("data-df-open", "");
+            }
+          },
+          { signal: abort.signal },
+        );
+        details.addEventListener(
+          "toggle",
+          () => {
+            if (!details.open || reduced.matches)
+              panel.toggleAttribute("data-df-open", details.open);
+          },
+          { signal: abort.signal },
+        );
+        abort.signal.addEventListener("abort", () => clearTimeout(timer), {
+          once: true,
+        });
+      }
+      return () => abort.abort();
+    }
+
+    function prepare() {
+      document
+        .querySelectorAll("[data-site-faq]:not([data-site-bound])")
+        .forEach((root) => {
+          root.setAttribute("data-site-bound", "");
+          const dispose = bind(root);
+          if (dispose)
+            document.addEventListener(
+              "astro:before-swap",
+              () => {
+                dispose();
+                root.removeAttribute("data-site-bound");
+              },
+              { once: true },
+            );
+        });
+    }
+
+    prepare();
+    if (!document.documentElement.hasAttribute("data-site-faq-listener")) {
+      document.documentElement.setAttribute("data-site-faq-listener", "");
+      document.addEventListener("astro:page-load", prepare);
+    }
+  })();
+</script>

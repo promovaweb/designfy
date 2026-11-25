@@ -1,0 +1,37 @@
+---
+/**
+ * Site footer of the example: the sample notice, the category links and the
+ * credit of the fictional cooperative.
+ */
+import { categories, site } from "../lib/site";
+---
+
+<footer class="mt-16 border-t border-border bg-muted/40">
+  <div class="df-container flex flex-col gap-8 py-12 md:flex-row md:items-start md:justify-between">
+    <div class="max-w-[42ch]">
+      <p class="font-heading text-base font-semibold text-foreground">{site.name}</p>
+      <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
+        Projeto de amostra: a cooperativa, as estações, as pessoas e os números deste blog são fictícios e existem para
+        demonstrar os componentes de conteúdo do Designfy.
+      </p>
+    </div>
+
+    <nav aria-label="Categorias do blog">
+      <p class="text-sm font-semibold text-foreground">Categorias</p>
+      <ul class="mt-2 flex flex-col gap-1">
+        {
+          categories.map((category) => (
+            <li>
+              <a
+                href={`/blog/categoria/${category.slug}/`}
+                class="df-underline inline-flex min-h-11 items-center text-sm text-muted-foreground hover:text-foreground"
+              >
+                {category.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</footer>

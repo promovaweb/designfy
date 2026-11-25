@@ -1,0 +1,68 @@
+---
+/**
+ * NomeDoComponente: o que ele faz, em uma frase.
+ *
+ * Slots: default (conteúdo extra abaixo da lista), `action` (ao lado do título).
+ * Movimento: o cabeçalho entra ao rolar e os itens entram em sequência
+ * (data-df-reveal e data-df-stagger); com movimento reduzido tudo aparece
+ * no estado final.
+ *
+ * Catálogo de interface: <id da entrada>.
+ */
+interface Item {
+  title: string;
+  description: string;
+  href?: string;
+}
+
+interface Props {
+  /** Título do bloco. Renderizado no nível de `headingLevel`. */
+  title: string;
+  /** Uma frase de apoio. */
+  lead?: string;
+  /** Nível do título. Padrão 2. */
+  headingLevel?: 2 | 3;
+  /** Variação visual. Padrão "plain". */
+  tone?: "plain" | "muted";
+  /** Itens do bloco, na ordem de leitura. */
+  items: Item[];
+  class?: string;
+}
+
+const { title, lead, headingLevel = 2, tone = "plain", items, class: className } = Astro.props;
+const Heading = `h${headingLevel}` as "h2" | "h3";
+const toneClass = { plain: "bg-background", muted: "bg-muted/60" }[tone];
+---
+
+{
+  items.length > 0 && (
+    <section class:list={["df-section", toneClass, className]}>
+      <div class="df-container">
+        <header class="mb-10 flex flex-wrap items-end justify-between gap-4" data-df-reveal>
+          <div class="flex max-w-[60ch] flex-col gap-3">
+            <Heading class="font-heading text-headline font-semibold text-foreground">{title}</Heading>
+            {lead && <p class="text-lead text-muted-foreground">{lead}</p>}
+          </div>
+          <slot name="action" />
+        </header>
+        <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-df-stagger>
+          {items.map((item) => (
+            <li class="df-lift relative min-w-0 rounded-xl border border-border bg-card p-6" data-df-reveal>
+              <h3 class="font-heading text-title font-semibold text-card-foreground">
+                {item.href ? (
+                  <a href={item.href} class="after:absolute after:inset-0">
+                    {item.title}
+                  </a>
+                ) : (
+                  item.title
+                )}
+              </h3>
+              <p class="mt-2 text-muted-foreground">{item.description}</p>
+            </li>
+          ))}
+        </ul>
+        <slot />
+      </div>
+    </section>
+  )
+}

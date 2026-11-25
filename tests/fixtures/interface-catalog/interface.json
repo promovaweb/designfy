@@ -1,0 +1,253 @@
+{
+  "schemaVersion": 1,
+  "categories": [
+    {
+      "id": "marketing",
+      "title": "Marketing",
+      "surface": "site"
+    },
+    {
+      "id": "navigation",
+      "title": "Navigation",
+      "surface": "both"
+    },
+    {
+      "id": "data",
+      "title": "Data",
+      "surface": "system"
+    }
+  ],
+  "entries": [
+    {
+      "id": "hero",
+      "name": "Hero",
+      "surface": "site",
+      "category": "marketing",
+      "purpose": "Summarize the proposition.",
+      "useWhen": [
+        "Start a new offer page."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "Headline"
+      ],
+      "variants": [
+        "default"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Stacks on narrow screens.",
+      "motion": "Respects reduced motion.",
+      "accessibility": [
+        "Use semantic markup."
+      ],
+      "tokens": [
+        "background",
+        "foreground"
+      ],
+      "kinds": [
+        "landing-page",
+        "home"
+      ],
+      "related": [
+        "call-to-action"
+      ],
+      "sources": [
+        "designfy:hero"
+      ]
+    },
+    {
+      "id": "call-to-action",
+      "name": "Call to Action",
+      "surface": "site",
+      "category": "marketing",
+      "purpose": "Invite the next action.",
+      "useWhen": [
+        "Conclude a landing page."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "Primary link"
+      ],
+      "variants": [
+        "default"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Stacks on narrow screens.",
+      "motion": "Respects reduced motion.",
+      "accessibility": [
+        "Use semantic markup."
+      ],
+      "tokens": [
+        "background",
+        "foreground"
+      ],
+      "kinds": [
+        "landing-page"
+      ],
+      "related": [
+        "hero"
+      ],
+      "sources": [
+        "custom"
+      ]
+    },
+    {
+      "id": "breadcrumbs",
+      "name": "Breadcrumbs",
+      "surface": "both",
+      "category": "navigation",
+      "purpose": "Show the page hierarchy.",
+      "useWhen": [
+        "Users need orientação."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "Ordered links"
+      ],
+      "variants": [
+        "default"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Stacks on narrow screens.",
+      "motion": "Respects reduced motion.",
+      "accessibility": [
+        "Use semantic markup."
+      ],
+      "tokens": [
+        "background",
+        "foreground"
+      ],
+      "kinds": [
+        "site-page",
+        "dashboard"
+      ],
+      "related": [],
+      "sources": [
+        "shadcn:breadcrumb"
+      ]
+    },
+    {
+      "id": "sidebar",
+      "name": "Sidebar",
+      "surface": "system",
+      "category": "navigation",
+      "purpose": "Navigate between application sections.",
+      "useWhen": [
+        "Open multiple application areas."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "Navigation links"
+      ],
+      "variants": [
+        "default"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Stacks on narrow screens.",
+      "motion": "Respects reduced motion.",
+      "accessibility": [
+        "Use semantic markup."
+      ],
+      "tokens": [
+        "background",
+        "foreground"
+      ],
+      "kinds": [
+        "dashboard",
+        "settings"
+      ],
+      "related": [
+        "breadcrumbs"
+      ],
+      "sources": [
+        "shadcn:sidebar"
+      ]
+    },
+    {
+      "id": "table",
+      "name": "Table",
+      "surface": "system",
+      "category": "data",
+      "purpose": "Browse a relational dataset.",
+      "useWhen": [
+        "People compare multiple rows."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "Cabeçalho and rows"
+      ],
+      "variants": [
+        "default"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Stacks on narrow screens.",
+      "motion": "Respects reduced motion.",
+      "accessibility": [
+        "Use semantic markup."
+      ],
+      "tokens": [
+        "background",
+        "foreground"
+      ],
+      "kinds": [
+        "table",
+        "crud"
+      ],
+      "related": [
+        "filters"
+      ],
+      "sources": [
+        "reui:data-grid"
+      ]
+    },
+    {
+      "id": "filters",
+      "name": "Filtros rápidos",
+      "surface": "both",
+      "category": "data",
+      "purpose": "Narrow a collection by facet.",
+      "useWhen": [
+        "A long list needs filtering."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "Filter controls"
+      ],
+      "variants": [
+        "default"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Stacks on narrow screens.",
+      "motion": "Respects reduced motion.",
+      "accessibility": [
+        "Use semantic markup."
+      ],
+      "tokens": [
+        "background",
+        "foreground"
+      ],
+      "kinds": [
+        "table",
+        "blog-index"
+      ],
+      "related": [
+        "table"
+      ],
+      "sources": [
+        "custom"
+      ]
+    }
+  ]
+}

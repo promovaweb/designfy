@@ -1,9 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 64 64" role="img" aria-label="Termfy Starter Kit">
-  <title>Termfy Starter Kit</title>
-  <desc>Um módulo de terminal.</desc>
-  <rect width="64" height="64" rx="13" fill="#00161E"/>
-  <g fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="5.5">
-    <path stroke="#C6F4ED" d="M46 9H10v46h44V24"/>
-    <path stroke="#65A30D" d="m23 23 10 9-10 9M41 9h13v13"/>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 64 64" role="img" aria-label="Designfy">
+  <title>Designfy</title>
+  <desc>Quadro de interface com cabeçalho, barra lateral e um componente âmbar que deixa rastro de movimento.</desc>
+  <rect width="64" height="64" rx="12" fill="#00161E"/><g stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="9" width="50" height="46" rx="5" fill="none" stroke="#C6F4ED" stroke-width="3.2"/><path d="M7 20h50M21 20v35" fill="none" stroke="#C6F4ED" stroke-width="3"/><rect x="26" y="27" width="16" height="13" rx="2.5" fill="#FFB224" fill-opacity=".22"/><rect x="30.5" y="27" width="16" height="13" rx="2.5" fill="#FFB224" fill-opacity=".5"/><rect x="35" y="27" width="17" height="13" rx="2.5" fill="#FFB224"/><path d="M27 48h18" fill="none" stroke="#C6F4ED" stroke-width="3"/><path d="M12 28h4M12 35h4M12 42h4" fill="none" stroke="#C6F4ED" stroke-width="2.6"/></g>
 </svg>

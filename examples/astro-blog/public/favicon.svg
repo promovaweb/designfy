@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <style>
+  :root { --bg: #edf1f2; --ink: #2b3d43; --muted: #b6c6ca; --accent: #2f7f7a; --soft: #d7e2e4; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #151c1f; --ink: #dce8ea; --muted: #33434a; --accent: #74d6cc; --soft: #223036; }
+  }
+</style>
+  <rect width="32" height="32" rx="6" fill="var(--bg)" />
+  <path d="M4 25 12 9l6 10 3-5 7 11Z" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round" />
+</svg>

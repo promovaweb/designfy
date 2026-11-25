@@ -1,0 +1,524 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-11-24",
+  "groups": [
+    {
+      "id": "core",
+      "title": "Core",
+      "description": "Tailwind CSS 4 and the class utilities every Designfy component imports.",
+      "frameworks": [],
+      "default": true,
+      "packages": [
+        {
+          "name": "tailwindcss",
+          "version": "^4.3.5",
+          "dev": false,
+          "purpose": "Utility-first CSS engine with tokens declared in @theme.",
+          "url": "https://tailwindcss.com"
+        },
+        {
+          "name": "tw-animate-css",
+          "version": "^1.4.0",
+          "dev": false,
+          "purpose": "Animation utilities used by shadcn components on Tailwind 4.",
+          "url": "https://github.com/Wombosvideo/tw-animate-css"
+        },
+        {
+          "name": "clsx",
+          "version": "^2.1.1",
+          "dev": false,
+          "purpose": "Conditional class names.",
+          "url": "https://github.com/lukeed/clsx"
+        },
+        {
+          "name": "tailwind-merge",
+          "version": "^3.7.1",
+          "dev": false,
+          "purpose": "Merges Tailwind classes without conflicts, behind the cn() helper.",
+          "url": "https://github.com/dcastil/tailwind-merge"
+        },
+        {
+          "name": "class-variance-authority",
+          "version": "^0.7.1",
+          "dev": false,
+          "purpose": "Typed component variants.",
+          "url": "https://cva.style"
+        },
+        {
+          "name": "lucide-react",
+          "version": "^1.79.0",
+          "dev": false,
+          "purpose": "Icon set used by shadcn and by the registry.",
+          "url": "https://lucide.dev"
+        }
+      ]
+    },
+    {
+      "id": "vite",
+      "title": "Tailwind for Vite",
+      "description": "Tailwind 4 plugin for Astro and React with Vite.",
+      "frameworks": [
+        "astro",
+        "react-vite"
+      ],
+      "default": true,
+      "packages": [
+        {
+          "name": "@tailwindcss/vite",
+          "version": "^4.3.5",
+          "dev": false,
+          "purpose": "Vite plugin that compiles Tailwind 4.",
+          "url": "https://tailwindcss.com/docs/installation/using-vite"
+        }
+      ]
+    },
+    {
+      "id": "motion",
+      "title": "Motion",
+      "description": "Animation library behind the moving components of the registry.",
+      "frameworks": [],
+      "default": true,
+      "packages": [
+        {
+          "name": "motion",
+          "version": "^14.14.0",
+          "dev": false,
+          "purpose": "Motion for React and vanilla: entrance, scroll, layout and gesture animation. Import from motion/react.",
+          "url": "https://motion.dev"
+        }
+      ]
+    },
+    {
+      "id": "typography",
+      "title": "Typography",
+      "description": "Prose styles and the variable fonts of the default theme.",
+      "frameworks": [],
+      "default": true,
+      "packages": [
+        {
+          "name": "@tailwindcss/typography",
+          "version": "^0.5.20",
+          "dev": false,
+          "purpose": "The prose classes for long-form text.",
+          "url": "https://github.com/tailwindlabs/tailwindcss-typography"
+        },
+        {
+          "name": "@fontsource-variable/inter",
+          "version": "^5.3.0",
+          "dev": false,
+          "purpose": "Inter variable, self-hosted, for body text and interface.",
+          "url": "https://fontsource.org/fonts/inter"
+        },
+        {
+          "name": "@fontsource-variable/manrope",
+          "version": "^5.3.0",
+          "dev": false,
+          "purpose": "Manrope variable, self-hosted, for headings.",
+          "url": "https://fontsource.org/fonts/manrope"
+        }
+      ]
+    },
+    {
+      "id": "shadcn",
+      "title": "shadcn/ui",
+      "description": "The shadcn CLI and the primitives its components are built on.",
+      "frameworks": [
+        "react",
+        "react-vite",
+        "next",
+        "astro"
+      ],
+      "default": true,
+      "packages": [
+        {
+          "name": "shadcn",
+          "version": "^4.23.0",
+          "dev": true,
+          "purpose": "CLI that copies components from shadcn, ReUI and any compatible registry.",
+          "url": "https://ui.shadcn.com"
+        },
+        {
+          "name": "radix-ui",
+          "version": "^1.8.1",
+          "dev": false,
+          "purpose": "Accessible unstyled primitives used by shadcn components.",
+          "url": "https://www.radix-ui.com"
+        }
+      ]
+    },
+    {
+      "id": "base-ui",
+      "title": "Base UI",
+      "description": "Alternative primitive library supported by shadcn and ReUI.",
+      "frameworks": [
+        "react",
+        "react-vite",
+        "next",
+        "astro"
+      ],
+      "default": false,
+      "packages": [
+        {
+          "name": "@base-ui/react",
+          "version": "^1.9.0",
+          "dev": false,
+          "purpose": "Unstyled accessible primitives from the Base UI team.",
+          "url": "https://base-ui.com"
+        }
+      ]
+    },
+    {
+      "id": "astro",
+      "title": "Astro islands",
+      "description": "React islands and MDX inside an Astro site.",
+      "frameworks": [
+        "astro"
+      ],
+      "default": true,
+      "packages": [
+        {
+          "name": "@astrojs/react",
+          "version": "^7.1.9",
+          "dev": false,
+          "purpose": "Renders and hydrates React components in Astro.",
+          "url": "https://docs.astro.build/en/guides/integrations-guide/react/"
+        },
+        {
+          "name": "@astrojs/mdx",
+          "version": "^8.1.6",
+          "dev": false,
+          "purpose": "MDX content with components.",
+          "url": "https://docs.astro.build/en/guides/integrations-guide/mdx/"
+        },
+        {
+          "name": "react",
+          "version": "^19.3.1",
+          "dev": false,
+          "purpose": "React runtime for the islands.",
+          "url": "https://react.dev"
+        },
+        {
+          "name": "react-dom",
+          "version": "^19.3.1",
+          "dev": false,
+          "purpose": "React DOM renderer.",
+          "url": "https://react.dev"
+        }
+      ]
+    },
+    {
+      "id": "forms",
+      "title": "Forms",
+      "description": "Form state, validation and the specialized inputs.",
+      "frameworks": [
+        "react",
+        "react-vite",
+        "next",
+        "astro"
+      ],
+      "default": false,
+      "packages": [
+        {
+          "name": "react-hook-form",
+          "version": "^7.92.0",
+          "dev": false,
+          "purpose": "Form state with uncontrolled inputs.",
+          "url": "https://react-hook-form.com"
+        },
+        {
+          "name": "zod",
+          "version": "^4.6.7",
+          "dev": false,
+          "purpose": "Schema validation shared by client and server.",
+          "url": "https://zod.dev"
+        },
+        {
+          "name": "@hookform/resolvers",
+          "version": "^7.0.9",
+          "dev": false,
+          "purpose": "Connects Zod schemas to react-hook-form.",
+          "url": "https://github.com/react-hook-form/resolvers"
+        },
+        {
+          "name": "input-otp",
+          "version": "^1.5.0",
+          "dev": false,
+          "purpose": "One-time code input.",
+          "url": "https://input-otp.rodz.dev"
+        },
+        {
+          "name": "react-day-picker",
+          "version": "^10.0.2",
+          "dev": false,
+          "purpose": "Calendar and date range picker.",
+          "url": "https://daypicker.dev"
+        },
+        {
+          "name": "date-fns",
+          "version": "^4.4.0",
+          "dev": false,
+          "purpose": "Date formatting and arithmetic.",
+          "url": "https://date-fns.org"
+        }
+      ]
+    },
+    {
+      "id": "tables",
+      "title": "Tables",
+      "description": "Data tables with sorting, filtering, pagination and virtual rows.",
+      "frameworks": [
+        "react",
+        "react-vite",
+        "next",
+        "astro"
+      ],
+      "default": false,
+      "packages": [
+        {
+          "name": "@tanstack/react-table",
+          "version": "^9.3.1",
+          "dev": false,
+          "purpose": "Headless table engine.",
+          "url": "https://tanstack.com/table"
+        },
+        {
+          "name": "@tanstack/react-virtual",
+          "version": "^3.14.28",
+          "dev": false,
+          "purpose": "Row and column virtualization for long lists.",
+          "url": "https://tanstack.com/virtual"
+        }
+      ]
+    },
+    {
+      "id": "charts",
+      "title": "Charts and counters",
+      "description": "Charts for dashboards and animated numbers for counters.",
+      "frameworks": [
+        "react",
+        "react-vite",
+        "next",
+        "astro"
+      ],
+      "default": false,
+      "packages": [
+        {
+          "name": "recharts",
+          "version": "^3.11.1",
+          "dev": false,
+          "purpose": "Chart library used by the shadcn chart component.",
+          "url": "https://recharts.org"
+        },
+        {
+          "name": "@number-flow/react",
+          "version": "^0.6.2",
+          "dev": false,
+          "purpose": "Animated number transitions for counters and stats.",
+          "url": "https://number-flow.barvian.me"
+        }
+      ]
+    },
+    {
+      "id": "feedback",
+      "title": "Feedback and overlays",
+      "description": "Toasts, command palette and drawers.",
+      "frameworks": [
+        "react",
+        "react-vite",
+        "next",
+        "astro"
+      ],
+      "default": false,
+      "packages": [
+        {
+          "name": "sonner",
+          "version": "^2.0.8",
+          "dev": false,
+          "purpose": "Toast notifications.",
+          "url": "https://sonner.emilkowal.ski"
+        },
+        {
+          "name": "cmdk",
+          "version": "^1.1.1",
+          "dev": false,
+          "purpose": "Command palette.",
+          "url": "https://cmdk.paco.me"
+        },
+        {
+          "name": "vaul",
+          "version": "^1.1.2",
+          "dev": false,
+          "purpose": "Drawer for touch screens.",
+          "url": "https://vaul.emilkowal.ski"
+        }
+      ]
+    },
+    {
+      "id": "media",
+      "title": "Media and embeds",
+      "description": "Video embeds that load on click and carousels.",
+      "frameworks": [],
+      "default": false,
+      "packages": [
+        {
+          "name": "lite-youtube-embed",
+          "version": "^0.4.0",
+          "dev": false,
+          "purpose": "YouTube embed that loads the player only after the click.",
+          "url": "https://github.com/paulirish/lite-youtube-embed"
+        },
+        {
+          "name": "lite-vimeo-embed",
+          "version": "^0.3.0",
+          "dev": false,
+          "purpose": "Vimeo embed with the same facade pattern.",
+          "url": "https://github.com/luwes/lite-vimeo-embed"
+        },
+        {
+          "name": "embla-carousel-react",
+          "version": "^8.6.0",
+          "dev": false,
+          "purpose": "Carousel engine used by the shadcn carousel.",
+          "url": "https://www.embla-carousel.com"
+        }
+      ]
+    },
+    {
+      "id": "astro-embed",
+      "title": "Astro embeds",
+      "description": "Embed components for Astro content.",
+      "frameworks": [
+        "astro"
+      ],
+      "default": false,
+      "packages": [
+        {
+          "name": "astro-embed",
+          "version": "^0.14.0",
+          "dev": false,
+          "purpose": "YouTube, Vimeo and link preview components for Astro and MDX.",
+          "url": "https://astro-embed.netlify.app"
+        }
+      ]
+    },
+    {
+      "id": "content",
+      "title": "Content rendering",
+      "description": "Code highlighting and Markdown rendering for articles and docs.",
+      "frameworks": [],
+      "default": false,
+      "packages": [
+        {
+          "name": "shiki",
+          "version": "^4.6.0",
+          "dev": false,
+          "purpose": "Syntax highlighting with editor themes.",
+          "url": "https://shiki.style"
+        },
+        {
+          "name": "react-markdown",
+          "version": "^10.1.0",
+          "dev": false,
+          "purpose": "Renders Markdown as React components.",
+          "url": "https://github.com/remarkjs/react-markdown"
+        }
+      ]
+    },
+    {
+      "id": "state",
+      "title": "State and layout",
+      "description": "URL state, server state, theme switch and resizable panels for system screens.",
+      "frameworks": [
+        "react",
+        "react-vite",
+        "next"
+      ],
+      "default": false,
+      "packages": [
+        {
+          "name": "nuqs",
+          "version": "^2.10.3",
+          "dev": false,
+          "purpose": "Filters, sorting and pagination kept in the URL.",
+          "url": "https://nuqs.dev"
+        },
+        {
+          "name": "@tanstack/react-query",
+          "version": "^5.108.4",
+          "dev": false,
+          "purpose": "Server state: cache, loading and error states.",
+          "url": "https://tanstack.com/query"
+        },
+        {
+          "name": "next-themes",
+          "version": "^0.4.6",
+          "dev": false,
+          "purpose": "Light, dark and system theme switch without flash.",
+          "url": "https://github.com/pacocoursey/next-themes"
+        },
+        {
+          "name": "react-resizable-panels",
+          "version": "^4.24.2",
+          "dev": false,
+          "purpose": "Resizable panel groups.",
+          "url": "https://github.com/bvaughn/react-resizable-panels"
+        }
+      ]
+    },
+    {
+      "id": "scroll",
+      "title": "Smooth scroll",
+      "description": "Smooth scrolling for long marketing pages.",
+      "frameworks": [],
+      "default": false,
+      "packages": [
+        {
+          "name": "lenis",
+          "version": "^1.3.28",
+          "dev": false,
+          "purpose": "Smooth scroll that keeps native scroll semantics.",
+          "url": "https://lenis.darkroom.engineering"
+        }
+      ]
+    },
+    {
+      "id": "color",
+      "title": "Color",
+      "description": "Color conversion in the project code.",
+      "frameworks": [],
+      "default": false,
+      "packages": [
+        {
+          "name": "culori",
+          "version": "^4.0.2",
+          "dev": false,
+          "purpose": "Color spaces, interpolation and gamut mapping, including OKLCH.",
+          "url": "https://culorijs.org"
+        }
+      ]
+    },
+    {
+      "id": "testing",
+      "title": "Captures and audits",
+      "description": "Browser automation for designfy capture and accessibility audits.",
+      "frameworks": [],
+      "default": false,
+      "packages": [
+        {
+          "name": "playwright",
+          "version": "^1.65.1",
+          "dev": true,
+          "purpose": "Runs the browsers behind designfy capture. After installing, run npx playwright install chromium.",
+          "url": "https://playwright.dev"
+        },
+        {
+          "name": "@axe-core/playwright",
+          "version": "^4.14.1",
+          "dev": true,
+          "purpose": "Automated accessibility checks on the rendered page.",
+          "url": "https://github.com/dequelabs/axe-core-npm"
+        }
+      ]
+    }
+  ]
+}

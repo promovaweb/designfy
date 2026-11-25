@@ -1,0 +1,98 @@
+---
+/**
+ * Figure: an image, diagram or table with its caption and credit.
+ *
+ * Three widths: "measure" keeps the reading measure, "wide" bleeds into the
+ * gutters from 1024 px and "full" reaches the edges of the container. The
+ * wrapper fixes the aspect ratio from the intrinsic size, so nothing shifts
+ * while the image loads, and the image fades in when it arrives.
+ *
+ * Slots: none.
+ * Motion: opacity of the image on load, once, driven by an idempotent inline
+ * script. Without JavaScript the image is visible from the start; under
+ * reduced motion it appears without a fade.
+ *
+ * Catalog: figure
+ */
+interface Props {
+  /** Image source. */
+  src: string;
+  /** Describes the content of the image; the caption adds context. */
+  alt: string;
+  /** Intrinsic width, used for the aspect ratio and the layout. */
+  width: number;
+  /** Intrinsic height, used for the aspect ratio and the layout. */
+  height: number;
+  /** Caption under the image. */
+  caption?: string;
+  /** Author or source of the media. */
+  credit?: string;
+  /** Width of the figure. Default "measure". */
+  variant?: "measure" | "wide" | "full";
+  /** Responsive sizes attribute for the browser. */
+  sizes?: string;
+  /** Loads the image eagerly, for the figures above the fold. */
+  priority?: boolean;
+  class?: string;
+}
+
+const { src, alt, width, height, caption, credit, variant = "measure", sizes, priority = false, class: className } = Astro.props;
+
+const widthClass = {
+  measure: "mx-auto max-w-[68ch]",
+  wide: "lg:-mx-8 xl:-mx-16",
+  full: "-mx-(--gutter)",
+}[variant];
+---
+
+<figure class:list={["flex min-w-0 flex-col", widthClass, className]}>
+  <div class="overflow-hidden rounded-xl border border-border bg-muted" style={`aspect-ratio: ${width} / ${height}`}>
+    <img
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      sizes={sizes}
+      loading={priority ? "eager" : "lazy"}
+      decoding="async"
+      data-df-figure-img
+      class="size-full object-cover transition-opacity duration-(--duration-slow) ease-out-quart"
+    />
+  </div>
+
+  {
+    (caption || credit) && (
+      <figcaption class="mt-3 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-sm text-muted-foreground">
+        {caption && <span class="min-w-0 text-pretty">{caption}</span>}
+        {credit && <span class="text-xs">{credit}</span>}
+      </figcaption>
+    )
+  }
+</figure>
+
+<style>
+  [data-df-figure-img][data-df-loading]:not([data-loaded]) {
+    opacity: 0;
+  }
+</style>
+
+<script>
+  // Fades each figure in once, after the image decodes; without script the image is visible.
+  function initFigures() {
+    document.querySelectorAll<HTMLImageElement>("[data-df-figure-img]").forEach((image) => {
+      if (image.dataset.dfFigureReady === "true") return;
+      image.dataset.dfFigureReady = "true";
+      const show = () => image.setAttribute("data-loaded", "");
+      if (image.complete) {
+        show();
+        return;
+      }
+      image.setAttribute("data-df-loading", "");
+      image.addEventListener("load", show, { once: true });
+      image.addEventListener("error", show, { once: true });
+    });
+  }
+
+  initFigures();
+  document.addEventListener("astro:page-load", initFigures);
+</script>

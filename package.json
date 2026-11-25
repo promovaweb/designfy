@@ -1,20 +1,21 @@
 {
-  "name": "termfy-starter-kit",
-  "version": "0.13.4",
-  "description": "CLI, TUI and MCP stdio server skeleton in Bun, with the Termfy framework skills installed.",
+  "name": "designfy",
+  "version": "0.1.0",
+  "description": "Visual framework for web projects: design system, React and Astro components with Tailwind, shadcn and motion, skills, dependency and MCP setup, and Playwright screen captures.",
   "type": "module",
   "private": true,
-  "license": "MIT",
+  "license": "AGPL-3.0-only",
   "bin": {
-    "termfy": "src/main.ts"
+    "designfy": "src/main.ts"
   },
   "termfy": {
-    "bin": "termfy",
-    "title": "Termfy",
+    "bin": "designfy",
+    "title": "Designfy",
     "author": "Promovaweb",
     "site": "https://promovaweb.com",
-    "repository": "https://github.com/promovaweb/termfy-starter-kit",
-    "framework": "https://github.com/promovaweb/termfy"
+    "repository": "https://github.com/promovaweb/designfy",
+    "framework": "https://github.com/promovaweb/termfy",
+    "starterKit": "0.13.4"
   },
   "scripts": {
     "dev": "bun run src/main.ts",
@@ -31,15 +32,24 @@
     "skills:update": "npx -y skills update -y -p",
     "skills:check": "bun run scripts/check-skills.ts",
     "init": "bun run scripts/init.ts",
-    "validate": "bun run typecheck && bun test && bun run skills:check && bun run opencli:check && bun run docs:check && bun run build",
-    "docs:check": "bun run scripts/check-docs.ts"
+    "validate": "bun run typecheck && bun test && bun run skills:check && bun run skills:sync:check && bun run skills:lint && bun run registry:check && bun run backgrounds:check && bun run opencli:check && bun run docs:check && bun run build",
+    "docs:check": "bun run scripts/check-docs.ts",
+    "registry:embed": "bun scripts/embed-registry.ts",
+    "registry:check": "bun scripts/embed-registry.ts --check",
+    "backgrounds:build": "bun scripts/build-backgrounds.ts",
+    "backgrounds:check": "bun scripts/build-backgrounds.ts --check",
+    "skills:sync": "bun scripts/sync-skill-assets.ts",
+    "skills:sync:check": "bun scripts/sync-skill-assets.ts --check",
+    "skills:lint": "bun scripts/check-designfy-skills.ts",
+    "ebook": "bun .ebook/build-ebook.mjs",
+    "ebook:verify": "bun .ebook/build-ebook.mjs --check"
   },
   "engines": {
     "bun": ">=1.4.4"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/promovaweb/termfy-starter-kit.git"
+    "url": "git+https://github.com/promovaweb/designfy.git"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.32.2",
@@ -49,5 +59,19 @@
   "devDependencies": {
     "@types/bun": "^1.4.4",
     "typescript": "^7.0.2"
-  }
+  },
+  "keywords": [
+    "design-system",
+    "tailwind",
+    "shadcn",
+    "react",
+    "astro",
+    "motion",
+    "components",
+    "cli",
+    "tui",
+    "mcp",
+    "ai-agents",
+    "playwright"
+  ]
 }

@@ -15,8 +15,17 @@ import {
   vaultStatus,
 } from "../../config/credentials.ts";
 import { paths } from "../../config/paths.ts";
-import { table, panel, scrollPanel, dim, fitText, keyValueTable, stateView } from "../components.ts";
+import { table, panel, scrollPanel, listWidth, dim, fitText, keyValueTable, stateView } from "../components.ts";
 import type { Screen, ScreenContext } from "../screen.ts";
+
+function credentialsLayout(ctx: ScreenContext, rows: number) {
+  const compact = ctx.layout() === "compact";
+  return {
+    compact,
+    width: compact ? undefined : listWidth(ctx.renderer.width, 46),
+    height: Math.min(ctx.renderer.height - (compact ? 4 : 8), Math.max(8, rows + 4)),
+  };
+}
 
 /** Creates an independent credential management screen. */
 export function createCredentialsScreen(): Screen {
@@ -154,10 +163,11 @@ export function createCredentialsScreen(): Screen {
         current = rows.find((row) => row.name === current)?.name ?? rows[0]?.name ?? "";
         ctx.status(`${rows.length} credential${rows.length === 1 ? "" : "s"} · master key: ${vault.masterKeySource}`);
 
+        const { compact, width, height } = credentialsLayout(ctx, rows.length);
         const root = new BoxRenderable(renderer, {
-          flexDirection: ctx.layout() === "compact" ? "column" : "row",
-          gap: ctx.layout() === "compact" ? ctx.space.gapY : ctx.space.gapX,
-          height: Math.min(renderer.height - (ctx.layout() === "compact" ? 4 : 8), Math.max(8 + ctx.space.cardPadY * 2, rows.length + 4 + ctx.space.cardPadY * 2)),
+          flexDirection: compact ? "column" : "row",
+          gap: compact ? ctx.space.gapY : ctx.space.gapX,
+          height,
           flexGrow: 0,
           minHeight: 0,
         });
@@ -169,8 +179,15 @@ export function createCredentialsScreen(): Screen {
             onActivate: replace,
           });
           grid.select(rows.findIndex((row) => row.name === current));
-          const collection = panel(renderer, theme, { title: "Credentials", flexGrow: 1, active: true });
-          collection.add(grid.box);
+          const collection = panel(renderer, theme, { title: "Tab · Credentials", width, flexGrow: compact ? 1 : 0, active: true });
+          const focusTarget = grid.focusTarget;
+        const updateFocus = () => {
+          if (!renderer.isDestroyed && !collection.body.isDestroyed) collection.appearance(theme, "Tab · Credentials", focusTarget.focused);
+        };
+        focusTarget.on("focused", updateFocus);
+        focusTarget.on("blurred", updateFocus);
+        if (!compact) root.onSizeChange = () => { collection.width = listWidth(renderer.width, 46); };
+        collection.add(grid.box);
           root.add(collection);
         } else {
           grid = undefined;
@@ -184,11 +201,10 @@ export function createCredentialsScreen(): Screen {
           );
         }
 
-        if (ctx.layout() !== "compact") {
+        if (!compact) {
           const detail = scrollPanel(renderer, theme, {
-            title: "Vault",
-            flexGrow: 0,
-            width: "45%",
+            title: "Vault", focusKey: "Tab",
+            flexGrow: 1,
           });
           detail.add(
             keyValueTable(renderer, theme, [
@@ -197,7 +213,7 @@ export function createCredentialsScreen(): Screen {
             ]),
           );
           detail.add(dim(renderer, theme, "File"));
-          const file = dim(renderer, theme, fitText(vault.file, Math.floor((renderer.width - ctx.space.pageX * 2 - ctx.space.gapX) * 0.45) - 2 - ctx.space.cardPadX * 2, true));
+          const file = dim(renderer, theme, fitText(vault.file, renderer.width - ctx.space.pageX * 2 - ctx.space.gapX - listWidth(renderer.width, 46) - 2 - ctx.space.cardPadX * 2, true));
           file.width = "100%";
           file.height = 1;
           file.wrapMode = "none";

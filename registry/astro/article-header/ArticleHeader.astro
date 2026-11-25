@@ -1,0 +1,138 @@
+---
+/**
+ * ArticleHeader: introduces an article with category, title, lead, authorship
+ * and cover.
+ *
+ * Three variants: "left" (title left, cover below), "centered" (everything
+ * centered) and "behind" (the cover sits behind the title, under a scrim of
+ * the foreground role, so the text keeps its contrast in both themes). The
+ * title is the page h1 and every date goes through <time datetime>.
+ *
+ * Slots: none.
+ * Motion: CSS only. Title, lead and meta fade up in a short sequence; the
+ * cover below reveals with a soft scale. Both stay in place under reduced
+ * motion.
+ *
+ * Catalog: article-header
+ */
+interface Cover {
+  src: string;
+  /** Describes the cover; empty only when the title already says it. */
+  alt: string;
+  width: number;
+  height: number;
+}
+
+interface Link {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  /** The h1 of the page. */
+  title: string;
+  /** One paragraph that opens the subject. */
+  lead?: string;
+  /** Category of the article, linked to its page. */
+  category?: Link;
+  /** Author name, linked to the author page. */
+  author?: Link;
+  /** Publication date: the ISO value and the visible label. */
+  date?: { iso: string; label: string };
+  /** Reading time, already written as text ("8 min read"). */
+  readingTime?: string;
+  /** Cover image, with its intrinsic size. */
+  cover?: Cover;
+  /** Layout of the header. Default "left". */
+  variant?: "left" | "centered" | "behind";
+  class?: string;
+}
+
+const { title, lead, category, author, date, readingTime, cover, variant = "left", class: className } = Astro.props;
+const centered = variant === "centered";
+const onCover = variant === "behind" && cover !== undefined;
+const metaText = onCover ? "text-background/75" : "text-muted-foreground";
+---
+
+<header class:list={["relative isolate", className]}>
+  {
+    onCover && (
+      <div aria-hidden="true" class="absolute inset-0 -z-10">
+        <img src={cover.src} alt="" width={cover.width} height={cover.height} class="size-full object-cover" />
+        <div class="absolute inset-0 bg-foreground/75" />
+      </div>
+    )
+  }
+
+  <div class:list={["df-container", onCover ? "py-20 md:py-28" : "pt-10 md:pt-16"]}>
+    <div class:list={["mx-auto flex max-w-3xl flex-col gap-5", centered && "items-center text-center", onCover && "py-4"]}>
+      {
+        category && (
+          <a
+            href={category.href}
+            class:list={["df-underline animate-df-fade-up text-sm font-semibold", onCover ? "text-background" : "text-primary"]}
+          >
+            {category.label}
+          </a>
+        )
+      }
+
+      <h1
+        class:list={[
+          "animate-df-fade-up font-heading text-headline font-semibold text-balance [animation-delay:60ms]",
+          onCover ? "text-background" : "text-foreground",
+        ]}
+      >
+        {title}
+      </h1>
+
+      {
+        lead && (
+          <p
+            class:list={[
+              "animate-df-fade-up max-w-[62ch] text-lead [animation-delay:120ms]",
+              onCover ? "text-background/85" : "text-muted-foreground",
+            ]}
+          >
+            {lead}
+          </p>
+        )
+      }
+
+      {
+        (author || date || readingTime) && (
+          <div
+            class:list={[
+              "flex animate-df-fade-up flex-wrap items-center gap-x-2 gap-y-1 text-sm [animation-delay:180ms]",
+              centered && "justify-center",
+              metaText,
+            ]}
+          >
+            {author && (
+              <a href={author.href} class="df-underline font-medium text-current">
+                {author.name}
+              </a>
+            )}
+            {author && date && <span aria-hidden="true">·</span>}
+            {date && <time datetime={date.iso}>{date.label}</time>}
+            {(author || date) && readingTime && <span aria-hidden="true">·</span>}
+            {readingTime && <span>{readingTime}</span>}
+          </div>
+        )
+      }
+    </div>
+
+    {
+      cover && variant !== "behind" && (
+        <img
+          src={cover.src}
+          alt={cover.alt}
+          width={cover.width}
+          height={cover.height}
+          class="mt-10 w-full animate-df-scale-in rounded-xl border border-border bg-muted object-cover [animation-delay:120ms] [animation-duration:var(--duration-slower)] md:mt-14"
+          style={`aspect-ratio: ${cover.width} / ${cover.height}`}
+        />
+      )
+    }
+  </div>
+</header>

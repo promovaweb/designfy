@@ -1,10 +1,10 @@
 {
   "projectColor": {
-    "name": "Verde-folha",
-    "hex": "#65A30D",
-    "meaning": "Um tom mais fechado do verde do Termfy identifica o template que dá origem a uma nova aplicação de terminal."
+    "name": "Magenta",
+    "hex": "#E0457B",
+    "meaning": "O prompt magenta identifica o terminal que está recebendo comandos dentro do conjunto de painéis."
   },
-  "name": "Termfy Starter Kit",
+  "name": "Designfy",
   "families": {
     "primary": {
       "50": "#ECFDFB",
@@ -20,17 +20,17 @@
       "950": "#00161E"
     },
     "accent": {
-      "50": "#F7FEE7",
-      "100": "#ECFCCB",
-      "200": "#D9F99D",
-      "300": "#CCF681",
-      "400": "#BEF264",
-      "500": "#A3E635",
-      "600": "#4D7C0F",
-      "700": "#3F6212",
-      "800": "#365314",
-      "900": "#283F0D",
-      "950": "#1A2E05"
+      "50": "#FDF5E7",
+      "100": "#FCECCF",
+      "200": "#FCDA9C",
+      "300": "#FFC966",
+      "400": "#FFB733",
+      "500": "#FFB224",
+      "600": "#CC8400",
+      "700": "#996300",
+      "800": "#704900",
+      "900": "#462E02",
+      "950": "#271A02"
     },
     "neutral": {
       "50": "#F2F8F9",
@@ -52,7 +52,7 @@
     "text": "#001117",
     "textMuted": "#2D4C58",
     "border": "#C9D6DC",
-    "accent": "#4D7C0F",
+    "accent": "#996300",
     "focus": "#15626A",
     "success": "#047857",
     "warning": "#92400E",
@@ -65,7 +65,7 @@
     "text": "#F2F8F9",
     "textMuted": "#B2C6CE",
     "border": "#2D4C58",
-    "accent": "#A3E635",
+    "accent": "#FFB224",
     "focus": "#5EEDE1",
     "success": "#6EE7B7",
     "warning": "#FCD34D",

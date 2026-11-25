@@ -1,0 +1,139 @@
+---
+/**
+ * Card: Groups a single subject in a fluid surface with optional media, an action and a footer.
+ * Slots or React nodes: media, action, children, footer.
+ * Motion: Linked cards lift on hover and can enter as part of a staggered list.
+ * Catalog: card
+ */
+import { cn } from "@designfy/components/lib/cn";
+
+interface Props {
+  /** Heading and accessible name of the linked card. */
+  title: string;
+  /** Optional supporting description. */
+  description?: string;
+  /** Heading level in the page outline. */
+  headingLevel?: 2 | 3 | 4 | 5 | 6;
+  /** Turns the entire card into one link. Omit interactive slots in this mode. */
+  href?: string;
+  /** Emphasizes the surface. */
+  highlighted?: boolean;
+  /** Marks the card as current. */
+  selected?: boolean;
+  /** Text shown when this card is selected. */
+  selectedLabel?: string;
+  /** Preserves a skeleton while content loads. */
+  loading?: boolean;
+  /** Accessible loading message. */
+  loadingLabel?: string;
+  /** Mark the card for a staggered list reveal. */
+  reveal?: boolean;
+  /** Additional classes on the root element. */
+  class?: string;
+}
+
+const {
+  title,
+  description,
+  headingLevel = 3,
+  href,
+  highlighted = false,
+  selected = false,
+  selectedLabel = "Selected",
+  loading = false,
+  loadingLabel = "Loading",
+  reveal = false,
+  class: className,
+} = Astro.props;
+const Heading = `h${headingLevel}` as "h3";
+---
+
+<article
+  data-df-reveal={reveal ? "up" : undefined}
+  aria-busy={loading || undefined}
+  data-selected={selected || undefined}
+  class={cn(
+    "@container relative min-w-0 rounded-xl border border-border bg-card text-card-foreground",
+    href && !loading && "df-lift",
+    highlighted && "bg-primary/5",
+    selected && "border-primary",
+    className,
+  )}
+>
+  {
+    loading ? (
+      <div
+        data-df-loop
+        class="grid gap-3 p-4 hover:[&>*]:[animation-play-state:paused] focus-within:[&>*]:[animation-play-state:paused] @sm:p-6"
+      >
+        <span class="sr-only" role="status">
+          {loadingLabel}
+        </span>
+        <span
+          aria-hidden="true"
+          class="df-shimmer block h-5 w-3/5 rounded bg-muted"
+        />
+        <span
+          aria-hidden="true"
+          class="df-shimmer block h-4 w-4/5 rounded bg-muted"
+        />
+        <span
+          aria-hidden="true"
+          class="df-shimmer block h-12 w-full rounded bg-muted"
+        />
+      </div>
+    ) : (
+      <div>
+        {Astro.slots.has("media") && (
+          <div class="overflow-hidden rounded-t-[inherit]">
+            <slot name="media" />
+          </div>
+        )}
+        <div class="grid gap-4 p-4 @sm:p-6">
+          <header class="grid min-w-0 items-start gap-2 @sm:grid-cols-[minmax(0,1fr)_auto]">
+            <div class="min-w-0">
+              <Heading class="text-title font-semibold">
+                {href ? (
+                  <a
+                    href={href}
+                    aria-current={selected ? "true" : undefined}
+                    class="after:absolute after:inset-0 after:rounded-xl focus-visible:after:outline-2 focus-visible:after:outline-offset-2 focus-visible:after:outline-ring"
+                  >
+                    {title}
+                  </a>
+                ) : (
+                  title
+                )}
+              </Heading>
+              {description && (
+                <p class="mt-2 break-words text-sm text-muted-foreground">
+                  {description}
+                </p>
+              )}
+              {selected && (
+                <p class="mt-2 text-sm font-semibold text-primary">
+                  {selectedLabel}
+                </p>
+              )}
+            </div>
+            {!href && Astro.slots.has("action") && (
+              <div>
+                <slot name="action" />
+              </div>
+            )}
+          </header>
+          {Astro.slots.has("children") && (
+            <div class="min-w-0 break-words">
+              <slot />
+            </div>
+          )}
+          {Astro.slots.has("footer") && (
+            <footer class="min-w-0 border-t border-border pt-4">
+              <slot name="footer" />
+            </footer>
+          )}
+        </div>
+      </div>
+    )
+  }
+</article>

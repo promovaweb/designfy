@@ -1,0 +1,30 @@
+    ◆ Designfy   v0.1.0  › ≡ Catalog  fixture-pro... react-vite   T night   linux-x64 · Bun 0.0.0
+    ← Back   ≡ Catalog  Browse patterns and their implementation sources
+   Surface: all · Kind: all
+   ╭─ Tab · Catalog ─────────────────╮  ╭─ Tab · Details ───────────────────────────────────────╮
+   │ Actions · 5                    ┃│  │ Button                                               ┃│
+   │ > Button                       ┃│  │ Surface           both                               ┃│
+   │   both · land...settings, auth ┃│  │ Kinds             landing-page, home, site-page,     ┃│
+   │   Dropdown menu                ││  │                   blog-index, blog-post, docs-page,  ┃│
+   │   both · land...tail, settings ││  │                   dashboard, table, form, crud,      ┃│
+   │   Segmented control            ││  │                   detail, settings, auth             ┃│
+   │   both · dash...age, site-page ││  │ Purpose                                              ┃│
+   │   Text link                    ││  │ Triggers an action or submits a form.                ┃│
+   │   both · land...tail, settings ││  │ Use when                                             ┃│
+   │   Theme toggle                 ││  │ The person changes something, sends data or moves to ┃│
+   │   both · land...tail, settings ││  │ the next step.                                       ││
+   │ Authentication · 1             ││  │ One primary action per screen region.                ││
+   │   Auth card                    ││  │ Avoid when                                           ││
+   │   system · auth                ││  │ Plain navigation between pages: use a link.          ││
+   │ Containers · 2                 ││  │ More than one primary button in the same region.     ││
+   │   Accordion                    ││  │ Anatomy                                              ││
+   │   both · land...page, settings ││  │ label                                                ││
+   │   Card                         ││  │ leading or trailing icon (optional)                  ││
+   │   both · land...tail, settings ││  │ loading indicator                                    ││
+   │ Content and articles · 12      ││  │ Variants                                             ││
+   │   Article header               ││  │ primary                                              ││
+   │   site · blog-post, docs-page  ││  │ secondary                                            ││
+   │   Author box                   ││  │ outline                                              ││
+   │   site · blog-post             ││  │ ghost                                                ││
+   ╰─────────────────────────────────╯  ╰───────────────────────────────────────────────────────╯
+    s  next surface   k  filter by kind   Enter  focus details   /  filter  │   ?  help   q  quit

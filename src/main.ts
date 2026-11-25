@@ -9,8 +9,8 @@
  *    and agents do not hang waiting for an interface;
  * 3. with arguments → CLI (including `mcp`, which becomes a stdio server).
  *
- * The process always ends through `process.exit` with a code from
- * `app/exit-codes.ts`.
+ * Normal completion lets stdout and stderr drain before Bun exits with
+ * the selected code from `app/exit-codes.ts`.
  */
 import { runCli } from "./cli/index.ts";
 import { ExitCode } from "./app/exit-codes.ts";
@@ -26,4 +26,4 @@ const interactive = Boolean(process.stdin.isTTY && process.stdout.isTTY);
 
 const code = noArguments && interactive ? await runCli(["tui"]) : await runCli(noArguments ? ["--help"] : argv);
 
-process.exit(noArguments && !interactive ? ExitCode.USAGE : code);
+process.exitCode = noArguments && !interactive ? ExitCode.USAGE : code;

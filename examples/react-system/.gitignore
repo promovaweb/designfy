@@ -1,0 +1,5 @@
+node_modules/
+dist/
+src/components/designfy/
+src/styles/designfy-*.css
+.designfy/

@@ -1,0 +1,21 @@
+---
+title: "Designfy · Guia do Usuário"
+subtitle: "Design system, componentes e telas que saem desenhadas"
+author:
+  - "Designfy"
+publisher: "Promovaweb"
+lang: "pt-BR"
+rights: "Documentação oficial do projeto Designfy, GNU AGPL 3.0"
+description: "Edição portátil do guia do usuário do Designfy: o método e as peças do framework visual pelo terminal, pelas skills e pelo MCP."
+subject:
+  - "design system"
+  - "Tailwind CSS"
+  - "React"
+  - "Astro"
+  - "CLI"
+  - "MCP"
+  - "agentes de IA"
+identifier: "https://github.com/promovaweb/designfy"
+tagline: "Design system, componentes e telas que saem desenhadas."
+# Identidade canônica: brand/logo/icon.svg
+---

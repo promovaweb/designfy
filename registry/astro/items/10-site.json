@@ -1,0 +1,572 @@
+[
+  {
+    "name": "hero-centered",
+    "type": "registry:block",
+    "title": "Centered hero",
+    "description": "Centers the page headline and action, with optional background, media and inline form.",
+    "categories": [
+      "hero"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/astro/hero-centered/HeroCentered.astro",
+        "type": "registry:component",
+        "target": "hero-centered/HeroCentered.astro"
+      }
+    ],
+    "meta": {
+      "catalog": "hero-centered",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "feature-grid",
+    "type": "registry:block",
+    "title": "Feature grid",
+    "description": "Presents comparable capabilities in a responsive list with small visuals and optional links.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/astro/feature-grid/FeatureGrid.astro",
+        "type": "registry:component",
+        "target": "feature-grid/FeatureGrid.astro"
+      }
+    ],
+    "meta": {
+      "catalog": "feature-grid",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "bento-grid",
+    "type": "registry:block",
+    "title": "Bento grid",
+    "description": "Arranges unequal capabilities in tiles with supporting illustrations.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/astro/bento-grid/BentoGrid.astro",
+        "type": "registry:component",
+        "target": "bento-grid/BentoGrid.astro"
+      }
+    ],
+    "meta": {
+      "catalog": "bento-grid",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "feature-split",
+    "type": "registry:block",
+    "title": "Feature split",
+    "description": "Sets a feature explanation beside a large visual or a scrolling sequence of visuals.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/astro/feature-split/FeatureSplit.astro",
+        "type": "registry:component",
+        "target": "feature-split/FeatureSplit.astro"
+      }
+    ],
+    "meta": {
+      "catalog": "feature-split",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "steps",
+    "type": "registry:block",
+    "title": "Steps",
+    "description": "Connects the steps of a process horizontally or as a vertical timeline.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/astro/steps/Steps.astro",
+        "type": "registry:component",
+        "target": "steps/Steps.astro"
+      }
+    ],
+    "meta": {
+      "catalog": "steps",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "counter",
+    "type": "registry:component",
+    "title": "Animated counter",
+    "description": "Displays the final number in markup and animates a presentation-only value when visible.",
+    "categories": [
+      "motion"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/astro/counter/Counter.astro",
+        "type": "registry:component",
+        "target": "counter/Counter.astro"
+      }
+    ],
+    "meta": {
+      "catalog": "counter",
+      "motion": true,
+      "surface": "both"
+    }
+  },
+  {
+    "name": "stats-band",
+    "type": "registry:block",
+    "title": "Stats band",
+    "description": "Displays large metrics, with labels and optional sources, in a definition list.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion",
+      "counter"
+    ],
+    "files": [
+      {
+        "path": "registry/astro/stats-band/StatsBand.astro",
+        "type": "registry:component",
+        "target": "stats-band/StatsBand.astro"
+      }
+    ],
+    "meta": {
+      "catalog": "stats-band",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "marquee",
+    "type": "registry:component",
+    "title": "Marquee",
+    "description": "Scrolls short passive content with an accessible stop control when the content is meaningful.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/astro/marquee/Marquee.astro",
+        "type": "registry:component",
+        "target": "marquee/Marquee.astro"
+      }
+    ],
+    "meta": {
+      "catalog": "marquee",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "logo-marquee",
+    "type": "registry:block",
+    "title": "Logo strip",
+    "description": "Displays customer or partner names in a static row or a scrolling strip.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion",
+      "marquee"
+    ],
+    "files": [
+      {
+        "path": "registry/astro/logo-marquee/LogoMarquee.astro",
+        "type": "registry:component",
+        "target": "logo-marquee/LogoMarquee.astro"
+      }
+    ],
+    "meta": {
+      "catalog": "logo-strip",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "testimonial",
+    "type": "registry:block",
+    "title": "Testimonial",
+    "description": "Presents attributed testimonials as a single quote, grid or manually controlled carousel.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/astro/testimonial/Testimonial.astro",
+        "type": "registry:component",
+        "target": "testimonial/Testimonial.astro"
+      }
+    ],
+    "meta": {
+      "catalog": "testimonial",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "pricing-table",
+    "type": "registry:block",
+    "title": "Pricing table",
+    "description": "Compares plan cards with a billing period switch and an optional comparison below.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/astro/pricing-table/PricingTable.astro",
+        "type": "registry:component",
+        "target": "pricing-table/PricingTable.astro"
+      }
+    ],
+    "meta": {
+      "catalog": "pricing-table",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "comparison-table",
+    "type": "registry:block",
+    "title": "Comparison table",
+    "description": "Compares grouped features in an accessible table with localized horizontal scrolling.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/astro/comparison-table/ComparisonTable.astro",
+        "type": "registry:component",
+        "target": "comparison-table/ComparisonTable.astro"
+      }
+    ],
+    "meta": {
+      "catalog": "comparison-table",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "faq",
+    "type": "registry:block",
+    "title": "FAQ",
+    "description": "Provides native disclosure for answers and optional FAQPage metadata for eligible content.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/astro/faq/Faq.astro",
+        "type": "registry:component",
+        "target": "faq/Faq.astro"
+      }
+    ],
+    "meta": {
+      "catalog": "faq",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "cta-band",
+    "type": "registry:block",
+    "title": "Call to action band",
+    "description": "Repeats the primary action in a full-width or inset band with an optional form.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/astro/cta-band/CtaBand.astro",
+        "type": "registry:component",
+        "target": "cta-band/CtaBand.astro"
+      }
+    ],
+    "meta": {
+      "catalog": "cta-band",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "card",
+    "type": "registry:component",
+    "title": "Card",
+    "description": "Groups a single subject in a fluid surface with optional media, an action and a footer.",
+    "categories": [
+      "containers"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/astro/card/Card.astro",
+        "type": "registry:component",
+        "target": "card/Card.astro"
+      }
+    ],
+    "meta": {
+      "catalog": "card",
+      "motion": true,
+      "surface": "both"
+    }
+  },
+  {
+    "name": "site-header",
+    "type": "registry:component",
+    "title": "Site header",
+    "description": "Provides public site navigation and a modal menu for small screens.",
+    "categories": [
+      "site-navigation"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/astro/site-header/SiteHeader.astro",
+        "type": "registry:component",
+        "target": "site-header/SiteHeader.astro"
+      }
+    ],
+    "meta": {
+      "catalog": "site-header",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "site-footer",
+    "type": "registry:component",
+    "title": "Site footer",
+    "description": "Closes a public page with its identity, route groups and legal information.",
+    "categories": [
+      "site-navigation"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/astro/site-footer/SiteFooter.astro",
+        "type": "registry:component",
+        "target": "site-footer/SiteFooter.astro"
+      }
+    ],
+    "meta": {
+      "catalog": "site-footer",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "announcement-bar",
+    "type": "registry:component",
+    "title": "Announcement bar",
+    "description": "Shows a dated message and link with an optional dismiss button.",
+    "categories": [
+      "site-navigation"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion",
+      "marquee"
+    ],
+    "files": [
+      {
+        "path": "registry/astro/announcement-bar/AnnouncementBar.astro",
+        "type": "registry:component",
+        "target": "announcement-bar/AnnouncementBar.astro"
+      }
+    ],
+    "meta": {
+      "catalog": "announcement-bar",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "hero-media",
+    "type": "registry:block",
+    "title": "Media hero",
+    "description": "Opens with art-directed imagery or optional silent video behind the headline.",
+    "categories": [
+      "hero"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/astro/hero-media/HeroMedia.astro",
+        "type": "registry:component",
+        "target": "hero-media/HeroMedia.astro"
+      }
+    ],
+    "meta": {
+      "catalog": "hero-media",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "newsletter-form",
+    "type": "registry:component",
+    "title": "Inline signup form",
+    "description": "Validates an email and submits it to a configured endpoint, with honest feedback for every result.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/astro/newsletter-form/NewsletterForm.astro",
+        "type": "registry:component",
+        "target": "newsletter-form/NewsletterForm.astro"
+      }
+    ],
+    "meta": {
+      "catalog": "newsletter-form",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "theme-toggle",
+    "type": "registry:ui",
+    "title": "Theme toggle",
+    "description": "Switches the theme and persists a light, dark or system preference.",
+    "categories": [
+      "actions"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/astro/theme-toggle/ThemeToggle.astro",
+        "type": "registry:component",
+        "target": "theme-toggle/ThemeToggle.astro"
+      }
+    ],
+    "meta": {
+      "catalog": "theme-toggle",
+      "motion": true,
+      "surface": "both"
+    }
+  }
+]

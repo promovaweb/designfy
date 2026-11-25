@@ -1,0 +1,28 @@
+{
+  "name": "designfy-astro-blog",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "designfy:sync": "bun run ../../src/main.ts components add designfy-theme designfy-motion designfy-prose prose article-header table-of-contents reading-progress post-card post-list author-box callout code-block figure video-embed --overwrite",
+    "capture": "bun capture.ts"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.2.5",
+    "@fontsource-variable/manrope": "^5.2.5",
+    "@tailwindcss/typography": "^0.5.16",
+    "@tailwindcss/vite": "^4.1.11",
+    "astro": "5.18.2",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.3.1",
+    "tailwindcss": "^4.1.11",
+    "tw-animate-css": "^1.3.6"
+  },
+  "devDependencies": {
+    "playwright": "^1.55.0",
+    "typescript": "^5.9.2"
+  }
+}

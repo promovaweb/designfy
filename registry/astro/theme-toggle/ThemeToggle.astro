@@ -1,0 +1,244 @@
+---
+/**
+ * ThemeToggle: Switches the theme and persists a light, dark or system preference.
+ * Motion: Sun and moon cross-fade and rotate as the effective theme switches.
+ * Catalog: theme-toggle
+ */
+import { cn } from "@designfy/components/lib/cn";
+
+interface Props {
+  /** Two-state shortcut or all three preferences. */
+  variant?: "button" | "menu";
+  /** Accessible name of the theme choices. */
+  label?: string;
+  /** Light option text. */
+  lightLabel?: string;
+  /** Dark option text. */
+  darkLabel?: string;
+  /** System option text. */
+  systemLabel?: string;
+  /** Action label when the two-state button is currently light. */
+  switchToDark?: string;
+  /** Action label when the two-state button is currently dark. */
+  switchToLight?: string;
+  /** Additional classes on the root element. */
+  class?: string;
+}
+
+const {
+  variant = "menu",
+  label = "Choose theme",
+  lightLabel = "Light",
+  darkLabel = "Dark",
+  systemLabel = "System",
+  switchToDark = "Switch to dark theme",
+  switchToLight = "Switch to light theme",
+  class: className,
+} = Astro.props;
+---
+
+<div data-site-theme-toggle class={cn("relative", className)}>
+  {
+    variant === "button" ? (
+      <button
+        type="button"
+        data-theme-shortcut
+        data-dark={switchToDark}
+        data-light={switchToLight}
+        aria-label={switchToDark}
+        class="df-press grid size-11 place-items-center rounded-lg border border-border hover:bg-muted"
+      >
+        <span class="relative block size-5 shrink-0" aria-hidden="true">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.75"
+            class="absolute inset-0 size-5 motion-safe:transition-[transform,opacity] motion-safe:duration-200 dark:rotate-90 dark:opacity-0"
+          >
+            <>
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5" />
+            </>
+          </svg>
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.75"
+            class="absolute inset-0 size-5 -rotate-90 opacity-0 motion-safe:transition-[transform,opacity] motion-safe:duration-200 dark:rotate-0 dark:opacity-100"
+          >
+            <path d="M20.9 13.4A9 9 0 0 1 10.6 3.1 9 9 0 1 0 20.9 13.4Z" />
+          </svg>
+        </span>
+      </button>
+    ) : (
+      <details class="relative">
+        <summary
+          aria-label={label}
+          class="df-press grid size-11 cursor-pointer list-none place-items-center rounded-lg border border-border hover:bg-muted [&::-webkit-details-marker]:hidden"
+        >
+          <span class="relative block size-5 shrink-0" aria-hidden="true">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.75"
+              class="absolute inset-0 size-5 motion-safe:transition-[transform,opacity] motion-safe:duration-200 dark:rotate-90 dark:opacity-0"
+            >
+              <>
+                <circle cx="12" cy="12" r="4" />
+                <path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5" />
+              </>
+            </svg>
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.75"
+              class="absolute inset-0 size-5 -rotate-90 opacity-0 motion-safe:transition-[transform,opacity] motion-safe:duration-200 dark:rotate-0 dark:opacity-100"
+            >
+              <path d="M20.9 13.4A9 9 0 0 1 10.6 3.1 9 9 0 1 0 20.9 13.4Z" />
+            </svg>
+          </span>
+        </summary>
+        <div
+          role="group"
+          aria-label={label}
+          class="absolute end-0 z-50 mt-2 grid min-w-36 animate-df-fade-down rounded-xl border border-border bg-popover p-1 text-popover-foreground"
+        >
+          {[
+            { value: "light", text: lightLabel },
+            { value: "dark", text: darkLabel },
+            { value: "system", text: systemLabel },
+          ].map(({ value, text }) => (
+            <button
+              type="button"
+              data-theme-choice={value}
+              aria-pressed={value === "system"}
+              class="df-press min-h-11 rounded-lg px-3 text-start text-sm hover:bg-muted aria-pressed:bg-accent aria-pressed:font-semibold aria-pressed:text-accent-foreground"
+            >
+              {text}
+            </button>
+          ))}
+        </div>
+      </details>
+    )
+  }
+</div>
+
+<script is:inline>
+  (() => {
+    function bind(root) {
+      const abort = new AbortController();
+      const options = { signal: abort.signal };
+      const system = matchMedia("(prefers-color-scheme: dark)");
+      const shortcut = root.querySelector("[data-theme-shortcut]");
+      const choices = Array.from(root.querySelectorAll("[data-theme-choice]"));
+      const panel = root.querySelector("details");
+      let preference = "system";
+      try {
+        preference = localStorage.getItem("designfy-theme") ?? "system";
+      } catch {}
+      function sync() {
+        const dark =
+          preference === "dark" || (preference !== "light" && system.matches);
+        document.documentElement.classList.toggle("dark", dark);
+        root.dataset.theme = dark ? "dark" : "light";
+        if (shortcut)
+          shortcut.setAttribute(
+            "aria-label",
+            (dark ? shortcut.dataset.light : shortcut.dataset.dark) ?? "",
+          );
+        for (const button of choices)
+          button.setAttribute(
+            "aria-pressed",
+            String(button.dataset.themeChoice === preference),
+          );
+      }
+      function choose(value) {
+        preference = value;
+        try {
+          localStorage.setItem("designfy-theme", value);
+        } catch {}
+        window.dispatchEvent(
+          new CustomEvent("designfy:theme", { detail: value }),
+        );
+        if (panel?.open) {
+          panel.open = false;
+          panel.querySelector("summary")?.focus();
+        }
+      }
+      for (const button of choices)
+        button.addEventListener(
+          "click",
+          () => choose(button.dataset.themeChoice ?? "system"),
+          options,
+        );
+      shortcut?.addEventListener(
+        "click",
+        () => choose(root.dataset.theme === "dark" ? "light" : "dark"),
+        options,
+      );
+      panel?.addEventListener(
+        "keydown",
+        (event) => {
+          if (event.key === "Escape" && panel.open) {
+            panel.open = false;
+            panel.querySelector("summary")?.focus();
+          }
+        },
+        options,
+      );
+      window.addEventListener(
+        "designfy:theme",
+        (event) => {
+          preference = event.detail;
+          sync();
+        },
+        options,
+      );
+      window.addEventListener(
+        "storage",
+        (event) => {
+          if (event.key !== null && event.key !== "designfy-theme") return;
+          preference = event.newValue ?? "system";
+          sync();
+        },
+        options,
+      );
+      system.addEventListener("change", sync, options);
+      sync();
+      return () => abort.abort();
+    }
+
+    function prepare() {
+      document
+        .querySelectorAll("[data-site-theme-toggle]:not([data-site-bound])")
+        .forEach((root) => {
+          root.setAttribute("data-site-bound", "");
+          const dispose = bind(root);
+          if (dispose)
+            document.addEventListener(
+              "astro:before-swap",
+              () => {
+                dispose();
+                root.removeAttribute("data-site-bound");
+              },
+              { once: true },
+            );
+        });
+    }
+
+    prepare();
+    if (
+      !document.documentElement.hasAttribute("data-site-theme-toggle-listener")
+    ) {
+      document.documentElement.setAttribute(
+        "data-site-theme-toggle-listener",
+        "",
+      );
+      document.addEventListener("astro:page-load", prepare);
+    }
+  })();
+</script>

@@ -1,0 +1,30 @@
+    ◆ Designfy   v0.1.0  › ◐ Theme  fixture-proj...· react-vite   T night   linux-x64 · Bun 0.0.0
+    ← Back   ◐ Theme  Inspect the project's Tailwind theme and contrast
+   light · colors · globals.css
+   ╭─ Tab · Theme tokens ────────────╮  ╭─ Tab · Details ───────────────────────────────────────╮
+   │ >     background         ✓ Pass │  │ --color-background                                    │
+   │   #ffffff  #ff...  18.88:1 pass │  │                                                       │
+   │ ▏     foreground         ✓ Pass │  │ Declared          #ffffff                             │
+   │   #111111  #11...  18.88:1 pass │  │ Hex               #ffffff                             │
+   │                                 │  │ RGB               rgb(255 255 255)                    │
+   │                                 │  │ OKLCH             oklch(1 0 0)                        │
+   │                                 │  │ Against backgro   1.00:1 fail                         │
+   │                                 │  │ Against foregro   18.88:1 pass                        │
+   │                                 │  │ ✓ foreground / background                             │
+   │                                 │  │ ━━━━━━━━ 18.88/21 89%                                 │
+   │                                 │  │                                                       │
+   │                                 │  │                                                       │
+   │                                 │  │                                                       │
+   │                                 │  │                                                       │
+   │                                 │  │                                                       │
+   │                                 │  │                                                       │
+   │                                 │  │                                                       │
+   │                                 │  │                                                       │
+   │                                 │  │                                                       │
+   │                                 │  │                                                       │
+   │                                 │  │                                                       │
+   │                                 │  │                                                       │
+   │                                 │  │                                                       │
+   │                                 │  │                                                       │
+   ╰─────────────────────────────────╯  ╰───────────────────────────────────────────────────────╯
+    t  light / dark   g  next group   Enter  inspect color   /  filter  │   ?  help   q  quit

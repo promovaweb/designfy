@@ -12,7 +12,7 @@ import {
   SyntaxStyle,
 } from "@opentui/core";
 import { SKILL_TOPICS, skillText } from "../../skill/index.ts";
-import { listPanel, stateView, scrollPanel } from "../components.ts";
+import { listPanel, listWidth, stateView, scrollPanel } from "../components.ts";
 import type { Screen, ScreenContext } from "../screen.ts";
 
 /** Joins source soft wraps while retaining Markdown block and list boundaries. */
@@ -45,6 +45,10 @@ export function normalizeMarkdown(source: string): string {
     if (/ {2}$|\\$/.test(line)) previousWasProse = false;
   }
   return result.join("\n");
+}
+
+function topicsWidth(ctx: ScreenContext): number {
+  return ctx.layout() === "compact" ? 0 : listWidth(ctx.renderer.width, 30);
 }
 
 /** Creates a documentation reader with independent topic and load lifecycle. */
@@ -202,7 +206,7 @@ export function createDocsScreen(): Screen {
 
           const content = normalizeMarkdown(skillText(commands, selected)).replace(/^# [^\n]+\n+/, "");
           clear();
-          const card = scrollPanel(renderer, theme, { title: selected, active: true });
+          const card = scrollPanel(renderer, theme, { title: selected, focusKey: "Tab", active: true });
           document = card.body;
           document.add(
             new MarkdownRenderable(renderer, {
@@ -238,14 +242,15 @@ export function createDocsScreen(): Screen {
       }
 
       topicIndex = undefined;
-      if (ctx.layout() !== "compact") {
+      const width = topicsWidth(ctx);
+      if (width) {
         const index = listPanel(renderer, theme, {
-          title: "Topics",
+          title: "Tab · Topics",
           items: [...SKILL_TOPICS],
           onSelect: selectTopic,
         });
         topicIndex = index;
-        index.box.width = ctx.layout() === "wide" ? 26 : 20;
+        index.box.width = width;
         index.box.flexGrow = 0;
         index.box.height = SKILL_TOPICS.length + 3 + ctx.space.cardPadY * 2;
         index.move(topic);

@@ -1,0 +1,355 @@
+[
+  {
+    "name": "designfy-prose",
+    "type": "registry:style",
+    "title": "Designfy prose",
+    "description": "Maps @tailwindcss/typography to the theme roles, with the 68ch measure, heading rhythm, scrolling tables and code, pull quotes and figure captions.",
+    "categories": [
+      "styles"
+    ],
+    "dependencies": [
+      "@tailwindcss/typography@^0.5.16"
+    ],
+    "devDependencies": [],
+    "registryDependencies": [
+      "designfy-theme"
+    ],
+    "files": [
+      {
+        "path": "registry/shared/styles/designfy-prose.css",
+        "type": "registry:style",
+        "target": "designfy-prose.css"
+      }
+    ],
+    "meta": {
+      "motion": false,
+      "surface": "site",
+      "targetRoot": "styles",
+      "catalog": "prose"
+    }
+  },
+  {
+    "name": "prose",
+    "type": "registry:component",
+    "title": "Prose",
+    "description": "Wraps long-form text with the typography plugin, the theme roles, a 68ch measure and three sizes.",
+    "categories": [
+      "content"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-theme",
+      "designfy-prose"
+    ],
+    "files": [
+      {
+        "path": "registry/react/prose/prose.tsx",
+        "type": "registry:component",
+        "target": "prose/prose.tsx"
+      }
+    ],
+    "meta": {
+      "motion": false,
+      "surface": "site",
+      "catalog": "prose"
+    }
+  },
+  {
+    "name": "article-header",
+    "type": "registry:block",
+    "title": "Article header",
+    "description": "Opens an article with category, title, lead, author, date and cover in three layouts.",
+    "categories": [
+      "content"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-theme",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/article-header/article-header.tsx",
+        "type": "registry:component",
+        "target": "article-header/article-header.tsx"
+      }
+    ],
+    "meta": {
+      "motion": true,
+      "surface": "site",
+      "catalog": "article-header"
+    }
+  },
+  {
+    "name": "table-of-contents",
+    "type": "registry:component",
+    "title": "Table of contents",
+    "description": "Lists the headings of the page with a marker that slides to the current one, as a sticky rail or a collapsible block.",
+    "categories": [
+      "content"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-theme"
+    ],
+    "files": [
+      {
+        "path": "registry/react/table-of-contents/table-of-contents.tsx",
+        "type": "registry:component",
+        "target": "table-of-contents/table-of-contents.tsx"
+      }
+    ],
+    "meta": {
+      "motion": true,
+      "surface": "site",
+      "catalog": "table-of-contents"
+    }
+  },
+  {
+    "name": "reading-progress",
+    "type": "registry:component",
+    "title": "Reading progress",
+    "description": "Draws the scroll position of the page as a thin bar with a scroll-driven animation, hidden where it is not supported.",
+    "categories": [
+      "content"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-theme"
+    ],
+    "files": [
+      {
+        "path": "registry/react/reading-progress/reading-progress.tsx",
+        "type": "registry:component",
+        "target": "reading-progress/reading-progress.tsx"
+      },
+      {
+        "path": "registry/react/reading-progress/reading-progress.css",
+        "type": "registry:file",
+        "target": "reading-progress/reading-progress.css"
+      }
+    ],
+    "meta": {
+      "motion": true,
+      "surface": "site",
+      "catalog": "reading-progress"
+    }
+  },
+  {
+    "name": "post-card",
+    "type": "registry:component",
+    "title": "Post card",
+    "description": "Summarizes an article in a vertical, horizontal, featured or text-only card that answers to its container width.",
+    "categories": [
+      "content"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-theme",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/post-card/post-card.tsx",
+        "type": "registry:component",
+        "target": "post-card/post-card.tsx"
+      }
+    ],
+    "meta": {
+      "motion": true,
+      "surface": "site",
+      "catalog": "post-card"
+    }
+  },
+  {
+    "name": "post-list",
+    "type": "registry:block",
+    "title": "Post list",
+    "description": "Lays out a featured post and a grid of cards with category links, a pagination slot and an empty state.",
+    "categories": [
+      "content"
+    ],
+    "dependencies": [
+      "motion"
+    ],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-theme",
+      "designfy-motion",
+      "reveal",
+      "post-card"
+    ],
+    "files": [
+      {
+        "path": "registry/react/post-list/post-list.tsx",
+        "type": "registry:component",
+        "target": "post-list/post-list.tsx"
+      }
+    ],
+    "meta": {
+      "motion": true,
+      "surface": "site",
+      "catalog": "post-list"
+    }
+  },
+  {
+    "name": "author-box",
+    "type": "registry:component",
+    "title": "Author box",
+    "description": "Introduces the author with avatar, name, role, short bio and links, revealed once on scroll.",
+    "categories": [
+      "content"
+    ],
+    "dependencies": [
+      "motion"
+    ],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-theme",
+      "designfy-motion",
+      "reveal"
+    ],
+    "files": [
+      {
+        "path": "registry/react/author-box/author-box.tsx",
+        "type": "registry:component",
+        "target": "author-box/author-box.tsx"
+      }
+    ],
+    "meta": {
+      "motion": true,
+      "surface": "site",
+      "catalog": "author-box"
+    }
+  },
+  {
+    "name": "callout",
+    "type": "registry:component",
+    "title": "Callout",
+    "description": "Sets a note, tip, warning or danger apart from the text, with the kind written in words and the icon of the kind.",
+    "categories": [
+      "content"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-theme"
+    ],
+    "files": [
+      {
+        "path": "registry/react/callout/callout.tsx",
+        "type": "registry:component",
+        "target": "callout/callout.tsx"
+      }
+    ],
+    "meta": {
+      "motion": false,
+      "surface": "site",
+      "catalog": "callout"
+    }
+  },
+  {
+    "name": "code-block",
+    "type": "registry:component",
+    "title": "Code block",
+    "description": "Shows code with its file name, language and a copy button that confirms the copy for 1.5 s, without a highlighter.",
+    "categories": [
+      "content"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-theme",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/code-block/code-block.tsx",
+        "type": "registry:component",
+        "target": "code-block/code-block.tsx"
+      }
+    ],
+    "meta": {
+      "motion": true,
+      "surface": "site",
+      "catalog": "code-block"
+    }
+  },
+  {
+    "name": "figure",
+    "type": "registry:component",
+    "title": "Figure",
+    "description": "Places an image with caption and credit in the measure, wide or full bleed, and fades it in when it loads.",
+    "categories": [
+      "content"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-theme"
+    ],
+    "files": [
+      {
+        "path": "registry/react/figure/figure.tsx",
+        "type": "registry:component",
+        "target": "figure/figure.tsx"
+      }
+    ],
+    "meta": {
+      "motion": true,
+      "surface": "site",
+      "catalog": "figure"
+    }
+  },
+  {
+    "name": "video-embed",
+    "type": "registry:component",
+    "title": "Video embed",
+    "description": "Plays YouTube, Vimeo or a native file behind a poster and a play button, loading the player only after the click.",
+    "categories": [
+      "content"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-theme",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/video-embed/video-embed.tsx",
+        "type": "registry:component",
+        "target": "video-embed/video-embed.tsx"
+      }
+    ],
+    "meta": {
+      "motion": true,
+      "surface": "both",
+      "catalog": "video-embed"
+    }
+  }
+]

@@ -1,0 +1,10 @@
+# Installed by designfy components add; never edited by hand.
+src/components/designfy/
+src/styles/designfy-*.css
+
+# Build output, dependencies and captures.
+node_modules/
+dist/
+.astro/
+captures/
+bun.lock

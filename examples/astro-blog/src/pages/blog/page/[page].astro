@@ -1,0 +1,43 @@
+---
+/**
+ * Numbered pages of the blog grid: the same archive without the featured post.
+ */
+import Base from "../../../layouts/Base.astro";
+import ArchivePage from "../../../components/ArchivePage.astro";
+import { PAGE_SIZE, allPosts, categoryFilters, toCard } from "../../../lib/site";
+
+export async function getStaticPaths() {
+  const posts = await allPosts();
+  const featuredEntry = posts.find((post) => post.data.featured) ?? posts[0]!;
+  const rest = posts.filter((post) => post.id !== featuredEntry.id);
+  const total = Math.max(1, Math.ceil(rest.length / PAGE_SIZE));
+  return Array.from({ length: Math.max(0, total - 1) }, (_, index) => ({
+    params: { page: String(index + 2) },
+    props: { page: index + 2, total },
+  }));
+}
+
+interface Props {
+  page: number;
+  total: number;
+}
+
+const { page, total } = Astro.props;
+const posts = await allPosts();
+const featuredEntry = posts.find((post) => post.data.featured) ?? posts[0]!;
+const rest = posts.filter((post) => post.id !== featuredEntry.id);
+const grid = rest.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE).map(toCard);
+---
+
+<Base title={`Blog, página ${page}`} description={`Página ${page} das leituras da cooperativa Serra Clara.`}>
+  <ArchivePage
+    title="Diário da Serra Clara"
+    lead={`Página ${page} das leituras de campo, arquivo e instrumentos.`}
+    note="Blog de amostra. A cooperativa, as pessoas e os números são fictícios."
+    filters={categoryFilters()}
+    posts={grid}
+    page={page}
+    total={total}
+    base="/blog"
+  />
+</Base>

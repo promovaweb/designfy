@@ -1,0 +1,258 @@
+---
+/**
+ * NewsletterForm: Validates an email and submits it to a configured endpoint, with honest feedback for every result.
+ * Motion: A progress message keeps button width steady and success draws a check.
+ * Catalog: newsletter-form
+ */
+import { cn } from "@designfy/components/lib/cn";
+
+interface Props {
+  /** Unique base ID for label and feedback. */
+  id: string;
+  /** Email field label. */
+  label: string;
+  /** Submit button text. */
+  submitLabel: string;
+  /** POST target accepting a form-encoded email field. */
+  endpoint?: string;
+  /** Optional example email. */
+  placeholder?: string;
+  /** Consent or subscription disclosure. */
+  consent?: string;
+  /** Keep the label available only to assistive technology. */
+  labelHidden?: boolean;
+  /** Message when the email value is invalid. */
+  invalidMessage?: string;
+  /** Text during the request. */
+  pendingMessage?: string;
+  /** Confirmation shown after a successful response. */
+  successMessage: string;
+  /** Message on network or response failure. */
+  errorMessage: string;
+  /** Message when no endpoint was configured. */
+  notConnectedMessage: string;
+  /** Additional classes on the root element. */
+  class?: string;
+}
+
+const {
+  id,
+  label,
+  submitLabel,
+  endpoint,
+  placeholder,
+  consent,
+  labelHidden = false,
+  invalidMessage = "Enter a valid email address.",
+  pendingMessage = "Submitting…",
+  successMessage,
+  errorMessage,
+  notConnectedMessage,
+  class: className,
+} = Astro.props;
+---
+
+<form
+  data-site-newsletter-form
+  data-state="idle"
+  data-invalid={invalidMessage}
+  data-pending={pendingMessage}
+  data-success={successMessage}
+  data-error={errorMessage}
+  data-disconnected={notConnectedMessage}
+  action={endpoint}
+  method="post"
+  class={cn("group min-w-0 text-start", className)}
+>
+  <div data-newsletter-fields>
+    <label
+      for={id}
+      class={cn("mb-2 block text-sm font-semibold", labelHidden && "sr-only")}
+      >{label}</label
+    >
+    <div class="grid gap-2 min-[480px]:grid-cols-[minmax(0,1fr)_auto]">
+      <input
+        id={id}
+        name="email"
+        required
+        type="email"
+        autocomplete="email"
+        placeholder={placeholder}
+        aria-describedby={consent
+          ? id + "-consent " + id + "-result"
+          : id + "-result"}
+        class="min-h-12 min-w-0 rounded-lg border border-input bg-background px-4 text-foreground aria-invalid:border-destructive"
+      />
+      <button
+        type="submit"
+        disabled={!endpoint}
+        class="df-press inline-flex min-h-12 min-w-11 items-center justify-center rounded-lg bg-primary px-5 py-2 text-center text-sm font-semibold text-primary-foreground hover:bg-primary/90 relative disabled:cursor-not-allowed disabled:opacity-60"
+      >
+        <span class="group-data-[state=submitting]:opacity-0"
+          >{submitLabel}</span
+        >
+        <span
+          aria-hidden="true"
+          class="pointer-events-none absolute inset-0 hidden place-items-center text-xs group-data-[state=submitting]:grid"
+          >{pendingMessage}</span
+        >
+      </button>
+    </div>
+    {
+      consent && (
+        <p id={id + "-consent"} class="mt-2 text-sm text-muted-foreground">
+          {consent}
+        </p>
+      )
+    }
+  </div>
+  <div class="flex items-center gap-2">
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      class="hidden size-5 text-success"
+      ><path
+        d="m5 12 5 5L20 7"
+        pathLength="1"
+        stroke-dasharray="1"
+        class="animate-df-check"></path></svg
+    >
+    <p
+      data-newsletter-result
+      id={id + "-result"}
+      role="status"
+      tabindex={-1}
+      class="mt-2 text-sm text-muted-foreground empty:mt-0 group-data-[state=error]:text-destructive group-data-[state=invalid]:text-destructive group-data-[state=success]:text-success"
+    >
+    </p>
+  </div>
+  {
+    !endpoint && (
+      <noscript>
+        <p class="mt-2 text-sm text-muted-foreground">{notConnectedMessage}</p>
+      </noscript>
+    )
+  }
+</form>
+
+<script is:inline>
+  (() => {
+    function bind(root) {
+      const abort = new AbortController();
+      const email = root.querySelector("input[type=email]");
+      const submit = root.querySelector("button[type=submit]");
+      const fields = root.querySelector("[data-newsletter-fields]");
+      const message = root.querySelector("[data-newsletter-result]");
+      const check = root.querySelector("svg");
+      if (!email || !submit || !message || !fields || !check) return;
+      root.noValidate = true;
+      submit.disabled = false;
+      const options = { signal: abort.signal };
+      function update(state, text = "") {
+        root.dataset.state = state;
+        root.setAttribute("aria-busy", String(state === "submitting"));
+        if (email) {
+          email.readOnly = state === "submitting";
+          email.setAttribute("aria-invalid", String(state === "invalid"));
+        }
+        if (submit) submit.disabled = state === "submitting";
+        if (message) message.textContent = text;
+        if (fields) fields.hidden = state === "success";
+        if (check) check.classList.toggle("hidden", state !== "success");
+      }
+      email.addEventListener(
+        "input",
+        () => {
+          if (root.dataset.state === "invalid" && email.validity.valid)
+            update("idle");
+        },
+        options,
+      );
+      email.addEventListener(
+        "blur",
+        () => {
+          if (
+            root.dataset.state === "idle" &&
+            email.value &&
+            !email.validity.valid
+          )
+            update("invalid", root.dataset.invalid);
+        },
+        options,
+      );
+      root.addEventListener(
+        "submit",
+        async (event) => {
+          event.preventDefault();
+          if (
+            root.dataset.state === "submitting" ||
+            root.dataset.state === "success"
+          )
+            return;
+          if (!email.validity.valid) {
+            update("invalid", root.dataset.invalid);
+            email.focus();
+            return;
+          }
+          const endpoint = root.getAttribute("action");
+          if (!endpoint) {
+            update("error", root.dataset.disconnected);
+            return;
+          }
+          update("submitting", root.dataset.pending);
+          try {
+            const body = new URLSearchParams({ email: email.value });
+            const response = await fetch(endpoint, {
+              method: "POST",
+              body,
+              signal: abort.signal,
+            });
+            if (!response.ok) throw new Error("Request failed");
+            if (!abort.signal.aborted) {
+              update("success", root.dataset.success);
+              message.focus();
+            }
+          } catch {
+            if (!abort.signal.aborted) update("error", root.dataset.error);
+          }
+        },
+        options,
+      );
+      return () => abort.abort();
+    }
+
+    function prepare() {
+      document
+        .querySelectorAll("[data-site-newsletter-form]:not([data-site-bound])")
+        .forEach((root) => {
+          root.setAttribute("data-site-bound", "");
+          const dispose = bind(root);
+          if (dispose)
+            document.addEventListener(
+              "astro:before-swap",
+              () => {
+                dispose();
+                root.removeAttribute("data-site-bound");
+              },
+              { once: true },
+            );
+        });
+    }
+
+    prepare();
+    if (
+      !document.documentElement.hasAttribute(
+        "data-site-newsletter-form-listener",
+      )
+    ) {
+      document.documentElement.setAttribute(
+        "data-site-newsletter-form-listener",
+        "",
+      );
+      document.addEventListener("astro:page-load", prepare);
+    }
+  })();
+</script>

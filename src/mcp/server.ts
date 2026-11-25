@@ -16,6 +16,20 @@ import { registerConfigTools } from "./tools/config.ts";
 import { registerResources } from "./resources/base.ts";
 import { registerPrompts } from "./prompts.ts";
 import { registerDoctorTools } from "./tools/doctor.ts";
+import { registerProjectTools } from "./tools/project.ts";
+import { registerInterfaceCatalogTools } from "./tools/interface-catalog.ts";
+import { registerComponentsReadTools, registerComponentsWriteTools } from "./tools/components.ts";
+import { registerThemeTools } from "./tools/theme.ts";
+import { registerPaletteTools } from "./tools/palette.ts";
+import { registerViewspecTools } from "./tools/viewspec.ts";
+import { registerCaptureReadTools, registerCaptureWriteTools } from "./tools/capture.ts";
+import { registerMcpServersTools } from "./tools/mcp-servers.ts";
+
+/** Options that shape what the server registers. */
+export interface ServerOptions {
+  /** Leaves out the tools that write to the project (components_add, capture_run). */
+  readOnly?: boolean;
+}
 
 /** Metadata collected during registration, for `mcp --list`. */
 export interface Catalog {
@@ -32,7 +46,7 @@ export interface Registrar {
   catalog: Catalog;
 }
 
-function createServer(): Registrar {
+function createServer(options: ServerOptions = {}): Registrar {
   const server = new McpServer(
     { name: manifest.bin, version: manifest.version },
     {
@@ -44,26 +58,38 @@ function createServer(): Registrar {
   );
   const catalog: Catalog = { name: manifest.bin, version: manifest.version, tools: [], resources: [], prompts: [] };
   const registrar: Registrar = { server, catalog };
-  registerAll(registrar);
+  registerAll(registrar, options);
   return registrar;
 }
 
-function registerAll(r: Registrar): void {
+function registerAll(r: Registrar, options: ServerOptions): void {
   registerBaseTools(r);
   registerConfigTools(r);
   registerDoctorTools(r);
+  registerProjectTools(r);
+  registerInterfaceCatalogTools(r);
+  registerComponentsReadTools(r);
+  registerThemeTools(r);
+  registerPaletteTools(r);
+  registerViewspecTools(r);
+  registerCaptureReadTools(r);
+  registerMcpServersTools(r);
+  if (!options.readOnly) {
+    registerComponentsWriteTools(r);
+    registerCaptureWriteTools(r);
+  }
   registerResources(r);
   registerPrompts(r);
 }
 
 /** Describes the server without opening a transport. */
-export function describeServer(): Catalog {
-  return createServer().catalog;
+export function describeServer(options: ServerOptions = {}): Catalog {
+  return createServer(options).catalog;
 }
 
 /** Starts the server on stdio and waits for the transport to close. */
-export async function startStdioServer(): Promise<void> {
-  const { server } = createServer();
+export async function startStdioServer(options: ServerOptions = {}): Promise<void> {
+  const { server } = createServer(options);
   const transport = new StdioServerTransport();
   try {
     await server.connect(transport);

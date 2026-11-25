@@ -1,31 +1,40 @@
 # Release
 
-Toda alteração publicada sai com versão, changelog, tag e GitHub Release.
+Toda alteração publicada sai com versão, changelog, tag e GitHub Release
+privada. O passo a passo completo está em
+[RELEASING.md](../RELEASING.md).
 
-1. Atualize `version` em `package.json` (SemVer).
-2. Registre a mudança em `CHANGELOG.md`, no formato Keep a Changelog.
-3. Rode `bun run validate`.
-4. Commit: `release: <bin> vX.Y.Z`.
-5. Tag: `git tag vX.Y.Z`.
-6. Push da `main` e só desta tag: `git push origin main vX.Y.Z`. Tags de
-   outras entregas ficam fora.
-7. O workflow `release.yml` compila os binários para linux-x64, linux-arm64,
-   darwin-x64, darwin-arm64 e windows-x64, gera `SHA256SUMS` e publica a
+Resumo:
+
+1. Atualize `version` em `package.json` (SemVer). O binário lê essa versão.
+2. Registre a mudança em `CHANGELOG.md`, no formato Keep a Changelog, com o
+   título `## [X.Y.Z] - AAAA-MM-DD`.
+3. Atualize `ebook/VERSION` e rode `bun run ebook` e `bun run ebook:verify`.
+4. Rode `bun run validate`.
+5. Commit: `release: designfy vX.Y.Z`.
+6. Tag: `git tag -a vX.Y.Z -m "vX.Y.Z"`.
+7. Push da `main` e só desta tag: `git push --atomic origin HEAD:main vX.Y.Z`.
+8. O workflow `release.yml` instala os pacotes nativos de todos os alvos, roda
+   `bun run validate`, compila os binários para linux-x64, linux-arm64,
+   darwin-x64, darwin-arm64 e windows-x64, gera o `SHA256SUMS` e publica a
    GitHub Release com as notas do changelog.
-8. Confira a release em `https://github.com/<org>/<repo>/releases/tag/vX.Y.Z`.
+9. Confira a release em
+   `https://github.com/promovaweb/designfy/releases/tag/vX.Y.Z`.
+10. Atualize o gitlink do submódulo no Hub.
 
-Uma tag publicada nunca é movida. Correção posterior recebe nova versão.
+Não há publicação no npm por enquanto. Uma tag publicada nunca é movida.
+Correção posterior recebe nova versão.
 
 ## Build local
 
-O OpenTUI carrega um pacote nativo por plataforma. `bun run build` marca
-como externos os que não estão instalados, então funciona depois de um
-`bun install` comum. O build cruzado precisa dos pacotes de todos os alvos,
-instalados a partir do lockfile.
+O OpenTUI carrega um pacote nativo por plataforma. `bun run build` marca como
+externos os que não estão instalados, então funciona depois de um `bun install`
+comum. O build cruzado precisa dos pacotes de todos os alvos, instalados a partir
+do lockfile.
 
 ```bash
-bun run build          # dist/<bin> para a plataforma atual
+bun run build          # dist/designfy para a plataforma atual
 bun install --frozen-lockfile --os="*" --cpu="*" --libc="*"  # pacotes nativos de todos os alvos
-bun run build:all      # dist/<bin>-<platform> para todas
-./dist/<bin> --version
+bun run build:all      # dist/designfy-<plataforma> para todas
+./dist/designfy --version
 ```

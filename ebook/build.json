@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "version": "0.1.0",
+  "edition": "v0.1.0",
+  "generated_at": "2026-11-25T01:31:35Z",
+  "source_sha256": "e99a4f746be3dedc77a8d598c1dae482c695f34e4ab8b68dc333b595242fcaf6",
+  "sources": [
+    ".ebook/build-ebook.mjs",
+    ".ebook/epub.css",
+    ".ebook/extract-document-metadata.mjs",
+    ".ebook/metadata.yaml",
+    ".ebook/pdf.css",
+    ".ebook/prune-editions.mjs",
+    ".ebook/template.html",
+    "brand/fonts/fonts.css",
+    "brand/fonts/inter-latin.woff2",
+    "brand/fonts/manrope-latin.woff2",
+    "brand/logo/icon.png",
+    "brand/logo/icon.svg",
+    "docs/user/01-introducao-e-instalacao.md",
+    "docs/user/02-preparar-o-projeto.md",
+    "docs/user/03-skills.md",
+    "docs/user/04-viewspec.md",
+    "docs/user/05-tema-e-paleta.md",
+    "docs/user/06-catalogo-e-componentes.md",
+    "docs/user/07-fundos-e-movimento.md",
+    "docs/user/08-capturas-e-revisao.md",
+    "docs/user/09-tui.md",
+    "docs/user/10-agentes-e-mcp.md",
+    "docs/user/11-referencia.md",
+    "docs/user/README.md",
+    "docs/user/reading-order.txt",
+    "ebook/VERSION"
+  ],
+  "document_metadata": {},
+  "artifacts": {
+    "pdf": {
+      "file": "Designfy-Guia-do-Usuario-v0.1.0.pdf",
+      "sha256": "51b2edeb4cb0c4839d6020327c90fb712d135bf0bfb512dcd3d61f6001b273e3"
+    },
+    "epub": {
+      "file": "Designfy-Guia-do-Usuario-v0.1.0.epub",
+      "sha256": "d73621bcead06844708bf842fec54bdd1e0e009224fdf3d2a3283ea8facbc0d5"
+    }
+  }
+}

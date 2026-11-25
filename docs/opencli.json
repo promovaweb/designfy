@@ -2,16 +2,16 @@
   "$schema": "https://opencli.org/draft.json",
   "opencli": "0.1",
   "info": {
-    "title": "Termfy",
-    "version": "0.13.4",
-    "summary": "CLI, TUI and MCP stdio server skeleton in Bun, with the Termfy framework skills installed.",
-    "description": "CLI, TUI and MCP stdio server skeleton in Bun, with the Termfy framework skills installed. Without arguments it opens the TUI; \"termfy mcp\" starts the MCP server over stdio; any other command runs as a CLI with text or --json output.",
+    "title": "Designfy",
+    "version": "0.1.0",
+    "summary": "Visual framework for web projects: design system, React and Astro components with Tailwind, shadcn and motion, skills, dependency and MCP setup, and Playwright screen captures.",
+    "description": "Visual framework for web projects: design system, React and Astro components with Tailwind, shadcn and motion, skills, dependency and MCP setup, and Playwright screen captures. Without arguments it opens the TUI; \"designfy mcp\" starts the MCP server over stdio; any other command runs as a CLI with text or --json output.",
     "contact": {
       "name": "Promovaweb",
       "url": "https://promovaweb.com"
     },
     "license": {
-      "name": "MIT"
+      "name": "AGPL-3.0-only"
     }
   },
   "conventions": {
@@ -19,8 +19,8 @@
     "optionSeparator": " "
   },
   "command": {
-    "name": "termfy",
-    "description": "CLI, TUI and MCP stdio server skeleton in Bun, with the Termfy framework skills installed.",
+    "name": "designfy",
+    "description": "Visual framework for web projects: design system, React and Astro components with Tailwind, shadcn and motion, skills, dependency and MCP setup, and Playwright screen captures.",
     "options": [
       {
         "name": "--help",
@@ -79,12 +79,2030 @@
     ],
     "commands": [
       {
+        "name": "init",
+        "description": "Detect the web project and write designfy.json in its root.",
+        "options": [
+          {
+            "name": "--force",
+            "description": "Overwrite an existing designfy.json."
+          },
+          {
+            "name": "--dry-run",
+            "description": "Print the proposed designfy.json without writing it."
+          },
+          {
+            "name": "--components-path",
+            "description": "Set the project path for Designfy components.",
+            "arguments": [
+              {
+                "name": "path",
+                "required": true,
+                "arity": {
+                  "minimum": 1,
+                  "maximum": 1
+                }
+              }
+            ],
+            "metadata": [
+              {
+                "name": "x-default",
+                "value": "src/components/designfy"
+              }
+            ]
+          },
+          {
+            "name": "--styles-path",
+            "description": "Set the project path for styles.",
+            "arguments": [
+              {
+                "name": "path",
+                "required": true,
+                "arity": {
+                  "minimum": 1,
+                  "maximum": 1
+                }
+              }
+            ],
+            "metadata": [
+              {
+                "name": "x-default",
+                "value": "src/styles"
+              }
+            ]
+          },
+          {
+            "name": "--framework",
+            "description": "Override the detected framework (astro, next, react-vite, react or unknown).",
+            "arguments": [
+              {
+                "name": "framework",
+                "required": true,
+                "arity": {
+                  "minimum": 1,
+                  "maximum": 1
+                },
+                "acceptedValues": [
+                  "astro",
+                  "next",
+                  "react-vite",
+                  "react",
+                  "unknown"
+                ]
+              }
+            ]
+          }
+        ],
+        "examples": [
+          "designfy init",
+          "designfy init --framework astro --dry-run"
+        ],
+        "exitCodes": [
+          {
+            "code": 0,
+            "description": "SUCCESS: Operation completed."
+          },
+          {
+            "code": 1,
+            "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+          },
+          {
+            "code": 2,
+            "description": "USAGE: Invalid arguments, options or subcommand."
+          },
+          {
+            "code": 3,
+            "description": "CONFIG: settings.json missing, invalid or unknown key."
+          },
+          {
+            "code": 6,
+            "description": "NOT_FOUND: Requested resource does not exist."
+          },
+          {
+            "code": 7,
+            "description": "PERMISSION: Permission denied on the file system."
+          }
+        ]
+      },
+      {
+        "name": "status",
+        "description": "Show the detected project and its Designfy installation state.",
+        "examples": [
+          "designfy status",
+          "designfy status --json"
+        ],
+        "exitCodes": [
+          {
+            "code": 0,
+            "description": "SUCCESS: Operation completed."
+          },
+          {
+            "code": 1,
+            "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+          },
+          {
+            "code": 2,
+            "description": "USAGE: Invalid arguments, options or subcommand."
+          },
+          {
+            "code": 3,
+            "description": "CONFIG: settings.json missing, invalid or unknown key."
+          },
+          {
+            "code": 6,
+            "description": "NOT_FOUND: Requested resource does not exist."
+          },
+          {
+            "code": 7,
+            "description": "PERMISSION: Permission denied on the file system."
+          }
+        ]
+      },
+      {
+        "name": "skills",
+        "description": "List, install, update or remove Designfy catalog skills.",
+        "commands": [
+          {
+            "name": "list",
+            "description": "List catalog skills and their project or global installation state.",
+            "options": [
+              {
+                "name": "--internal",
+                "description": "Include internal Designfy skills."
+              },
+              {
+                "name": "--external",
+                "description": "Include external skills."
+              }
+            ],
+            "examples": [
+              "designfy skills list --internal",
+              "designfy skills list --json"
+            ],
+            "exitCodes": [
+              {
+                "code": 0,
+                "description": "SUCCESS: Operation completed."
+              },
+              {
+                "code": 1,
+                "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+              },
+              {
+                "code": 2,
+                "description": "USAGE: Invalid arguments, options or subcommand."
+              },
+              {
+                "code": 3,
+                "description": "CONFIG: settings.json missing, invalid or unknown key."
+              },
+              {
+                "code": 6,
+                "description": "NOT_FOUND: Requested resource does not exist."
+              },
+              {
+                "code": 7,
+                "description": "PERMISSION: Permission denied on the file system."
+              }
+            ]
+          },
+          {
+            "name": "install",
+            "description": "Install named skills or the default skills for this project.",
+            "arguments": [
+              {
+                "name": "names",
+                "description": "Catalog skill names. Omit to use compatible defaults.",
+                "required": false,
+                "arity": {
+                  "minimum": 0
+                }
+              }
+            ],
+            "options": [
+              {
+                "name": "--internal",
+                "description": "Include internal Designfy skills."
+              },
+              {
+                "name": "--external",
+                "description": "Include external skills."
+              },
+              {
+                "name": "--all",
+                "description": "Include all catalog skills across frameworks when names are omitted."
+              },
+              {
+                "name": "--agent",
+                "description": "Comma-separated agent names. Overrides skills.agents.",
+                "arguments": [
+                  {
+                    "name": "agents",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    }
+                  }
+                ]
+              },
+              {
+                "name": "--global",
+                "description": "Use the global skill scope instead of the project."
+              },
+              {
+                "name": "--dry-run",
+                "description": "Print the planned commands without invoking the Skills CLI."
+              }
+            ],
+            "examples": [
+              "designfy skills install",
+              "designfy skills install astrofy --agent codex --dry-run"
+            ],
+            "exitCodes": [
+              {
+                "code": 0,
+                "description": "SUCCESS: Operation completed."
+              },
+              {
+                "code": 1,
+                "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+              },
+              {
+                "code": 2,
+                "description": "USAGE: Invalid arguments, options or subcommand."
+              },
+              {
+                "code": 3,
+                "description": "CONFIG: settings.json missing, invalid or unknown key."
+              },
+              {
+                "code": 5,
+                "description": "NETWORK_OR_API: Network failure or unexpected API response."
+              },
+              {
+                "code": 6,
+                "description": "NOT_FOUND: Requested resource does not exist."
+              },
+              {
+                "code": 7,
+                "description": "PERMISSION: Permission denied on the file system."
+              }
+            ]
+          },
+          {
+            "name": "update",
+            "description": "Update installed skills in the selected scope.",
+            "arguments": [
+              {
+                "name": "names",
+                "description": "Installed skill names. Omit to update all in the selected scope.",
+                "required": false,
+                "arity": {
+                  "minimum": 0
+                }
+              }
+            ],
+            "options": [
+              {
+                "name": "--global",
+                "description": "Use the global skill scope instead of the project."
+              }
+            ],
+            "examples": [
+              "designfy skills update",
+              "designfy skills update designfy --global"
+            ],
+            "exitCodes": [
+              {
+                "code": 0,
+                "description": "SUCCESS: Operation completed."
+              },
+              {
+                "code": 1,
+                "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+              },
+              {
+                "code": 2,
+                "description": "USAGE: Invalid arguments, options or subcommand."
+              },
+              {
+                "code": 5,
+                "description": "NETWORK_OR_API: Network failure or unexpected API response."
+              }
+            ]
+          },
+          {
+            "name": "remove",
+            "description": "Remove named skills from the project.",
+            "arguments": [
+              {
+                "name": "names",
+                "description": "Installed project skill names to remove.",
+                "required": true,
+                "arity": {
+                  "minimum": 1
+                }
+              }
+            ],
+            "examples": [
+              "designfy skills remove designfy-motion"
+            ],
+            "exitCodes": [
+              {
+                "code": 0,
+                "description": "SUCCESS: Operation completed."
+              },
+              {
+                "code": 1,
+                "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+              },
+              {
+                "code": 2,
+                "description": "USAGE: Invalid arguments, options or subcommand."
+              },
+              {
+                "code": 5,
+                "description": "NETWORK_OR_API: Network failure or unexpected API response."
+              }
+            ]
+          }
+        ],
+        "examples": [
+          "designfy skills list"
+        ],
+        "exitCodes": [
+          {
+            "code": 0,
+            "description": "SUCCESS: Operation completed."
+          },
+          {
+            "code": 1,
+            "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+          },
+          {
+            "code": 2,
+            "description": "USAGE: Invalid arguments, options or subcommand."
+          },
+          {
+            "code": 3,
+            "description": "CONFIG: settings.json missing, invalid or unknown key."
+          },
+          {
+            "code": 5,
+            "description": "NETWORK_OR_API: Network failure or unexpected API response."
+          },
+          {
+            "code": 6,
+            "description": "NOT_FOUND: Requested resource does not exist."
+          },
+          {
+            "code": 7,
+            "description": "PERMISSION: Permission denied on the file system."
+          }
+        ]
+      },
+      {
+        "name": "deps",
+        "description": "List, check or install the packages in the dependency catalog.",
+        "commands": [
+          {
+            "name": "list",
+            "description": "List the catalog version and installation state of suggested packages.",
+            "options": [
+              {
+                "name": "--group",
+                "description": "Limit the operation to this dependency group ID.",
+                "arguments": [
+                  {
+                    "name": "id",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    }
+                  }
+                ]
+              }
+            ],
+            "examples": [
+              "designfy deps list --group motion",
+              "designfy deps list --json"
+            ],
+            "exitCodes": [
+              {
+                "code": 0,
+                "description": "SUCCESS: Operation completed."
+              },
+              {
+                "code": 1,
+                "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+              },
+              {
+                "code": 2,
+                "description": "USAGE: Invalid arguments, options or subcommand."
+              },
+              {
+                "code": 3,
+                "description": "CONFIG: settings.json missing, invalid or unknown key."
+              },
+              {
+                "code": 6,
+                "description": "NOT_FOUND: Requested resource does not exist."
+              },
+              {
+                "code": 7,
+                "description": "PERMISSION: Permission denied on the file system."
+              }
+            ]
+          },
+          {
+            "name": "check",
+            "description": "Check the selected dependency group or the project's recommended defaults, plus copied component requirements.",
+            "options": [
+              {
+                "name": "--group",
+                "description": "Limit the operation to this dependency group ID.",
+                "arguments": [
+                  {
+                    "name": "id",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    }
+                  }
+                ]
+              }
+            ],
+            "examples": [
+              "designfy deps check",
+              "designfy deps check --group motion --json"
+            ],
+            "exitCodes": [
+              {
+                "code": 0,
+                "description": "SUCCESS: Operation completed."
+              },
+              {
+                "code": 1,
+                "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+              },
+              {
+                "code": 2,
+                "description": "USAGE: Invalid arguments, options or subcommand."
+              },
+              {
+                "code": 3,
+                "description": "CONFIG: settings.json missing, invalid or unknown key."
+              },
+              {
+                "code": 6,
+                "description": "NOT_FOUND: Requested resource does not exist."
+              },
+              {
+                "code": 7,
+                "description": "PERMISSION: Permission denied on the file system."
+              },
+              {
+                "code": 10,
+                "description": "CHECK_FAILED: A check reported missing or invalid items."
+              }
+            ]
+          },
+          {
+            "name": "install",
+            "description": "Install named groups or packages, or the missing compatible defaults.",
+            "arguments": [
+              {
+                "name": "groups-or-packages",
+                "description": "Catalog group IDs or package names.",
+                "required": false,
+                "arity": {
+                  "minimum": 0
+                }
+              }
+            ],
+            "options": [
+              {
+                "name": "--pm",
+                "description": "Force npm, pnpm, bun or yarn instead of the configured package manager.",
+                "arguments": [
+                  {
+                    "name": "manager",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    },
+                    "acceptedValues": [
+                      "bun",
+                      "pnpm",
+                      "yarn",
+                      "npm"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "--dry-run",
+                "description": "Print the planned commands without running the package manager."
+              }
+            ],
+            "examples": [
+              "designfy deps install",
+              "designfy deps install motion --pm bun --dry-run"
+            ],
+            "exitCodes": [
+              {
+                "code": 0,
+                "description": "SUCCESS: Operation completed."
+              },
+              {
+                "code": 1,
+                "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+              },
+              {
+                "code": 2,
+                "description": "USAGE: Invalid arguments, options or subcommand."
+              },
+              {
+                "code": 3,
+                "description": "CONFIG: settings.json missing, invalid or unknown key."
+              },
+              {
+                "code": 5,
+                "description": "NETWORK_OR_API: Network failure or unexpected API response."
+              },
+              {
+                "code": 6,
+                "description": "NOT_FOUND: Requested resource does not exist."
+              },
+              {
+                "code": 7,
+                "description": "PERMISSION: Permission denied on the file system."
+              }
+            ]
+          }
+        ],
+        "examples": [
+          "designfy deps list"
+        ],
+        "exitCodes": [
+          {
+            "code": 0,
+            "description": "SUCCESS: Operation completed."
+          },
+          {
+            "code": 1,
+            "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+          },
+          {
+            "code": 2,
+            "description": "USAGE: Invalid arguments, options or subcommand."
+          },
+          {
+            "code": 3,
+            "description": "CONFIG: settings.json missing, invalid or unknown key."
+          },
+          {
+            "code": 5,
+            "description": "NETWORK_OR_API: Network failure or unexpected API response."
+          },
+          {
+            "code": 6,
+            "description": "NOT_FOUND: Requested resource does not exist."
+          },
+          {
+            "code": 7,
+            "description": "PERMISSION: Permission denied on the file system."
+          },
+          {
+            "code": 10,
+            "description": "CHECK_FAILED: A check reported missing or invalid items."
+          }
+        ]
+      },
+      {
+        "name": "catalog",
+        "description": "Browse reusable interface fragments for websites and applications.",
+        "commands": [
+          {
+            "name": "list",
+            "description": "List interface fragments by surface, category, and viewspec kind.",
+            "options": [
+              {
+                "name": "--surface",
+                "description": "Filter by site, system, or both.",
+                "arguments": [
+                  {
+                    "name": "surface",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    },
+                    "acceptedValues": [
+                      "site",
+                      "system",
+                      "both"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "--category",
+                "description": "Filter by category ID.",
+                "arguments": [
+                  {
+                    "name": "id",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    }
+                  }
+                ]
+              },
+              {
+                "name": "--kind",
+                "description": "Filter by viewspec kind.",
+                "arguments": [
+                  {
+                    "name": "kind",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    },
+                    "acceptedValues": [
+                      "landing-page",
+                      "home",
+                      "site-page",
+                      "blog-index",
+                      "blog-post",
+                      "docs-page",
+                      "dashboard",
+                      "table",
+                      "form",
+                      "crud",
+                      "detail",
+                      "settings",
+                      "auth",
+                      "other"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "examples": [
+              "designfy catalog list --surface site --kind landing-page"
+            ],
+            "exitCodes": [
+              {
+                "code": 0,
+                "description": "SUCCESS: Operation completed."
+              },
+              {
+                "code": 1,
+                "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+              },
+              {
+                "code": 2,
+                "description": "USAGE: Invalid arguments, options or subcommand."
+              },
+              {
+                "code": 3,
+                "description": "CONFIG: settings.json missing, invalid or unknown key."
+              },
+              {
+                "code": 6,
+                "description": "NOT_FOUND: Requested resource does not exist."
+              },
+              {
+                "code": 7,
+                "description": "PERMISSION: Permission denied on the file system."
+              }
+            ]
+          },
+          {
+            "name": "show",
+            "description": "Show the full entry for one interface fragment.",
+            "arguments": [
+              {
+                "name": "id",
+                "description": "Interface entry ID.",
+                "required": true
+              }
+            ],
+            "examples": [
+              "designfy catalog show hero --json"
+            ],
+            "exitCodes": [
+              {
+                "code": 0,
+                "description": "SUCCESS: Operation completed."
+              },
+              {
+                "code": 1,
+                "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+              },
+              {
+                "code": 2,
+                "description": "USAGE: Invalid arguments, options or subcommand."
+              },
+              {
+                "code": 3,
+                "description": "CONFIG: settings.json missing, invalid or unknown key."
+              },
+              {
+                "code": 6,
+                "description": "NOT_FOUND: Requested resource does not exist."
+              },
+              {
+                "code": 7,
+                "description": "PERMISSION: Permission denied on the file system."
+              }
+            ]
+          },
+          {
+            "name": "search",
+            "description": "Search interface fragments by name, purpose, use case, or anatomy.",
+            "arguments": [
+              {
+                "name": "text",
+                "description": "Search phrase.",
+                "required": true
+              }
+            ],
+            "examples": [
+              "designfy catalog search \"primary navigation\""
+            ],
+            "exitCodes": [
+              {
+                "code": 0,
+                "description": "SUCCESS: Operation completed."
+              },
+              {
+                "code": 1,
+                "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+              },
+              {
+                "code": 2,
+                "description": "USAGE: Invalid arguments, options or subcommand."
+              },
+              {
+                "code": 3,
+                "description": "CONFIG: settings.json missing, invalid or unknown key."
+              },
+              {
+                "code": 6,
+                "description": "NOT_FOUND: Requested resource does not exist."
+              },
+              {
+                "code": 7,
+                "description": "PERMISSION: Permission denied on the file system."
+              }
+            ]
+          }
+        ],
+        "examples": [
+          "designfy catalog list"
+        ],
+        "exitCodes": [
+          {
+            "code": 0,
+            "description": "SUCCESS: Operation completed."
+          },
+          {
+            "code": 1,
+            "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+          },
+          {
+            "code": 2,
+            "description": "USAGE: Invalid arguments, options or subcommand."
+          },
+          {
+            "code": 3,
+            "description": "CONFIG: settings.json missing, invalid or unknown key."
+          },
+          {
+            "code": 6,
+            "description": "NOT_FOUND: Requested resource does not exist."
+          },
+          {
+            "code": 7,
+            "description": "PERMISSION: Permission denied on the file system."
+          }
+        ]
+      },
+      {
+        "name": "components",
+        "description": "Browse and copy Designfy registry components.",
+        "commands": [
+          {
+            "name": "list",
+            "description": "List available components for the selected framework, category and surface.",
+            "options": [
+              {
+                "name": "--framework",
+                "description": "Select astro, next, react-vite, react, or unknown. Defaults to the project framework.",
+                "arguments": [
+                  {
+                    "name": "framework",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    },
+                    "acceptedValues": [
+                      "astro",
+                      "next",
+                      "react-vite",
+                      "react",
+                      "unknown"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "--category",
+                "description": "Filter by registry category.",
+                "arguments": [
+                  {
+                    "name": "category",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    }
+                  }
+                ]
+              },
+              {
+                "name": "--surface",
+                "description": "Filter by site, system, or both. Shared items match site and system.",
+                "arguments": [
+                  {
+                    "name": "surface",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    },
+                    "acceptedValues": [
+                      "site",
+                      "system",
+                      "both"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "examples": [
+              "designfy components list --framework astro"
+            ],
+            "exitCodes": [
+              {
+                "code": 0,
+                "description": "SUCCESS: Operation completed."
+              },
+              {
+                "code": 1,
+                "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+              },
+              {
+                "code": 2,
+                "description": "USAGE: Invalid arguments, options or subcommand."
+              },
+              {
+                "code": 3,
+                "description": "CONFIG: settings.json missing, invalid or unknown key."
+              },
+              {
+                "code": 6,
+                "description": "NOT_FOUND: Requested resource does not exist."
+              },
+              {
+                "code": 7,
+                "description": "PERMISSION: Permission denied on the file system."
+              }
+            ]
+          },
+          {
+            "name": "show",
+            "description": "Show one component's files and requirements, with optional source.",
+            "arguments": [
+              {
+                "name": "name",
+                "description": "Registry item name.",
+                "required": true
+              }
+            ],
+            "options": [
+              {
+                "name": "--framework",
+                "description": "Select astro, next, react-vite, react, or unknown. Defaults to the project framework.",
+                "arguments": [
+                  {
+                    "name": "framework",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    },
+                    "acceptedValues": [
+                      "astro",
+                      "next",
+                      "react-vite",
+                      "react",
+                      "unknown"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "--source",
+                "description": "Include the source content for each registry file."
+              }
+            ],
+            "examples": [
+              "designfy components show cn --framework react --source"
+            ],
+            "exitCodes": [
+              {
+                "code": 0,
+                "description": "SUCCESS: Operation completed."
+              },
+              {
+                "code": 1,
+                "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+              },
+              {
+                "code": 2,
+                "description": "USAGE: Invalid arguments, options or subcommand."
+              },
+              {
+                "code": 3,
+                "description": "CONFIG: settings.json missing, invalid or unknown key."
+              },
+              {
+                "code": 6,
+                "description": "NOT_FOUND: Requested resource does not exist."
+              },
+              {
+                "code": 7,
+                "description": "PERMISSION: Permission denied on the file system."
+              }
+            ]
+          },
+          {
+            "name": "add",
+            "description": "Copy registry components and their Designfy dependencies into the project.",
+            "arguments": [
+              {
+                "name": "names",
+                "description": "One or more registry item names.",
+                "required": true,
+                "arity": {
+                  "minimum": 1
+                }
+              }
+            ],
+            "options": [
+              {
+                "name": "--framework",
+                "description": "Select astro, next, react-vite, react, or unknown. Defaults to the project framework.",
+                "arguments": [
+                  {
+                    "name": "framework",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    },
+                    "acceptedValues": [
+                      "astro",
+                      "next",
+                      "react-vite",
+                      "react",
+                      "unknown"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "--path",
+                "description": "Copy files under this directory instead of the configured roots.",
+                "arguments": [
+                  {
+                    "name": "dir",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    }
+                  }
+                ]
+              },
+              {
+                "name": "--overwrite",
+                "description": "Replace existing files whose content differs."
+              },
+              {
+                "name": "--dry-run",
+                "description": "Report planned file changes without writing them."
+              }
+            ],
+            "examples": [
+              "designfy components add cn --framework react --dry-run"
+            ],
+            "exitCodes": [
+              {
+                "code": 0,
+                "description": "SUCCESS: Operation completed."
+              },
+              {
+                "code": 1,
+                "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+              },
+              {
+                "code": 2,
+                "description": "USAGE: Invalid arguments, options or subcommand."
+              },
+              {
+                "code": 3,
+                "description": "CONFIG: settings.json missing, invalid or unknown key."
+              },
+              {
+                "code": 6,
+                "description": "NOT_FOUND: Requested resource does not exist."
+              },
+              {
+                "code": 7,
+                "description": "PERMISSION: Permission denied on the file system."
+              }
+            ]
+          }
+        ],
+        "examples": [
+          "designfy components list"
+        ],
+        "exitCodes": [
+          {
+            "code": 0,
+            "description": "SUCCESS: Operation completed."
+          },
+          {
+            "code": 1,
+            "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+          },
+          {
+            "code": 2,
+            "description": "USAGE: Invalid arguments, options or subcommand."
+          },
+          {
+            "code": 3,
+            "description": "CONFIG: settings.json missing, invalid or unknown key."
+          },
+          {
+            "code": 6,
+            "description": "NOT_FOUND: Requested resource does not exist."
+          },
+          {
+            "code": 7,
+            "description": "PERMISSION: Permission denied on the file system."
+          }
+        ]
+      },
+      {
+        "name": "theme",
+        "description": "Inspect the Tailwind theme and check semantic contrast.",
+        "commands": [
+          {
+            "name": "show",
+            "description": "Show the project's Tailwind colors, typography, spacing, and motion tokens.",
+            "options": [
+              {
+                "name": "--file",
+                "description": "Read this CSS file instead of discovering the project stylesheet.",
+                "arguments": [
+                  {
+                    "name": "path",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    }
+                  }
+                ]
+              },
+              {
+                "name": "--group",
+                "description": "Show only this token group.",
+                "arguments": [
+                  {
+                    "name": "group",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    },
+                    "acceptedValues": [
+                      "colors",
+                      "fonts",
+                      "text",
+                      "radius",
+                      "spacing",
+                      "shadows",
+                      "breakpoints",
+                      "motion"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "examples": [
+              "designfy theme show --group colors",
+              "designfy theme show --file src/index.css --json"
+            ],
+            "exitCodes": [
+              {
+                "code": 0,
+                "description": "SUCCESS: Operation completed."
+              },
+              {
+                "code": 1,
+                "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+              },
+              {
+                "code": 2,
+                "description": "USAGE: Invalid arguments, options or subcommand."
+              },
+              {
+                "code": 3,
+                "description": "CONFIG: settings.json missing, invalid or unknown key."
+              },
+              {
+                "code": 6,
+                "description": "NOT_FOUND: Requested resource does not exist."
+              },
+              {
+                "code": 7,
+                "description": "PERMISSION: Permission denied on the file system."
+              }
+            ]
+          },
+          {
+            "name": "check",
+            "description": "Measure known light and dark contrast pairs and check registry theme roles.",
+            "options": [
+              {
+                "name": "--file",
+                "description": "Read this CSS file instead of discovering the project stylesheet.",
+                "arguments": [
+                  {
+                    "name": "path",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    }
+                  }
+                ]
+              }
+            ],
+            "examples": [
+              "designfy theme check",
+              "designfy theme check --file app/globals.css --json"
+            ],
+            "exitCodes": [
+              {
+                "code": 0,
+                "description": "SUCCESS: Operation completed."
+              },
+              {
+                "code": 1,
+                "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+              },
+              {
+                "code": 2,
+                "description": "USAGE: Invalid arguments, options or subcommand."
+              },
+              {
+                "code": 3,
+                "description": "CONFIG: settings.json missing, invalid or unknown key."
+              },
+              {
+                "code": 6,
+                "description": "NOT_FOUND: Requested resource does not exist."
+              },
+              {
+                "code": 7,
+                "description": "PERMISSION: Permission denied on the file system."
+              },
+              {
+                "code": 10,
+                "description": "CHECK_FAILED: A check reported missing or invalid items."
+              }
+            ]
+          }
+        ],
+        "examples": [
+          "designfy theme show",
+          "designfy theme check"
+        ],
+        "exitCodes": [
+          {
+            "code": 0,
+            "description": "SUCCESS: Operation completed."
+          },
+          {
+            "code": 1,
+            "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+          },
+          {
+            "code": 2,
+            "description": "USAGE: Invalid arguments, options or subcommand."
+          },
+          {
+            "code": 3,
+            "description": "CONFIG: settings.json missing, invalid or unknown key."
+          },
+          {
+            "code": 6,
+            "description": "NOT_FOUND: Requested resource does not exist."
+          },
+          {
+            "code": 7,
+            "description": "PERMISSION: Permission denied on the file system."
+          },
+          {
+            "code": 10,
+            "description": "CHECK_FAILED: A check reported missing or invalid items."
+          }
+        ]
+      },
+      {
+        "name": "palette",
+        "description": "Generate palettes and compare colors.",
+        "commands": [
+          {
+            "name": "generate",
+            "description": "Generate OKLCH scales, semantic tokens, and contrast measurements.",
+            "options": [
+              {
+                "name": "--base",
+                "description": "Base color as #RGB, #RRGGBB, or oklch(L C H). Required.",
+                "arguments": [
+                  {
+                    "name": "color",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    }
+                  }
+                ]
+              },
+              {
+                "name": "--harmony",
+                "description": "Add accent scales from the selected color-wheel harmony.",
+                "arguments": [
+                  {
+                    "name": "harmony",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    },
+                    "acceptedValues": [
+                      "complementary",
+                      "analogous",
+                      "triadic",
+                      "split-complementary",
+                      "tetradic",
+                      "monochromatic"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "--format",
+                "description": "Output shadcn CSS, JSON, or a Tailwind scale theme. Default: css.",
+                "arguments": [
+                  {
+                    "name": "format",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    },
+                    "acceptedValues": [
+                      "css",
+                      "json",
+                      "tailwind"
+                    ]
+                  }
+                ],
+                "metadata": [
+                  {
+                    "name": "x-default",
+                    "value": "css"
+                  }
+                ]
+              },
+              {
+                "name": "--out",
+                "description": "Write the selected format to a file.",
+                "arguments": [
+                  {
+                    "name": "file",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    }
+                  }
+                ]
+              }
+            ],
+            "examples": [
+              "designfy palette generate --base '#6750a4' --harmony analogous",
+              "designfy palette generate --base '#6750a4' --format tailwind --out theme.css"
+            ],
+            "exitCodes": [
+              {
+                "code": 0,
+                "description": "SUCCESS: Operation completed."
+              },
+              {
+                "code": 1,
+                "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+              },
+              {
+                "code": 2,
+                "description": "USAGE: Invalid arguments, options or subcommand."
+              },
+              {
+                "code": 6,
+                "description": "NOT_FOUND: Requested resource does not exist."
+              },
+              {
+                "code": 7,
+                "description": "PERMISSION: Permission denied on the file system."
+              }
+            ]
+          },
+          {
+            "name": "wheel",
+            "description": "Show the companion colors for all color-wheel harmonies.",
+            "arguments": [
+              {
+                "name": "color",
+                "description": "Color as #RGB, #RRGGBB, or oklch(L C H).",
+                "required": true
+              }
+            ],
+            "examples": [
+              "designfy palette wheel '#6750a4' --json"
+            ],
+            "exitCodes": [
+              {
+                "code": 0,
+                "description": "SUCCESS: Operation completed."
+              },
+              {
+                "code": 1,
+                "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+              },
+              {
+                "code": 2,
+                "description": "USAGE: Invalid arguments, options or subcommand."
+              }
+            ]
+          },
+          {
+            "name": "contrast",
+            "description": "Measure WCAG 2.2 and APCA contrast and list the WCAG verdicts by use.",
+            "arguments": [
+              {
+                "name": "foreground",
+                "description": "Foreground color as #RGB, #RRGGBB, or oklch(L C H).",
+                "required": true
+              },
+              {
+                "name": "background",
+                "description": "Background color as #RGB, #RRGGBB, or oklch(L C H).",
+                "required": true
+              }
+            ],
+            "options": [
+              {
+                "name": "--min",
+                "description": "Exit with code 10 if the WCAG ratio is below this value (1–21).",
+                "arguments": [
+                  {
+                    "name": "ratio",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    }
+                  }
+                ]
+              }
+            ],
+            "examples": [
+              "designfy palette contrast '#000' '#fff' --min 4.5"
+            ],
+            "exitCodes": [
+              {
+                "code": 0,
+                "description": "SUCCESS: Operation completed."
+              },
+              {
+                "code": 1,
+                "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+              },
+              {
+                "code": 2,
+                "description": "USAGE: Invalid arguments, options or subcommand."
+              },
+              {
+                "code": 10,
+                "description": "CHECK_FAILED: A check reported missing or invalid items."
+              }
+            ]
+          }
+        ],
+        "examples": [
+          "designfy palette generate --base '#6750a4'"
+        ],
+        "exitCodes": [
+          {
+            "code": 0,
+            "description": "SUCCESS: Operation completed."
+          },
+          {
+            "code": 1,
+            "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+          },
+          {
+            "code": 2,
+            "description": "USAGE: Invalid arguments, options or subcommand."
+          },
+          {
+            "code": 6,
+            "description": "NOT_FOUND: Requested resource does not exist."
+          },
+          {
+            "code": 7,
+            "description": "PERMISSION: Permission denied on the file system."
+          },
+          {
+            "code": 10,
+            "description": "CHECK_FAILED: A check reported missing or invalid items."
+          }
+        ]
+      },
+      {
+        "name": "viewspec",
+        "description": "Read and validate screen viewspecs and the project interface guide.",
+        "commands": [
+          {
+            "name": "guide",
+            "description": "Read the project guide, its rules by section and origin, and pending proposals.",
+            "examples": [
+              "designfy viewspec guide",
+              "designfy viewspec guide --json"
+            ],
+            "exitCodes": [
+              {
+                "code": 0,
+                "description": "SUCCESS: Operation completed."
+              },
+              {
+                "code": 1,
+                "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+              },
+              {
+                "code": 2,
+                "description": "USAGE: Invalid arguments, options or subcommand."
+              },
+              {
+                "code": 3,
+                "description": "CONFIG: settings.json missing, invalid or unknown key."
+              },
+              {
+                "code": 6,
+                "description": "NOT_FOUND: Requested resource does not exist."
+              },
+              {
+                "code": 7,
+                "description": "PERMISSION: Permission denied on the file system."
+              },
+              {
+                "code": 10,
+                "description": "CHECK_FAILED: A check reported missing or invalid items."
+              }
+            ]
+          },
+          {
+            "name": "list",
+            "description": "List screen viewspecs and show their checklist progress.",
+            "options": [
+              {
+                "name": "--status",
+                "description": "Filter by status. By default, include every status.",
+                "arguments": [
+                  {
+                    "name": "status",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    },
+                    "acceptedValues": [
+                      "draft",
+                      "in_progress",
+                      "blocked",
+                      "done",
+                      "archived"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "--kind",
+                "description": "Filter by screen kind. By default, include every kind.",
+                "arguments": [
+                  {
+                    "name": "kind",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    },
+                    "acceptedValues": [
+                      "landing-page",
+                      "home",
+                      "site-page",
+                      "blog-index",
+                      "blog-post",
+                      "docs-page",
+                      "dashboard",
+                      "table",
+                      "form",
+                      "crud",
+                      "detail",
+                      "settings",
+                      "auth",
+                      "other"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "examples": [
+              "designfy viewspec list",
+              "designfy viewspec list --status in_progress --kind dashboard --json"
+            ],
+            "exitCodes": [
+              {
+                "code": 0,
+                "description": "SUCCESS: Operation completed."
+              },
+              {
+                "code": 1,
+                "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+              },
+              {
+                "code": 2,
+                "description": "USAGE: Invalid arguments, options or subcommand."
+              },
+              {
+                "code": 3,
+                "description": "CONFIG: settings.json missing, invalid or unknown key."
+              },
+              {
+                "code": 7,
+                "description": "PERMISSION: Permission denied on the file system."
+              },
+              {
+                "code": 10,
+                "description": "CHECK_FAILED: A check reported missing or invalid items."
+              }
+            ]
+          },
+          {
+            "name": "show",
+            "description": "Read the front matter, sections, and checklist of one screen viewspec.",
+            "arguments": [
+              {
+                "name": "id",
+                "description": "Four-digit viewspec id, including leading zeros.",
+                "required": true
+              }
+            ],
+            "examples": [
+              "designfy viewspec show 0002",
+              "designfy viewspec show 0002 --json"
+            ],
+            "exitCodes": [
+              {
+                "code": 0,
+                "description": "SUCCESS: Operation completed."
+              },
+              {
+                "code": 1,
+                "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+              },
+              {
+                "code": 2,
+                "description": "USAGE: Invalid arguments, options or subcommand."
+              },
+              {
+                "code": 3,
+                "description": "CONFIG: settings.json missing, invalid or unknown key."
+              },
+              {
+                "code": 6,
+                "description": "NOT_FOUND: Requested resource does not exist."
+              },
+              {
+                "code": 7,
+                "description": "PERMISSION: Permission denied on the file system."
+              },
+              {
+                "code": 10,
+                "description": "CHECK_FAILED: A check reported missing or invalid items."
+              }
+            ]
+          },
+          {
+            "name": "progress",
+            "description": "Summarize screen viewspec counts, checklist progress, and the first available id.",
+            "examples": [
+              "designfy viewspec progress",
+              "designfy viewspec progress --json"
+            ],
+            "exitCodes": [
+              {
+                "code": 0,
+                "description": "SUCCESS: Operation completed."
+              },
+              {
+                "code": 1,
+                "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+              },
+              {
+                "code": 2,
+                "description": "USAGE: Invalid arguments, options or subcommand."
+              },
+              {
+                "code": 3,
+                "description": "CONFIG: settings.json missing, invalid or unknown key."
+              },
+              {
+                "code": 7,
+                "description": "PERMISSION: Permission denied on the file system."
+              },
+              {
+                "code": 10,
+                "description": "CHECK_FAILED: A check reported missing or invalid items."
+              }
+            ]
+          },
+          {
+            "name": "validate",
+            "description": "Check screen viewspecs and the project guide against their contract.",
+            "arguments": [
+              {
+                "name": "id",
+                "description": "Four-digit viewspec id, including leading zeros. With no id, check every screen.",
+                "required": false
+              }
+            ],
+            "examples": [
+              "designfy viewspec validate",
+              "designfy viewspec validate 0002 --json"
+            ],
+            "exitCodes": [
+              {
+                "code": 0,
+                "description": "SUCCESS: Operation completed."
+              },
+              {
+                "code": 1,
+                "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+              },
+              {
+                "code": 2,
+                "description": "USAGE: Invalid arguments, options or subcommand."
+              },
+              {
+                "code": 3,
+                "description": "CONFIG: settings.json missing, invalid or unknown key."
+              },
+              {
+                "code": 7,
+                "description": "PERMISSION: Permission denied on the file system."
+              },
+              {
+                "code": 10,
+                "description": "CHECK_FAILED: A check reported missing or invalid items."
+              }
+            ]
+          }
+        ],
+        "examples": [
+          "designfy viewspec list",
+          "designfy viewspec validate --json"
+        ],
+        "exitCodes": [
+          {
+            "code": 0,
+            "description": "SUCCESS: Operation completed."
+          },
+          {
+            "code": 1,
+            "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+          },
+          {
+            "code": 2,
+            "description": "USAGE: Invalid arguments, options or subcommand."
+          },
+          {
+            "code": 3,
+            "description": "CONFIG: settings.json missing, invalid or unknown key."
+          },
+          {
+            "code": 6,
+            "description": "NOT_FOUND: Requested resource does not exist."
+          },
+          {
+            "code": 7,
+            "description": "PERMISSION: Permission denied on the file system."
+          },
+          {
+            "code": 10,
+            "description": "CHECK_FAILED: A check reported missing or invalid items."
+          }
+        ]
+      },
+      {
+        "name": "capture",
+        "description": "Capture browser screenshots and inspect previous runs.",
+        "commands": [
+          {
+            "name": "run",
+            "description": "Capture each URL at the selected viewport sizes.",
+            "arguments": [
+              {
+                "name": "urls",
+                "description": "One or more HTTP or HTTPS URLs to capture.",
+                "required": true,
+                "arity": {
+                  "minimum": 1
+                }
+              }
+            ],
+            "options": [
+              {
+                "name": "--viewport",
+                "description": "Use mobile, tablet, desktop, wide, or WIDTHxHEIGHT. Repeat or separate with commas. Defaults to capture.viewports.",
+                "arguments": [
+                  {
+                    "name": "viewport",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    }
+                  }
+                ]
+              },
+              {
+                "name": "--theme",
+                "description": "Browser color scheme. Defaults to light.",
+                "arguments": [
+                  {
+                    "name": "theme",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    },
+                    "acceptedValues": [
+                      "light",
+                      "dark"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "--full-page",
+                "description": "Capture the full page. Enabled by default."
+              },
+              {
+                "name": "--fold",
+                "description": "Capture only the visible viewport."
+              },
+              {
+                "name": "--reduced-motion",
+                "description": "Set the browser preference to reduced motion."
+              },
+              {
+                "name": "--wait",
+                "description": "Wait this many milliseconds after page load. Defaults to zero.",
+                "arguments": [
+                  {
+                    "name": "ms",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    }
+                  }
+                ]
+              },
+              {
+                "name": "--selector",
+                "description": "Capture only the element matching this CSS selector.",
+                "arguments": [
+                  {
+                    "name": "css",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    }
+                  }
+                ]
+              },
+              {
+                "name": "--out",
+                "description": "Capture root directory. Defaults to the capture.outDir setting.",
+                "arguments": [
+                  {
+                    "name": "dir",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    }
+                  }
+                ]
+              },
+              {
+                "name": "--name",
+                "description": "Name the run directory. Defaults to a UTC timestamp.",
+                "arguments": [
+                  {
+                    "name": "run",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    }
+                  }
+                ]
+              }
+            ],
+            "examples": [
+              "designfy capture run http://localhost:4321 --viewport mobile,desktop",
+              "designfy capture run http://localhost:4321 --viewport mobile --viewport tablet --fold"
+            ],
+            "exitCodes": [
+              {
+                "code": 0,
+                "description": "SUCCESS: Operation completed."
+              },
+              {
+                "code": 1,
+                "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+              },
+              {
+                "code": 2,
+                "description": "USAGE: Invalid arguments, options or subcommand."
+              },
+              {
+                "code": 3,
+                "description": "CONFIG: settings.json missing, invalid or unknown key."
+              },
+              {
+                "code": 5,
+                "description": "NETWORK_OR_API: Network failure or unexpected API response."
+              },
+              {
+                "code": 6,
+                "description": "NOT_FOUND: Requested resource does not exist."
+              },
+              {
+                "code": 7,
+                "description": "PERMISSION: Permission denied on the file system."
+              },
+              {
+                "code": 10,
+                "description": "CHECK_FAILED: A check reported missing or invalid items."
+              }
+            ]
+          },
+          {
+            "name": "list",
+            "description": "List capture manifests from newest to oldest.",
+            "options": [
+              {
+                "name": "--out",
+                "description": "Capture root directory. Defaults to the capture.outDir setting.",
+                "arguments": [
+                  {
+                    "name": "dir",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    }
+                  }
+                ]
+              }
+            ],
+            "examples": [
+              "designfy capture list --json"
+            ],
+            "exitCodes": [
+              {
+                "code": 0,
+                "description": "SUCCESS: Operation completed."
+              },
+              {
+                "code": 1,
+                "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+              },
+              {
+                "code": 2,
+                "description": "USAGE: Invalid arguments, options or subcommand."
+              },
+              {
+                "code": 3,
+                "description": "CONFIG: settings.json missing, invalid or unknown key."
+              },
+              {
+                "code": 6,
+                "description": "NOT_FOUND: Requested resource does not exist."
+              },
+              {
+                "code": 7,
+                "description": "PERMISSION: Permission denied on the file system."
+              }
+            ]
+          }
+        ],
+        "examples": [
+          "designfy capture list"
+        ],
+        "exitCodes": [
+          {
+            "code": 0,
+            "description": "SUCCESS: Operation completed."
+          },
+          {
+            "code": 1,
+            "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+          },
+          {
+            "code": 2,
+            "description": "USAGE: Invalid arguments, options or subcommand."
+          },
+          {
+            "code": 3,
+            "description": "CONFIG: settings.json missing, invalid or unknown key."
+          },
+          {
+            "code": 5,
+            "description": "NETWORK_OR_API: Network failure or unexpected API response."
+          },
+          {
+            "code": 6,
+            "description": "NOT_FOUND: Requested resource does not exist."
+          },
+          {
+            "code": 7,
+            "description": "PERMISSION: Permission denied on the file system."
+          },
+          {
+            "code": 10,
+            "description": "CHECK_FAILED: A check reported missing or invalid items."
+          }
+        ]
+      },
+      {
         "name": "tui",
-        "description": "Open the terminal interface (Overview and About). Requires a TTY.",
+        "description": "Open the terminal interface. Requires a TTY.",
         "options": [
           {
             "name": "--tab",
-            "description": "Initial tab. Overrides tui.initialTab from settings.json.",
+            "description": "Initial screen (Home or module). Overrides tui.initialTab from settings.json.",
             "arguments": [
               {
                 "name": "tab",
@@ -95,6 +2113,18 @@
                 },
                 "acceptedValues": [
                   "overview",
+                  "theme",
+                  "catalog",
+                  "components",
+                  "skills",
+                  "deps",
+                  "mcp",
+                  "viewspecs",
+                  "captures",
+                  "project",
+                  "settings",
+                  "credentials",
+                  "docs",
                   "about"
                 ]
               }
@@ -102,8 +2132,8 @@
           }
         ],
         "examples": [
-          "termfy",
-          "termfy tui --tab about"
+          "designfy",
+          "designfy tui --tab about"
         ],
         "interactive": true,
         "exitCodes": [
@@ -129,8 +2159,8 @@
         "name": "about",
         "description": "Show version, executable, runtime, platform and credits.",
         "examples": [
-          "termfy about",
-          "termfy about --json"
+          "designfy about",
+          "designfy about --json"
         ],
         "exitCodes": [
           {
@@ -149,7 +2179,7 @@
       },
       {
         "name": "config",
-        "description": "Read and write preferences in ~/.termfy/settings.json.",
+        "description": "Read and write preferences in ~/.designfy/settings.json.",
         "commands": [
           {
             "name": "list",
@@ -158,8 +2188,8 @@
               "ls"
             ],
             "examples": [
-              "termfy config list",
-              "termfy config list --json"
+              "designfy config list",
+              "designfy config list --json"
             ],
             "exitCodes": [
               {
@@ -199,7 +2229,7 @@
               }
             ],
             "examples": [
-              "termfy config get tui.initialTab"
+              "designfy config get tui.initialTab"
             ],
             "exitCodes": [
               {
@@ -244,8 +2274,8 @@
               }
             ],
             "examples": [
-              "termfy config set output.format json",
-              "termfy config set output.colors false"
+              "designfy config set output.format json",
+              "designfy config set output.colors false"
             ],
             "exitCodes": [
               {
@@ -288,7 +2318,7 @@
               }
             ],
             "examples": [
-              "termfy config unset telemetry.enabled"
+              "designfy config unset telemetry.enabled"
             ],
             "exitCodes": [
               {
@@ -321,7 +2351,7 @@
             "name": "path",
             "description": "Print the data directory and file paths.",
             "examples": [
-              "termfy config path"
+              "designfy config path"
             ],
             "exitCodes": [
               {
@@ -342,7 +2372,7 @@
             "name": "schema",
             "description": "List the known keys with type, default and description.",
             "examples": [
-              "termfy config schema --json"
+              "designfy config schema --json"
             ],
             "exitCodes": [
               {
@@ -389,7 +2419,7 @@
       },
       {
         "name": "credentials",
-        "description": "Store encrypted secrets (AES-256-GCM) in ~/.termfy/credentials.json.",
+        "description": "Store encrypted secrets (AES-256-GCM) in ~/.designfy/credentials.json.",
         "aliases": [
           "cred"
         ],
@@ -411,8 +2441,8 @@
               }
             ],
             "examples": [
-              "termfy credentials set openai.api_key",
-              "printf '%s' \"$TOKEN\" | termfy credentials set github.token --stdin"
+              "designfy credentials set openai.api_key",
+              "printf '%s' \"$TOKEN\" | designfy credentials set github.token --stdin"
             ],
             "interactive": true,
             "exitCodes": [
@@ -459,8 +2489,8 @@
               }
             ],
             "examples": [
-              "termfy credentials get openai.api_key",
-              "termfy credentials get openai.api_key --reveal"
+              "designfy credentials get openai.api_key",
+              "designfy credentials get openai.api_key --reveal"
             ],
             "exitCodes": [
               {
@@ -496,7 +2526,7 @@
               "ls"
             ],
             "examples": [
-              "termfy credentials list --json"
+              "designfy credentials list --json"
             ],
             "exitCodes": [
               {
@@ -539,7 +2569,7 @@
               }
             ],
             "examples": [
-              "termfy credentials remove github.token"
+              "designfy credentials remove github.token"
             ],
             "exitCodes": [
               {
@@ -572,7 +2602,7 @@
             "name": "status",
             "description": "Show file, master key source and number of credentials.",
             "examples": [
-              "termfy credentials status"
+              "designfy credentials status"
             ],
             "exitCodes": [
               {
@@ -602,7 +2632,7 @@
               }
             ],
             "examples": [
-              "termfy credentials clear --yes"
+              "designfy credentials clear --yes"
             ],
             "interactive": true,
             "exitCodes": [
@@ -638,7 +2668,7 @@
             "options": [
               {
                 "name": "--from-env",
-                "description": "Use TERMFY_MASTER_KEY (64 hex characters) as the new key; read the current key from master.key."
+                "description": "Use DESIGNFY_MASTER_KEY (64 hex characters) as the new key; read the current key from master.key."
               }
             ],
             "exitCodes": [
@@ -703,11 +2733,119 @@
           {
             "name": "--list",
             "description": "Instead of starting the server, list registered tools, resources and prompts and exit."
+          },
+          {
+            "name": "--read-only",
+            "description": "Register only the tools that do not write to the project (leaves out components_add and capture_run)."
+          }
+        ],
+        "commands": [
+          {
+            "name": "servers",
+            "description": "List catalog servers and their configuration state in each project client.",
+            "examples": [
+              "designfy mcp servers --json"
+            ],
+            "exitCodes": [
+              {
+                "code": 0,
+                "description": "SUCCESS: Operation completed."
+              },
+              {
+                "code": 1,
+                "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+              },
+              {
+                "code": 2,
+                "description": "USAGE: Invalid arguments, options or subcommand."
+              },
+              {
+                "code": 3,
+                "description": "CONFIG: settings.json missing, invalid or unknown key."
+              },
+              {
+                "code": 6,
+                "description": "NOT_FOUND: Requested resource does not exist."
+              },
+              {
+                "code": 7,
+                "description": "PERMISSION: Permission denied on the file system."
+              }
+            ]
+          },
+          {
+            "name": "setup",
+            "description": "Configure catalog servers in supported MCP clients for this project.",
+            "arguments": [
+              {
+                "name": "servers",
+                "description": "Server IDs to configure. Defaults to the recommended servers.",
+                "required": false,
+                "arity": {
+                  "minimum": 0
+                }
+              }
+            ],
+            "options": [
+              {
+                "name": "--client",
+                "description": "Comma-separated clients: claude, codex, opencode, cursor, gemini. Defaults to detected clients or claude.",
+                "arguments": [
+                  {
+                    "name": "clients",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    }
+                  }
+                ]
+              },
+              {
+                "name": "--force",
+                "description": "Replace different entries for the selected servers."
+              },
+              {
+                "name": "--dry-run",
+                "description": "Show planned changes without writing files."
+              }
+            ],
+            "examples": [
+              "designfy mcp setup",
+              "designfy mcp setup shadcn --client codex,cursor --dry-run"
+            ],
+            "exitCodes": [
+              {
+                "code": 0,
+                "description": "SUCCESS: Operation completed."
+              },
+              {
+                "code": 1,
+                "description": "GENERIC_ERROR: Unexpected failure without a specific classification."
+              },
+              {
+                "code": 2,
+                "description": "USAGE: Invalid arguments, options or subcommand."
+              },
+              {
+                "code": 3,
+                "description": "CONFIG: settings.json missing, invalid or unknown key."
+              },
+              {
+                "code": 6,
+                "description": "NOT_FOUND: Requested resource does not exist."
+              },
+              {
+                "code": 7,
+                "description": "PERMISSION: Permission denied on the file system."
+              }
+            ]
           }
         ],
         "examples": [
-          "termfy mcp",
-          "termfy mcp --list --json"
+          "designfy mcp",
+          "designfy mcp --list --json",
+          "designfy mcp --read-only"
         ],
         "exitCodes": [
           {
@@ -747,9 +2885,9 @@
           }
         ],
         "examples": [
-          "termfy skill",
-          "termfy skill mcp",
-          "termfy --skill cli"
+          "designfy skill",
+          "designfy skill mcp",
+          "designfy --skill cli"
         ],
         "exitCodes": [
           {
@@ -768,7 +2906,7 @@
       },
       {
         "name": "doctor",
-        "description": "Check runtime, terminal, settings, key source and vault readability without changing files.",
+        "description": "Check runtime, terminal, settings, credentials and project setup without changing files.",
         "exitCodes": [
           {
             "code": 0,
@@ -820,12 +2958,16 @@
       }
     ],
     "examples": [
-      "termfy",
-      "termfy about --json",
-      "termfy config set output.format json",
-      "termfy credentials set openai.api_key",
-      "termfy mcp",
-      "termfy --skill"
+      "designfy",
+      "designfy init",
+      "designfy skills install",
+      "designfy catalog list --kind dashboard",
+      "designfy components add cn --framework react --dry-run",
+      "designfy theme show",
+      "designfy capture run http://localhost:4321/ --viewport mobile,desktop",
+      "designfy viewspec list --json",
+      "designfy mcp",
+      "designfy --skill"
     ],
     "exitCodes": [
       {
@@ -867,6 +3009,10 @@
       {
         "code": 9,
         "description": "MCP: The MCP server failed to start or lost the stdio transport."
+      },
+      {
+        "code": 10,
+        "description": "CHECK_FAILED: A check reported missing or invalid items."
       },
       {
         "code": 130,

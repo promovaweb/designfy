@@ -1,0 +1,146 @@
+---
+/**
+ * AnnouncementBar: Shows a dated message and link with an optional dismiss button.
+ * Motion: Slides into view. An optional continuous message pauses on hover, focus and off screen.
+ * Catalog: announcement-bar
+ */
+import { cn } from "@designfy/components/lib/cn";
+import Marquee from "@designfy/components/marquee/Marquee.astro";
+
+type Action = { label: string; href: string };
+
+interface Props {
+  /** Message content. */
+  message: string;
+  /** Optional short follow-up link. */
+  action?: Action;
+  /** Enables dismissal and labels the control. */
+  dismissLabel?: string;
+  /** Scroll a longer message instead of truncating. */
+  scrollMessage?: boolean;
+  /** Pause control name for a scrolling message. */
+  pauseLabel?: string;
+  /** Resume control name for a scrolling message. */
+  resumeLabel?: string;
+  /** Additional classes on the root element. */
+  class?: string;
+}
+
+const {
+  message,
+  action,
+  dismissLabel,
+  scrollMessage = false,
+  pauseLabel = "Pause announcement",
+  resumeLabel = "Resume announcement",
+  class: className,
+} = Astro.props;
+---
+
+<aside
+  data-site-announcement-bar
+  data-state="visible"
+  class={cn(
+    "animate-df-fade-down bg-primary text-primary-foreground",
+    className,
+  )}
+>
+  <div class="df-container flex items-center justify-center gap-3 text-sm">
+    {
+      scrollMessage ? (
+        <Marquee
+          items={[message]}
+          pauseLabel={pauseLabel}
+          resumeLabel={resumeLabel}
+          class="min-w-0 flex-1 space-y-0 sm:flex sm:items-center sm:gap-3 [&>div]:flex-1 [&>button]:shrink-0"
+        />
+      ) : (
+        <p title={message} class="min-w-0 truncate py-2">
+          {message}
+        </p>
+      )
+    }
+    {
+      action && (
+        <a
+          href={action.href}
+          class="inline-flex min-h-11 shrink-0 items-center font-semibold underline underline-offset-4 "
+        >
+          {action.label}
+        </a>
+      )
+    }
+    {
+      dismissLabel && (
+        <button
+          hidden
+          data-dismiss
+          type="button"
+          aria-label={dismissLabel}
+          class="df-press min-h-11 min-w-11 shrink-0 rounded-lg hover:bg-primary-foreground/10"
+        >
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            class="mx-auto size-4"
+          >
+            <path d="m6 6 12 12M18 6 6 18" />
+          </svg>
+        </button>
+      )
+    }
+  </div>
+</aside>
+
+<script is:inline>
+  (() => {
+    function bind(root) {
+      const button = root.querySelector("[data-dismiss]");
+      if (!button) return;
+      button.hidden = false;
+      const dismiss = () => {
+        root.dataset.state = "dismissed";
+        root.hidden = true;
+        document
+          .querySelector("header a[href]")
+          ?.focus({ preventScroll: true });
+      };
+      button.addEventListener("click", dismiss);
+      return () => button.removeEventListener("click", dismiss);
+    }
+
+    function prepare() {
+      document
+        .querySelectorAll("[data-site-announcement-bar]:not([data-site-bound])")
+        .forEach((root) => {
+          root.setAttribute("data-site-bound", "");
+          const dispose = bind(root);
+          if (dispose)
+            document.addEventListener(
+              "astro:before-swap",
+              () => {
+                dispose();
+                root.removeAttribute("data-site-bound");
+              },
+              { once: true },
+            );
+        });
+    }
+
+    prepare();
+    if (
+      !document.documentElement.hasAttribute(
+        "data-site-announcement-bar-listener",
+      )
+    ) {
+      document.documentElement.setAttribute(
+        "data-site-announcement-bar-listener",
+        "",
+      );
+      document.addEventListener("astro:page-load", prepare);
+    }
+  })();
+</script>

@@ -1,0 +1,43 @@
+---
+/** Sample signup landing page. The form deliberately has no submission endpoint. */
+import Layout from "../Layout.astro";
+import Background from "@/components/designfy/background/Background.astro";
+import HeroCentered from "@/components/designfy/hero-centered/HeroCentered.astro";
+import NewsletterForm from "@/components/designfy/newsletter-form/NewsletterForm.astro";
+import FeatureGrid from "@/components/designfy/feature-grid/FeatureGrid.astro";
+import ComparisonTable from "@/components/designfy/comparison-table/ComparisonTable.astro";
+import CtaBand from "@/components/designfy/cta-band/CtaBand.astro";
+import { comparison, features, plans, plansLink, signup } from "../sample";
+---
+
+<Layout title="Sample workspace preview">
+  <div id="preview">
+    <HeroCentered
+      headline="Follow a finding back to the source."
+      lead="Try the sample signup experience for a workspace that keeps research notes and decisions together."
+    >
+      <Background
+        slot="background"
+        preset="dark-dotted-grid"
+        fade="bottom"
+        className="absolute inset-0 opacity-55"
+      />
+      <NewsletterForm slot="form" {...signup} />
+    </HeroCentered>
+  </div>
+  <FeatureGrid
+    title="What you can do in the workspace"
+    lead="Follow the same steps a research team uses after a session."
+    items={features}
+  />
+  <ComparisonTable
+    title="Compare the sample plans"
+    options={plans.map((plan) => plan.name)}
+    groups={comparison}
+  />
+  <CtaBand
+    title="See the sample plan details"
+    action={plansLink}
+    variant="full"
+  />
+</Layout>

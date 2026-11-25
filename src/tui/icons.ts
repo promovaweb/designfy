@@ -26,6 +26,15 @@ export const ICON_MODES: readonly IconMode[] = ["auto", "nerd", "unicode", "asci
 
 /** Icon roles. Names follow what the icon means, not how it looks. */
 export type IconName =
+  | "designfy"
+  | "theme"
+  | "back"
+  | "next"
+  | "pending"
+  | "available"
+  | "installed"
+  | "outdated"
+  | "working"
   | "overview"
   | "about"
   | "settings"
@@ -55,6 +64,15 @@ export type IconSet = Readonly<Record<IconName, string>>;
 /** Glyph sets. Every glyph takes one cell; `ascii` may leave a role empty. */
 export const iconSets: Readonly<Record<Exclude<IconMode, "auto">, IconSet>> = {
   nerd: {
+    designfy: "",
+    theme: "",
+    back: "←",
+    next: "›",
+    pending: "!",
+    available: "○",
+    installed: "●",
+    outdated: "↑",
+    working: "…",
     overview: "", // nf-fa-home
     about: "", // nf-fa-info_circle
     settings: "", // nf-fa-cog
@@ -80,6 +98,15 @@ export const iconSets: Readonly<Record<Exclude<IconMode, "auto">, IconSet>> = {
     close: "", // nf-fa-times
   },
   unicode: {
+    designfy: "◆",
+    theme: "◐",
+    back: "←",
+    next: "›",
+    pending: "!",
+    available: "○",
+    installed: "●",
+    outdated: "↑",
+    working: "…",
     overview: "⌂",
     about: "ℹ",
     settings: "⚙",
@@ -105,6 +132,15 @@ export const iconSets: Readonly<Record<Exclude<IconMode, "auto">, IconSet>> = {
     close: "✕",
   },
   ascii: {
+    designfy: "*",
+    theme: "T",
+    back: "<",
+    next: ">",
+    pending: "!",
+    available: "o",
+    installed: "*",
+    outdated: "^",
+    working: "~",
     overview: "",
     about: "",
     settings: "",

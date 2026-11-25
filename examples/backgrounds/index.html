@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fundos do Designfy</title>
+  <link rel="stylesheet" href="../../registry/shared/backgrounds/designfy-backgrounds.css">
+  <style>
+    :root {
+      color-scheme: light;
+      --background: oklch(0.985 0.004 255);
+      --foreground: oklch(0.19 0.025 255);
+      --card: oklch(1 0 0);
+      --muted: oklch(0.86 0.02 255);
+      --muted-foreground: oklch(0.45 0.025 255);
+      --border: oklch(0.73 0.024 255);
+      --primary: oklch(0.56 0.20 264);
+      --primary-foreground: oklch(0.99 0.01 255);
+      --secondary: oklch(0.91 0.035 250);
+      --accent: oklch(0.69 0.18 374);
+      --ring: oklch(0.55 0.2 264);
+      --destructive: oklch(0.54 0.22 25);
+      --chart-1: oklch(0.55 0.2 264);
+      --chart-2: oklch(0.60 0.15 185);
+      --chart-3: oklch(0.70 0.16 58);
+      --chart-4: oklch(0.55 0.17 320);
+      --chart-5: oklch(0.68 0.18 140);
+    }
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --background: oklch(0.23 0.026 255);
+      --foreground: oklch(0.96 0.01 255);
+      --card: oklch(0.27 0.028 255);
+      --muted: oklch(0.41 0.04 255);
+      --muted-foreground: oklch(0.77 0.028 255);
+      --border: oklch(0.58 0.05 255);
+      --primary: oklch(0.72 0.17 264);
+      --primary-foreground: oklch(0.15 0.03 255);
+      --secondary: oklch(0.36 0.045 250);
+      --accent: oklch(0.77 0.17 374);
+      --ring: oklch(0.74 0.15 264);
+      --destructive: oklch(0.70 0.20 25);
+      --chart-1: oklch(0.72 0.17 264);
+      --chart-2: oklch(0.77 0.16 185);
+      --chart-3: oklch(0.80 0.15 58);
+      --chart-4: oklch(0.74 0.16 320);
+      --chart-5: oklch(0.80 0.18 140);
+    }
+    * { box-sizing: border-box; }
+    body {
+      max-width: 1440px;
+      margin: auto;
+      padding: clamp(1rem, 4vw, 3rem);
+      background: var(--background);
+      color: var(--foreground);
+      font: 1rem/1.45 system-ui, sans-serif;
+    }
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    h1 { margin: 0; font-size: clamp(2.25rem, 5vw, 3.25rem); line-height: 1.05; letter-spacing: -.045em; }
+    h2 { margin: 0 0 1rem; font-size: 1.5rem; }
+    section { margin-block: 2rem; }
+    .controls { display: flex; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    label { display: grid; gap: .25rem; font-size: .875rem; }
+    .equivalent-toggle { display: flex; align-items: center; gap: .45rem; cursor: pointer; }
+    input { margin: 0; accent-color: var(--primary); }
+    button {
+      padding: .55rem .8rem;
+      border: 1px solid var(--border);
+      border-radius: .5rem;
+      background: var(--card);
+      color: var(--foreground);
+      font: inherit;
+      cursor: pointer;
+    }
+    button:focus-visible, input:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); gap: .875rem; }
+    figure {
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: .625rem;
+      background: var(--card);
+    }
+    .preview {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      height: 10rem;
+      background: var(--background);
+    }
+    figcaption { padding: .625rem .75rem; border-top: 1px solid var(--border); overflow-wrap: anywhere; }
+    figcaption strong, code { display: block; }
+    figcaption strong { font-size: .875rem; }
+    code { margin-top: .125rem; color: var(--muted-foreground); font-size: .72rem; }
+    .equivalent-names { margin: .4rem 0 0; color: var(--muted-foreground); font-size: .78rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Fundos do Designfy</h1>
+    <div class="controls">
+      <label for="hue">
+        <span>Matiz primário <output id="degrees" for="hue">264°</output></span>
+        <input id="hue" type="range" min="0" max="360" value="264">
+      </label>
+      <label class="equivalent-toggle">
+        <input id="equivalents" type="checkbox">
+        Mostrar equivalentes
+      </label>
+      <button id="theme" type="button" aria-pressed="false">Modo escuro</button>
+    </div>
+  </header>
+  <main id="gallery"></main>
+  <noscript>Ative o JavaScript para exibir a galeria de fundos.</noscript>
+  <script id="background-presets" type="application/json">
+[
+  {"slug":"signal-grid","name":"Signal Grid","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"zinc-paper","name":"Zinc Paper","category":"decorative","variantOf":null,"variants":[]},
+  {"slug":"dusk-horizon","name":"Dusk Horizon","category":"gradients","variantOf":null,"variants":[]},
+  {"slug":"frost-panel","name":"Frost Panel","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"cyan-mesh","name":"Cyan Mesh","category":"gradients","variantOf":null,"variants":[]},
+  {"slug":"signal-drift","name":"Signal Drift","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"orbit-glow","name":"Orbit Glow","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"pulse-veil","name":"Pulse Veil","category":"gradients","variantOf":null,"variants":[]},
+  {"slug":"studio-navy-hairline","name":"Navy Hairline","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"studio-yellow-corner-wash","name":"Yellow Corner Wash","category":"gradients","variantOf":null,"variants":[]},
+  {"slug":"studio-ivory-dot-sheet","name":"Ivory Dot Sheet","category":"decorative","variantOf":null,"variants":[]},
+  {"slug":"studio-mist-crosshatch","name":"Mist Crosshatch","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"studio-cloud-horizon","name":"Cloud Horizon","category":"gradients","variantOf":null,"variants":[]},
+  {"slug":"studio-sand-mesh","name":"Sand Mesh","category":"decorative","variantOf":null,"variants":[]},
+  {"slug":"studio-quiet-columns","name":"Quiet Columns","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"studio-letterpress-lines","name":"Letterpress Lines","category":"decorative","variantOf":null,"variants":[]},
+  {"slug":"studio-pale-diagonal","name":"Pale Diagonal","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"studio-sky-wash","name":"Sky Wash","category":"gradients","variantOf":null,"variants":[]},
+  {"slug":"studio-cream-spotlight","name":"Cream Spotlight","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"studio-soft-blueprint","name":"Soft Blueprint","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"studio-graph-paper","name":"Graph Paper","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"studio-legal-pad","name":"Legal Pad","category":"decorative","variantOf":null,"variants":[]},
+  {"slug":"studio-vellum","name":"Vellum","category":"decorative","variantOf":null,"variants":[]},
+  {"slug":"studio-linen","name":"Linen","category":"decorative","variantOf":null,"variants":[]},
+  {"slug":"studio-whisper-stripes","name":"Whisper Stripes","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"studio-ivory-vignette","name":"Ivory Vignette","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"studio-ledger","name":"Ledger","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"studio-polar-dots","name":"Polar Dots","category":"decorative","variantOf":null,"variants":[]},
+  {"slug":"studio-soft-dual-glow","name":"Soft Dual Glow","category":"gradients","variantOf":null,"variants":[]},
+  {"slug":"studio-editorial-rules","name":"Editorial Rules","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"studio-cool-slate-wash","name":"Cool Slate Wash","category":"gradients","variantOf":null,"variants":[]},
+  {"slug":"studio-paper-sheen","name":"Paper Sheen","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"studio-navy-void","name":"Navy Void","category":"gradients","variantOf":null,"variants":[]},
+  {"slug":"studio-blueprint-dark","name":"Blueprint Dark","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"studio-amber-horizon","name":"Amber Horizon","category":"gradients","variantOf":null,"variants":[]},
+  {"slug":"studio-gold-dust","name":"Gold Dust","category":"decorative","variantOf":null,"variants":[]},
+  {"slug":"studio-carbon-lines","name":"Carbon Lines","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"studio-ink-mesh","name":"Ink Mesh","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"studio-ember-corner","name":"Ember Corner","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"studio-void-dots","name":"Void Dots","category":"decorative","variantOf":null,"variants":[]},
+  {"slug":"studio-night-cross","name":"Night Cross","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"studio-deep-wash","name":"Deep Wash","category":"gradients","variantOf":null,"variants":[]},
+  {"slug":"studio-scan-glow","name":"Scan Glow","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"studio-signal-pulse-navy","name":"Signal Pulse Navy","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"studio-oled-grid","name":"OLED Grid","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"studio-midnight-graph","name":"Midnight Graph","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"studio-constellation","name":"Constellation","category":"decorative","variantOf":null,"variants":[]},
+  {"slug":"studio-console-stripes","name":"Console Stripes","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"studio-deep-vignette","name":"Deep Vignette","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"studio-night-ledger","name":"Night Ledger","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"studio-navy-pin-dots","name":"Navy Pin Dots","category":"decorative","variantOf":null,"variants":[]},
+  {"slug":"studio-graphite-rules","name":"Graphite Rules","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"studio-deep-dual-glow","name":"Deep Dual Glow","category":"gradients","variantOf":null,"variants":[]},
+  {"slug":"studio-quiet-aurora","name":"Quiet Aurora","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"studio-obsidian-wash","name":"Obsidian Wash","category":"gradients","variantOf":null,"variants":[]},
+  {"slug":"studio-night-notebook","name":"Night Notebook","category":"decorative","variantOf":null,"variants":[]},
+  {"slug":"beach","name":"Beach","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"top-gradient-radial","name":"Top Gradient Radial","category":"decorative","variantOf":null,"variants":["top-violet-radial","top-slate-radial","dark-horizon-glow-top","crimson-depth-top","emerald-void-top","violet-abyss-top","azure-depths-top","orchid-depths-top"]},
+  {"slug":"bottom-gradient-radial","name":"Bottom Gradient Radial","category":"decorative","variantOf":null,"variants":["bottom-violet-radial","bottom-slate-radial"]},
+  {"slug":"top-violet-radial","name":"Top Violet Radial","category":"decorative","variantOf":"top-gradient-radial"},
+  {"slug":"bottom-violet-radial","name":"Bottom Violet Radial","category":"decorative","variantOf":"bottom-gradient-radial"},
+  {"slug":"top-slate-radial","name":"Top Slate Radial","category":"decorative","variantOf":"top-gradient-radial"},
+  {"slug":"bottom-slate-radial","name":"Bottom Slate Radial","category":"decorative","variantOf":"bottom-gradient-radial"},
+  {"slug":"top-teal-glow","name":"Top Teal Glow","category":"decorative","variantOf":null,"variants":["top-pink-glow","top-amber-glow","top-emerald-glow"]},
+  {"slug":"bottom-teal-glow","name":"Bottom Teal Glow","category":"decorative","variantOf":null,"variants":["bottom-pink-glow","bottom-amber-glow","bottom-emerald-glow","dark-horizon-glow","emerald-void","violet-abyss"]},
+  {"slug":"top-pink-glow","name":"Top Pink Glow","category":"decorative","variantOf":"top-teal-glow"},
+  {"slug":"bottom-pink-glow","name":"Bottom Pink Glow","category":"decorative","variantOf":"bottom-teal-glow"},
+  {"slug":"top-amber-glow","name":"Top Amber Glow","category":"decorative","variantOf":"top-teal-glow"},
+  {"slug":"bottom-amber-glow","name":"Bottom Amber Glow","category":"decorative","variantOf":"bottom-teal-glow"},
+  {"slug":"top-emerald-glow","name":"Top Emerald Glow","category":"decorative","variantOf":"top-teal-glow"},
+  {"slug":"bottom-emerald-glow","name":"Bottom Emerald Glow","category":"decorative","variantOf":"bottom-teal-glow"},
+  {"slug":"dark-horizon-glow","name":"Dark Horizon Glow","category":"decorative","variantOf":"bottom-teal-glow"},
+  {"slug":"crimson-depth","name":"Crimson Depth","category":"decorative","variantOf":null,"variants":["azure-depths","orchid-depths"]},
+  {"slug":"emerald-void","name":"Emerald Void","category":"decorative","variantOf":"bottom-teal-glow"},
+  {"slug":"violet-abyss","name":"Violet Abyss","category":"decorative","variantOf":"bottom-teal-glow"},
+  {"slug":"azure-depths","name":"Azure Depths","category":"decorative","variantOf":"crimson-depth"},
+  {"slug":"orchid-depths","name":"Orchid  Depths","category":"decorative","variantOf":"crimson-depth"},
+  {"slug":"dark-horizon-glow-top","name":"Dark Horizon Glow Top","category":"decorative","variantOf":"top-gradient-radial"},
+  {"slug":"crimson-depth-top","name":"Crimson Depth Top","category":"decorative","variantOf":"top-gradient-radial"},
+  {"slug":"emerald-void-top","name":"Emerald Void Top","category":"decorative","variantOf":"top-gradient-radial"},
+  {"slug":"violet-abyss-top","name":"Violet Abyss Top","category":"decorative","variantOf":"top-gradient-radial"},
+  {"slug":"azure-depths-top","name":"Azure Depths Top","category":"decorative","variantOf":"top-gradient-radial"},
+  {"slug":"orchid-depths-top","name":"Orchid Depths Top","category":"decorative","variantOf":"top-gradient-radial"},
+  {"slug":"purple-gradient-grid-right","name":"Purple Gradient Grid Right","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"purple-gradient-grid-left","name":"Purple Gradient Grid Left","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"dual-gradient-overlay-strong","name":"Dual Gradient Overlay","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"dual-gradient-overlay-strong-swapped","name":"Dual Gradient Overlay Swapped","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"dual-gradient-overlay-top","name":"Dual Gradient Overlay (Top)","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"dual-gradient-overlay-bottom","name":"Dual Gradient Overlay (Bottom)","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"purple-corner-grid","name":"Purple Corner Grid","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"grid-dual-purple-glow","name":"Grid Dual Purple Glow","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"grid-quad-purple-glow","name":"Grid Quad Purple Glow","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"top-fade-grid","name":"Top Fade Grid","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"bottom-fade-grid","name":"Bottom Fade Grid","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"diagonal-fade-grid-left","name":"Diagonal Fade Grid Left","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"diagonal-fade-grid-right","name":"Diagonal Fade Grid Right","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"diagonal-fade-bottom-grid-left","name":"Diagonal Fade Bottom Grid Left","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"diagonal-fade-bottom-grid-right","name":"Diagonal Fade Bottom Grid Right","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"diagonal-fade-center-grid","name":"Diagonal Fade Center Grid","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"diagonal-cross-grid","name":"Diagonal Cross Grid","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"diagonal-cross-grid-top","name":"Diagonal Cross Grid Top","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"diagonal-cross-grid-bottom","name":"Diagonal Cross Grid Bottom","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"diagonal-cross-top-right-fade-grid","name":"Diagonal Cross Top Right Fade Grid","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"diagonal-cross-top-left-fade-grid","name":"Diagonal Cross Top Left Fade Grid","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"diagonal-cross-bottom-right-fade-grid","name":"Diagonal Cross Bottom Right Fade Grid","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"diagonal-cross-bottom-left-fade-grid","name":"Diagonal Cross Bottom Left Fade Grid","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"diagonal-cross-center-fade-grid","name":"Diagonal Cross Center Fade Grid","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"dashed-grid-light","name":"Dashed Grid Light","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"dashed-top-fade-grid","name":"Dashed Top Fade Grid","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"dashed-bottom-fade-grid","name":"Dashed Bottom Fade Grid","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"dashed-top-left-fade-grid","name":"Dashed Top Left Fade Grid","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"dashed-top-right-fade-grid","name":"Dashed Top Right Fade Grid","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"dashed-bottom-right-fade-grid","name":"Dashed Bottom Right Fade Grid","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"dashed-bottom-left-fade-grid","name":"Dashed Bottom Left Fade Grid","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"dashed-center-fade-grid","name":"Dashed Center Fade Grid","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"left-masked-basic-grid","name":"Left Masked Basic Grid","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"right-masked-basic-grid","name":"Right Masked Basic Grid","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"left-masked-diagonal-cross-grid","name":"Left Masked Diagonal Cross Grid","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"right-masked-diagonal-cross-grid","name":"Right Masked Diagonal Cross Grid","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"left-masked-dashed-grid-light","name":"Left Masked Dashed Grid Light","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"right-masked-dashed-grid-light","name":"Right Masked Dashed Grid Light","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"left-masked-concentric-squares-light","name":"Left Masked Concentric Squares - Light","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"right-masked-concentric-squares-light","name":"Right Masked Concentric Squares - Light","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"left-masked-circuit-board-light","name":"Left Masked Circuit Board - Light","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"right-masked-circuit-board-light","name":"Right Masked Circuit Board - Light","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"left-masked-circuit-board","name":"Left Masked Circuit Board","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"right-masked-circuit-board","name":"Right Masked Circuit Board","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"left-masked-white-grid-with-dots","name":"Left Masked White Grid with Dots","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"right-masked-white-grid-with-dots","name":"Right Masked White Grid with Dots","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"left-masked-noise-texture-darker-dots","name":"Left Masked Noise Texture (Darker Dots)","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"right-masked-noise-texture-darker-dots","name":"Right Masked Noise Texture (Darker Dots)","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"dark-radial-glow","name":"Dark Radial Glow","category":"gradients","variantOf":null,"variants":[]},
+  {"slug":"blue-radial-glow","name":"Blue Radial Glow","category":"gradients","variantOf":null,"variants":[]},
+  {"slug":"purple-radial-glow","name":"Purple Radial Glow","category":"gradients","variantOf":null,"variants":["cyan-radial-glow","orange-radial-glow","pink-radial-glow","gold-radial-glow","red-radial-glow","lime-radial-glow"]},
+  {"slug":"cyan-radial-glow","name":"Cyan Radial Glow","category":"gradients","variantOf":"purple-radial-glow"},
+  {"slug":"orange-radial-glow","name":"Orange Radial Glow","category":"gradients","variantOf":"purple-radial-glow"},
+  {"slug":"pink-radial-glow","name":"Pink Radial Glow","category":"gradients","variantOf":"purple-radial-glow"},
+  {"slug":"gold-radial-glow","name":"Gold Radial Glow","category":"gradients","variantOf":"purple-radial-glow"},
+  {"slug":"red-radial-glow","name":"Red Radial Glow","category":"gradients","variantOf":"purple-radial-glow"},
+  {"slug":"lime-radial-glow","name":"Lime Radial Glow","category":"gradients","variantOf":"purple-radial-glow"},
+  {"slug":"emerald-radial-glow","name":"Emerald Radial Glow","category":"gradients","variantOf":null,"variants":[]},
+  {"slug":"aurora-waves","name":"Aurora Waves","category":"gradients","variantOf":null,"variants":[]},
+  {"slug":"aurora-dream-corner-whispers","name":"Aurora Dream Corner Whispers","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"aurora-dream-soft-harmony","name":"Aurora Dream Soft Harmony","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"aurora-dream-diagonal-flow","name":"Aurora Dream Diagonal Flow","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"aurora-dream-vivid-bloom","name":"Aurora Dream Vivid Bloom","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"dreamy-sky-pink-glow","name":"Dreamy Sky Pink Glow","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"peachy-mint-dream","name":"Peachy Mint Dream","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"soft-pastel-dream","name":"Soft Pastel Dream","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"dreamy-sunset-gradient","name":"Dreamy Sunset Gradient","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"soft-morning-mist","name":"Soft Morning Mist","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"peachy-sunrise-glow","name":"Peachy Sunrise Glow","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"mint-fresh-breeze","name":"Mint Fresh Breeze","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"cotton-candy-sky","name":"Cotton Candy Sky","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"cotton-candy-sky-reverse","name":"Cotton Candy Sky Reverse","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"spring-meadow-mist","name":"Spring Meadow Mist","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"ocean-breeze-fade","name":"Ocean Breeze Fade","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"lavender-blush-left-flow","name":"Lavender Blush Left Flow","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"lavender-blush-right-flow","name":"Lavender Blush Right Flow","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"minty-cloud-drift","name":"Minty Cloud Drift","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"rose-gold-whisper","name":"Rose Gold Whisper","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"aurora-silk-fade","name":"Aurora Silk Fade","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"beige-texture","name":"Warm Beige","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"soft-warm-pastel-texture","name":"Soft Warm Pastel","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"warm-light-apricot-coral","name":"Warm Light Apricot & Coral","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"warm-pastel-coral-cream","name":"Warm Soft Coral & Cream","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"soft-yellow-glow","name":"Soft Yellow Glow","category":"effects","variantOf":null,"variants":["soft-dark-yellow-glow"]},
+  {"slug":"soft-dark-yellow-glow","name":"Soft Dark Yellow Glow","category":"effects","variantOf":"soft-yellow-glow"},
+  {"slug":"orange-soft-glow","name":"Orange Soft Glow","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"soft-green-glow","name":"Soft Green Glow","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"purple-center-glow","name":"Purple Center Glow","category":"effects","variantOf":null,"variants":["indigo-center-glow","lime-center-glow","sunrise-glow","soft-lavender-center-glow","soft-pink-glow","light-sky-blue-glow","sunny-glow"]},
+  {"slug":"green-center-glow","name":"Green Center Glow","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"indigo-center-glow","name":"Indigo Center Glow","category":"effects","variantOf":"purple-center-glow"},
+  {"slug":"lime-center-glow","name":"Lime Center  Glow","category":"effects","variantOf":"purple-center-glow"},
+  {"slug":"sunrise-glow","name":"Sunrise Glow","category":"effects","variantOf":"purple-center-glow"},
+  {"slug":"soft-lavender-center-glow","name":"Soft Lavender Center Glow","category":"effects","variantOf":"purple-center-glow"},
+  {"slug":"soft-pink-glow","name":"Soft Pink Glow","category":"effects","variantOf":"purple-center-glow"},
+  {"slug":"light-sky-blue-glow","name":"Light Sky Blue Glow","category":"effects","variantOf":"purple-center-glow"},
+  {"slug":"sunny-glow","name":"Sunny Glow","category":"effects","variantOf":"purple-center-glow"},
+  {"slug":"purple-glow-bg","name":"Purple Glow Right","category":"effects","variantOf":null,"variants":["teal-glow-bg","warm-orange-glow-bg","cool-blue-glow-bg"]},
+  {"slug":"teal-glow-bg","name":"Teal Glow Right","category":"effects","variantOf":"purple-glow-bg"},
+  {"slug":"warm-orange-glow-bg","name":"Warm Orange Glow Right","category":"effects","variantOf":"purple-glow-bg"},
+  {"slug":"cool-blue-glow-bg","name":"Cool Blue Glow Right","category":"effects","variantOf":"purple-glow-bg"},
+  {"slug":"purple-glow-bg-left","name":"Purple Glow Left","category":"effects","variantOf":null,"variants":["teal-glow-bg-left","warm-orange-glow-bg-left","cool-blue-glow-bg-left"]},
+  {"slug":"teal-glow-bg-left","name":"Teal Glow Left","category":"effects","variantOf":"purple-glow-bg-left"},
+  {"slug":"warm-orange-glow-bg-left","name":"Warm Orange Glow Left","category":"effects","variantOf":"purple-glow-bg-left"},
+  {"slug":"cool-blue-glow-bg-left","name":"Cool Blue Glow Left","category":"effects","variantOf":"purple-glow-bg-left"},
+  {"slug":"purple-glow-bg-top","name":"Purple Glow Top","category":"effects","variantOf":null,"variants":["teal-glow-bg-top","warm-orange-glow-bg-top","cool-blue-glow-bg-top"]},
+  {"slug":"teal-glow-bg-top","name":"Teal Glow Top","category":"effects","variantOf":"purple-glow-bg-top"},
+  {"slug":"warm-orange-glow-bg-top","name":"Warm Orange Glow Top","category":"effects","variantOf":"purple-glow-bg-top"},
+  {"slug":"cool-blue-glow-bg-top","name":"Cool Blue Glow Top","category":"effects","variantOf":"purple-glow-bg-top"},
+  {"slug":"paper-texture","name":"Paper Texture","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"diagonal-lines","name":"Diagonal Stripes","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"diagonal-light","name":"Diagonal Grid - Light","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"diagonal-light-green","name":"Diagonal Grid - Electric","category":"geometric","variantOf":null,"variants":["diagonal-green-glow"]},
+  {"slug":"zigzag-lightning-light","name":"Zigzag Lightning - Light","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"circuit-board-light","name":"Circuit Board - Light","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"concentric-squares-light","name":"Concentric Squares - Light","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"woven-fabric-light","name":"Woven Fabric - Light","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"crosshatch-art-light","name":"Crosshatch Art - Light","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"white-grid-with-dots","name":"White Grid with Dots","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"noise-texture-darker-dots","name":"Noise Texture (Darker Dots)","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"circuit-board","name":"Circuit Board","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"basic-grid","name":"Basic Grid","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"white-sphere-grid","name":"White Sphere Grid","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"magenta-orb-grid-light","name":"Magenta Orb Grid Light","category":"geometric","variantOf":null,"variants":["magenta-orb-grid"]},
+  {"slug":"dark-sphere-grid","name":"Dark Sphere Grid","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"magenta-orb-grid","name":"Magenta Orb Grid","category":"geometric","variantOf":"magenta-orb-grid-light"},
+  {"slug":"dark-basic-grid-slate","name":"Dark Basic Grid","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"dark-basic-grid-faded","name":"Dark Basic Grid (Faded)","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"black-basic-grid","name":"Black Basic Grid","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"vercel-grid-subtle","name":"Vercel Grid Subtle","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"dark-grid-lines","name":"Dark Grid Lines","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"pixel-grid-pattern","name":"Pixel Grid Pattern","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"neon-vertical-lines","name":"Neon Vertical Lines","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"dark-dot-matrix","name":"Dark Dot Matrix","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"small-grid","name":"Small Grid","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"black-grid-white-dots","name":"Black Grid with White Dots","category":"geometric","variantOf":null,"variants":["dark-grid-white-dots"]},
+  {"slug":"dark-grid-white-dots","name":"Dark Grid with White Dots","category":"geometric","variantOf":"black-grid-white-dots"},
+  {"slug":"dark-dotted-grid","name":"Dark Dotted Grid","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"dark-white-dotted-grid","name":"Dark White Dotted Grid","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"dark-noise-colored-high","name":"Dark Noise Colored","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"matrix-green","name":"Matrix Green","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"diagonal-green-glow","name":"Diagonal Grid - Green Glow","category":"geometric","variantOf":"diagonal-light-green"},
+  {"slug":"diagonal-red-blue-glow","name":"Diagonal Grid - Red/Blue Glow","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"diagonal-electric-erange","name":"Diagonal Grid - Electric Orange","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"complex-multiplier","name":"Complex Multiplier","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"hexagonal-lines","name":"Hexagonal Lines","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"diagonal-synthwave","name":"Diagonal Grid - Synthwave","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"gradient-left-diagonal-lines","name":"Gradient Left Diagonal Lines","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"gradient-right-diagonal-lines","name":"Gradient Right Diagonal Lines","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"cross-diagonal-lines","name":"Cross Diagonal Lines","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"multi-cross-diagonal-lines","name":"Multi Cross Diagonal Lines","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"variable-spacing","name":"Variable Spacing","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"circuit-board-vibes","name":"Circuit Board Vibes","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"zigzag-lightning-dark","name":"Zigzag Lightning - Dark","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"circuit-board-dark","name":"Circuit Board - Dark","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"dark-circuit-board","name":"Dark Circuit Board","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"concentric-squares-dark","name":"Concentric Squares - Dark","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"crosshatch-art-dark","name":"Crosshatch Art - Dark","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"aurora-midnight-glow","name":"Aurora Midnight Glow","category":"gradients","variantOf":null,"variants":["crimson-shadow-glow","emerald-depths-glow","violet-storm-glow","golden-horizon-glow","ocean-abyss-glow","rose-twilight-glow","copper-forge-glow","arctic-lights-glow","indigo-cosmos-glow","magenta-nebula-glow"]},
+  {"slug":"crimson-shadow-glow","name":"Crimson Shadow Glow","category":"gradients","variantOf":"aurora-midnight-glow"},
+  {"slug":"emerald-depths-glow","name":"Emerald Depths Glow","category":"gradients","variantOf":"aurora-midnight-glow"},
+  {"slug":"violet-storm-glow","name":"Violet Storm Glow","category":"gradients","variantOf":"aurora-midnight-glow"},
+  {"slug":"golden-horizon-glow","name":"Golden Horizon Glow","category":"gradients","variantOf":"aurora-midnight-glow"},
+  {"slug":"ocean-abyss-glow","name":"Ocean Abyss Glow","category":"gradients","variantOf":"aurora-midnight-glow"},
+  {"slug":"rose-twilight-glow","name":"Rose Twilight Glow","category":"gradients","variantOf":"aurora-midnight-glow"},
+  {"slug":"copper-forge-glow","name":"Copper Forge Glow","category":"gradients","variantOf":"aurora-midnight-glow"},
+  {"slug":"arctic-lights-glow","name":"Arctic Lights Glow","category":"gradients","variantOf":"aurora-midnight-glow"},
+  {"slug":"indigo-cosmos-glow","name":"Indigo Cosmos Glow","category":"gradients","variantOf":"aurora-midnight-glow"},
+  {"slug":"pearl-mist-glow","name":"Pearl Mist Glow","category":"gradients","variantOf":null,"variants":[]},
+  {"slug":"magenta-nebula-glow","name":"Magenta Nebula Glow","category":"gradients","variantOf":"aurora-midnight-glow"},
+  {"slug":"pink-aurora-top","name":"Pink Aurora Top","category":"gradients","variantOf":null,"variants":[]},
+  {"slug":"crystal-maze","name":"Crystal Maze","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"moonlit-fog","name":"Moonlit Fog","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"pastel-wave","name":"Pastel Wave","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"soft-blue-radial","name":"Soft Blue Radial","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"morning-haze","name":"Morning Haze","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"midnight-mist","name":"Midnight Mist","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"aurora-mystic-mist","name":"Aurora Mystic Mist","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"tropical-dusk-glow","name":"Tropical Dusk Glow","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"ember-glow","name":"Ember Glow","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"cosmic-aurora","name":"Cosmic Aurora","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"midnight-ember","name":"Midnight Ember","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"deep-ocean-glow","name":"Deep Ocean Glow","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"cosmic-noise","name":"Cosmic Noise","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"volcanic-ember","name":"Volcanic Ember","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"crimson-core-glow","name":"Crimson Core Glow","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"northern-aurora","name":"Northern Aurora","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"cosmic-sparkle","name":"Cosmic Sparkle","category":"effects","variantOf":null,"variants":[]},
+  {"slug":"striped-dark","name":"Striped Dark","category":"geometric","variantOf":null,"variants":[]},
+  {"slug":"midnight-aurora-glow","name":"Midnight Aurora Glow","category":"gradients","variantOf":null,"variants":[]},
+  {"slug":"midnight-radial-glow","name":"Midnight Radial Glow","category":"gradients","variantOf":null,"variants":[]},
+  {"slug":"deep-navy-gold","name":"Deep Navy & Gold","category":"gradients","variantOf":null,"variants":[]},
+  {"slug":"rich-burgundy","name":"Rich Burgundy","category":"gradients","variantOf":null,"variants":[]},
+  {"slug":"forest-emerald","name":"Forest Emerald","category":"gradients","variantOf":null,"variants":["copper-bronze"]},
+  {"slug":"royal-purple","name":"Royal Purple","category":"gradients","variantOf":null,"variants":[]},
+  {"slug":"copper-bronze","name":"Copper & Bronze","category":"gradients","variantOf":"forest-emerald"},
+  {"slug":"steel-blue","name":"Steel Blue","category":"gradients","variantOf":null,"variants":[]},
+  {"slug":"warm-amber","name":"Warm Amber","category":"gradients","variantOf":null,"variants":[]},
+  {"slug":"moonlight-silver","name":"Moonlight Silver","category":"gradients","variantOf":null,"variants":[]},
+  {"slug":"center-spotlight-white","name":"White Spotlight","category":"gradients","variantOf":null,"variants":["center-spotlight"]},
+  {"slug":"center-spotlight-blue","name":"Blue Spotlight","category":"gradients","variantOf":null,"variants":["center-spotlight-emerald","center-spotlight-crimson","center-spotlight-violet","center-spotlight-amber","center-spotlight-cyan","center-spotlight-rose"]},
+  {"slug":"center-spotlight-emerald","name":"Emerald Spotlight","category":"gradients","variantOf":"center-spotlight-blue"},
+  {"slug":"center-spotlight-crimson","name":"Crimson Spotlight","category":"gradients","variantOf":"center-spotlight-blue"},
+  {"slug":"center-spotlight-violet","name":"Violet Spotlight","category":"gradients","variantOf":"center-spotlight-blue"},
+  {"slug":"center-spotlight-amber","name":"Amber Spotlight","category":"gradients","variantOf":"center-spotlight-blue"},
+  {"slug":"center-spotlight-cyan","name":"Cyan Spotlight","category":"gradients","variantOf":"center-spotlight-blue"},
+  {"slug":"center-spotlight-rose","name":"Rose Spotlight","category":"gradients","variantOf":"center-spotlight-blue"},
+  {"slug":"center-spotlight","name":"Center Spotlight","category":"gradients","variantOf":"center-spotlight-white"},
+  {"slug":"top-spotlight","name":"Top Spotlight","category":"gradients","variantOf":null,"variants":[]},
+  {"slug":"aurora-edge-glow","name":"Aurora Edge Glow","category":"gradients","variantOf":null,"variants":[]},
+  {"slug":"purple-radial-bloom-light","name":"Purple Radial Bloom Light","category":"decorative","variantOf":null,"variants":[]},
+  {"slug":"purple-corner-less","name":"Purple Corner Less","category":"decorative","variantOf":null,"variants":["purple-corner-high","blue-corner-glow","green-corner-soft","orange-corner-warm","teal-corner-cool","yellow-corner-bright","indigo-corner-deep","rose-corner-elegant"]},
+  {"slug":"purple-corner-high","name":"Purple Corner High","category":"decorative","variantOf":"purple-corner-less"},
+  {"slug":"blue-corner-glow","name":"Blue Corner Glow","category":"decorative","variantOf":"purple-corner-less"},
+  {"slug":"green-corner-soft","name":"Green Corner Soft","category":"decorative","variantOf":"purple-corner-less"},
+  {"slug":"pink-corner-dream","name":"Pink Corner Dream","category":"decorative","variantOf":null,"variants":[]},
+  {"slug":"orange-corner-warm","name":"Orange Corner Warm","category":"decorative","variantOf":"purple-corner-less"},
+  {"slug":"teal-corner-cool","name":"Teal Corner Cool","category":"decorative","variantOf":"purple-corner-less"},
+  {"slug":"yellow-corner-bright","name":"Yellow Corner Bright","category":"decorative","variantOf":"purple-corner-less"},
+  {"slug":"indigo-corner-deep","name":"Indigo Corner Deep","category":"decorative","variantOf":"purple-corner-less"},
+  {"slug":"rose-corner-elegant","name":"Rose Corner Elegant","category":"decorative","variantOf":"purple-corner-less"},
+  {"slug":"violet-dream-sphere","name":"Violet Dream Sphere","category":"decorative","variantOf":null,"variants":[]},
+  {"slug":"lavender-cosmic-glow","name":"Lavender Cosmic Glow","category":"decorative","variantOf":null,"variants":[]},
+  {"slug":"purple-haze-burst","name":"Purple Haze Burst","category":"decorative","variantOf":null,"variants":[]},
+  {"slug":"mystic-purple-orb","name":"Mystic Purple Orb","category":"decorative","variantOf":null,"variants":[]},
+  {"slug":"soft-rose-glow-right-corner","name":"Soft Rose Glow Right Corner","category":"decorative","variantOf":null,"variants":[]},
+  {"slug":"soft-rose-glow-left-corner","name":"Soft Rose Glow Left Corner","category":"decorative","variantOf":null,"variants":[]},
+  {"slug":"soft-rose-glow-corners","name":"Soft Rose Glow Dual Corners","category":"decorative","variantOf":null,"variants":[]},
+  {"slug":"prismatic-aurora-burst","name":"Prismatic Aurora Burst","category":"gradients","variantOf":null,"variants":[]},
+  {"slug":"cosmic-nebula","name":"Cosmic Nebula","category":"gradients","variantOf":null,"variants":[]},
+  {"slug":"stellar-mist","name":"Stellar Mist","category":"gradients","variantOf":null,"variants":[]},
+  {"slug":"diagonal-striped-grid","name":"Diagonal Striped Grid","category":"geometric","variantOf":null,"variants":[]}
+]
+</script>
+  <script>
+    // Preset metadata is embedded so the gallery also works from a file URL.
+    const presets = JSON.parse(document.querySelector("#background-presets").textContent);
+    const categories = { gradients: "Gradientes", geometric: "Geométricos", decorative: "Decorativos", effects: "Efeitos" };
+    const gallery = document.querySelector("#gallery");
+    const root = document.documentElement;
+    const button = document.querySelector("#theme");
+    const slider = document.querySelector("#hue");
+    const degrees = document.querySelector("#degrees");
+    const equivalentToggle = document.querySelector("#equivalents");
+    const bySlug = new Map(presets.map((preset) => [preset.slug, preset]));
+    const equivalentCards = [];
+
+    function element(tag, text, className) {
+      const node = document.createElement(tag);
+      if (text) node.textContent = text;
+      if (className) node.className = className;
+      return node;
+    }
+
+    for (const [category, name] of Object.entries(categories)) {
+      const section = element("section");
+      const heading = element("h2", name);
+      heading.id = category;
+      section.setAttribute("aria-labelledby", category);
+      const grid = element("div", "", "grid");
+      for (const preset of presets.filter((entry) => entry.category === category)) {
+        const card = element("figure");
+        if (preset.variantOf) equivalentCards.push(card);
+        const preview = element("div", "", "preview");
+        const layer = element("div");
+        layer.dataset.dfBg = preset.slug;
+        preview.setAttribute("aria-hidden", "true");
+        preview.append(layer);
+        const caption = element("figcaption");
+        caption.append(element("strong", preset.name), element("code", preset.slug));
+        if (preset.variants?.length) {
+          const names = preset.variants.map((slug) => bySlug.get(slug).name);
+          caption.append(element("p", `Equivalentes: ${names.join(", ")}`, "equivalent-names"));
+        } else if (preset.variantOf) {
+          caption.append(element("p", `Equivalente a ${bySlug.get(preset.variantOf).name}`, "equivalent-names"));
+        }
+        card.append(preview, caption);
+        grid.append(card);
+      }
+      section.append(heading, grid);
+      gallery.append(section);
+    }
+
+    function updateEquivalents() {
+      for (const card of equivalentCards) card.hidden = !equivalentToggle.checked;
+    }
+    updateEquivalents();
+    equivalentToggle.addEventListener("change", updateEquivalents);
+
+    function updateHue() {
+      const hue = slider.valueAsNumber;
+      const dark = root.dataset.theme === "dark";
+      root.style.setProperty("--primary", dark ? `oklch(0.72 0.17 ${hue})` : `oklch(0.56 0.20 ${hue})`);
+      root.style.setProperty("--accent", dark ? `oklch(0.77 0.17 ${hue + 110})` : `oklch(0.69 0.18 ${hue + 110})`);
+      degrees.value = `${hue}°`;
+    }
+
+    button.addEventListener("click", () => {
+      const dark = root.dataset.theme !== "dark";
+      root.dataset.theme = dark ? "dark" : "light";
+      button.setAttribute("aria-pressed", String(dark));
+      updateHue();
+    });
+    slider.addEventListener("input", updateHue);
+  </script>
+</body>
+</html>

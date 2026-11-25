@@ -1,0 +1,4335 @@
+{
+  "schemaVersion": 1,
+  "categories": [
+    {
+      "id": "actions",
+      "title": "Actions",
+      "surface": "both"
+    },
+    {
+      "id": "containers",
+      "title": "Containers",
+      "surface": "both"
+    },
+    {
+      "id": "layout",
+      "title": "Layout and backgrounds",
+      "surface": "both"
+    },
+    {
+      "id": "motion",
+      "title": "Motion",
+      "surface": "both"
+    },
+    {
+      "id": "navigation",
+      "title": "Navigation",
+      "surface": "both"
+    },
+    {
+      "id": "data-display",
+      "title": "Data display",
+      "surface": "both"
+    },
+    {
+      "id": "feedback",
+      "title": "Feedback and states",
+      "surface": "both"
+    },
+    {
+      "id": "site-navigation",
+      "title": "Site navigation",
+      "surface": "site"
+    },
+    {
+      "id": "hero",
+      "title": "Hero",
+      "surface": "site"
+    },
+    {
+      "id": "site-sections",
+      "title": "Site sections",
+      "surface": "site"
+    },
+    {
+      "id": "content",
+      "title": "Content and articles",
+      "surface": "site"
+    },
+    {
+      "id": "shell",
+      "title": "System shell",
+      "surface": "system"
+    },
+    {
+      "id": "forms",
+      "title": "Forms",
+      "surface": "system"
+    },
+    {
+      "id": "settings",
+      "title": "Settings",
+      "surface": "system"
+    },
+    {
+      "id": "auth",
+      "title": "Authentication",
+      "surface": "system"
+    }
+  ],
+  "entries": [
+    {
+      "id": "button",
+      "name": "Button",
+      "surface": "both",
+      "category": "actions",
+      "purpose": "Triggers an action or submits a form.",
+      "useWhen": [
+        "The person changes something, sends data or moves to the next step.",
+        "One primary action per screen region."
+      ],
+      "avoidWhen": [
+        "Plain navigation between pages: use a link.",
+        "More than one primary button in the same region."
+      ],
+      "anatomy": [
+        "label",
+        "leading or trailing icon (optional)",
+        "loading indicator"
+      ],
+      "variants": [
+        "primary",
+        "secondary",
+        "outline",
+        "ghost",
+        "destructive",
+        "link",
+        "icon-only",
+        "sizes sm, md, lg"
+      ],
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active",
+        "disabled",
+        "loading"
+      ],
+      "responsive": "Height of at least 44 px on touch screens; full width inside narrow forms and stacked action groups.",
+      "motion": "Background and shadow transition in 150 ms; pressed state scales to 0.98; the loading spinner replaces the icon without changing the width.",
+      "accessibility": [
+        "Native <button> or <a> with the right role.",
+        "Icon-only buttons carry an accessible name.",
+        "Loading sets aria-busy and keeps the label readable."
+      ],
+      "tokens": [
+        "primary",
+        "primary-foreground",
+        "ring",
+        "radius",
+        "secondary",
+        "destructive"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page",
+        "blog-index",
+        "blog-post",
+        "docs-page",
+        "dashboard",
+        "table",
+        "form",
+        "crud",
+        "detail",
+        "settings",
+        "auth"
+      ],
+      "related": [
+        "link",
+        "dropdown-menu"
+      ],
+      "sources": [
+        "shadcn:button"
+      ]
+    },
+    {
+      "id": "link",
+      "name": "Text link",
+      "surface": "both",
+      "category": "actions",
+      "purpose": "Moves to another page or to an anchor.",
+      "useWhen": [
+        "Navigation inside running text, lists and footers.",
+        "A secondary action next to a primary button."
+      ],
+      "avoidWhen": [
+        "Actions that change data."
+      ],
+      "anatomy": [
+        "text",
+        "underline or weight change",
+        "external mark (optional)"
+      ],
+      "variants": [
+        "inline",
+        "standalone with arrow",
+        "muted"
+      ],
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "visited (content pages)"
+      ],
+      "responsive": "Standalone links keep 44 px of touch height through padding.",
+      "motion": "Underline offset or thickness animates on hover in 150 ms; the arrow of a standalone link moves 2 px.",
+      "accessibility": [
+        "Link text says the destination out of context.",
+        "External links announce that they open elsewhere when they do."
+      ],
+      "tokens": [
+        "primary",
+        "foreground",
+        "ring"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page",
+        "blog-index",
+        "blog-post",
+        "docs-page",
+        "dashboard",
+        "table",
+        "form",
+        "crud",
+        "detail",
+        "settings"
+      ],
+      "related": [
+        "button"
+      ],
+      "sources": [
+        "custom"
+      ]
+    },
+    {
+      "id": "card",
+      "name": "Card",
+      "surface": "both",
+      "category": "containers",
+      "purpose": "Groups one subject in a bounded surface.",
+      "useWhen": [
+        "A list of comparable items (plans, posts, records).",
+        "A self-contained block in a dashboard."
+      ],
+      "avoidWhen": [
+        "A card inside another card.",
+        "Wrapping every section of a page in a card."
+      ],
+      "anatomy": [
+        "header (title, description, action)",
+        "content",
+        "footer"
+      ],
+      "variants": [
+        "plain",
+        "interactive (whole card is a link)",
+        "with media",
+        "highlighted"
+      ],
+      "states": [
+        "default",
+        "hover (interactive)",
+        "focus-visible (interactive)",
+        "loading",
+        "selected"
+      ],
+      "responsive": "Fluid width inside a grid with minmax(0, 1fr); padding steps down one level below 640 px.",
+      "motion": "Interactive cards lift 2 px and strengthen the border on hover in 200 ms; entrance in a staggered reveal with the list.",
+      "accessibility": [
+        "An interactive card exposes one link, with the heading as its name.",
+        "Heading level follows the page outline."
+      ],
+      "tokens": [
+        "card",
+        "card-foreground",
+        "border",
+        "radius"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page",
+        "blog-index",
+        "blog-post",
+        "docs-page",
+        "dashboard",
+        "table",
+        "form",
+        "crud",
+        "detail",
+        "settings"
+      ],
+      "related": [
+        "stat-card",
+        "post-card",
+        "pricing-table"
+      ],
+      "sources": [
+        "shadcn:card",
+        "designfy:card"
+      ]
+    },
+    {
+      "id": "badge",
+      "name": "Badge",
+      "surface": "both",
+      "category": "data-display",
+      "purpose": "Labels a status, category or count in one or two words.",
+      "useWhen": [
+        "Status of a record.",
+        "Category of a post or plan."
+      ],
+      "avoidWhen": [
+        "Long text.",
+        "Color as the only carrier of meaning."
+      ],
+      "anatomy": [
+        "label",
+        "icon or dot (optional)"
+      ],
+      "variants": [
+        "neutral",
+        "success",
+        "warning",
+        "destructive",
+        "info",
+        "outline"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Does not wrap; truncates with a title when the column is narrow.",
+      "motion": "A status change cross-fades the color in 200 ms.",
+      "accessibility": [
+        "Status has text, never color alone.",
+        "Contrast of 4.5:1 for the label."
+      ],
+      "tokens": [
+        "secondary",
+        "success",
+        "warning",
+        "destructive",
+        "info",
+        "radius"
+      ],
+      "kinds": [
+        "blog-index",
+        "blog-post",
+        "docs-page",
+        "dashboard",
+        "table",
+        "form",
+        "crud",
+        "detail",
+        "settings",
+        "home",
+        "site-page"
+      ],
+      "related": [
+        "status-indicator"
+      ],
+      "sources": [
+        "shadcn:badge"
+      ]
+    },
+    {
+      "id": "avatar",
+      "name": "Avatar",
+      "surface": "both",
+      "category": "data-display",
+      "purpose": "Represents a person or an organization.",
+      "useWhen": [
+        "Author, assignee, account menu, testimonial."
+      ],
+      "avoidWhen": [
+        "Decoration without a real person or entity."
+      ],
+      "anatomy": [
+        "image",
+        "initials fallback",
+        "status mark (optional)"
+      ],
+      "variants": [
+        "sizes",
+        "group with overflow count",
+        "square for organizations"
+      ],
+      "states": [
+        "image",
+        "fallback",
+        "loading"
+      ],
+      "responsive": "Sizes follow the density of the region; groups collapse to a count on narrow screens.",
+      "motion": "Image fades in over the fallback in 150 ms.",
+      "accessibility": [
+        "Alt text with the name, or empty alt when the name is beside it."
+      ],
+      "tokens": [
+        "muted",
+        "muted-foreground",
+        "border"
+      ],
+      "kinds": [
+        "blog-index",
+        "blog-post",
+        "docs-page",
+        "dashboard",
+        "table",
+        "form",
+        "crud",
+        "detail",
+        "settings",
+        "home",
+        "site-page",
+        "landing-page"
+      ],
+      "related": [
+        "author-box"
+      ],
+      "sources": [
+        "shadcn:avatar"
+      ]
+    },
+    {
+      "id": "tabs",
+      "name": "Tabs",
+      "surface": "both",
+      "category": "navigation",
+      "purpose": "Switches between views of the same subject without leaving the page.",
+      "useWhen": [
+        "Two to six parallel views of one record or section."
+      ],
+      "avoidWhen": [
+        "Steps of a sequence.",
+        "More views than fit: use a select or a side navigation."
+      ],
+      "anatomy": [
+        "tab list",
+        "tab",
+        "active indicator",
+        "panel"
+      ],
+      "variants": [
+        "underline",
+        "pill",
+        "vertical"
+      ],
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "selected",
+        "disabled"
+      ],
+      "responsive": "The list scrolls horizontally with a fade on the edge below 640 px, or becomes a select when there are more than four tabs.",
+      "motion": "The active indicator slides between tabs with a layout animation in 250 ms; the panel content fades in 150 ms.",
+      "accessibility": [
+        "tablist, tab and tabpanel roles with arrow key navigation.",
+        "The selected tab is in the URL when it represents a place."
+      ],
+      "tokens": [
+        "foreground",
+        "muted-foreground",
+        "primary",
+        "border"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page",
+        "dashboard",
+        "table",
+        "form",
+        "crud",
+        "detail",
+        "settings"
+      ],
+      "related": [
+        "segmented-control",
+        "accordion"
+      ],
+      "sources": [
+        "shadcn:tabs"
+      ]
+    },
+    {
+      "id": "accordion",
+      "name": "Accordion",
+      "surface": "both",
+      "category": "containers",
+      "purpose": "Shows and hides sections of content in place.",
+      "useWhen": [
+        "Questions and answers.",
+        "Secondary details that most people skip."
+      ],
+      "avoidWhen": [
+        "Content everyone needs to read.",
+        "Critical form fields."
+      ],
+      "anatomy": [
+        "item",
+        "trigger with heading",
+        "chevron",
+        "panel"
+      ],
+      "variants": [
+        "single open",
+        "multiple open",
+        "bordered",
+        "flush"
+      ],
+      "states": [
+        "closed",
+        "open",
+        "hover",
+        "focus-visible"
+      ],
+      "responsive": "Full width; trigger of at least 48 px.",
+      "motion": "The panel opens with grid-template-rows from 0fr to 1fr in 250 ms and the chevron rotates; no height animation.",
+      "accessibility": [
+        "The trigger is a button inside a heading with aria-expanded.",
+        "Content stays reachable with scripting off (details/summary)."
+      ],
+      "tokens": [
+        "foreground",
+        "muted-foreground",
+        "border"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page",
+        "docs-page",
+        "settings"
+      ],
+      "related": [
+        "faq",
+        "tabs"
+      ],
+      "sources": [
+        "shadcn:accordion",
+        "designfy:faq"
+      ]
+    },
+    {
+      "id": "dropdown-menu",
+      "name": "Dropdown menu",
+      "surface": "both",
+      "category": "actions",
+      "purpose": "Offers a short list of actions from one trigger.",
+      "useWhen": [
+        "Secondary actions of a record or of the account.",
+        "Row actions in a table."
+      ],
+      "avoidWhen": [
+        "The primary action.",
+        "Navigation with many levels."
+      ],
+      "anatomy": [
+        "trigger",
+        "menu surface",
+        "item",
+        "separator",
+        "shortcut hint"
+      ],
+      "variants": [
+        "with icons",
+        "with checkbox or radio items",
+        "with submenu"
+      ],
+      "states": [
+        "closed",
+        "open",
+        "item hover",
+        "item disabled"
+      ],
+      "responsive": "Becomes a bottom drawer on touch screens when it has more than five items.",
+      "motion": "Opens from the trigger with scale 0.96 to 1 and fade in 150 ms; closes in 100 ms.",
+      "accessibility": [
+        "menu and menuitem roles, arrow keys, Escape returns focus to the trigger."
+      ],
+      "tokens": [
+        "popover",
+        "popover-foreground",
+        "accent",
+        "border",
+        "radius"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page",
+        "dashboard",
+        "table",
+        "form",
+        "crud",
+        "detail",
+        "settings"
+      ],
+      "related": [
+        "command-palette",
+        "drawer"
+      ],
+      "sources": [
+        "shadcn:dropdown-menu"
+      ]
+    },
+    {
+      "id": "tooltip",
+      "name": "Tooltip",
+      "surface": "both",
+      "category": "feedback",
+      "purpose": "Names an icon-only control or shows a short hint on hover and focus.",
+      "useWhen": [
+        "Icon buttons.",
+        "Truncated text."
+      ],
+      "avoidWhen": [
+        "Information the person needs to complete the task.",
+        "Touch-only interfaces."
+      ],
+      "anatomy": [
+        "trigger",
+        "bubble"
+      ],
+      "variants": [],
+      "states": [
+        "hidden",
+        "visible"
+      ],
+      "responsive": "Not available on touch: the information also exists as a label or in the next screen.",
+      "motion": "Appears after 300 ms with a 100 ms fade; no delay when moving between neighbors.",
+      "accessibility": [
+        "Opens on focus as well as hover.",
+        "Never the only place for essential content."
+      ],
+      "tokens": [
+        "popover",
+        "popover-foreground",
+        "radius"
+      ],
+      "kinds": [
+        "dashboard",
+        "table",
+        "form",
+        "crud",
+        "detail",
+        "settings"
+      ],
+      "related": [
+        "button"
+      ],
+      "sources": [
+        "shadcn:tooltip"
+      ]
+    },
+    {
+      "id": "dialog",
+      "name": "Dialog",
+      "surface": "both",
+      "category": "feedback",
+      "purpose": "Interrupts to ask for a decision or a short input.",
+      "useWhen": [
+        "Confirming a destructive action.",
+        "A short form that belongs to the current context."
+      ],
+      "avoidWhen": [
+        "Long forms: use a page.",
+        "Messages that do not need an answer: use a toast."
+      ],
+      "anatomy": [
+        "overlay",
+        "surface",
+        "title",
+        "description",
+        "content",
+        "actions",
+        "close"
+      ],
+      "variants": [
+        "confirm",
+        "form",
+        "media"
+      ],
+      "states": [
+        "closed",
+        "open",
+        "submitting"
+      ],
+      "responsive": "Becomes a bottom sheet below 640 px, with the actions fixed at the bottom.",
+      "motion": "Overlay fades in 150 ms; the surface scales from 0.96 and fades in 200 ms; exits are faster than entrances.",
+      "accessibility": [
+        "Focus trapped inside and returned to the trigger.",
+        "Title linked with aria-labelledby.",
+        "Escape closes unless the action is in progress."
+      ],
+      "tokens": [
+        "background",
+        "foreground",
+        "border",
+        "radius",
+        "ring"
+      ],
+      "kinds": [
+        "dashboard",
+        "table",
+        "form",
+        "crud",
+        "detail",
+        "settings",
+        "landing-page"
+      ],
+      "related": [
+        "drawer",
+        "confirm-dialog"
+      ],
+      "sources": [
+        "shadcn:dialog"
+      ]
+    },
+    {
+      "id": "drawer",
+      "name": "Drawer",
+      "surface": "both",
+      "category": "feedback",
+      "purpose": "Slides a panel from an edge for secondary content or navigation.",
+      "useWhen": [
+        "Mobile navigation.",
+        "Details or filters beside a list."
+      ],
+      "avoidWhen": [
+        "Primary content of the page."
+      ],
+      "anatomy": [
+        "overlay",
+        "panel",
+        "header",
+        "content",
+        "footer actions"
+      ],
+      "variants": [
+        "left",
+        "right",
+        "bottom sheet"
+      ],
+      "states": [
+        "closed",
+        "open"
+      ],
+      "responsive": "Side panels on desktop become bottom sheets or full-height panels on phones.",
+      "motion": "Slides with transform in 300 ms with an ease-out curve; follows the finger on touch.",
+      "accessibility": [
+        "Same focus rules as a dialog.",
+        "The trigger exposes aria-expanded."
+      ],
+      "tokens": [
+        "background",
+        "foreground",
+        "border"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page",
+        "blog-index",
+        "blog-post",
+        "docs-page",
+        "dashboard",
+        "table",
+        "form",
+        "crud",
+        "detail",
+        "settings"
+      ],
+      "related": [
+        "dialog",
+        "mobile-nav",
+        "filter-bar"
+      ],
+      "sources": [
+        "shadcn:sheet",
+        "shadcn:drawer"
+      ]
+    },
+    {
+      "id": "section",
+      "name": "Section container",
+      "surface": "both",
+      "category": "layout",
+      "purpose": "Gives each block of a page the same width, gutters and vertical rhythm.",
+      "useWhen": [
+        "Every top-level block of a page."
+      ],
+      "avoidWhen": [
+        "Nesting sections.",
+        "Per-section custom paddings."
+      ],
+      "anatomy": [
+        "outer band (background)",
+        "container (max width, gutters)",
+        "header (title, lead)",
+        "content"
+      ],
+      "variants": [
+        "default",
+        "narrow (reading)",
+        "wide",
+        "tinted band",
+        "with background pattern"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Gutters 16, 24 and 32 px by range; vertical padding steps from 48 to 96 px; the container is capped, the gutters grow.",
+      "motion": "The header and the content reveal once when 20% of the section enters the viewport.",
+      "accessibility": [
+        "A <section> with a heading, or aria-labelledby.",
+        "One h2 per section."
+      ],
+      "tokens": [
+        "background",
+        "foreground",
+        "border",
+        "muted",
+        "font-heading",
+        "font-sans"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page",
+        "blog-index",
+        "blog-post",
+        "docs-page"
+      ],
+      "related": [
+        "background-pattern",
+        "reveal"
+      ],
+      "sources": [
+        "designfy:section"
+      ]
+    },
+    {
+      "id": "background-pattern",
+      "name": "Background pattern",
+      "surface": "both",
+      "category": "layout",
+      "purpose": "Decorates a band or a card with a quiet, token-colored pattern.",
+      "useWhen": [
+        "Hero and call-to-action bands.",
+        "Empty states and auth screens."
+      ],
+      "avoidWhen": [
+        "Behind long running text.",
+        "More than one pattern in the same viewport."
+      ],
+      "anatomy": [
+        "pattern layer (pointer-events none)",
+        "mask or fade",
+        "content layer above"
+      ],
+      "variants": [
+        "grid",
+        "dots",
+        "lines",
+        "radial glow",
+        "gradient mesh",
+        "noise",
+        "aurora (animated)",
+        "beams (animated)"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Pattern scale stays constant; masks fade the edges so content keeps contrast at every width.",
+      "motion": "Animated variants loop slowly (20 s or more), pause off screen and stop under reduced motion.",
+      "accessibility": [
+        "Decorative: aria-hidden.",
+        "Text over the pattern keeps 4.5:1 measured on the lightest and darkest point."
+      ],
+      "tokens": [
+        "background",
+        "border",
+        "primary",
+        "muted"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page",
+        "auth",
+        "blog-index"
+      ],
+      "related": [
+        "section",
+        "hero-centered"
+      ],
+      "sources": [
+        "designfy:background"
+      ]
+    },
+    {
+      "id": "reveal",
+      "name": "Reveal on scroll",
+      "surface": "both",
+      "category": "motion",
+      "purpose": "Brings a block into view once when it enters the viewport.",
+      "useWhen": [
+        "Section headers, grids and media below the fold."
+      ],
+      "avoidWhen": [
+        "Content above the fold on first paint.",
+        "Text the person is reading while it moves."
+      ],
+      "anatomy": [
+        "wrapper",
+        "children (optionally staggered)"
+      ],
+      "variants": [
+        "fade up",
+        "fade",
+        "scale in",
+        "stagger children",
+        "mask reveal"
+      ],
+      "states": [
+        "hidden",
+        "visible"
+      ],
+      "responsive": "Same effect on every width; travel distance shrinks on phones.",
+      "motion": "Opacity and translate of 16 px in 500 ms with ease-out, once; stagger of 60 ms.",
+      "accessibility": [
+        "Content is visible with scripting off.",
+        "Under reduced motion everything is visible at once."
+      ],
+      "tokens": [],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page",
+        "blog-index",
+        "blog-post",
+        "docs-page"
+      ],
+      "related": [
+        "section"
+      ],
+      "sources": [
+        "designfy:reveal"
+      ]
+    },
+    {
+      "id": "counter",
+      "name": "Animated counter",
+      "surface": "both",
+      "category": "motion",
+      "purpose": "Counts a number up to its value when it appears or changes.",
+      "useWhen": [
+        "Real metrics in a stats band.",
+        "Values that update in a dashboard."
+      ],
+      "avoidWhen": [
+        "Invented numbers.",
+        "Numbers the person needs to read immediately on every visit."
+      ],
+      "anatomy": [
+        "value",
+        "prefix and suffix",
+        "label"
+      ],
+      "variants": [
+        "count up once",
+        "roll on change",
+        "countdown"
+      ],
+      "states": [
+        "idle",
+        "counting",
+        "done"
+      ],
+      "responsive": "Tabular numbers keep the width stable.",
+      "motion": "Counts in 600 to 1200 ms with ease-out; on change, only the digits that differ roll.",
+      "accessibility": [
+        "The final value is in the markup; the animation is presentation.",
+        "Live updates use aria-live polite sparingly."
+      ],
+      "tokens": [
+        "foreground",
+        "muted-foreground",
+        "font-heading"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page",
+        "dashboard"
+      ],
+      "related": [
+        "stats-band",
+        "stat-card"
+      ],
+      "sources": [
+        "designfy:counter"
+      ]
+    },
+    {
+      "id": "theme-toggle",
+      "name": "Theme toggle",
+      "surface": "both",
+      "category": "actions",
+      "purpose": "Switches between light, dark and system themes.",
+      "useWhen": [
+        "Sites and systems with a dark theme."
+      ],
+      "avoidWhen": [
+        "Projects with a single theme."
+      ],
+      "anatomy": [
+        "trigger with icon",
+        "menu with three options (optional)"
+      ],
+      "variants": [
+        "two-state button",
+        "three-option menu"
+      ],
+      "states": [
+        "light",
+        "dark",
+        "system"
+      ],
+      "responsive": "Lives in the header on desktop and in the mobile menu on phones.",
+      "motion": "The icon cross-fades and rotates 90 degrees in 200 ms; the page does not flash.",
+      "accessibility": [
+        "The button name says the action, not the current state.",
+        "The choice persists and respects prefers-color-scheme by default."
+      ],
+      "tokens": [
+        "background",
+        "foreground",
+        "border"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page",
+        "blog-index",
+        "blog-post",
+        "docs-page",
+        "dashboard",
+        "table",
+        "form",
+        "crud",
+        "detail",
+        "settings"
+      ],
+      "related": [
+        "site-header",
+        "topbar"
+      ],
+      "sources": [
+        "designfy:theme-toggle"
+      ]
+    },
+    {
+      "id": "site-header",
+      "name": "Site header",
+      "surface": "site",
+      "category": "site-navigation",
+      "purpose": "Identifies the site and gives the main routes and the primary action.",
+      "useWhen": [
+        "Every public page."
+      ],
+      "avoidWhen": [
+        "More than seven top-level links."
+      ],
+      "anatomy": [
+        "logo",
+        "primary links",
+        "secondary links or search-free utilities",
+        "primary action",
+        "menu button"
+      ],
+      "variants": [
+        "static",
+        "sticky with shrink on scroll",
+        "transparent over the hero",
+        "floating pill"
+      ],
+      "states": [
+        "top of page",
+        "scrolled",
+        "menu open"
+      ],
+      "responsive": "Links collapse into a drawer below 1024 px; the primary action stays visible down to 390 px.",
+      "motion": "Background, border and height transition in 200 ms after 8 px of scroll; hides on scroll down and returns on scroll up when sticky.",
+      "accessibility": [
+        "<header> with a <nav aria-label>.",
+        "A skip link is the first focusable element.",
+        "Current page marked with aria-current."
+      ],
+      "tokens": [
+        "background",
+        "foreground",
+        "border",
+        "primary",
+        "font-heading",
+        "font-sans"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page",
+        "blog-index",
+        "blog-post",
+        "docs-page"
+      ],
+      "related": [
+        "mobile-nav",
+        "mega-menu",
+        "announcement-bar"
+      ],
+      "sources": [
+        "designfy:site-header"
+      ]
+    },
+    {
+      "id": "mobile-nav",
+      "name": "Mobile navigation",
+      "surface": "site",
+      "category": "site-navigation",
+      "purpose": "Shows the site routes on small screens.",
+      "useWhen": [
+        "Whenever the header links do not fit."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "trigger",
+        "panel",
+        "link groups",
+        "primary action",
+        "close"
+      ],
+      "variants": [
+        "full-screen panel",
+        "side drawer",
+        "bottom sheet"
+      ],
+      "states": [
+        "closed",
+        "open"
+      ],
+      "responsive": "Covers the viewport on phones; links are 48 px tall.",
+      "motion": "Panel slides or fades in 250 ms; links stagger 30 ms.",
+      "accessibility": [
+        "Focus trap, Escape and return of focus.",
+        "The page behind is inert."
+      ],
+      "tokens": [
+        "background",
+        "foreground",
+        "border"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page",
+        "blog-index",
+        "blog-post",
+        "docs-page"
+      ],
+      "related": [
+        "site-header",
+        "drawer"
+      ],
+      "sources": [
+        "designfy:site-header",
+        "shadcn:sheet"
+      ]
+    },
+    {
+      "id": "mega-menu",
+      "name": "Mega menu",
+      "surface": "site",
+      "category": "site-navigation",
+      "purpose": "Opens a wide panel with grouped destinations under a header item.",
+      "useWhen": [
+        "Sites with many products or sections that need descriptions."
+      ],
+      "avoidWhen": [
+        "Fewer than eight destinations."
+      ],
+      "anatomy": [
+        "trigger",
+        "panel",
+        "columns with title",
+        "link with description",
+        "featured area"
+      ],
+      "variants": [],
+      "states": [
+        "closed",
+        "open"
+      ],
+      "responsive": "Becomes accordion groups inside the mobile navigation.",
+      "motion": "The panel fades and moves 8 px in 200 ms; moving between triggers resizes the same panel with a layout animation.",
+      "accessibility": [
+        "Opens on click and on Enter, not only hover.",
+        "Escape closes and returns focus."
+      ],
+      "tokens": [
+        "popover",
+        "popover-foreground",
+        "border"
+      ],
+      "kinds": [
+        "home",
+        "site-page"
+      ],
+      "related": [
+        "site-header"
+      ],
+      "sources": [
+        "shadcn:navigation-menu"
+      ]
+    },
+    {
+      "id": "announcement-bar",
+      "name": "Announcement bar",
+      "surface": "site",
+      "category": "site-navigation",
+      "purpose": "Carries one short, dated message above the header.",
+      "useWhen": [
+        "A launch, an event or a deadline."
+      ],
+      "avoidWhen": [
+        "Permanent content.",
+        "More than one message."
+      ],
+      "anatomy": [
+        "message",
+        "link",
+        "dismiss (optional)"
+      ],
+      "variants": [],
+      "states": [
+        "visible",
+        "dismissed"
+      ],
+      "responsive": "One line; the text truncates before the link does.",
+      "motion": "Slides down once on entry; a long message scrolls as a marquee that pauses on hover and focus.",
+      "accessibility": [
+        "Not a live region.",
+        "Dismiss button with a name."
+      ],
+      "tokens": [
+        "primary",
+        "primary-foreground"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page"
+      ],
+      "related": [
+        "site-header",
+        "marquee"
+      ],
+      "sources": [
+        "designfy:announcement-bar"
+      ]
+    },
+    {
+      "id": "breadcrumbs",
+      "name": "Breadcrumbs",
+      "surface": "both",
+      "category": "navigation",
+      "purpose": "Shows where the page sits in the hierarchy.",
+      "useWhen": [
+        "Pages two or more levels deep."
+      ],
+      "avoidWhen": [
+        "Flat sites."
+      ],
+      "anatomy": [
+        "link per level",
+        "separator",
+        "current page"
+      ],
+      "variants": [],
+      "states": [
+        "default"
+      ],
+      "responsive": "Middle levels collapse into a menu on phones; the parent link stays.",
+      "motion": "None beyond the link hover.",
+      "accessibility": [
+        "<nav aria-label> with an ordered list.",
+        "Current page has aria-current=page."
+      ],
+      "tokens": [
+        "muted-foreground",
+        "foreground"
+      ],
+      "kinds": [
+        "site-page",
+        "blog-post",
+        "docs-page",
+        "detail",
+        "crud",
+        "settings"
+      ],
+      "related": [
+        "page-header"
+      ],
+      "sources": [
+        "shadcn:breadcrumb"
+      ]
+    },
+    {
+      "id": "site-footer",
+      "name": "Site footer",
+      "surface": "site",
+      "category": "site-navigation",
+      "purpose": "Closes the page with the secondary routes, legal links and contact.",
+      "useWhen": [
+        "Every public page."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "logo and one-line description",
+        "link columns",
+        "social links",
+        "legal line",
+        "newsletter or final action (optional)"
+      ],
+      "variants": [
+        "columns",
+        "single line",
+        "statement with large type",
+        "with marquee band"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Columns become a two-column grid on tablets and accordions or a single list on phones.",
+      "motion": "Reveals with the last section; link hovers only.",
+      "accessibility": [
+        "<footer> with labeled <nav> groups.",
+        "Link text contrast of 4.5:1 on the footer background."
+      ],
+      "tokens": [
+        "background",
+        "foreground",
+        "border",
+        "muted-foreground"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page",
+        "blog-index",
+        "blog-post",
+        "docs-page"
+      ],
+      "related": [
+        "site-header",
+        "newsletter-form"
+      ],
+      "sources": [
+        "designfy:site-footer"
+      ]
+    },
+    {
+      "id": "hero-split",
+      "name": "Split hero",
+      "surface": "site",
+      "category": "hero",
+      "purpose": "Opens the page with the promise on one side and proof of the product on the other.",
+      "useWhen": [
+        "Product, portal and tool pages with a real screenshot, panel or demo."
+      ],
+      "avoidWhen": [
+        "No real visual to show."
+      ],
+      "anatomy": [
+        "product name",
+        "headline",
+        "one sentence",
+        "primary and secondary action",
+        "visual frame with real content"
+      ],
+      "variants": [
+        "text left",
+        "text right",
+        "visual bleeding off the edge",
+        "interactive panel"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Stacks with the text first; the visual keeps its aspect ratio and loses decorative layers.",
+      "motion": "Text enters in a short stagger; the visual fades and rises 16 px; inside the visual, one slow loop or a sequence of real states.",
+      "accessibility": [
+        "One h1.",
+        "The visual has alt text or is marked decorative when the text says the same."
+      ],
+      "tokens": [
+        "background",
+        "foreground",
+        "border",
+        "primary",
+        "primary-foreground",
+        "ring",
+        "radius",
+        "font-heading",
+        "font-sans"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page"
+      ],
+      "related": [
+        "hero-centered",
+        "background-pattern"
+      ],
+      "sources": [
+        "designfy:hero-split"
+      ]
+    },
+    {
+      "id": "hero-centered",
+      "name": "Centered hero",
+      "surface": "site",
+      "category": "hero",
+      "purpose": "Opens the page with one statement and one action in the middle of the screen.",
+      "useWhen": [
+        "Landing pages with a single idea.",
+        "Pages without a product visual."
+      ],
+      "avoidWhen": [
+        "Long headlines that wrap to four lines."
+      ],
+      "anatomy": [
+        "headline",
+        "one sentence",
+        "actions",
+        "supporting visual or pattern below or behind"
+      ],
+      "variants": [
+        "with background pattern",
+        "with media below the fold line",
+        "with inline form"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Headline scales with clamp(); actions stack full width below 480 px.",
+      "motion": "Headline reveals by line or word once; the background pattern moves slowly.",
+      "accessibility": [
+        "One h1.",
+        "Headline, sentence and primary action visible at 1280 x 800 without scrolling."
+      ],
+      "tokens": [
+        "background",
+        "foreground",
+        "border",
+        "primary",
+        "primary-foreground",
+        "ring",
+        "radius",
+        "font-heading",
+        "font-sans"
+      ],
+      "kinds": [
+        "landing-page",
+        "home"
+      ],
+      "related": [
+        "hero-split",
+        "newsletter-form"
+      ],
+      "sources": [
+        "designfy:hero-centered"
+      ]
+    },
+    {
+      "id": "hero-media",
+      "name": "Media hero",
+      "surface": "site",
+      "category": "hero",
+      "purpose": "Opens the page on a photograph or a video with the text over it.",
+      "useWhen": [
+        "Brands with strong real imagery.",
+        "Events and places."
+      ],
+      "avoidWhen": [
+        "Stock imagery.",
+        "Text that loses contrast over the image."
+      ],
+      "anatomy": [
+        "media",
+        "scrim",
+        "headline",
+        "sentence",
+        "action"
+      ],
+      "variants": [
+        "full-bleed image",
+        "muted looping video with poster",
+        "image with text panel"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Art direction per range (different crop on phones); video is replaced by the poster on phones and under data saver.",
+      "motion": "Slow scale of the image (1 to 1.05 in 12 s) or the video itself; text fades in.",
+      "accessibility": [
+        "Video has no sound and can be paused.",
+        "Contrast measured over the scrim."
+      ],
+      "tokens": [
+        "background",
+        "foreground",
+        "primary",
+        "primary-foreground",
+        "ring",
+        "radius"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page"
+      ],
+      "related": [
+        "video-embed"
+      ],
+      "sources": [
+        "designfy:hero-media"
+      ]
+    },
+    {
+      "id": "feature-grid",
+      "name": "Feature grid",
+      "surface": "site",
+      "category": "site-sections",
+      "purpose": "Presents three to six capabilities with equal weight.",
+      "useWhen": [
+        "Capabilities that are parallel and short."
+      ],
+      "avoidWhen": [
+        "One capability is far more important: use a feature split or bento."
+      ],
+      "anatomy": [
+        "section header",
+        "item: icon or small visual, title, two-line description, link (optional)"
+      ],
+      "variants": [
+        "three columns",
+        "two columns with larger visuals",
+        "with dividers instead of cards"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Three columns, then two, then one; the icon moves beside the title on phones.",
+      "motion": "Items reveal in a stagger; the icon or the border reacts on hover.",
+      "accessibility": [
+        "Items are a list.",
+        "Icons are decorative."
+      ],
+      "tokens": [
+        "card",
+        "card-foreground",
+        "border",
+        "radius",
+        "muted",
+        "muted-foreground",
+        "primary"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page"
+      ],
+      "related": [
+        "bento-grid",
+        "feature-split"
+      ],
+      "sources": [
+        "designfy:feature-grid"
+      ]
+    },
+    {
+      "id": "bento-grid",
+      "name": "Bento grid",
+      "surface": "site",
+      "category": "site-sections",
+      "purpose": "Shows capabilities in tiles of different sizes, each with its own small visual.",
+      "useWhen": [
+        "Four to seven capabilities with unequal weight and a real visual each."
+      ],
+      "avoidWhen": [
+        "Tiles filled with icons only."
+      ],
+      "anatomy": [
+        "grid with spans",
+        "tile: visual, title, sentence"
+      ],
+      "variants": [
+        "2x2 with one wide tile",
+        "three-column with a tall tile"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Tiles fall into one column in reading order on phones; tall tiles take a fixed aspect ratio.",
+      "motion": "Each tile has one small loop or a hover interaction tied to what it shows; tiles reveal in a stagger.",
+      "accessibility": [
+        "Reading order equals DOM order.",
+        "Tile visuals have text alternatives when they carry information."
+      ],
+      "tokens": [
+        "card",
+        "card-foreground",
+        "border",
+        "radius",
+        "muted",
+        "primary"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page"
+      ],
+      "related": [
+        "feature-grid"
+      ],
+      "sources": [
+        "designfy:bento-grid"
+      ]
+    },
+    {
+      "id": "feature-split",
+      "name": "Feature split",
+      "surface": "site",
+      "category": "site-sections",
+      "purpose": "Explains one capability with text beside a large visual.",
+      "useWhen": [
+        "A capability that needs a paragraph and a screenshot."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "title",
+        "paragraph",
+        "bullet list or action",
+        "visual"
+      ],
+      "variants": [
+        "alternating sides",
+        "sticky text with scrolling visuals"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Stacks with the text first.",
+      "motion": "The visual reveals with a mask or rises; the sticky variant swaps visuals as the text scrolls.",
+      "accessibility": [
+        "Visual has alt text."
+      ],
+      "tokens": [
+        "background",
+        "foreground",
+        "border",
+        "muted",
+        "muted-foreground"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page"
+      ],
+      "related": [
+        "feature-grid",
+        "steps"
+      ],
+      "sources": [
+        "designfy:feature-split"
+      ]
+    },
+    {
+      "id": "steps",
+      "name": "Steps",
+      "surface": "site",
+      "category": "site-sections",
+      "purpose": "Shows a process in a small number of ordered steps.",
+      "useWhen": [
+        "How it works, onboarding, installation."
+      ],
+      "avoidWhen": [
+        "Items without a real order."
+      ],
+      "anatomy": [
+        "number",
+        "title",
+        "description",
+        "connector"
+      ],
+      "variants": [
+        "horizontal",
+        "vertical timeline",
+        "with code or screenshot per step"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Horizontal becomes vertical below 768 px.",
+      "motion": "The connector draws as the section scrolls; each step lights up in turn.",
+      "accessibility": [
+        "Ordered list.",
+        "Numbers are text."
+      ],
+      "tokens": [
+        "background",
+        "foreground",
+        "border",
+        "primary",
+        "border"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page"
+      ],
+      "related": [
+        "feature-split",
+        "stepper"
+      ],
+      "sources": [
+        "designfy:steps"
+      ]
+    },
+    {
+      "id": "stats-band",
+      "name": "Stats band",
+      "surface": "site",
+      "category": "site-sections",
+      "purpose": "States a few real numbers in large type.",
+      "useWhen": [
+        "Two to four verified metrics."
+      ],
+      "avoidWhen": [
+        "Invented or rounded-up numbers."
+      ],
+      "anatomy": [
+        "value",
+        "unit",
+        "label",
+        "source (optional)"
+      ],
+      "variants": [
+        "in line",
+        "grid with dividers"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Two columns on phones.",
+      "motion": "Values count up once when visible.",
+      "accessibility": [
+        "Value and label are read together (definition list)."
+      ],
+      "tokens": [
+        "foreground",
+        "muted-foreground",
+        "border",
+        "font-heading"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page"
+      ],
+      "related": [
+        "counter"
+      ],
+      "sources": [
+        "designfy:stats-band"
+      ]
+    },
+    {
+      "id": "logo-strip",
+      "name": "Logo strip",
+      "surface": "site",
+      "category": "site-sections",
+      "purpose": "Shows the logos of real customers, partners or tools.",
+      "useWhen": [
+        "Real, authorized logos."
+      ],
+      "avoidWhen": [
+        "Placeholder or invented logos."
+      ],
+      "anatomy": [
+        "label sentence",
+        "logos in one color"
+      ],
+      "variants": [
+        "static row",
+        "marquee"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Wraps to two rows or scrolls as a marquee.",
+      "motion": "Marquee at constant speed, pausing on hover and focus; static under reduced motion.",
+      "accessibility": [
+        "Each logo has the company name as alt text."
+      ],
+      "tokens": [
+        "muted-foreground",
+        "border"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page"
+      ],
+      "related": [
+        "marquee",
+        "testimonial"
+      ],
+      "sources": [
+        "designfy:logo-marquee"
+      ]
+    },
+    {
+      "id": "marquee",
+      "name": "Marquee",
+      "surface": "site",
+      "category": "site-sections",
+      "purpose": "Scrolls a row of short items continuously.",
+      "useWhen": [
+        "Logos, short tags, tool names."
+      ],
+      "avoidWhen": [
+        "Text that must be read whole.",
+        "More than two marquees on a page."
+      ],
+      "anatomy": [
+        "track",
+        "duplicated item group",
+        "edge fade"
+      ],
+      "variants": [
+        "left",
+        "right",
+        "two rows in opposite directions"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Speed in pixels per second stays constant across widths.",
+      "motion": "Linear translate loop; pauses on hover, focus and when off screen.",
+      "accessibility": [
+        "The duplicate group is aria-hidden.",
+        "A pause control exists when the content is meaningful."
+      ],
+      "tokens": [
+        "foreground",
+        "muted-foreground"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page"
+      ],
+      "related": [
+        "logo-strip",
+        "announcement-bar"
+      ],
+      "sources": [
+        "designfy:marquee"
+      ]
+    },
+    {
+      "id": "testimonial",
+      "name": "Testimonial",
+      "surface": "site",
+      "category": "site-sections",
+      "purpose": "Quotes a real person about the product.",
+      "useWhen": [
+        "Real quotes with name and role."
+      ],
+      "avoidWhen": [
+        "Invented quotes."
+      ],
+      "anatomy": [
+        "quote",
+        "name",
+        "role and company",
+        "photo"
+      ],
+      "variants": [
+        "single large quote",
+        "grid",
+        "carousel"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Grid becomes a single column or a swipe carousel.",
+      "motion": "Reveal on scroll; the carousel moves on demand, not by itself.",
+      "accessibility": [
+        "blockquote with a cite or figcaption.",
+        "Carousel controls have names."
+      ],
+      "tokens": [
+        "card",
+        "card-foreground",
+        "border",
+        "radius",
+        "muted",
+        "muted-foreground"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page"
+      ],
+      "related": [
+        "logo-strip"
+      ],
+      "sources": [
+        "designfy:testimonial"
+      ]
+    },
+    {
+      "id": "pricing-table",
+      "name": "Pricing table",
+      "surface": "site",
+      "category": "site-sections",
+      "purpose": "Lets the person compare plans and choose one.",
+      "useWhen": [
+        "Two to four plans."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "billing period switch",
+        "plan card: name, price, period, description, feature list, action",
+        "highlighted plan"
+      ],
+      "variants": [
+        "cards",
+        "cards plus comparison table"
+      ],
+      "states": [
+        "monthly",
+        "yearly"
+      ],
+      "responsive": "Cards stack with the recommended plan first; the comparison table becomes one plan per tab.",
+      "motion": "The price rolls when the period changes; the highlighted card has a quiet moving border or glow.",
+      "accessibility": [
+        "The switch is a radio group or a toggle with a name.",
+        "Included and excluded features have text, not only icons."
+      ],
+      "tokens": [
+        "card",
+        "card-foreground",
+        "border",
+        "radius",
+        "primary",
+        "primary-foreground",
+        "ring",
+        "radius",
+        "muted-foreground"
+      ],
+      "kinds": [
+        "landing-page",
+        "site-page",
+        "home"
+      ],
+      "related": [
+        "comparison-table",
+        "faq"
+      ],
+      "sources": [
+        "designfy:pricing-table"
+      ]
+    },
+    {
+      "id": "comparison-table",
+      "name": "Comparison table",
+      "surface": "site",
+      "category": "site-sections",
+      "purpose": "Compares options feature by feature.",
+      "useWhen": [
+        "Plans or products with many attributes."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "header row with options",
+        "feature groups",
+        "cells with value or mark"
+      ],
+      "variants": [
+        "sticky header",
+        "sticky first column"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Below 768 px shows one option at a time with a switcher, or scrolls inside its own container with the first column fixed.",
+      "motion": "Row hover highlight; the sticky header gains a shadow.",
+      "accessibility": [
+        "Real <table> with th scope.",
+        "Marks have text alternatives."
+      ],
+      "tokens": [
+        "background",
+        "foreground",
+        "border",
+        "muted"
+      ],
+      "kinds": [
+        "site-page",
+        "landing-page"
+      ],
+      "related": [
+        "pricing-table",
+        "data-table"
+      ],
+      "sources": [
+        "designfy:comparison-table"
+      ]
+    },
+    {
+      "id": "faq",
+      "name": "FAQ",
+      "surface": "site",
+      "category": "site-sections",
+      "purpose": "Answers the questions that stop a person from acting.",
+      "useWhen": [
+        "Real questions from sales and support."
+      ],
+      "avoidWhen": [
+        "Hiding essential information."
+      ],
+      "anatomy": [
+        "section header",
+        "accordion items"
+      ],
+      "variants": [
+        "single column",
+        "two columns with intro on the left"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Single column on phones.",
+      "motion": "Accordion open and close.",
+      "accessibility": [
+        "Accordion rules.",
+        "FAQPage structured data when the content qualifies."
+      ],
+      "tokens": [
+        "foreground",
+        "muted-foreground",
+        "border"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page"
+      ],
+      "related": [
+        "accordion"
+      ],
+      "sources": [
+        "designfy:faq"
+      ]
+    },
+    {
+      "id": "cta-band",
+      "name": "Call to action band",
+      "surface": "site",
+      "category": "site-sections",
+      "purpose": "Repeats the primary action after the page made its case.",
+      "useWhen": [
+        "End of a page or of a long section."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "headline",
+        "sentence",
+        "action",
+        "background"
+      ],
+      "variants": [
+        "full band",
+        "card inside the container",
+        "with form"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Action goes full width on phones.",
+      "motion": "Background pattern or gradient moves slowly; the band reveals on scroll.",
+      "accessibility": [
+        "Heading level follows the outline.",
+        "Contrast measured over the background."
+      ],
+      "tokens": [
+        "primary",
+        "primary-foreground",
+        "background",
+        "foreground",
+        "border"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page"
+      ],
+      "related": [
+        "newsletter-form",
+        "background-pattern"
+      ],
+      "sources": [
+        "designfy:cta-band"
+      ]
+    },
+    {
+      "id": "newsletter-form",
+      "name": "Inline signup form",
+      "surface": "site",
+      "category": "site-sections",
+      "purpose": "Collects an email address in one field and one button.",
+      "useWhen": [
+        "Newsletter, waitlist, lead capture."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "label",
+        "email input",
+        "submit",
+        "consent line",
+        "result message"
+      ],
+      "variants": [],
+      "states": [
+        "idle",
+        "invalid",
+        "submitting",
+        "success",
+        "error"
+      ],
+      "responsive": "Input and button stack below 480 px.",
+      "motion": "The button shows progress; success replaces the form with a check that draws in 300 ms.",
+      "accessibility": [
+        "Visible or screen-reader label.",
+        "Errors linked with aria-describedby and announced.",
+        "autocomplete=email."
+      ],
+      "tokens": [
+        "input",
+        "ring",
+        "primary",
+        "primary-foreground",
+        "ring",
+        "radius"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page",
+        "blog-post",
+        "blog-index"
+      ],
+      "related": [
+        "cta-band",
+        "form-field"
+      ],
+      "sources": [
+        "designfy:newsletter-form"
+      ]
+    },
+    {
+      "id": "article-header",
+      "name": "Article header",
+      "surface": "site",
+      "category": "content",
+      "purpose": "Introduces an article with title, context and authorship.",
+      "useWhen": [
+        "Posts, guides and long pages."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "category",
+        "title",
+        "lead",
+        "author, date, reading time",
+        "cover"
+      ],
+      "variants": [
+        "centered",
+        "left-aligned with cover below",
+        "cover behind title"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Meta wraps below the lead; the cover goes full width.",
+      "motion": "Title and lead fade in; the cover reveals with a soft scale.",
+      "accessibility": [
+        "h1 for the title.",
+        "Dates in <time datetime>."
+      ],
+      "tokens": [
+        "background",
+        "foreground",
+        "border",
+        "muted-foreground",
+        "font-heading",
+        "font-sans"
+      ],
+      "kinds": [
+        "blog-post",
+        "docs-page"
+      ],
+      "related": [
+        "prose",
+        "author-box"
+      ],
+      "sources": [
+        "designfy:article-header"
+      ]
+    },
+    {
+      "id": "prose",
+      "name": "Prose",
+      "surface": "site",
+      "category": "content",
+      "purpose": "Sets long-form text with a comfortable measure and rhythm.",
+      "useWhen": [
+        "Article bodies, documentation, legal text."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "paragraphs",
+        "headings h2 to h4",
+        "lists",
+        "links",
+        "quotes",
+        "tables",
+        "code",
+        "figures"
+      ],
+      "variants": [
+        "default",
+        "large for essays",
+        "compact for docs"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Measure of 60 to 75 characters; wide elements (tables, code) scroll inside their own box; type steps down one size on phones.",
+      "motion": "None in the text; anchors scroll smoothly and flash the target heading.",
+      "accessibility": [
+        "Heading levels do not skip.",
+        "Links are distinguishable without color.",
+        "Line height of at least 1.5."
+      ],
+      "tokens": [
+        "foreground",
+        "muted-foreground",
+        "primary",
+        "border",
+        "font-sans",
+        "font-heading",
+        "font-mono"
+      ],
+      "kinds": [
+        "blog-post",
+        "docs-page",
+        "site-page"
+      ],
+      "related": [
+        "callout",
+        "code-block",
+        "figure",
+        "table-of-contents"
+      ],
+      "sources": [
+        "designfy:prose"
+      ]
+    },
+    {
+      "id": "table-of-contents",
+      "name": "Table of contents",
+      "surface": "site",
+      "category": "content",
+      "purpose": "Lists the headings of the page and shows the current one.",
+      "useWhen": [
+        "Articles and docs with four or more sections."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "title",
+        "nested links",
+        "active marker"
+      ],
+      "variants": [
+        "sticky side rail",
+        "collapsible block at the top"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Side rail from 1280 px; collapsible block below.",
+      "motion": "The active marker slides to the current heading as the page scrolls.",
+      "accessibility": [
+        "<nav aria-label>.",
+        "aria-current on the active link."
+      ],
+      "tokens": [
+        "muted-foreground",
+        "foreground",
+        "primary",
+        "border"
+      ],
+      "kinds": [
+        "blog-post",
+        "docs-page"
+      ],
+      "related": [
+        "prose",
+        "reading-progress"
+      ],
+      "sources": [
+        "designfy:table-of-contents"
+      ]
+    },
+    {
+      "id": "reading-progress",
+      "name": "Reading progress",
+      "surface": "site",
+      "category": "content",
+      "purpose": "Shows how far the person is in a long text.",
+      "useWhen": [
+        "Long articles."
+      ],
+      "avoidWhen": [
+        "Short pages."
+      ],
+      "anatomy": [
+        "thin bar tied to scroll"
+      ],
+      "variants": [],
+      "states": [
+        "default"
+      ],
+      "responsive": "Same on every width.",
+      "motion": "Scale on the X axis driven by scroll position (scroll timeline where supported).",
+      "accessibility": [
+        "Decorative: aria-hidden."
+      ],
+      "tokens": [
+        "primary"
+      ],
+      "kinds": [
+        "blog-post",
+        "docs-page"
+      ],
+      "related": [
+        "table-of-contents"
+      ],
+      "sources": [
+        "designfy:reading-progress"
+      ]
+    },
+    {
+      "id": "post-card",
+      "name": "Post card",
+      "surface": "site",
+      "category": "content",
+      "purpose": "Summarizes an article in a list.",
+      "useWhen": [
+        "Blog index, related posts, home highlights."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "cover",
+        "category",
+        "title",
+        "excerpt",
+        "author and date"
+      ],
+      "variants": [
+        "vertical",
+        "horizontal",
+        "featured (large)",
+        "text only"
+      ],
+      "states": [
+        "default",
+        "hover",
+        "focus-visible"
+      ],
+      "responsive": "Horizontal cards become vertical below 640 px.",
+      "motion": "The cover scales to 1.03 inside its frame and the title underlines on hover.",
+      "accessibility": [
+        "One link per card with the title as its name.",
+        "Cover alt empty when the title says the same."
+      ],
+      "tokens": [
+        "card",
+        "card-foreground",
+        "border",
+        "radius",
+        "muted-foreground"
+      ],
+      "kinds": [
+        "blog-index",
+        "blog-post",
+        "home"
+      ],
+      "related": [
+        "post-list",
+        "card"
+      ],
+      "sources": [
+        "designfy:post-card"
+      ]
+    },
+    {
+      "id": "post-list",
+      "name": "Post list",
+      "surface": "site",
+      "category": "content",
+      "purpose": "Lays out the posts of a blog or a category.",
+      "useWhen": [
+        "Blog index, tag and category pages."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "featured post",
+        "grid or list of post cards",
+        "category filter as links",
+        "pagination"
+      ],
+      "variants": [
+        "grid",
+        "list with dates",
+        "magazine with a featured post"
+      ],
+      "states": [
+        "default",
+        "empty"
+      ],
+      "responsive": "Three, two, then one column.",
+      "motion": "Cards reveal in a stagger as they enter.",
+      "accessibility": [
+        "Filters are links to real pages.",
+        "The list is a list."
+      ],
+      "tokens": [
+        "background",
+        "foreground",
+        "border"
+      ],
+      "kinds": [
+        "blog-index"
+      ],
+      "related": [
+        "post-card",
+        "pagination"
+      ],
+      "sources": [
+        "designfy:post-list"
+      ]
+    },
+    {
+      "id": "author-box",
+      "name": "Author box",
+      "surface": "site",
+      "category": "content",
+      "purpose": "Says who wrote the content.",
+      "useWhen": [
+        "End of an article, author pages."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "avatar",
+        "name",
+        "short bio",
+        "links"
+      ],
+      "variants": [],
+      "states": [
+        "default"
+      ],
+      "responsive": "Avatar above the text on phones.",
+      "motion": "Reveal on scroll.",
+      "accessibility": [
+        "Name is a heading or strong text; links have names."
+      ],
+      "tokens": [
+        "card",
+        "card-foreground",
+        "border",
+        "radius",
+        "muted-foreground"
+      ],
+      "kinds": [
+        "blog-post"
+      ],
+      "related": [
+        "avatar"
+      ],
+      "sources": [
+        "designfy:author-box"
+      ]
+    },
+    {
+      "id": "callout",
+      "name": "Callout",
+      "surface": "site",
+      "category": "content",
+      "purpose": "Sets a note, tip or warning apart from the running text.",
+      "useWhen": [
+        "Information the reader should not miss."
+      ],
+      "avoidWhen": [
+        "More than one per screen of text."
+      ],
+      "anatomy": [
+        "icon",
+        "title (optional)",
+        "text"
+      ],
+      "variants": [
+        "note",
+        "tip",
+        "warning",
+        "danger"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Full width of the measure.",
+      "motion": "None.",
+      "accessibility": [
+        "The type is in the text or title, not only in color.",
+        "role=note."
+      ],
+      "tokens": [
+        "muted",
+        "border",
+        "info",
+        "warning",
+        "destructive",
+        "success"
+      ],
+      "kinds": [
+        "blog-post",
+        "docs-page"
+      ],
+      "related": [
+        "prose",
+        "alert"
+      ],
+      "sources": [
+        "designfy:callout"
+      ]
+    },
+    {
+      "id": "code-block",
+      "name": "Code block",
+      "surface": "site",
+      "category": "content",
+      "purpose": "Shows code with highlighting and a copy button.",
+      "useWhen": [
+        "Commands and source code in articles and docs."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "file name or language",
+        "highlighted code",
+        "copy button",
+        "line highlights"
+      ],
+      "variants": [
+        "single block",
+        "tabs by language or package manager",
+        "terminal"
+      ],
+      "states": [
+        "default",
+        "copied"
+      ],
+      "responsive": "Scrolls horizontally inside its box; never wraps commands.",
+      "motion": "The copy button swaps to a check for 1.5 s.",
+      "accessibility": [
+        "Copy button with a name and a polite confirmation.",
+        "Contrast of the theme checked in both modes."
+      ],
+      "tokens": [
+        "muted",
+        "border",
+        "font-mono",
+        "radius"
+      ],
+      "kinds": [
+        "blog-post",
+        "docs-page",
+        "site-page"
+      ],
+      "related": [
+        "prose"
+      ],
+      "sources": [
+        "designfy:code-block"
+      ]
+    },
+    {
+      "id": "figure",
+      "name": "Figure",
+      "surface": "site",
+      "category": "content",
+      "purpose": "Places an image, diagram or table with its caption.",
+      "useWhen": [
+        "Any media inside an article."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "media",
+        "caption",
+        "credit"
+      ],
+      "variants": [
+        "in measure",
+        "wide",
+        "full bleed",
+        "zoomable"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Wide variants return to the measure on phones; images are responsive with width, height and sizes.",
+      "motion": "Fades in when loaded; the zoom opens with a shared-element transition.",
+      "accessibility": [
+        "Alt text describes the content; the caption adds context.",
+        "Dimensions set to avoid layout shift."
+      ],
+      "tokens": [
+        "muted-foreground",
+        "border",
+        "radius"
+      ],
+      "kinds": [
+        "blog-post",
+        "docs-page",
+        "site-page"
+      ],
+      "related": [
+        "prose",
+        "video-embed"
+      ],
+      "sources": [
+        "designfy:figure"
+      ]
+    },
+    {
+      "id": "video-embed",
+      "name": "Video embed",
+      "surface": "both",
+      "category": "content",
+      "purpose": "Plays a hosted video without loading the player until the person asks.",
+      "useWhen": [
+        "YouTube, Vimeo or self-hosted video in a page."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "poster",
+        "play button",
+        "title",
+        "player (after click)",
+        "caption or transcript link"
+      ],
+      "variants": [
+        "facade for YouTube and Vimeo",
+        "native video",
+        "modal player"
+      ],
+      "states": [
+        "poster",
+        "loading",
+        "playing"
+      ],
+      "responsive": "Fixed 16:9 (or declared) aspect ratio at every width.",
+      "motion": "The play button scales on hover; the poster cross-fades to the player.",
+      "accessibility": [
+        "The facade is a button named with the video title.",
+        "Captions available; no autoplay with sound."
+      ],
+      "tokens": [
+        "background",
+        "foreground",
+        "radius"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page",
+        "blog-index",
+        "blog-post",
+        "docs-page"
+      ],
+      "related": [
+        "figure",
+        "hero-media"
+      ],
+      "sources": [
+        "designfy:video-embed"
+      ]
+    },
+    {
+      "id": "pull-quote",
+      "name": "Pull quote",
+      "surface": "site",
+      "category": "content",
+      "purpose": "Lifts one sentence of the text in large type.",
+      "useWhen": [
+        "Long essays, once or twice."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "quote",
+        "attribution"
+      ],
+      "variants": [],
+      "states": [
+        "default"
+      ],
+      "responsive": "Stays inside the measure on phones.",
+      "motion": "Reveal on scroll.",
+      "accessibility": [
+        "Marked so screen readers do not read the sentence twice (aria-hidden when it repeats the text)."
+      ],
+      "tokens": [
+        "foreground",
+        "primary",
+        "font-heading"
+      ],
+      "kinds": [
+        "blog-post"
+      ],
+      "related": [
+        "prose"
+      ],
+      "sources": [
+        "designfy:prose"
+      ]
+    },
+    {
+      "id": "pagination",
+      "name": "Pagination",
+      "surface": "both",
+      "category": "navigation",
+      "purpose": "Moves between pages of a list.",
+      "useWhen": [
+        "Lists longer than one page."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "previous",
+        "page numbers with gaps",
+        "next",
+        "page size (systems)"
+      ],
+      "variants": [
+        "numbered",
+        "previous and next only",
+        "load more"
+      ],
+      "states": [
+        "default",
+        "current",
+        "disabled"
+      ],
+      "responsive": "Numbers reduce to previous, current of total and next on phones.",
+      "motion": "None beyond hover; the list fades while loading.",
+      "accessibility": [
+        "<nav aria-label>.",
+        "aria-current on the current page.",
+        "Real links on sites."
+      ],
+      "tokens": [
+        "foreground",
+        "muted-foreground",
+        "border",
+        "primary"
+      ],
+      "kinds": [
+        "blog-index",
+        "table",
+        "crud"
+      ],
+      "related": [
+        "data-table",
+        "post-list"
+      ],
+      "sources": [
+        "shadcn:pagination"
+      ]
+    },
+    {
+      "id": "app-shell",
+      "name": "App shell",
+      "surface": "system",
+      "category": "shell",
+      "purpose": "Frames every screen of a system with navigation, context and content area.",
+      "useWhen": [
+        "Any authenticated application."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "sidebar",
+        "topbar",
+        "main area",
+        "optional right panel"
+      ],
+      "variants": [
+        "sidebar plus topbar",
+        "topbar only",
+        "collapsible icon rail"
+      ],
+      "states": [
+        "expanded",
+        "collapsed",
+        "mobile drawer"
+      ],
+      "responsive": "The sidebar becomes a drawer below 1024 px; the main area keeps 16 px gutters on phones.",
+      "motion": "The sidebar width animates with transform or grid columns in 200 ms; route changes cross-fade the main area in 150 ms.",
+      "accessibility": [
+        "Landmarks: nav, header, main.",
+        "Skip link to main.",
+        "Focus moves to the page heading on route change."
+      ],
+      "tokens": [
+        "background",
+        "sidebar",
+        "sidebar-foreground",
+        "border"
+      ],
+      "kinds": [
+        "dashboard",
+        "table",
+        "form",
+        "crud",
+        "detail",
+        "settings"
+      ],
+      "related": [
+        "sidebar-nav",
+        "topbar",
+        "page-header"
+      ],
+      "sources": [
+        "designfy:app-shell",
+        "shadcn:sidebar"
+      ]
+    },
+    {
+      "id": "sidebar-nav",
+      "name": "Sidebar navigation",
+      "surface": "system",
+      "category": "shell",
+      "purpose": "Lists the areas of the system.",
+      "useWhen": [
+        "Systems with five or more areas."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "workspace or product switcher",
+        "groups with label",
+        "item with icon and label",
+        "nested items",
+        "footer with account"
+      ],
+      "variants": [
+        "expanded",
+        "icon rail with tooltips",
+        "with badges"
+      ],
+      "states": [
+        "default",
+        "hover",
+        "active",
+        "collapsed"
+      ],
+      "responsive": "Drawer on phones and tablets.",
+      "motion": "The active marker slides between items; groups open with the accordion motion.",
+      "accessibility": [
+        "<nav aria-label>.",
+        "aria-current on the active item.",
+        "Collapsed items keep their names."
+      ],
+      "tokens": [
+        "sidebar",
+        "sidebar-foreground",
+        "sidebar-accent",
+        "sidebar-border"
+      ],
+      "kinds": [
+        "dashboard",
+        "table",
+        "form",
+        "crud",
+        "detail",
+        "settings"
+      ],
+      "related": [
+        "app-shell",
+        "command-palette"
+      ],
+      "sources": [
+        "shadcn:sidebar"
+      ]
+    },
+    {
+      "id": "topbar",
+      "name": "Topbar",
+      "surface": "system",
+      "category": "shell",
+      "purpose": "Holds global tools: sidebar toggle, breadcrumbs, command trigger, notifications and account.",
+      "useWhen": [
+        "Inside the app shell."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "sidebar toggle",
+        "breadcrumbs",
+        "command trigger",
+        "notifications",
+        "account menu"
+      ],
+      "variants": [],
+      "states": [
+        "default"
+      ],
+      "responsive": "Breadcrumbs collapse to the parent; tools move into the account menu on phones.",
+      "motion": "Gains a border or shadow after the content scrolls.",
+      "accessibility": [
+        "<header> landmark.",
+        "Every icon button has a name."
+      ],
+      "tokens": [
+        "background",
+        "foreground",
+        "border"
+      ],
+      "kinds": [
+        "dashboard",
+        "table",
+        "form",
+        "crud",
+        "detail",
+        "settings"
+      ],
+      "related": [
+        "app-shell",
+        "breadcrumbs"
+      ],
+      "sources": [
+        "designfy:app-shell"
+      ]
+    },
+    {
+      "id": "page-header",
+      "name": "Page header",
+      "surface": "system",
+      "category": "shell",
+      "purpose": "Names the screen and holds its main actions.",
+      "useWhen": [
+        "Top of every system screen."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "title",
+        "description",
+        "primary action",
+        "secondary actions",
+        "tabs or filters (optional)"
+      ],
+      "variants": [
+        "simple",
+        "with tabs",
+        "with back link",
+        "with status and meta"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Actions move below the title; secondary actions collapse into a menu on phones.",
+      "motion": "None on its own; follows the route transition.",
+      "accessibility": [
+        "The title is the h1 of the screen.",
+        "One primary action."
+      ],
+      "tokens": [
+        "foreground",
+        "muted-foreground",
+        "border",
+        "font-heading"
+      ],
+      "kinds": [
+        "dashboard",
+        "table",
+        "form",
+        "crud",
+        "detail",
+        "settings"
+      ],
+      "related": [
+        "app-shell",
+        "breadcrumbs",
+        "tabs"
+      ],
+      "sources": [
+        "designfy:page-header"
+      ]
+    },
+    {
+      "id": "command-palette",
+      "name": "Command palette",
+      "surface": "system",
+      "category": "shell",
+      "purpose": "Finds screens, records and actions from the keyboard.",
+      "useWhen": [
+        "Systems with many screens or frequent expert users."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "input",
+        "grouped results",
+        "shortcut hints",
+        "empty result"
+      ],
+      "variants": [],
+      "states": [
+        "closed",
+        "open",
+        "loading",
+        "empty"
+      ],
+      "responsive": "Full-screen sheet on phones.",
+      "motion": "Opens with the dialog motion; the highlight slides between results.",
+      "accessibility": [
+        "combobox pattern.",
+        "The shortcut is shown in the interface and does not override browser shortcuts."
+      ],
+      "tokens": [
+        "popover",
+        "popover-foreground",
+        "accent",
+        "border"
+      ],
+      "kinds": [
+        "dashboard",
+        "table",
+        "form",
+        "crud",
+        "detail",
+        "settings"
+      ],
+      "related": [
+        "sidebar-nav"
+      ],
+      "sources": [
+        "shadcn:command"
+      ]
+    },
+    {
+      "id": "stat-card",
+      "name": "Stat card",
+      "surface": "system",
+      "category": "data-display",
+      "purpose": "Shows one indicator with its change and context.",
+      "useWhen": [
+        "Dashboards and record summaries."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "label",
+        "value",
+        "change against the previous period",
+        "sparkline or icon (optional)",
+        "link to detail"
+      ],
+      "variants": [
+        "plain",
+        "with sparkline",
+        "with progress toward a goal"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "error",
+        "no data"
+      ],
+      "responsive": "Four in a row, then two, then one or a horizontal snap row.",
+      "motion": "The value counts from the previous number; the change badge fades; the sparkline draws once.",
+      "accessibility": [
+        "Change has a sign and text, not only color or arrow.",
+        "Label and value are associated."
+      ],
+      "tokens": [
+        "card",
+        "card-foreground",
+        "border",
+        "radius",
+        "muted-foreground",
+        "success",
+        "destructive"
+      ],
+      "kinds": [
+        "dashboard",
+        "detail"
+      ],
+      "related": [
+        "counter",
+        "chart-card"
+      ],
+      "sources": [
+        "designfy:stat-card"
+      ]
+    },
+    {
+      "id": "chart-card",
+      "name": "Chart card",
+      "surface": "system",
+      "category": "data-display",
+      "purpose": "Presents one chart with its title, period and legend.",
+      "useWhen": [
+        "Trends, comparisons and distributions in a dashboard."
+      ],
+      "avoidWhen": [
+        "A chart where one number would do."
+      ],
+      "anatomy": [
+        "title and description",
+        "period or series control",
+        "chart",
+        "legend",
+        "tooltip",
+        "table alternative"
+      ],
+      "variants": [
+        "area",
+        "line",
+        "bar",
+        "stacked bar",
+        "donut",
+        "radial"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "error"
+      ],
+      "responsive": "Fixed height per range; fewer axis ticks and a legend below the chart on phones.",
+      "motion": "Draws once on first load in 600 ms; data changes interpolate; nothing replays on hover.",
+      "accessibility": [
+        "Text summary of the chart.",
+        "Series distinguished by more than color.",
+        "Data available as a table."
+      ],
+      "tokens": [
+        "card",
+        "border",
+        "chart-1",
+        "chart-2",
+        "chart-3",
+        "chart-4",
+        "chart-5",
+        "muted-foreground"
+      ],
+      "kinds": [
+        "dashboard",
+        "detail"
+      ],
+      "related": [
+        "stat-card"
+      ],
+      "sources": [
+        "shadcn:chart",
+        "designfy:chart-card"
+      ]
+    },
+    {
+      "id": "data-table",
+      "name": "Data table",
+      "surface": "system",
+      "category": "data-display",
+      "purpose": "Lists records in rows with sorting, filtering, selection and row actions.",
+      "useWhen": [
+        "Records with comparable attributes."
+      ],
+      "avoidWhen": [
+        "Fewer than three columns: use a list."
+      ],
+      "anatomy": [
+        "toolbar",
+        "header with sort",
+        "rows",
+        "cell types (text, number, badge, date, avatar)",
+        "row actions",
+        "selection column",
+        "footer with pagination"
+      ],
+      "variants": [
+        "simple",
+        "sortable",
+        "selectable with bulk actions",
+        "expandable rows",
+        "virtualized",
+        "editable cells"
+      ],
+      "states": [
+        "default",
+        "loading (skeleton rows)",
+        "empty",
+        "no results for the filter",
+        "error",
+        "row hover",
+        "row selected"
+      ],
+      "responsive": "Below 768 px either turns each row into a card with the key columns, or scrolls inside its box with the first column fixed; never scrolls the page sideways.",
+      "motion": "Rows fade in on load; sort moves rows with a short layout animation when the set is small; the bulk action bar slides in.",
+      "accessibility": [
+        "Real <table> with th scope and aria-sort.",
+        "Row actions reachable by keyboard.",
+        "Selection announces the count.",
+        "Numbers right-aligned with tabular figures."
+      ],
+      "tokens": [
+        "background",
+        "foreground",
+        "muted",
+        "muted-foreground",
+        "border"
+      ],
+      "kinds": [
+        "table",
+        "crud",
+        "dashboard",
+        "detail"
+      ],
+      "related": [
+        "filter-bar",
+        "pagination",
+        "empty-state",
+        "bulk-actions"
+      ],
+      "sources": [
+        "shadcn:table",
+        "reui:data-grid",
+        "designfy:data-table"
+      ]
+    },
+    {
+      "id": "filter-bar",
+      "name": "Filter bar",
+      "surface": "system",
+      "category": "data-display",
+      "purpose": "Narrows a list by text, attribute and period.",
+      "useWhen": [
+        "Above tables and lists."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "text input",
+        "attribute filters",
+        "date range",
+        "active filter chips",
+        "clear all",
+        "view options"
+      ],
+      "variants": [],
+      "states": [
+        "no filters",
+        "filters applied"
+      ],
+      "responsive": "Filters collapse into a button that opens a drawer; active chips stay visible.",
+      "motion": "Chips enter and leave with scale and fade in 150 ms; the result count updates with a cross-fade.",
+      "accessibility": [
+        "Every control has a label.",
+        "Result count announced politely.",
+        "State kept in the URL."
+      ],
+      "tokens": [
+        "input",
+        "border",
+        "secondary",
+        "ring"
+      ],
+      "kinds": [
+        "table",
+        "crud"
+      ],
+      "related": [
+        "data-table"
+      ],
+      "sources": [
+        "designfy:filter-bar"
+      ]
+    },
+    {
+      "id": "bulk-actions",
+      "name": "Bulk action bar",
+      "surface": "system",
+      "category": "data-display",
+      "purpose": "Offers actions for the selected rows.",
+      "useWhen": [
+        "Tables with selection."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "selected count",
+        "actions",
+        "clear selection"
+      ],
+      "variants": [],
+      "states": [
+        "default"
+      ],
+      "responsive": "Fixed at the bottom on phones.",
+      "motion": "Slides in when the first row is selected and out when the selection clears.",
+      "accessibility": [
+        "Announces the selected count.",
+        "Destructive actions confirm."
+      ],
+      "tokens": [
+        "card",
+        "border",
+        "primary",
+        "primary-foreground",
+        "ring",
+        "radius"
+      ],
+      "kinds": [
+        "table",
+        "crud"
+      ],
+      "related": [
+        "data-table",
+        "confirm-dialog"
+      ],
+      "sources": [
+        "designfy:data-table"
+      ]
+    },
+    {
+      "id": "description-list",
+      "name": "Description list",
+      "surface": "system",
+      "category": "data-display",
+      "purpose": "Shows the attributes of one record as label and value pairs.",
+      "useWhen": [
+        "Detail screens."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "group title",
+        "term",
+        "value",
+        "inline action (copy, edit)"
+      ],
+      "variants": [
+        "two columns",
+        "stacked",
+        "inside cards by group"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Label above the value on phones.",
+      "motion": "Copy confirmation swaps the icon.",
+      "accessibility": [
+        "<dl>, <dt>, <dd>.",
+        "Empty values show a dash with a screen-reader text."
+      ],
+      "tokens": [
+        "foreground",
+        "muted-foreground",
+        "border"
+      ],
+      "kinds": [
+        "detail",
+        "crud",
+        "settings"
+      ],
+      "related": [
+        "page-header"
+      ],
+      "sources": [
+        "designfy:description-list"
+      ]
+    },
+    {
+      "id": "activity-feed",
+      "name": "Activity feed",
+      "surface": "system",
+      "category": "data-display",
+      "purpose": "Lists what happened to a record or in the system, newest first.",
+      "useWhen": [
+        "History, audit and comments."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "time marker",
+        "actor",
+        "action text",
+        "detail or attachment"
+      ],
+      "variants": [],
+      "states": [
+        "default",
+        "loading",
+        "empty"
+      ],
+      "responsive": "Single column at every width.",
+      "motion": "New entries slide in at the top; older entries load on demand.",
+      "accessibility": [
+        "Ordered list with <time> elements."
+      ],
+      "tokens": [
+        "foreground",
+        "muted-foreground",
+        "border"
+      ],
+      "kinds": [
+        "detail",
+        "dashboard"
+      ],
+      "related": [
+        "description-list"
+      ],
+      "sources": [
+        "designfy:activity-feed"
+      ]
+    },
+    {
+      "id": "status-indicator",
+      "name": "Status indicator",
+      "surface": "system",
+      "category": "data-display",
+      "purpose": "States the condition of a record or service.",
+      "useWhen": [
+        "Order, payment, deploy and service states."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "mark",
+        "label"
+      ],
+      "variants": [
+        "badge",
+        "dot with label",
+        "step in a timeline"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Label never hidden.",
+      "motion": "An in-progress state pulses slowly; a change cross-fades.",
+      "accessibility": [
+        "Text label always present."
+      ],
+      "tokens": [
+        "success",
+        "warning",
+        "destructive",
+        "info",
+        "muted-foreground"
+      ],
+      "kinds": [
+        "dashboard",
+        "table",
+        "form",
+        "crud",
+        "detail",
+        "settings"
+      ],
+      "related": [
+        "badge"
+      ],
+      "sources": [
+        "shadcn:badge"
+      ]
+    },
+    {
+      "id": "form-layout",
+      "name": "Form layout",
+      "surface": "system",
+      "category": "forms",
+      "purpose": "Organizes fields into sections with one clear submit.",
+      "useWhen": [
+        "Creation and editing screens."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "section with title and description",
+        "fields",
+        "help text",
+        "actions (submit, cancel)",
+        "error summary"
+      ],
+      "variants": [
+        "single column",
+        "two-column label and field",
+        "sections in cards",
+        "sticky action bar"
+      ],
+      "states": [
+        "pristine",
+        "dirty",
+        "submitting",
+        "saved",
+        "error"
+      ],
+      "responsive": "Single column on phones; the action bar sticks to the bottom.",
+      "motion": "Sections reveal in order on load; the save button shows progress and then a check; invalid fields shake once, 4 px.",
+      "accessibility": [
+        "One column of fields in reading order.",
+        "Error summary focused after a failed submit, with links to the fields.",
+        "Leaving with unsaved changes asks first."
+      ],
+      "tokens": [
+        "background",
+        "foreground",
+        "border",
+        "input",
+        "ring",
+        "destructive",
+        "primary",
+        "primary-foreground",
+        "ring",
+        "radius"
+      ],
+      "kinds": [
+        "form",
+        "crud",
+        "settings",
+        "auth"
+      ],
+      "related": [
+        "form-field",
+        "stepper"
+      ],
+      "sources": [
+        "designfy:form-layout",
+        "shadcn:form"
+      ]
+    },
+    {
+      "id": "form-field",
+      "name": "Form field",
+      "surface": "system",
+      "category": "forms",
+      "purpose": "One input with its label, help and error.",
+      "useWhen": [
+        "Every input in a form."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "label",
+        "required or optional mark",
+        "control",
+        "help text",
+        "error message"
+      ],
+      "variants": [
+        "text",
+        "textarea",
+        "select",
+        "combobox",
+        "checkbox",
+        "radio group",
+        "switch",
+        "date",
+        "number with unit",
+        "file"
+      ],
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "filled",
+        "invalid",
+        "disabled",
+        "read-only"
+      ],
+      "responsive": "Controls are full width in their column and 44 px tall on touch; font size of 16 px to avoid zoom on iOS.",
+      "motion": "Border and ring transition in 150 ms; the error message slides down 4 px and fades in.",
+      "accessibility": [
+        "Label linked to the control.",
+        "Error linked with aria-describedby and aria-invalid.",
+        "autocomplete and inputmode set."
+      ],
+      "tokens": [
+        "input",
+        "ring",
+        "foreground",
+        "muted-foreground",
+        "destructive",
+        "radius"
+      ],
+      "kinds": [
+        "form",
+        "crud",
+        "settings",
+        "auth",
+        "landing-page"
+      ],
+      "related": [
+        "form-layout"
+      ],
+      "sources": [
+        "shadcn:field",
+        "shadcn:input",
+        "shadcn:select"
+      ]
+    },
+    {
+      "id": "stepper",
+      "name": "Stepper",
+      "surface": "system",
+      "category": "forms",
+      "purpose": "Splits a long task into ordered steps.",
+      "useWhen": [
+        "Onboarding, checkout, multi-part forms."
+      ],
+      "avoidWhen": [
+        "Forms that fit on one screen."
+      ],
+      "anatomy": [
+        "step list with state",
+        "current step content",
+        "back and next",
+        "review step"
+      ],
+      "variants": [],
+      "states": [
+        "upcoming",
+        "current",
+        "done",
+        "error"
+      ],
+      "responsive": "The step list becomes 'step 2 of 4' with a progress bar on phones.",
+      "motion": "Step content slides in the direction of travel in 250 ms; the progress bar grows.",
+      "accessibility": [
+        "aria-current=step.",
+        "Focus moves to the step heading.",
+        "Data kept when going back."
+      ],
+      "tokens": [
+        "primary",
+        "muted",
+        "border",
+        "foreground"
+      ],
+      "kinds": [
+        "form",
+        "auth"
+      ],
+      "related": [
+        "form-layout",
+        "steps"
+      ],
+      "sources": [
+        "designfy:stepper"
+      ]
+    },
+    {
+      "id": "file-upload",
+      "name": "File upload",
+      "surface": "system",
+      "category": "forms",
+      "purpose": "Receives files by drop or by picker and shows their progress.",
+      "useWhen": [
+        "Attachments, imports, images."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "drop zone",
+        "picker button",
+        "file list with progress",
+        "remove",
+        "limits text"
+      ],
+      "variants": [],
+      "states": [
+        "idle",
+        "drag over",
+        "uploading",
+        "done",
+        "error"
+      ],
+      "responsive": "The picker button is the main path on touch.",
+      "motion": "The zone reacts to drag over; progress bars grow; finished files settle into the list.",
+      "accessibility": [
+        "Works with keyboard through the native input.",
+        "Progress and errors announced."
+      ],
+      "tokens": [
+        "border",
+        "muted",
+        "primary",
+        "destructive"
+      ],
+      "kinds": [
+        "form",
+        "crud",
+        "settings"
+      ],
+      "related": [
+        "form-field"
+      ],
+      "sources": [
+        "designfy:file-upload"
+      ]
+    },
+    {
+      "id": "toast",
+      "name": "Toast",
+      "surface": "both",
+      "category": "feedback",
+      "purpose": "Confirms the result of an action without interrupting.",
+      "useWhen": [
+        "Saved, copied, sent."
+      ],
+      "avoidWhen": [
+        "Errors that need a decision.",
+        "Information the person must read."
+      ],
+      "anatomy": [
+        "message",
+        "action (undo)",
+        "close"
+      ],
+      "variants": [
+        "neutral",
+        "success",
+        "error",
+        "with action"
+      ],
+      "states": [
+        "entering",
+        "visible",
+        "leaving"
+      ],
+      "responsive": "Bottom center on phones, above the bottom navigation.",
+      "motion": "Slides and fades in 200 ms; stacks compress; dismisses after 5 s and pauses on hover.",
+      "accessibility": [
+        "role=status for success, role=alert for errors.",
+        "Time enough to read; never the only record of an error."
+      ],
+      "tokens": [
+        "popover",
+        "popover-foreground",
+        "border"
+      ],
+      "kinds": [
+        "dashboard",
+        "table",
+        "form",
+        "crud",
+        "detail",
+        "settings",
+        "landing-page"
+      ],
+      "related": [
+        "alert"
+      ],
+      "sources": [
+        "shadcn:sonner"
+      ]
+    },
+    {
+      "id": "alert",
+      "name": "Alert banner",
+      "surface": "both",
+      "category": "feedback",
+      "purpose": "States a condition of the page or system that stays until resolved.",
+      "useWhen": [
+        "Validation summary, degraded service, pending action."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "icon",
+        "title",
+        "text",
+        "action",
+        "dismiss"
+      ],
+      "variants": [
+        "info",
+        "success",
+        "warning",
+        "destructive"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Full width of its container.",
+      "motion": "Expands into place without pushing content abruptly.",
+      "accessibility": [
+        "role=alert only when it appears in response to an action.",
+        "Type in text."
+      ],
+      "tokens": [
+        "info",
+        "warning",
+        "destructive",
+        "success",
+        "border"
+      ],
+      "kinds": [
+        "dashboard",
+        "table",
+        "form",
+        "crud",
+        "detail",
+        "settings",
+        "site-page"
+      ],
+      "related": [
+        "toast",
+        "callout"
+      ],
+      "sources": [
+        "shadcn:alert"
+      ]
+    },
+    {
+      "id": "confirm-dialog",
+      "name": "Confirm dialog",
+      "surface": "system",
+      "category": "feedback",
+      "purpose": "Asks before an action that cannot be undone.",
+      "useWhen": [
+        "Delete, revoke, publish."
+      ],
+      "avoidWhen": [
+        "Reversible actions: offer undo."
+      ],
+      "anatomy": [
+        "title naming the action and the object",
+        "consequence",
+        "confirm with the verb",
+        "cancel"
+      ],
+      "variants": [
+        "simple",
+        "type the name to confirm"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Bottom sheet on phones.",
+      "motion": "Dialog motion.",
+      "accessibility": [
+        "Focus starts on cancel.",
+        "The confirm button repeats the verb."
+      ],
+      "tokens": [
+        "destructive",
+        "background",
+        "border"
+      ],
+      "kinds": [
+        "crud",
+        "settings",
+        "table",
+        "detail"
+      ],
+      "related": [
+        "dialog",
+        "danger-zone"
+      ],
+      "sources": [
+        "shadcn:alert-dialog"
+      ]
+    },
+    {
+      "id": "empty-state",
+      "name": "Empty state",
+      "surface": "both",
+      "category": "feedback",
+      "purpose": "Explains why there is nothing here and what to do next.",
+      "useWhen": [
+        "First use, no results, cleared lists."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "illustration or icon",
+        "title",
+        "sentence",
+        "primary action",
+        "secondary link"
+      ],
+      "variants": [
+        "first use",
+        "no results for filter",
+        "no permission"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Centered in the region, never in the whole viewport when the region is a card.",
+      "motion": "The illustration has one quiet loop; the block fades in.",
+      "accessibility": [
+        "Text says the cause and the next step."
+      ],
+      "tokens": [
+        "muted",
+        "muted-foreground",
+        "primary",
+        "primary-foreground",
+        "ring",
+        "radius"
+      ],
+      "kinds": [
+        "dashboard",
+        "table",
+        "form",
+        "crud",
+        "detail",
+        "settings",
+        "blog-index"
+      ],
+      "related": [
+        "data-table",
+        "error-state"
+      ],
+      "sources": [
+        "designfy:empty-state"
+      ]
+    },
+    {
+      "id": "error-state",
+      "name": "Error state",
+      "surface": "both",
+      "category": "feedback",
+      "purpose": "Says what failed and offers the way out.",
+      "useWhen": [
+        "Failed loads, 404, 500, lost connection."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "title",
+        "plain explanation",
+        "retry or way back",
+        "support code"
+      ],
+      "variants": [
+        "inline in a region",
+        "full page"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Same structure at every width.",
+      "motion": "Fades in; retry shows progress.",
+      "accessibility": [
+        "role=alert when it replaces content after an action.",
+        "No blame, no jargon."
+      ],
+      "tokens": [
+        "destructive",
+        "muted-foreground",
+        "primary",
+        "primary-foreground",
+        "ring",
+        "radius"
+      ],
+      "kinds": [
+        "dashboard",
+        "table",
+        "form",
+        "crud",
+        "detail",
+        "settings",
+        "landing-page",
+        "home",
+        "site-page"
+      ],
+      "related": [
+        "empty-state",
+        "alert"
+      ],
+      "sources": [
+        "designfy:error-state"
+      ]
+    },
+    {
+      "id": "skeleton",
+      "name": "Skeleton",
+      "surface": "both",
+      "category": "feedback",
+      "purpose": "Holds the shape of content while it loads.",
+      "useWhen": [
+        "Loads longer than 300 ms."
+      ],
+      "avoidWhen": [
+        "Spinners in the middle of a layout that could keep its shape."
+      ],
+      "anatomy": [
+        "blocks with the size of the real content"
+      ],
+      "variants": [],
+      "states": [
+        "default"
+      ],
+      "responsive": "Follows the layout of each range.",
+      "motion": "A slow shimmer or pulse; static under reduced motion.",
+      "accessibility": [
+        "The region sets aria-busy.",
+        "Skeletons are hidden from screen readers."
+      ],
+      "tokens": [
+        "muted"
+      ],
+      "kinds": [
+        "dashboard",
+        "table",
+        "form",
+        "crud",
+        "detail",
+        "settings",
+        "blog-index"
+      ],
+      "related": [
+        "data-table",
+        "stat-card"
+      ],
+      "sources": [
+        "shadcn:skeleton"
+      ]
+    },
+    {
+      "id": "progress",
+      "name": "Progress",
+      "surface": "both",
+      "category": "feedback",
+      "purpose": "Shows how much of a task is done.",
+      "useWhen": [
+        "Uploads, imports, multi-step flows, quotas."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "track",
+        "indicator",
+        "value label"
+      ],
+      "variants": [
+        "bar",
+        "ring",
+        "steps",
+        "indeterminate"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Full width of its container.",
+      "motion": "The indicator grows with a 300 ms transition on transform.",
+      "accessibility": [
+        "role=progressbar with value and name."
+      ],
+      "tokens": [
+        "primary",
+        "muted"
+      ],
+      "kinds": [
+        "dashboard",
+        "table",
+        "form",
+        "crud",
+        "detail",
+        "settings"
+      ],
+      "related": [
+        "stepper",
+        "file-upload"
+      ],
+      "sources": [
+        "shadcn:progress"
+      ]
+    },
+    {
+      "id": "settings-layout",
+      "name": "Settings layout",
+      "surface": "system",
+      "category": "settings",
+      "purpose": "Organizes configuration into areas with a stable navigation.",
+      "useWhen": [
+        "Account, workspace and product settings."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "settings navigation",
+        "area title",
+        "sections"
+      ],
+      "variants": [
+        "side navigation",
+        "tabs",
+        "single long page with anchors"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "The navigation becomes a select or a list page that drills in on phones.",
+      "motion": "Area change cross-fades the content.",
+      "accessibility": [
+        "Navigation is a <nav>.",
+        "Each area has its own URL."
+      ],
+      "tokens": [
+        "background",
+        "foreground",
+        "border"
+      ],
+      "kinds": [
+        "settings"
+      ],
+      "related": [
+        "settings-section",
+        "tabs"
+      ],
+      "sources": [
+        "designfy:settings-layout"
+      ]
+    },
+    {
+      "id": "settings-section",
+      "name": "Settings section",
+      "surface": "system",
+      "category": "settings",
+      "purpose": "Groups related settings with a title, an explanation and its own save.",
+      "useWhen": [
+        "Inside a settings area."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "title and description",
+        "fields or toggle rows",
+        "save and reset",
+        "saved confirmation"
+      ],
+      "variants": [
+        "form section",
+        "toggle rows that save at once",
+        "read-only with edit"
+      ],
+      "states": [
+        "pristine",
+        "dirty",
+        "saving",
+        "saved",
+        "error"
+      ],
+      "responsive": "Description above the fields on phones.",
+      "motion": "Save shows progress and a check; toggles animate the thumb in 150 ms.",
+      "accessibility": [
+        "Toggle rows are switches with label and description.",
+        "Saved state announced."
+      ],
+      "tokens": [
+        "card",
+        "card-foreground",
+        "border",
+        "radius",
+        "input",
+        "ring"
+      ],
+      "kinds": [
+        "settings"
+      ],
+      "related": [
+        "form-layout",
+        "danger-zone"
+      ],
+      "sources": [
+        "designfy:settings-section"
+      ]
+    },
+    {
+      "id": "danger-zone",
+      "name": "Danger zone",
+      "surface": "system",
+      "category": "settings",
+      "purpose": "Separates destructive account or workspace actions.",
+      "useWhen": [
+        "Delete, transfer, reset."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "title",
+        "action rows: what it does, consequence, button"
+      ],
+      "variants": [],
+      "states": [
+        "default"
+      ],
+      "responsive": "Button below the text on phones.",
+      "motion": "None; the confirmation dialog carries the motion.",
+      "accessibility": [
+        "Each action confirms.",
+        "Consequence in plain text."
+      ],
+      "tokens": [
+        "destructive",
+        "border"
+      ],
+      "kinds": [
+        "settings"
+      ],
+      "related": [
+        "confirm-dialog"
+      ],
+      "sources": [
+        "designfy:settings-section"
+      ]
+    },
+    {
+      "id": "auth-card",
+      "name": "Auth card",
+      "surface": "system",
+      "category": "auth",
+      "purpose": "Signs a person in, up or back in after a lost password.",
+      "useWhen": [
+        "Sign in, sign up, recover, verify."
+      ],
+      "avoidWhen": [],
+      "anatomy": [
+        "logo",
+        "title",
+        "provider buttons",
+        "fields",
+        "submit",
+        "link to the alternate flow",
+        "legal line"
+      ],
+      "variants": [
+        "centered card",
+        "split with brand panel",
+        "with one-time code"
+      ],
+      "states": [
+        "idle",
+        "invalid",
+        "submitting",
+        "error",
+        "success"
+      ],
+      "responsive": "The brand panel disappears on phones; the card goes edge to edge.",
+      "motion": "The card fades and rises on load; switching flows slides the form; the brand panel carries a slow background pattern.",
+      "accessibility": [
+        "autocomplete tokens for username, current-password, new-password and one-time-code.",
+        "Errors do not say which field was wrong when that leaks information.",
+        "Password visibility toggle with a name."
+      ],
+      "tokens": [
+        "card",
+        "card-foreground",
+        "border",
+        "radius",
+        "input",
+        "ring",
+        "primary",
+        "primary-foreground",
+        "ring",
+        "radius"
+      ],
+      "kinds": [
+        "auth"
+      ],
+      "related": [
+        "form-field",
+        "background-pattern"
+      ],
+      "sources": [
+        "designfy:auth-card"
+      ]
+    },
+    {
+      "id": "segmented-control",
+      "name": "Segmented control",
+      "surface": "both",
+      "category": "actions",
+      "purpose": "Chooses one of a few options that take effect at once.",
+      "useWhen": [
+        "View mode, period, billing cycle."
+      ],
+      "avoidWhen": [
+        "More than five options."
+      ],
+      "anatomy": [
+        "track",
+        "segments",
+        "active thumb"
+      ],
+      "variants": [],
+      "states": [
+        "default",
+        "selected",
+        "focus-visible"
+      ],
+      "responsive": "Segments share the width; labels shorten on phones.",
+      "motion": "The thumb slides between segments with a layout animation in 200 ms.",
+      "accessibility": [
+        "Radio group semantics with arrow keys."
+      ],
+      "tokens": [
+        "muted",
+        "background",
+        "foreground",
+        "ring"
+      ],
+      "kinds": [
+        "dashboard",
+        "table",
+        "form",
+        "crud",
+        "detail",
+        "settings",
+        "landing-page",
+        "site-page"
+      ],
+      "related": [
+        "tabs",
+        "pricing-table"
+      ],
+      "sources": [
+        "shadcn:toggle-group"
+      ]
+    }
+  ]
+}

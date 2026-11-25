@@ -1,0 +1,34 @@
+---
+/**
+ * Prose: the wrapper of long-form text.
+ *
+ * Applies @tailwindcss/typography with the theme roles (through
+ * designfy-prose.css), a 68ch measure and a 1.7 line height. It owns no
+ * structure of its own: headings, lists, quotes, tables, code and figures
+ * arrive through the default slot and keep their own components inside.
+ *
+ * Slots: default (the text).
+ * Motion: none in the text. The targeted heading flashes once through
+ * designfy-prose.css; anchors scroll smoothly through the theme.
+ *
+ * Catalog: prose
+ */
+interface Props {
+  /** Type size. "lg" reads essays, "compact" reads reference docs. Default "default". */
+  size?: "default" | "lg" | "compact";
+  /** HTML tag of the wrapper. Default "div". */
+  as?: "div" | "article" | "section";
+  class?: string;
+}
+
+const { size = "default", as: Tag = "div", class: className } = Astro.props;
+const sizeClass = {
+  default: "prose-sm sm:prose-base",
+  lg: "prose-base sm:prose-lg",
+  compact: "prose-sm",
+}[size];
+---
+
+<Tag class:list={["prose df-prose df-measure min-w-0", sizeClass, className]}>
+  <slot />
+</Tag>

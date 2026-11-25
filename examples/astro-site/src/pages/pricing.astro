@@ -1,0 +1,28 @@
+---
+/** Sample pricing page, with responsive comparison table and native FAQ disclosures. */
+import Layout from "../Layout.astro";
+import HeroMedia from "@/components/designfy/hero-media/HeroMedia.astro";
+import PricingTable from "@/components/designfy/pricing-table/PricingTable.astro";
+import ComparisonTable from "@/components/designfy/comparison-table/ComparisonTable.astro";
+import Faq from "@/components/designfy/faq/Faq.astro";
+import { comparison, images, plans, questions } from "../sample";
+---
+
+<Layout title="Sample plans">
+  <HeroMedia
+    headline="Room for the way you work."
+    lead="Three sample plans show different workspace sizes and collaboration options."
+    primaryAction={{ label: "See sample plans", href: "#plans" }}
+    image={images.tags}
+    variant="panel"
+  />
+  <div id="plans">
+    <PricingTable id="pricing-plans" title="Fieldnote sample plans" {plans} />
+  </div>
+  <ComparisonTable
+    title="What comes with each plan"
+    options={plans.map((plan) => plan.name)}
+    groups={comparison}
+  />
+  <div id="questions"><Faq title="Plan questions" items={questions} /></div>
+</Layout>

@@ -1,0 +1,26 @@
+{
+  "name": "designfy-example-astro-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "designfy:sync": "bun run ../../src/main.ts components add site-header site-footer announcement-bar hero-centered hero-media feature-grid bento-grid feature-split steps stats-band counter logo-marquee marquee testimonial pricing-table comparison-table faq cta-band newsletter-form card theme-toggle background hero-split --overwrite",
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview --port 4417",
+    "capture": "bun run ../../src/main.ts capture run http://localhost:4417 http://localhost:4417/landing/ http://localhost:4417/pricing/ --viewport 390x844,1440x1000 --wait 900"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5",
+    "@fontsource-variable/manrope": "^5",
+    "clsx": "^2",
+    "tailwind-merge": "^3",
+    "tw-animate-css": "^1",
+    "astro": "~5.18.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4",
+    "tailwindcss": "^4",
+    "vite": "~6.4.0",
+    "playwright": "1.62.0"
+  }
+}

@@ -1,0 +1,14 @@
+# Ordem de leitura do Designfy · Guia do Usuário.
+# Cada página Markdown de docs/user/ aparece exatamente uma vez.
+docs/user/README.md
+docs/user/01-introducao-e-instalacao.md
+docs/user/02-preparar-o-projeto.md
+docs/user/03-skills.md
+docs/user/04-viewspec.md
+docs/user/05-tema-e-paleta.md
+docs/user/06-catalogo-e-componentes.md
+docs/user/07-fundos-e-movimento.md
+docs/user/08-capturas-e-revisao.md
+docs/user/09-tui.md
+docs/user/10-agentes-e-mcp.md
+docs/user/11-referencia.md

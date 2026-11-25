@@ -6,16 +6,17 @@
 import { manifest } from "../../app/manifest.ts";
 import { ExitCode } from "../../app/exit-codes.ts";
 import { error } from "../../app/errors.ts";
+import { screenIds } from "../../tui/screens/ids.ts";
 import type { Command } from "../registry.ts";
 
 export const tuiCommand: Command = {
   name: "tui",
-  description: "Open the terminal interface (Overview and About). Requires a TTY.",
+  description: "Open the terminal interface. Requires a TTY.",
   options: [
     {
       name: "--tab",
-      argument: { name: "tab", values: ["overview", "about"] },
-      description: "Initial tab. Overrides tui.initialTab from settings.json.",
+      argument: { name: "tab", values: screenIds },
+      description: "Initial screen (Home or module). Overrides tui.initialTab from settings.json.",
     },
   ],
   exitCodes: [ExitCode.NO_TTY],

@@ -1,0 +1,489 @@
+[
+  {
+    "name": "app-shell",
+    "type": "registry:block",
+    "title": "App shell",
+    "description": "Frames every screen of a system with navigation, context and content area.",
+    "categories": [
+      "shell"
+    ],
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "shadcn:sheet",
+      "shadcn:tooltip",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/app-shell/app-shell.tsx",
+        "type": "registry:block",
+        "target": "app-shell/app-shell.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "app-shell",
+      "motion": true,
+      "surface": "system"
+    }
+  },
+  {
+    "name": "page-header",
+    "type": "registry:component",
+    "title": "Page header",
+    "description": "Names the screen and holds its main actions.",
+    "categories": [
+      "shell"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "shadcn:dropdown-menu",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/page-header/page-header.tsx",
+        "type": "registry:component",
+        "target": "page-header/page-header.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "page-header",
+      "motion": true,
+      "surface": "system"
+    }
+  },
+  {
+    "name": "stat-card",
+    "type": "registry:component",
+    "title": "Stat card",
+    "description": "Shows one indicator with its change and context.",
+    "categories": [
+      "data-display"
+    ],
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "shadcn:skeleton",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/stat-card/stat-card.tsx",
+        "type": "registry:component",
+        "target": "stat-card/stat-card.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "stat-card",
+      "motion": true,
+      "surface": "system"
+    }
+  },
+  {
+    "name": "chart-card",
+    "type": "registry:component",
+    "title": "Chart card",
+    "description": "Presents one chart with its title, period and legend.",
+    "categories": [
+      "data-display"
+    ],
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "shadcn:chart",
+      "shadcn:skeleton",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/chart-card/chart-card.tsx",
+        "type": "registry:component",
+        "target": "chart-card/chart-card.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "chart-card",
+      "motion": true,
+      "surface": "system"
+    }
+  },
+  {
+    "name": "data-table",
+    "type": "registry:component",
+    "title": "Data table",
+    "description": "Lists records in rows with sorting, filtering, selection and row actions.",
+    "categories": [
+      "data-display"
+    ],
+    "dependencies": [
+      "@tanstack/react-table@^9",
+      "lucide-react",
+      "motion"
+    ],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "shadcn:button",
+      "shadcn:checkbox",
+      "shadcn:dropdown-menu",
+      "shadcn:skeleton",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/data-table/data-table.tsx",
+        "type": "registry:component",
+        "target": "data-table/data-table.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "data-table",
+      "motion": true,
+      "surface": "system"
+    }
+  },
+  {
+    "name": "filter-bar",
+    "type": "registry:component",
+    "title": "Filter bar",
+    "description": "Narrows a list by text, attribute and period.",
+    "categories": [
+      "data-display"
+    ],
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "shadcn:button",
+      "shadcn:input",
+      "shadcn:sheet",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/filter-bar/filter-bar.tsx",
+        "type": "registry:component",
+        "target": "filter-bar/filter-bar.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "filter-bar",
+      "motion": true,
+      "surface": "system"
+    }
+  },
+  {
+    "name": "description-list",
+    "type": "registry:component",
+    "title": "Description list",
+    "description": "Shows the attributes of one record as label and value pairs.",
+    "categories": [
+      "data-display"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/description-list/description-list.tsx",
+        "type": "registry:component",
+        "target": "description-list/description-list.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "description-list",
+      "motion": true,
+      "surface": "both"
+    }
+  },
+  {
+    "name": "activity-feed",
+    "type": "registry:component",
+    "title": "Activity feed",
+    "description": "Lists what happened to a record or in the system, newest first.",
+    "categories": [
+      "data-display"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/activity-feed/activity-feed.tsx",
+        "type": "registry:component",
+        "target": "activity-feed/activity-feed.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "activity-feed",
+      "motion": true,
+      "surface": "both"
+    }
+  },
+  {
+    "name": "form-layout",
+    "type": "registry:block",
+    "title": "Form layout",
+    "description": "Organizes fields into sections with one clear submit.",
+    "categories": [
+      "forms"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "shadcn:button",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/form-layout/form-layout.tsx",
+        "type": "registry:block",
+        "target": "form-layout/form-layout.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "form-layout",
+      "motion": true,
+      "surface": "system"
+    }
+  },
+  {
+    "name": "stepper",
+    "type": "registry:component",
+    "title": "Stepper",
+    "description": "Splits a long task into ordered steps.",
+    "categories": [
+      "forms"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "shadcn:button",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/stepper/stepper.tsx",
+        "type": "registry:component",
+        "target": "stepper/stepper.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "stepper",
+      "motion": true,
+      "surface": "system"
+    }
+  },
+  {
+    "name": "file-upload",
+    "type": "registry:component",
+    "title": "File upload",
+    "description": "Receives files by drop or by picker and shows their progress.",
+    "categories": [
+      "forms"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "shadcn:button",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/file-upload/file-upload.tsx",
+        "type": "registry:component",
+        "target": "file-upload/file-upload.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "file-upload",
+      "motion": true,
+      "surface": "system"
+    }
+  },
+  {
+    "name": "empty-state",
+    "type": "registry:component",
+    "title": "Empty state",
+    "description": "Explains why there is nothing here and what to do next.",
+    "categories": [
+      "feedback"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/empty-state/empty-state.tsx",
+        "type": "registry:component",
+        "target": "empty-state/empty-state.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "empty-state",
+      "motion": true,
+      "surface": "both"
+    }
+  },
+  {
+    "name": "error-state",
+    "type": "registry:component",
+    "title": "Error state",
+    "description": "Says what failed and offers the way out.",
+    "categories": [
+      "feedback"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/error-state/error-state.tsx",
+        "type": "registry:component",
+        "target": "error-state/error-state.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "error-state",
+      "motion": true,
+      "surface": "both"
+    }
+  },
+  {
+    "name": "settings-layout",
+    "type": "registry:block",
+    "title": "Settings layout",
+    "description": "Organizes configuration into areas with a stable navigation.",
+    "categories": [
+      "settings"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/settings-layout/settings-layout.tsx",
+        "type": "registry:block",
+        "target": "settings-layout/settings-layout.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "settings-layout",
+      "motion": true,
+      "surface": "system"
+    }
+  },
+  {
+    "name": "settings-section",
+    "type": "registry:component",
+    "title": "Settings section",
+    "description": "Groups related settings with a title, an explanation and its own save.",
+    "categories": [
+      "settings"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "shadcn:alert-dialog",
+      "shadcn:button",
+      "shadcn:switch",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/settings-section/settings-section.tsx",
+        "type": "registry:component",
+        "target": "settings-section/settings-section.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "settings-section",
+      "motion": true,
+      "surface": "system"
+    }
+  },
+  {
+    "name": "auth-card",
+    "type": "registry:block",
+    "title": "Auth card",
+    "description": "Signs a person in, up or back in after a lost password.",
+    "categories": [
+      "auth"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "shadcn:button",
+      "shadcn:input",
+      "shadcn:label",
+      "background",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/auth-card/auth-card.tsx",
+        "type": "registry:block",
+        "target": "auth-card/auth-card.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "auth-card",
+      "motion": true,
+      "surface": "system"
+    }
+  }
+]

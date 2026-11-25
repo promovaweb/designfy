@@ -44,6 +44,8 @@ export const error = {
     new AppError(ExitCode.PERMISSION, message, details),
   noTty: (message: string) => new AppError(ExitCode.NO_TTY, message),
   mcp: (message: string, details?: Record<string, unknown>) => new AppError(ExitCode.MCP, message, details),
+  /** Creates an error for a check that reported missing or invalid items. */
+  checkFailed: (message: string, details?: Record<string, unknown>) => new AppError(ExitCode.CHECK_FAILED, message, details),
   interrupted: (message = "Operation interrupted.") => new AppError(ExitCode.INTERRUPTED, message),
 };
 

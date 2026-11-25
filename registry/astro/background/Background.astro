@@ -1,0 +1,19 @@
+---
+/** Places a theme-driven pattern behind the default slot. */
+type BackgroundPreset = import("./presets").BackgroundPreset;
+
+interface Props {
+  preset: BackgroundPreset;
+  className?: string;
+  fade?: "none" | "bottom" | "edges" | "radial";
+}
+
+const { preset, className, fade = "none" } = Astro.props;
+---
+
+<div class:list={["relative isolate overflow-hidden bg-background", className]}>
+  <div aria-hidden="true" data-df-bg-fade={fade}>
+    <div data-df-bg={preset}></div>
+  </div>
+  <div class="relative z-10"><slot /></div>
+</div>

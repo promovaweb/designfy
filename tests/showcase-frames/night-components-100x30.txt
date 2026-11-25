@@ -1,0 +1,30 @@
+    ◆ Designfy   v0.1.0  › λ Components  fixture-p...react-vite   T night   linux-x64 · Bun 0.0.0
+    ← Back   λ Components  Browse and copy components from the registry
+   Framework: react
+   ╭─ Tab · Components · 0 marked ───╮  ╭─ Tab · Details ───────────────────────────────────────╮
+   │ actions · 1                    ┃│  │ Theme toggle                                          │
+   │ > □ theme-toggle               ┃│  │ Switches the theme and persists a light, dark or      │
+   │   Switches th...em preference. ┃│  │ system preference.                                    │
+   │ auth · 1                       ┃│  │ Type              registry:ui                         │
+   │   □ auth-card                  ││  │ Files                                                 │
+   │   Signs a per...lost password. ││  │ theme-toggle/theme-toggle.tsx                         │
+   │ containers · 1                 ││  │ Dependencies                                          │
+   │   □ card                       ││  │ lucide-react                                          │
+   │   Groups a si... and a footer. ││  │ Required items                                        │
+   │ content · 11                   ││  │ cn                                                    │
+   │   □ article-header             ││  │ designfy-motion                                       │
+   │   Opens an ar...three layouts. ││  │                                                       │
+   │   □ author-box                 ││  │                                                       │
+   │   Introduces ...nce on scroll. ││  │                                                       │
+   │   □ callout                    ││  │                                                       │
+   │   Sets a note...n of the kind. ││  │                                                       │
+   │   □ code-block                 ││  │                                                       │
+   │   Shows code ...a highlighter. ││  │                                                       │
+   │   □ figure                     ││  │                                                       │
+   │   Places an i...when it loads. ││  │                                                       │
+   │   □ post-card                  ││  │                                                       │
+   │   Summarizes ...ntainer width. ││  │                                                       │
+   │   □ post-list                  ││  │                                                       │
+   │   Lays out a ...n empty state. ││  │                                                       │
+   ╰─────────────────────────────────╯  ╰───────────────────────────────────────────────────────╯
+    f  switch framework   Enter  show files and dependencies  │   Esc  back   ?  help   q  quit

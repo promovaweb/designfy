@@ -18,8 +18,17 @@ import {
   definitionOf,
 } from "../../config/settings.ts";
 import { paths } from "../../config/paths.ts";
-import { table, panel, scrollPanel, stateView } from "../components.ts";
+import { table, panel, scrollPanel, listWidth, keyValueTable, stateView } from "../components.ts";
 import type { Screen, ScreenContext } from "../screen.ts";
+
+function settingsLayout(ctx: ScreenContext, rows: number) {
+  const compact = ctx.layout() === "compact";
+  return {
+    compact,
+    width: compact ? undefined : listWidth(ctx.renderer.width, 46),
+    height: Math.min(ctx.renderer.height - (compact ? 4 : 8), compact ? 17 : rows + 6),
+  };
+}
 
 /** Creates an independent settings table and editor. */
 export function createSettingsScreen(): Screen {
@@ -161,30 +170,31 @@ export function createSettingsScreen(): Screen {
           value: String(value),
           default: String(definitionOf(key)?.default ?? "—"),
         }));
+        const { compact, width, height } = settingsLayout(ctx, rows.length);
         const root = new BoxRenderable(renderer, {
-          flexDirection: ctx.layout() === "compact" ? "column" : "row",
-          gap: ctx.layout() === "compact" ? ctx.space.gapY : ctx.space.gapX,
-          height: Math.min(renderer.height - (ctx.layout() === "compact" ? 4 : 8), ctx.layout() === "compact" ? 17 : rows.length + 6),
+          flexDirection: compact ? "column" : "row",
+          gap: compact ? ctx.space.gapY : ctx.space.gapX,
+          height,
           flexGrow: 0,
           minHeight: 0,
         });
         const details = scrollPanel(renderer, theme, {
-          title: "Setting details",
-          width: ctx.layout() === "compact" ? "100%" : ctx.layout() === "medium" ? "34%" : "40%",
-          height: ctx.layout() === "compact" ? 6 : undefined,
-          flexGrow: 0,
+          title: "Setting details", focusKey: "Tab",
+          height: compact ? 6 : undefined,
+          flexGrow: compact ? 0 : 1,
         });
-        const text = new TextRenderable(renderer, {
-          fg: theme.text,
-          wrapMode: "word",
-        });
-        details.add(text);
-
         /** Keeps details and shell status aligned with the displayed row. */
         function show(index: number): void {
-          current = rows[index]?.key ?? "";
+          const row = rows[index];
+          current = row?.key ?? "";
           const def = SETTINGS_SCHEMA.find((entry) => entry.key === current);
-          text.content = `${current}\n\n${def?.description ?? "Custom setting"}\nType: ${def?.type ?? "string"}${def?.type === "enum" ? `\nAccepted: ${def.values?.join(", ")}` : ""}`;
+          for (const child of details.body.getChildren()) child.destroyRecursively();
+          details.add(new TextRenderable(renderer, { content: current, fg: theme.textStrong, wrapMode: "word" }));
+          details.add(new TextRenderable(renderer, { content: def?.description ?? "Custom setting", fg: theme.textDim, wrapMode: "word" }));
+          details.add(keyValueTable(renderer, theme, [
+            ["Value", row?.value ?? "—"], ["Default", row?.default ?? "—"], ["Type", def?.type ?? "string"],
+            ...(def?.values ? [["Accepted", def.values.join(", ")] as [string, string]] : []),
+          ]));
           ctx.status(`${rows.length} settings · ${current}`);
         }
 
@@ -195,14 +205,20 @@ export function createSettingsScreen(): Screen {
         grid = table(renderer, theme, {
           columns: [
             { key: "key", title: "Key", width: Math.max(...rows.map((row) => Bun.stringWidth(row.key!))) },
-            { key: "value", title: "Value" },
-            { key: "default", title: "Default" },
+            ...(ctx.layout() === "medium" ? [] : [{ key: "value", title: "Value" }, { key: "default", title: "Default" }]),
           ],
           rows,
           onSelect: show,
           onActivate: activate,
         });
-        const collection = panel(renderer, theme, { title: "Settings", flexGrow: 1, active: true });
+        const collection = panel(renderer, theme, { title: "Tab · Settings", width, flexGrow: compact ? 1 : 0, active: true });
+        const focusTarget = grid.focusTarget;
+        const updateFocus = () => {
+          if (!renderer.isDestroyed && !collection.body.isDestroyed) collection.appearance(theme, "Tab · Settings", focusTarget.focused);
+        };
+        focusTarget.on("focused", updateFocus);
+        focusTarget.on("blurred", updateFocus);
+        if (!compact) root.onSizeChange = () => { collection.width = listWidth(renderer.width, 46); };
         collection.add(grid.box);
         root.add(collection);
         root.add(details);

@@ -5,12 +5,12 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { createTestRenderer } from "@opentui/core/testing";
 import { HOME_VARIABLE, MASTER_KEY_VARIABLE, paths } from "../src/config/paths.ts";
-import { getPath, readSettings, writeSettings, defaultSettings, setPath } from "../src/config/settings.ts";
+import { flatten, getPath, readSettings, writeSettings, defaultSettings, setPath } from "../src/config/settings.ts";
 import { getCredential, listCredentials } from "../src/config/credentials.ts";
 import { createSettingsScreen } from "../src/tui/screens/settings.ts";
 import { createCredentialsScreen } from "../src/tui/screens/credentials.ts";
 import { createDocsScreen } from "../src/tui/screens/docs.ts";
-import { overviewScreen } from "../src/tui/screens/overview.ts";
+import { projectOverviewScreen } from "../src/tui/screens/project.ts";
 import { aboutScreen } from "../src/tui/screens/about.ts";
 import { createScreenContext } from "./tui-context.ts";
 import type { Screen, ScreenContext, Layout } from "../src/tui/screen.ts";
@@ -31,11 +31,23 @@ test("settings edits enum and boolean, validates input, confirms reset and persi
     const fixture = createScreenContext(setup.renderer); const screen = createSettingsScreen();
     const settings = defaultSettings(); setPath(settings, "custom.title", "Before"); writeSettings(settings);
     setup.renderer.root.add(screen.mount(fixture.ctx)); await setup.renderOnce();
-    // Sorted keys: custom.title, output.colors, output.format, ...
+    const keys = flatten(readSettings()).map(([key]) => key);
+    let selected = 0;
+    async function select(key: string) {
+      const index = keys.indexOf(key);
+      expect(index).toBeGreaterThanOrEqual(0);
+      while (selected < index) {
+        await action(screen, "j", fixture.ctx);
+        selected++;
+      }
+    }
+    await select("custom.title");
     fixture.answers.prompt = async (options) => { expect(options.validate?.("After")).toBeUndefined(); return "After"; };
     await action(screen, "e", fixture.ctx); expect(getPath(readSettings(), "custom.title")).toBe("After");
-    await action(screen, "j", fixture.ctx); await action(screen, "e", fixture.ctx); expect(getPath(readSettings(), "output.colors")).toBe(false);
-    await action(screen, "j", fixture.ctx); fixture.answers.choose = async () => 1;
+    await select("output.colors");
+    await action(screen, "e", fixture.ctx); expect(getPath(readSettings(), "output.colors")).toBe(false);
+    await select("output.format");
+    fixture.answers.choose = async () => 1;
     await action(screen, "e", fixture.ctx); expect(getPath(readSettings(), "output.format")).toBe("json");
     fixture.answers.confirm = async () => false; await action(screen, "x", fixture.ctx); expect(getPath(readSettings(), "output.format")).toBe("json");
     fixture.answers.confirm = async () => true; await action(screen, "x", fixture.ctx); expect(getPath(readSettings(), "output.format")).toBe("text");
@@ -73,7 +85,7 @@ for (const [layout, width] of [["compact", 64], ["medium", 100], ["wide", 160]] 
     const setup = await createTestRenderer({ width, height: 40 });
     try {
       const fixture = createScreenContext(setup.renderer, layout);
-      for (const screen of [overviewScreen, createSettingsScreen(), createCredentialsScreen(), aboutScreen]) {
+      for (const screen of [projectOverviewScreen, createSettingsScreen(), createCredentialsScreen(), aboutScreen]) {
         const node = screen.mount(fixture.ctx); setup.renderer.root.add(node); await setup.renderOnce(); expect(setup.captureCharFrame().trim().length).toBeGreaterThan(0);
         setup.renderer.root.remove(node); node.destroyRecursively();
       }
@@ -82,8 +94,8 @@ for (const [layout, width] of [["compact", 64], ["medium", 100], ["wide", 160]] 
       expect(fixture.statuses.at(-1)).toBe("docs: cli");
       fixture.answers.choose = async () => 1; await action(docs, "t", fixture.ctx); await setup.renderOnce();
       expect(fixture.statuses.at(-1)).toBe("docs: tui");
-      for (let attempt = 0; attempt < 40 && !setup.captureCharFrame().includes("TUI"); attempt++) { await Bun.sleep(25); await setup.renderOnce(); }
-      expect(setup.captureCharFrame()).toContain("TUI");
+      for (let attempt = 0; attempt < 40 && !setup.captureCharFrame().includes("sem argumentos"); attempt++) { await Bun.sleep(25); await setup.renderOnce(); }
+      expect(setup.captureCharFrame()).toContain("sem argumentos");
       docs.onLeave?.(fixture.ctx);
     } finally { setup.renderer.destroy(); }
   });

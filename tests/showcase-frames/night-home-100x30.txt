@@ -1,0 +1,30 @@
+    ◆ Designfy   v0.1.0  ⌂ Home  fixture-project · react-vite     T night   linux-x64 · Bun 0.0.0
+    › Install dependencies   [Enter]
+   ╭─ 1 ◐ Theme ────────────────────────────────╮  ╭─ 2 ≡ Catalog ─────────────────────────────╮█
+   │ globals.css                                │  │ 80 patterns                               │█
+   │ ██ ██ ░░ ░░ ░░ ░░ ░░                       │  │ site   ━━━━━━ 32                          │█
+   │ ✓ 18.88:1 FG / BG                          │  │ system ━━━━   22                          │█
+   │                                            │  │ both   ━━━━━  26                          │█
+   │                                            │  │                                           │█
+   ╰────────────────────────────────────────────╯  ╰───────────────────────────────────────────╯█
+   ╭─ 3 λ Components ───────────────────────────╮  ╭─ 4 ⇌ Skills ──────────────────────────────╮█
+   │ Registry · react-vite                      │  │ Installed ━━━━━━━━ 1/16 6%                │█
+   │ Copied ━━━━━━━━ 0/58 0%                    │  │ 11 internal · 5 external                  │█
+   │                                            │  │ ● designfy installed                      │█
+   │                                            │  │                                           │█
+   │                                            │  │                                           │█
+   ╰────────────────────────────────────────────╯  ╰───────────────────────────────────────────╯█
+   ╭─ 5 ◉ Deps ─────────────────────────────────╮  ╭─ 6 ⇌ MCP ─────────────────────────────────╮█
+   │ Present ━━━━━━━━ 1/13 7%                   │  │ 3 servers in catalog                      │█
+   │ ! 12 missing                               │  │ ○ claude 0  ○ codex 0                     │▀
+   │                                            │  │ ○ opencode 0  ○ cursor 0                  │
+   │                                            │  │ ○ gemini 0                                │
+   │                                            │  │                                           │
+   ╰────────────────────────────────────────────╯  ╰───────────────────────────────────────────╯
+   ╭─ 7 ≡ Viewspecs ────────────────────────────╮  ╭─ 8 ❯ Captures ────────────────────────────╮
+   │ ✓ Guide · 33 rules                         │  │ 2026-11-24-test                           │
+   │ Active ━━━━━━ 1                            │  │ 2026-11-24 · 1 shots                      │
+   │ Checklist ━━━━━━━━ 1/6 16%                 │  │ ✗ 1 overflowX                             │
+   │                                            │  │                                           │
+   1 installed  ·  0 copied  ·  12 missing deps  ·  1 open viewspecs  ·  1 overflowX
+    Enter  open   r  reload  │   T  theme   ^K  commands   ?  help   q  quit

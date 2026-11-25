@@ -1,0 +1,580 @@
+[
+  {
+    "name": "hero-centered",
+    "type": "registry:block",
+    "title": "Centered hero",
+    "description": "Centers the page headline and action, with optional background, media and inline form.",
+    "categories": [
+      "hero"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/hero-centered/hero-centered.tsx",
+        "type": "registry:component",
+        "target": "hero-centered/hero-centered.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "hero-centered",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "feature-grid",
+    "type": "registry:block",
+    "title": "Feature grid",
+    "description": "Presents comparable capabilities in a responsive list with small visuals and optional links.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/feature-grid/feature-grid.tsx",
+        "type": "registry:component",
+        "target": "feature-grid/feature-grid.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "feature-grid",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "bento-grid",
+    "type": "registry:block",
+    "title": "Bento grid",
+    "description": "Arranges unequal capabilities in tiles with supporting illustrations.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/bento-grid/bento-grid.tsx",
+        "type": "registry:component",
+        "target": "bento-grid/bento-grid.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "bento-grid",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "feature-split",
+    "type": "registry:block",
+    "title": "Feature split",
+    "description": "Sets a feature explanation beside a large visual or a scrolling sequence of visuals.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/feature-split/feature-split.tsx",
+        "type": "registry:component",
+        "target": "feature-split/feature-split.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "feature-split",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "steps",
+    "type": "registry:block",
+    "title": "Steps",
+    "description": "Connects the steps of a process horizontally or as a vertical timeline.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/steps/steps.tsx",
+        "type": "registry:component",
+        "target": "steps/steps.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "steps",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "counter",
+    "type": "registry:component",
+    "title": "Animated counter",
+    "description": "Displays the final number in markup and animates a presentation-only value when visible.",
+    "categories": [
+      "motion"
+    ],
+    "dependencies": [
+      "motion"
+    ],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/counter/counter.tsx",
+        "type": "registry:component",
+        "target": "counter/counter.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "counter",
+      "motion": true,
+      "surface": "both"
+    }
+  },
+  {
+    "name": "stats-band",
+    "type": "registry:block",
+    "title": "Stats band",
+    "description": "Displays large metrics, with labels and optional sources, in a definition list.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion",
+      "counter"
+    ],
+    "files": [
+      {
+        "path": "registry/react/stats-band/stats-band.tsx",
+        "type": "registry:component",
+        "target": "stats-band/stats-band.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "stats-band",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "marquee",
+    "type": "registry:component",
+    "title": "Marquee",
+    "description": "Scrolls short passive content with an accessible stop control when the content is meaningful.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/marquee/marquee.tsx",
+        "type": "registry:component",
+        "target": "marquee/marquee.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "marquee",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "logo-marquee",
+    "type": "registry:block",
+    "title": "Logo strip",
+    "description": "Displays customer or partner names in a static row or a scrolling strip.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion",
+      "marquee"
+    ],
+    "files": [
+      {
+        "path": "registry/react/logo-marquee/logo-marquee.tsx",
+        "type": "registry:component",
+        "target": "logo-marquee/logo-marquee.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "logo-strip",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "testimonial",
+    "type": "registry:block",
+    "title": "Testimonial",
+    "description": "Presents attributed testimonials as a single quote, grid or manually controlled carousel.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/testimonial/testimonial.tsx",
+        "type": "registry:component",
+        "target": "testimonial/testimonial.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "testimonial",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "pricing-table",
+    "type": "registry:block",
+    "title": "Pricing table",
+    "description": "Compares plan cards with a billing period switch and an optional comparison below.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/pricing-table/pricing-table.tsx",
+        "type": "registry:component",
+        "target": "pricing-table/pricing-table.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "pricing-table",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "comparison-table",
+    "type": "registry:block",
+    "title": "Comparison table",
+    "description": "Compares grouped features in an accessible table with localized horizontal scrolling.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/comparison-table/comparison-table.tsx",
+        "type": "registry:component",
+        "target": "comparison-table/comparison-table.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "comparison-table",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "faq",
+    "type": "registry:block",
+    "title": "FAQ",
+    "description": "Provides native disclosure for answers and optional FAQPage metadata for eligible content.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/faq/faq.tsx",
+        "type": "registry:component",
+        "target": "faq/faq.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "faq",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "cta-band",
+    "type": "registry:block",
+    "title": "Call to action band",
+    "description": "Repeats the primary action in a full-width or inset band with an optional form.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/cta-band/cta-band.tsx",
+        "type": "registry:component",
+        "target": "cta-band/cta-band.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "cta-band",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "card",
+    "type": "registry:component",
+    "title": "Card",
+    "description": "Groups a single subject in a fluid surface with optional media, an action and a footer.",
+    "categories": [
+      "containers"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/card/card.tsx",
+        "type": "registry:component",
+        "target": "card/card.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "card",
+      "motion": true,
+      "surface": "both"
+    }
+  },
+  {
+    "name": "site-header",
+    "type": "registry:component",
+    "title": "Site header",
+    "description": "Provides public site navigation and a modal menu for small screens.",
+    "categories": [
+      "site-navigation"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/site-header/site-header.tsx",
+        "type": "registry:component",
+        "target": "site-header/site-header.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "site-header",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "site-footer",
+    "type": "registry:component",
+    "title": "Site footer",
+    "description": "Closes a public page with its identity, route groups and legal information.",
+    "categories": [
+      "site-navigation"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/site-footer/site-footer.tsx",
+        "type": "registry:component",
+        "target": "site-footer/site-footer.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "site-footer",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "announcement-bar",
+    "type": "registry:component",
+    "title": "Announcement bar",
+    "description": "Shows a dated message and link with an optional dismiss button.",
+    "categories": [
+      "site-navigation"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion",
+      "marquee"
+    ],
+    "files": [
+      {
+        "path": "registry/react/announcement-bar/announcement-bar.tsx",
+        "type": "registry:component",
+        "target": "announcement-bar/announcement-bar.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "announcement-bar",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "hero-media",
+    "type": "registry:block",
+    "title": "Media hero",
+    "description": "Opens with art-directed imagery or optional silent video behind the headline.",
+    "categories": [
+      "hero"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/hero-media/hero-media.tsx",
+        "type": "registry:component",
+        "target": "hero-media/hero-media.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "hero-media",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "newsletter-form",
+    "type": "registry:component",
+    "title": "Inline signup form",
+    "description": "Validates an email and submits it to a configured endpoint, with honest feedback for every result.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/newsletter-form/newsletter-form.tsx",
+        "type": "registry:component",
+        "target": "newsletter-form/newsletter-form.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "newsletter-form",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "theme-toggle",
+    "type": "registry:ui",
+    "title": "Theme toggle",
+    "description": "Switches the theme and persists a light, dark or system preference.",
+    "categories": [
+      "actions"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/theme-toggle/theme-toggle.tsx",
+        "type": "registry:component",
+        "target": "theme-toggle/theme-toggle.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "theme-toggle",
+      "motion": true,
+      "surface": "both"
+    }
+  }
+]

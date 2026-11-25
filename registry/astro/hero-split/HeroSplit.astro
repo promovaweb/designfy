@@ -1,0 +1,95 @@
+---
+/**
+ * HeroSplit: opens a page with the promise on one side and proof of the
+ * product on the other.
+ *
+ * Left: product name, headline, one sentence and up to two actions.
+ * Right: a framed visual with real content (screenshot, panel, demo) in
+ * the `visual` slot. On phones the text comes first and the visual below.
+ * Headline, sentence and primary action fit in 1280 x 800.
+ *
+ * Slots: `visual` (required), `background` (decorative layer), default
+ * (extra content under the actions).
+ * Motion: CSS only. The text enters in a short stagger and the visual fades
+ * and rises, on load, with `animate-df-fade-up`. The animations start from
+ * the visible state when scripting is off and stop under reduced motion.
+ */
+interface Action {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  /** Product or page name, shown above the headline in the body face. */
+  name?: string;
+  /** The h1 of the page. Seven words or fewer reads best. */
+  headline: string;
+  /** One sentence: what it is, for whom, the difference. */
+  lead: string;
+  /** The primary action. */
+  primaryAction: Action;
+  /** A quieter second action. */
+  secondaryAction?: Action;
+  /** Side of the visual on wide screens. Default "end". */
+  visualSide?: "start" | "end";
+  /** Short facts under the actions, each a real statement. */
+  notes?: string[];
+  class?: string;
+}
+
+const { name, headline, lead, primaryAction, secondaryAction, visualSide = "end", notes, class: className } = Astro.props;
+---
+
+<section class:list={["relative isolate overflow-clip", className]}>
+  {
+    Astro.slots.has("background") && (
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10">
+        <slot name="background" />
+      </div>
+    )
+  }
+  <div
+    class="df-container grid items-center gap-10 py-14 md:py-20 lg:min-h-[min(44rem,calc(100svh-var(--header-height)))] lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-14"
+  >
+    <div class:list={["flex flex-col items-start gap-6", visualSide === "start" && "lg:order-2"]}>
+      {name && <p class="animate-df-fade-up text-sm font-medium text-muted-foreground">{name}</p>}
+      <h1 class="max-w-[16ch] animate-df-fade-up font-heading text-display font-semibold text-foreground [animation-delay:80ms]">
+        {headline}
+      </h1>
+      <p class="max-w-[52ch] animate-df-fade-up text-lead text-muted-foreground [animation-delay:160ms]">{lead}</p>
+      <div class="flex w-full animate-df-fade-up flex-col gap-3 [animation-delay:240ms] sm:w-auto sm:flex-row sm:items-center">
+        <a
+          href={primaryAction.href}
+          class="df-press inline-flex min-h-12 items-center justify-center rounded-lg bg-primary px-6 text-base font-semibold whitespace-nowrap text-primary-foreground shadow-sm hover:bg-primary/90"
+        >
+          {primaryAction.label}
+        </a>
+        {
+          secondaryAction && (
+            <a
+              href={secondaryAction.href}
+              class="df-press inline-flex min-h-12 items-center justify-center rounded-lg border border-border bg-background px-6 text-base font-medium whitespace-nowrap text-foreground hover:bg-muted"
+            >
+              {secondaryAction.label}
+            </a>
+          )
+        }
+      </div>
+      {
+        notes?.length && (
+          <ul class="flex animate-df-fade-up flex-col gap-1 text-sm text-muted-foreground [animation-delay:320ms] sm:flex-row sm:gap-6">
+            {notes.map((note) => (
+              <li>{note}</li>
+            ))}
+          </ul>
+        )
+      }
+      <slot />
+    </div>
+    <div class="relative min-w-0 animate-df-fade-up [animation-delay:200ms] [animation-duration:var(--duration-slower)]">
+      <div class="overflow-hidden rounded-xl border border-border bg-card shadow-xl shadow-foreground/5">
+        <slot name="visual" />
+      </div>
+    </div>
+  </div>
+</section>

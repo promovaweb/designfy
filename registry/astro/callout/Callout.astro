@@ -1,0 +1,74 @@
+---
+/**
+ * Callout: sets a note, a tip, a warning or a danger apart from the text.
+ *
+ * The kind is written in the text, not only painted: the label ("Note", "Tip",
+ * "Warning", "Danger") always appears next to the icon, and `label` replaces it
+ * in another language. The optional `title` adds the specific subject above
+ * the body. The block is an aside with role="note".
+ *
+ * Slots: default (the text of the callout).
+ * Motion: none. The callout is part of the text and does not move.
+ *
+ * Catalog: callout
+ */
+type CalloutType = "note" | "tip" | "warning" | "danger";
+
+interface Props {
+  /** Kind of the callout; it sets the default label and the icon. Default "note". */
+  type?: CalloutType;
+  /** Replaces the default label, for another language or a more precise word. */
+  label?: string;
+  /** The specific subject of the callout. */
+  title?: string;
+  class?: string;
+}
+
+const { type = "note", label, title, class: className } = Astro.props;
+
+const LABEL: Record<CalloutType, string> = {
+  note: "Note",
+  tip: "Tip",
+  warning: "Warning",
+  danger: "Danger",
+};
+
+const SHAPES: Record<CalloutType, string[]> = {
+  note: ["M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Z", "M12 16v-4", "M12 8h.01"],
+  tip: ["M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2Z", "M9 19h6", "M10 21h4"],
+  warning: ["m21.7 18-8-14a2 2 0 0 0-3.4 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3Z", "M12 9v4", "M12 17h.01"],
+  danger: ["M7.9 2h8.2L22 7.9v8.2L16.1 22H7.9L2 16.1V7.9L7.9 2Z", "M12 8v4", "M12 16h.01"],
+};
+
+const TONE: Record<CalloutType, { surface: string; border: string; text: string }> = {
+  note: { surface: "bg-info/10", border: "border-info/30", text: "text-info" },
+  tip: { surface: "bg-success/10", border: "border-success/30", text: "text-success" },
+  warning: { surface: "bg-warning/10", border: "border-warning/30", text: "text-warning" },
+  danger: { surface: "bg-destructive/10", border: "border-destructive/30", text: "text-destructive" },
+};
+
+const tone = TONE[type];
+const shapes = SHAPES[type];
+---
+
+<aside role="note" data-df-callout={type} class:list={["rounded-lg border px-5 py-4", tone.surface, tone.border, className]}>
+  <p class:list={["flex items-center gap-2 text-sm font-semibold", tone.text]}>
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.75"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="size-4 shrink-0"
+    >
+      {shapes.map((d) => <path d={d} />)}
+    </svg>
+    <span>{label ?? LABEL[type]}</span>
+  </p>
+  {title && <p class="mt-2 font-heading text-base font-semibold text-foreground">{title}</p>}
+  <div class:list={["flex flex-col gap-2 text-sm leading-relaxed text-foreground/85", title ? "mt-1" : "mt-2"]}>
+    <slot />
+  </div>
+</aside>

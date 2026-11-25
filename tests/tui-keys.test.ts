@@ -5,32 +5,51 @@ import { screens } from "../src/tui/screens/index.ts";
 import type { Screen } from "../src/tui/screen.ts";
 import { withTui } from "./tui-fixture.ts";
 
-test("numbered tabs include icons and declared actions appear in the bar", async () => {
+test("Home shows numbered module cards with icons and screen keys", async () => {
   await withTui(async (setup) => {
     const frame = setup.captureCharFrame();
-    expect(frame).toContain("1 ⌂ Overview");
-    expect(frame).toContain("5 ℹ About");
-    const bar = frame.trimEnd().split("\n").at(-1)!;
-    expect(bar).toContain("reload");
-    expect(bar).toContain("copy MCP config");
-  });
+    expect(frame).toContain("1 ◐ Theme");
+    expect(frame).toContain("4 ⇌ Skills");
+    expect(frame).toContain("0 ⚙ Settings");
+    expect(frame).toContain("a ℹ About");
+    expect(frame.split("\n").at(-2)).toMatch(/Enter +open.+r +reload/);
+  }, "overview", { width: 200, height: 60 });
 });
-test("Tab keeps the active tab and brackets switch through the new tab order", async () => {
+
+test("Home moves across cards with arrows and hjkl and returns from a module", async () => {
   await withTui(async (setup) => {
-    setup.mockInput.pressTab({ shift: true });
+    setup.mockInput.pressArrow("down");
+    setup.mockInput.pressKey("l");
+    setup.mockInput.pressArrow("down");
+    setup.mockInput.pressKey("k");
+    setup.mockInput.pressEnter();
     await setup.renderOnce();
-    expect(setup.captureCharFrame()).toContain("ENVIRONMENT");
-    setup.mockInput.pressKey("[");
+    expect(setup.captureCharFrame().split("\n")[0]).toContain("› ≡ Catalog");
+    setup.mockInput.pressBackspace();
     await setup.renderOnce();
-    expect(setup.captureCharFrame()).toContain("CREDITS");
-    setup.mockInput.pressKey("]");
+    expect(setup.captureCharFrame().split("\n")[0]).toContain("⌂ Home");
+    setup.mockInput.pressKey(" ");
     await setup.renderOnce();
-    expect(setup.captureCharFrame()).toContain("ENVIRONMENT");
-    setup.mockInput.pressKey("]");
-    await setup.renderOnce();
-    expect(setup.captureCharFrame()).toContain("SETTING DETAILS");
+    expect(setup.captureCharFrame().split("\n")[0]).toContain("› ≡ Catalog");
   });
 });
+
+test("digits select all ten numbered modules and Home opens the remaining modules by letter", async () => {
+  await withTui(async (setup) => {
+    for (const [index, key] of [..."1234567890"].entries()) {
+      setup.mockInput.pressKey(key);
+      await setup.renderOnce();
+      expect(setup.captureCharFrame().split("\n")[0]).toMatch(new RegExp(`›.+${screens[index + 1]!.title}`));
+    }
+    for (const [key, name] of [["c", "Credentials"], ["d", "Docs"], ["a", "About"]]) {
+      setup.mockInput.pressBackspace();
+      setup.mockInput.pressKey(key!);
+      await setup.renderOnce();
+      expect(setup.captureCharFrame().split("\n")[0]).toContain(name!);
+    }
+  });
+});
+
 test("Escape closes help before quitting and reload reports success", async () => {
   await withTui(async (setup) => {
     setup.mockInput.pressKey("?");
@@ -45,12 +64,16 @@ test("Escape closes help before quitting and reload reports success", async () =
     setup.mockInput.pressKey("r");
     await setup.renderOnce();
     expect(setup.captureCharFrame()).toContain("Reloaded");
-    expect(setup.captureCharFrame()).toContain("ENVIRONMENT");
+    expect(setup.captureCharFrame()).toContain("Project environment");
     setup.mockInput.pressEscape();
     // A lone Escape waits for the input parser to rule out an escape sequence.
     await Bun.sleep(50);
+    expect(setup.renderer.isDestroyed).toBe(false);
+    expect(setup.captureCharFrame().split("\n")[0]).toContain("⌂ Home");
+    setup.mockInput.pressEscape();
+    await Bun.sleep(50);
     expect(setup.renderer.isDestroyed).toBe(true);
-  });
+  }, "project");
 });
 test("Ctrl+C quits instead of invoking the screen c action", async () => {
   await withTui(async (setup) => {
@@ -85,7 +108,11 @@ test("refresh and shutdown destroy replaced and cached nodes and leave the activ
       setup.mockInput.pressKey("1");
       await setup.renderOnce();
       expect(nodes[1]!.isDestroyed).toBe(false);
-      setup.mockInput.pressKey(String(registry.indexOf(fixture) + 1));
+      setup.mockInput.pressKey(":");
+      await setup.mockInput.typeText("Go to Lifecycle");
+      setup.mockInput.pressEnter();
+      await setup.renderOnce();
+      expect(nodes).toHaveLength(2);
       setup.mockInput.pressKey("q");
       expect(nodes.every((node) => node.isDestroyed)).toBe(true);
       expect(leaves).toBe(3);
@@ -134,13 +161,13 @@ test("closing help destroys its detached render tree", async () => {
   });
 });
 
-test("switching tabs destroys the obsolete key bar items", async () => {
+test("switching modules destroys the obsolete key bar items", async () => {
   await withTui(async (setup) => {
     const app = setup.renderer.root.getChildren()[0]!;
     const bar = app.getChildren().at(-1)!;
-    const actions = bar.getChildren()[1]!;
+    const actions = bar.getChildren()[0]!;
     const items = actions.getChildren();
-    setup.mockInput.pressKey("5");
+    setup.mockInput.pressKey("a");
     await setup.renderOnce();
     expect(actions.isDestroyed).toBe(true);
     expect(items.every((item) => item.isDestroyed)).toBe(true);

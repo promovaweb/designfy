@@ -1,0 +1,70 @@
+---
+/**
+ * Base layout of the example: document head, theme bootstrap, site header and
+ * footer. The header and the footer are local to the example on purpose; the
+ * real site navigation belongs to another part of the framework.
+ */
+import "../styles.css";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import { site } from "../lib/site";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const pageTitle = `${title} · ${site.name}`;
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline>
+      // Applies the saved theme before the first paint, without a flash.
+      (() => {
+        try {
+          const saved = localStorage.getItem("df-theme");
+          const dark = saved ? saved === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+          document.documentElement.classList.toggle("dark", dark);
+        } catch {
+          /* Storage blocked: the page keeps the light theme. */
+        }
+      })();
+    </script>
+    <script is:inline>
+      // A full-page screenshot does not scroll, so content that enters on scroll
+      // and images that load lazily stay out of the picture. `?df-capture` asks
+      // the page for the same content in its final state, for the capture run.
+      if (new URLSearchParams(location.search).has("df-capture")) {
+        document.addEventListener("DOMContentLoaded", () => {
+          document.querySelectorAll("[data-df-reveal]").forEach((element) => element.setAttribute("data-df-visible", ""));
+          document.querySelectorAll("img[loading='lazy']").forEach((image) => {
+            image.loading = "eager";
+          });
+          document.querySelectorAll("[data-df-figure-img]").forEach((image) => image.setAttribute("data-loaded", ""));
+        });
+      }
+    </script>
+  </head>
+  <body class="min-h-svh bg-background text-foreground">
+    <a
+      href="#conteudo"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-primary-foreground"
+    >
+      Ir para o conteúdo
+    </a>
+    <SiteHeader />
+    <main id="conteudo" class="min-w-0">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

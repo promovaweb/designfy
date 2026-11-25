@@ -1,0 +1,53 @@
+---
+/**
+ * Modelo: listagem de artigos com paginação (Astro).
+ * Arquivo esperado: src/pages/blog/[...page].astro
+ */
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import Base from "@/layouts/Base.astro";
+import SiteHeader from "@/components/designfy/site-header/SiteHeader.astro";
+import SiteFooter from "@/components/designfy/site-footer/SiteFooter.astro";
+import PostList from "@/components/designfy/post-list/PostList.astro";
+import { site } from "@/data/site";
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+  );
+  return paginate(posts, { pageSize: 12 });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+const all = await getCollection("blog", ({ data }) => !data.draft);
+const counts = new Map<string, number>();
+for (const post of all) counts.set(post.data.category, (counts.get(post.data.category) ?? 0) + 1);
+// Categoria com um artigo só não ganha página.
+const categories = [...counts].filter(([, total]) => total > 1).map(([slug]) => ({ label: slug, href: `/blog/categoria/${slug}/` }));
+
+const items = page.data.map((post) => ({
+  title: post.data.title,
+  excerpt: post.data.description,
+  href: `/blog/${post.id}/`,
+  date: post.data.pubDate,
+  category: post.data.category,
+  cover: post.data.cover ? { src: post.data.cover, alt: "" } : undefined,
+}));
+---
+
+<Base title={page.currentPage === 1 ? site.blog.title : `${site.blog.title}, página ${page.currentPage}`} description={site.blog.description}>
+  <SiteHeader brand={site.brand} links={site.links} action={site.action} />
+  <main id="conteudo" class="df-container df-section">
+    <PostList
+      title={site.blog.title}
+      lead={site.blog.description}
+      items={items}
+      featured={page.currentPage === 1}
+      categories={categories}
+      pagination={{ current: page.currentPage, total: page.lastPage, previous: page.url.prev, next: page.url.next, base: "/blog/" }}
+      emptyTitle="Ainda não há artigos publicados"
+      emptyAction={{ label: "Voltar ao início", href: "/" }}
+    />
+  </main>
+  <SiteFooter brand={site.brand} columns={site.footer.columns} legal={site.footer.legal} />
+</Base>

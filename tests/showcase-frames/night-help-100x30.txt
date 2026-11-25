@@ -1,0 +1,30 @@
+    ◆ Designfy   v0.1.0  ⌂ Home  fixture-project · react-vite     T night   linux-x64 · Bun 0.0.0
+    › Install dependencies   [Enter]
+   ╭─ 1 ◐ Theme ───╭─ ⌨ Keys ───────────────────────────────────────────────────╮──────────────╮█
+   │ globals.css   │                                                            │              │█
+   │ ██ ██ ░░ ░░ ░░│  ⌂ Home                                                    │              │█
+   │ ✓ 18.88:1 FG /│  Enter             open                                    │              │█
+   │               │  r                 ↻ reload                                │              │█
+   │               │  Arrows / hjkl     move across cards                       │              │█
+   ╰───────────────│  c                 ◈ Credentials                           │──────────────╯█
+   ╭─ 3 λ Component│  d                 ≡ Docs                                  │──────────────╮█
+   │ Registry · rea│  a                 ℹ About                                 │              │█
+   │ Copied ━━━━━━━│  Global                                                    │              │█
+   │               │  Ctrl+K  :         ⌨ command palette                       │              │█
+   │               │  1 … 9  0          open a numbered module                  │              │█
+   │               │  T                 ◐ change theme                          │              │█
+   ╰───────────────│  Tab  Shift+Tab    next / previous panel                   │──────────────╯█
+   ╭─ 5 ◉ Deps ────│  Esc  Backspace    ← back to Home; Esc on Home quits       │──────────────╮█
+   │ Present ━━━━━━│  ?  q  Ctrl+C      help / quit                             │              │█
+   │ ! 12 missing  │  Mouse                                                     │              │▀
+   │               │  click             open a card or run an action            │              │
+   │               │  wheel             scroll a list or reading panel          │              │
+   │               │  Shift+drag        select text in most terminals           │              │
+   ╰───────────────│                                                            │──────────────╯
+   ╭─ 7 ≡ Viewspecs╰────────────────────────────────────────────────────────────╯──────────────╮
+   │ ✓ Guide · 33 rules                         │  │ 2026-11-24-test                           │
+   │ Active ━━━━━━ 1                            │  │ 2026-11-24 · 1 shots                      │
+   │ Checklist ━━━━━━━━ 1/6 16%                 │  │ ✗ 1 overflowX                             │
+   │                                            │  │                                           │
+   1 installed  ·  0 copied  ·  12 missing deps  ·  1 open viewspecs  ·  1 overflowX
+    Enter  open   r  reload  │   T  theme   ^K  commands   ?  help   q  quit

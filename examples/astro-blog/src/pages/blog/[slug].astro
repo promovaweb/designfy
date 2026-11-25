@@ -1,0 +1,153 @@
+---
+/**
+ * Article page of the example: the header, the reading progress bar, the
+ * table of contents (block on phones, rail from 1280 px), the prose with the
+ * Markdown body, the sample resources, the author box and three related cards.
+ */
+import { render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import Prose from "@/components/designfy/prose/Prose.astro";
+import ArticleHeader from "@/components/designfy/article-header/ArticleHeader.astro";
+import TableOfContents from "@/components/designfy/table-of-contents/TableOfContents.astro";
+import ReadingProgress from "@/components/designfy/reading-progress/ReadingProgress.astro";
+import PostList from "@/components/designfy/post-list/PostList.astro";
+import AuthorBox from "@/components/designfy/author-box/AuthorBox.astro";
+import Callout from "@/components/designfy/callout/Callout.astro";
+import CodeBlock from "@/components/designfy/code-block/CodeBlock.astro";
+import Figure from "@/components/designfy/figure/Figure.astro";
+import VideoEmbed from "@/components/designfy/video-embed/VideoEmbed.astro";
+import { allPosts, authors, categoryBySlug, formatDate, readingLabel, toCard } from "../../lib/site";
+
+export async function getStaticPaths() {
+  const posts = await allPosts();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+const category = categoryBySlug(post.data.category);
+const author = authors[post.data.author];
+const posts = await allPosts();
+const related = posts.filter((item) => item.id !== post.id).slice(0, 3).map(toCard);
+const cover = {
+  src: `/covers/${post.data.cover}.svg`,
+  alt: "",
+  width: 1200,
+  height: 675,
+};
+
+const toc = [
+  ...headings
+    .filter((heading) => heading.depth > 1)
+    .map((heading) => ({
+      id: heading.slug,
+      label: heading.text,
+      depth: Math.min(4, Math.max(2, heading.depth)) as 2 | 3 | 4,
+    })),
+  { id: "materiais", label: "Materiais e leituras", depth: 2 as const },
+];
+
+const series = [
+  "data,estacao,chuva_mm,observacao",
+  "1963-06-12,cruzeiro,11.0,leitura da manha",
+  "1963-06-13,cruzeiro,42.5,regua conferida",
+  "1963-06-14,cruzeiro,8.0,leitura da tarde",
+  "1963-06-15,cruzeiro,0.0,estacao seca",
+].join("\n");
+---
+
+<Base title={post.data.title} description={post.data.description}>
+  <ReadingProgress />
+
+  <ArticleHeader
+    title={post.data.title}
+    lead={post.data.description}
+    category={category && { label: category.label, href: `/blog/categoria/${category.slug}/` }}
+    author={{ name: author.name, href: "#autor" }}
+    date={{ iso: post.data.publishedAt.toISOString(), label: formatDate(post.data.publishedAt) }}
+    readingTime={readingLabel(post.data.readingTime)}
+    cover={cover}
+    variant={post.data.variant}
+  />
+
+  <div class="df-container mt-10 grid gap-10 md:mt-14 xl:grid-cols-[minmax(0,1fr)_14rem] xl:gap-16">
+    <div class="min-w-0">
+      <TableOfContents
+        variant="block"
+        items={toc}
+        title="Nesta página"
+        label="Nesta página"
+        class="mb-8 xl:hidden"
+      />
+
+      <Prose size="lg">
+        <Content />
+
+        <h2 id="materiais">Materiais e leituras</h2>
+        <p>
+          O que sustenta este texto: uma nota sobre a série, a ilustração da régua usada nas três estações, um extrato
+          do registro em CSV e o vídeo de amostra que a cooperativa exibe nas visitas de campo.
+        </p>
+
+        <Callout type="note" title="Sobre os números desta série" label="Nota">
+          <p>
+            As leituras são de amostra e existem para mostrar o formato do registro. Nenhuma delas vem de uma estação
+            real, e a série não deve ser citada fora deste exemplo.
+          </p>
+        </Callout>
+
+        <Figure
+          src="/figures/regua.svg"
+          alt="Desenho técnico de uma régua de chuva de madeira com marcas a cada dez milímetros e um gancho de fixação."
+          width="1200"
+          height="760"
+          variant="wide"
+          caption="A régua de cedro da estação Cruzeiro, com as marcas refeitas na revisão de 1998."
+          credit="Ilustração de amostra."
+          sizes="(min-width: 1024px) 60rem, 100vw"
+          priority={false}
+        />
+
+        <CodeBlock
+          fileName="serie-cruzeiro-1963.csv"
+          language="csv"
+          code={series}
+          lineHighlights={[3]}
+          copyLabel="Copiar"
+          copiedLabel="Copiado"
+          copiedAnnouncement="Série copiada para a área de transferência."
+        />
+
+        <VideoEmbed
+          title="Três invernos em quatro minutos (amostra)"
+          provider="youtube"
+          videoId="aqz-KE-bpKQ"
+          poster="/videos/poster-regua.svg"
+          aspect="16/9"
+          caption="Vídeo de amostra: a página carrega o player só depois do clique."
+        />
+      </Prose>
+
+      <div id="autor" class="mt-12">
+        <AuthorBox
+          name={author.name}
+          role={author.role}
+          bio={author.bio}
+          avatar={{ src: author.avatar, alt: `Retrato de amostra de ${author.name}`, width: 128, height: 128 }}
+          links={author.links}
+        />
+      </div>
+    </div>
+
+    <aside class="hidden xl:block">
+      <TableOfContents variant="rail" items={toc} title="Nesta página" label="Nesta página" />
+    </aside>
+  </div>
+
+  <section aria-labelledby="relacionados" class="df-container df-section">
+    <h2 id="relacionados" class="font-heading text-title font-semibold text-foreground">Continue lendo</h2>
+    <div class="mt-8">
+      <PostList posts={related} />
+    </div>
+  </section>
+</Base>

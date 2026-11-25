@@ -1,6 +1,11 @@
 # Documentação do {{title}}
 
-`{{bin}}` é um executável único com três modos de uso:
+O {{title}} prepara projetos web para trabalhar com um design system
+Tailwind. O binário detecta o projeto, consulta catálogos de interface,
+skills e dependências, copia componentes React e Astro, gera paletas,
+confere temas e viewspecs e organiza capturas com Playwright.
+
+O mesmo executável oferece três modos.
 
 | Modo | Como entrar | Para quem |
 | --- | --- | --- |
@@ -12,22 +17,32 @@ Os três modos compartilham a mesma identidade (`src/app/manifest.ts`), a
 mesma configuração (`~/.{{bin}}/settings.json`), o mesmo cofre de credenciais
 (`~/.{{bin}}/credentials.json`, cifrado) e a mesma tabela de exit codes.
 
+## Arquivos do projeto
+
+| Caminho | Conteúdo |
+| --- | --- |
+| `designfy.json` | Framework, gerenciador de pacotes e caminhos usados pelo binário. `init` grava o arquivo na raiz do projeto. |
+| `VIEWSPEC.md` | Guia de interface da raiz, com regras e aprendizados que valem para as telas. |
+| `viewspec/<id>-<slug>/VIEWSPEC.md` | Especificação e checklist de uma tela. O CLI e o MCP leem esses arquivos. |
+| `.designfy/captures/<run>/` | Imagens e `manifest.json` de uma execução do Playwright. |
+
 ## Mapa
 
-- [cli.md](cli.md): commands, opções globais, convenções de saída e a referência gerada do registry.
-- [tui.md](tui.md): abas, teclas, tema e como criar uma screen.
-- [mcp.md](mcp.md): tools, resources, prompts e configuração nos clientes.
-- [configuration.md](configuration.md): settings.json, credentials.json, master key e variáveis de ambiente.
-- [exit-codes.md](exit-codes.md): tabela de exit codes e como tratá-los.
-- [architecture.md](architecture.md): pastas, camadas e fluxo de execução.
-- [customize-template.md](customize-template.md): usar este repositório como ponto de partida de um novo binário.
-- [release.md](release.md): versão, changelog, tag, GitHub Release e binários.
-- [opencli.json](opencli.json): descrição OpenCLI gerada por `bun run opencli`.
+- Commands, options e formatos de saída. [CLI](cli.md)
+- Contrato do guia e das telas. [Viewspec](viewspec.md)
+- Abas, teclas e tema. [TUI](tui.md)
+- Tools, resources, prompts e configuração nos clientes. [MCP](mcp.md)
+- Preferências, arquivos do projeto, cofre e variáveis de ambiente. [Configuração](configuration.md)
+- Códigos de processo e tratamento em scripts. [Exit codes](exit-codes.md)
+- Pastas, camadas e fluxo de execução. [Arquitetura](architecture.md)
+- Personalização do starter kit. [Template](customize-template.md)
+- Changelog, tags e binários. [Releases](release.md)
+- Descrição gerada por `bun run opencli`. [OpenCLI](opencli.json)
 
 ## Documentação embutida
 
-Toda esta pasta entra no binário. Um agente pode ler tudo sem acesso ao
-repositório:
+O manual de uso, a arquitetura e o contrato de viewspec vêm embutidos.
+Leia a documentação com o binário instalado, sem precisar do repositório.
 
 ```bash
 {{bin}} --skill          # tudo

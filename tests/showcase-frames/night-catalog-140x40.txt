@@ -1,0 +1,40 @@
+    ◆ Designfy   v0.1.0  › ≡ Catalog  fixture-project · react-vite                                        T night   linux-x64 · Bun 0.0.0
+    ← Back   ≡ Catalog  Browse patterns and their implementation sources
+
+   Surface: all · Kind: all
+
+   ╭─ Tab · Catalog ────────────────────────╮  ╭─ Tab · Details ────────────────────────────────────────────────────────────────────────╮
+   │ Actions · 5                           ┃│  │ Button                                                                                ┃│
+   │ > Button                              ┃│  │ Surface           both                                                                ┃│
+   │   both · landing-...l, settings, auth ┃│  │ Kinds             landing-page, home, site-page, blog-index, blog-post, docs-page,    ┃│
+   │   Dropdown menu                       ┃│  │                   dashboard, table, form, crud, detail, settings, auth                ┃│
+   │   both · landing-... detail, settings ┃│  │ Purpose                                                                               ┃│
+   │   Segmented control                   ││  │ Triggers an action or submits a form.                                                 ┃│
+   │   both · dashboar...g-page, site-page ││  │ Use when                                                                              ┃│
+   │   Text link                           ││  │ The person changes something, sends data or moves to the next step.                   ┃│
+   │   both · landing-... detail, settings ││  │ One primary action per screen region.                                                 ┃│
+   │   Theme toggle                        ││  │ Avoid when                                                                            ┃│
+   │   both · landing-... detail, settings ││  │ Plain navigation between pages: use a link.                                           ┃│
+   │ Authentication · 1                    ││  │ More than one primary button in the same region.                                      ┃│
+   │   Auth card                           ││  │ Anatomy                                                                               ┃│
+   │   system · auth                       ││  │ label                                                                                 ┃│
+   │ Containers · 2                        ││  │ leading or trailing icon (optional)                                                   ┃│
+   │   Accordion                           ││  │ loading indicator                                                                     ┃│
+   │   both · landing-...cs-page, settings ││  │ Variants                                                                              ┃│
+   │   Card                                ││  │ primary                                                                               ┃│
+   │   both · landing-... detail, settings ││  │ secondary                                                                             ││
+   │ Content and articles · 12             ││  │ outline                                                                               ││
+   │   Article header                      ││  │ ghost                                                                                 ││
+   │   site · blog-post, docs-page         ││  │ destructive                                                                           ││
+   │   Author box                          ││  │ link                                                                                  ││
+   │   site · blog-post                    ││  │ icon-only                                                                             ││
+   │   Callout                             ││  │ sizes sm, md, lg                                                                      ││
+   │   site · blog-post, docs-page         ││  │ States                                                                                ││
+   │   Code block                          ││  │ default                                                                               ││
+   │   site · blog-pos...s-page, site-page ││  │ hover                                                                                 ││
+   │   Figure                              ││  │ focus-visible                                                                         ││
+   │   site · blog-pos...s-page, site-page ││  │ active                                                                                ││
+   │   Post card                           ││  │ disabled                                                                              ││
+   ╰────────────────────────────────────────╯  ╰────────────────────────────────────────────────────────────────────────────────────────╯
+
+    s  next surface   k  filter by kind   Enter  focus details   /  filter   r  reload  │   Esc  back   T  theme   ?  help   q  quit
