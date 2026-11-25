@@ -1,6 +1,6 @@
 {
   "name": "designfy",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Visual framework for web projects: design system, React and Astro components with Tailwind, shadcn and motion, skills, dependency and MCP setup, and Playwright screen captures.",
   "type": "module",
   "private": true,

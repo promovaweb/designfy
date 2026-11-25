@@ -2,6 +2,12 @@
 
 Formato baseado em Keep a Changelog. Versões seguem SemVer.
 
+## [0.1.4] - 2026-11-24
+
+### Corrigido
+
+- `docs/opencli.json` regenerado com a versão nova. A tag 0.1.3 falhou no CI por esse arquivo e saiu sem binários; a 0.1.4 traz o mesmo conteúdo, com os binários.
+
 ## [0.1.3] - 2026-11-24
 
 ### Adicionado
