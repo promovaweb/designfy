@@ -22,8 +22,7 @@ Theme check passed.
   dark destructive-foreground on destructive    6.59:1 pass
 ```
 
-Nenhum componente do registro carrega cor. Todos leem os papéis do tema, e o
-tema mora num arquivo CSS. Este capítulo mostra como ler esse arquivo, gerar a
+Nenhum componente do registro carrega cor. Todos leem os papéis do tema definidos no mesmo arquivo CSS. Este capítulo mostra como ler esse arquivo, gerar a
 paleta e conferir o contraste antes de a tela existir.
 
 ## O arquivo de tokens
@@ -64,7 +63,7 @@ dados e shell:
 Nenhum componente usa `bg-indigo-500` nem `text-[#123]`. O código usa
 `bg-background`, `text-foreground`, `bg-primary`, `text-muted-foreground`,
 `border-border`, `font-heading`, `font-sans` e `rounded-lg`. A utilidade lê o
-papel, e a troca de tema muda a tela inteira num lugar só.
+papel. Assim, a troca de tema muda a tela inteira num lugar só.
 
 ## Ler o tema do projeto
 
@@ -107,7 +106,7 @@ motion
 
 Cada cor aparece em dois formatos quando o valor é uma variável: a declaração
 (`var(--background)`) e o valor resolvido em hex para claro e escuro. Use
-`--group` para ver um assunto só, e `--file` para escolher outro CSS:
+`--group` para ver um assunto só e `--file` para escolher outro CSS:
 
 ```bash
 designfy theme show --group colors
@@ -124,7 +123,7 @@ error No Tailwind stylesheet found. Run "designfy components add designfy-theme"
 ```
 
 O `--json` informa qual regra escolheu o arquivo: `selection` vale `--file`,
-`paths.theme`, `tokensFile`, `conventional entry` ou `Tailwind search`, e
+`paths.theme`, `tokensFile`, `conventional entry` ou `Tailwind search`. O campo
 `entryFile` aponta o CSS de entrada que importa o arquivo escolhido, quando ele
 existe.
 
@@ -205,7 +204,7 @@ project uses its own color scales; shadcn roles not checked
   dark --text-body on --bg-page (Texto corrido)   16.86:1 pass (min 4.5:1)
 ```
 
-O modo `shadcn` continua para o tema com os papéis do registro, e ali o comando
+O modo `shadcn` continua para o tema com os papéis do registro. Nesse modo, o comando
 também confere se cada papel obrigatório existe.
 
 ## A roda de cores
@@ -288,8 +287,8 @@ designfy palette contrast "#00161E" "#C6F4ED"
 ```
 
 O veredito separa texto normal (4.5:1), texto grande (3:1) e elemento de
-interface (3:1). O APCA aparece como Lc com sinal para quem usa a métrica mais
-nova. O comando sai com 0 sempre; `--min <ratio>` faz sair com 10 abaixo do
+interface (3:1). Se você usa a métrica mais recente, consulte o Lc com sinal do APCA.
+Por padrão, o comando sai com 0. A opção `--min <ratio>` faz sair com 10 abaixo do
 valor escolhido, o que serve para uma conferência em CI:
 
 ```bash
@@ -298,7 +297,7 @@ designfy palette contrast "#00161E" "#C6F4ED" --min 7
 
 ## Claro e escuro
 
-Cada papel tem valor próprio no claro e no escuro. O escuro não é uma inversão
+Cada papel tem uma definição para o modo claro e outra para o escuro. O escuro não é uma inversão
 automática: o `primary` muda de luminosidade, o `muted` ganha outra superfície
 e o `ring` acompanha o acento. Por isso um papel sem valor no `.dark` aparece
 como ausente na leitura do tema.
@@ -313,7 +312,7 @@ puro, preto absoluto e branco absoluto ficam fora das superfícies.
 
 ## Conferir
 
-- O CSS de entrada importa o tema e o movimento, e o build resolve os dois.
+- O CSS de entrada importa o tema e o movimento. O build resolve os dois.
 - `designfy theme show --group colors` mostra claro e escuro para cada papel.
 - `designfy theme check` termina com exit code 0 nos dois temas.
 - Num projeto com escalas próprias, o modo `custom` mede os pares do `theme.pairs`.

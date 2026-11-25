@@ -87,7 +87,7 @@ Id desconhecido sai com exit code 6. A skill `designfy-components` exige que
 ## O registro de componentes
 
 O registro tem dois manifestos no formato do shadcn,
-`registry/react/registry.json` e `registry/astro/registry.json`, e os arquivos
+`registry/react/registry.json` e `registry/astro/registry.json`. O registro inclui também os arquivos
 de origem. O binário leva o registro embutido, gerado por
 `bun run registry:embed`, então `components list` funciona sem o repositório.
 
@@ -124,12 +124,12 @@ A base do registro está nas três primeiras categorias da tabela:
 `designfy-theme` traz os tokens, `designfy-motion` e `designfy-motion-runtime`
 trazem o movimento e o script, `cn` combina classes, `designfy-prose` liga a
 tipografia de leitura, `background` e `background-styles` trazem os padrões de
-fundo e `section` fecha o ritmo das seções. Eles são arquivos de estilo e de
-biblioteca, não telas, e se copiam uma vez por projeto.
+fundo e `section` fecha o ritmo das seções. Copie esses arquivos de estilo e de
+biblioteca uma vez por projeto.
 
 ### Os onze itens do estudo Founders
 
-Onze itens nasceram da landing de oferta lida no estudo do capítulo 3, em React
+Onze itens vêm da landing de oferta lida no estudo do capítulo 3, em React
 e em Astro, com o mesmo nome, as mesmas props e a mesma estrutura:
 
 | Item | O que entrega |
@@ -140,7 +140,7 @@ e em Astro, com o mesmo nome, as mesmas props e a mesma estrutura:
 | `milestone-timeline` | eventos datados ou etapas em ordem, com marcador do momento atual e resultados alinhados |
 | `profile-split` | apresenta uma pessoa com retrato, credenciais e links |
 | `offer-card` | oferta com prazo, vagas opcionais e ação principal, nas variantes `tinted` e `stage` |
-| `audience-fit` | duas listas, para quem é e para quem não é, com ou sem nota |
+| `audience-fit` | duas listas, com perfis indicados e contraindicados, com ou sem nota |
 | `numbered-checklist` | inclusões com chips numerados e destaques opcionais, em uma ou duas colunas |
 | `outcome-grid` | resultados curtos numa grade responsiva de blocos com ícone |
 | `detail-card` | explica um recurso com ícone, parágrafos e itens de conferência; inclui o `DetailCardGrid` |
@@ -204,7 +204,7 @@ As categorias da resposta separam o resultado:
 | --- | --- |
 | `Written` | arquivo novo gravado |
 | `Unchanged` | o arquivo já estava igual |
-| `Skipped` | o arquivo existe com conteúdo diferente e não foi tocado |
+| `Skipped` | o arquivo existe com conteúdo diferente e mantém a versão local |
 | `Missing npm packages` | pacotes de produção que o arquivo importa e o projeto não tem |
 | `Missing dev packages` | pacotes de desenvolvimento que faltam |
 | `Install shadcn items` | itens `shadcn:` que precisam do CLI do shadcn |

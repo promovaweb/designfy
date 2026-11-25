@@ -2,6 +2,13 @@
 
 Formato baseado em Keep a Changelog. Versões seguem SemVer.
 
+## [0.2.1] - 2026-11-25
+
+### Alterado
+
+- README e página do npm com a apresentação nova: o Designfy como memória de design para o agente de código, com o viewspec guardando as escolhas de interface do projeto.
+- Guia do usuário revisado pelas regras editoriais da Promovaweb, sem mudança de comandos, opções ou exemplos; o ebook acompanha.
+
 ## [0.2.0] - 2026-11-25
 
 ### Adicionado

@@ -35,7 +35,7 @@ atende a pessoa no terminal, os scripts de CI e o agente por MCP.
 O `designfy` tem três formas de uso, com a mesma configuração em
 `~/.designfy/`:
 
-| Modo | Como entrar | Para quem |
+| Modo | Como entrar | Público |
 | --- | --- | --- |
 | TUI | `designfy` sem argumentos, num terminal interativo | pessoas |
 | CLI | `designfy <command> [options]`, com texto ou `--json` | pessoas, scripts e CI |
@@ -47,9 +47,9 @@ um script lê sem interpretar texto.
 
 ## Requisitos
 
-- **Node.js 18.17 ou superior** para três trabalhos: o pacote do npm, que baixa
-  o binário, o `npx skills`, que instala as skills, e a captura, porque o
-  Playwright roda num processo Node do projeto.
+- **Node.js 18.17 ou superior** para três trabalhos: baixar o binário pelo pacote do npm,
+  instalar as skills com `npx skills` e executar o Playwright num processo Node
+  do projeto durante a captura.
 - **Bun 1.4.4 ou superior** só para rodar o código-fonte ou compilar o binário.
   A versão mínima está em `package.json` e o `designfy doctor` a confere. O
   executável da release já leva o runtime.
@@ -194,7 +194,7 @@ a seção do CLI, com a referência gerada do registry. Os tópicos são `cli`,
 do executável, então o agente lê a versão exata instalada na máquina.
 
 A pasta `docs/` do repositório é a fonte dessa documentação. Este guia é outro
-texto: ele explica o uso para quem nunca viu o produto, com cenas de resultado,
+texto: ele explica o uso desde o primeiro contato com o produto, com cenas de resultado,
 enquanto `docs/` é a referência técnica do binário.
 
 ## Conferir

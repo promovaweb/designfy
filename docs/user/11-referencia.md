@@ -2,7 +2,7 @@
 
 O agente errou o caminho e o comando responde com exit code 6. O script de CI
 reprovou o build com exit code 10. A TUI fechou com exit code 8 porque rodou sem
-terminal. Cada família de falha tem um número fixo, e este capítulo reúne os
+terminal. Cada família de falha tem um número fixo. Consulte neste capítulo os
 números, as preferências, os arquivos e as mensagens que aparecem no dia a dia.
 Use como consulta depois de ler os capítulos anteriores.
 
@@ -76,7 +76,7 @@ a descrição de cada key. Uma key fora do schema é aceita como texto.
 | `theme.pairs` | pares de contraste do modo `custom`, com `fg`, `bg`, `label` e `min` |
 
 Quando o arquivo existe, os campos definidos nele prevalecem sobre a detecção.
-A option global `--project` (`-C`) escolhe a pasta do projeto por execução, e
+A option global `--project` (`-C`) escolhe a pasta do projeto por execução. A variável
 `DESIGNFY_PROJECT` define o padrão.
 
 ## Arquivos e pastas
@@ -95,7 +95,7 @@ A option global `--project` (`-C`) escolhe a pasta do projeto por execução, e
 | `src/components/designfy/` | componentes copiados, por padrão |
 | `src/styles/` | estilos copiados, por padrão |
 
-A pasta `~/.designfy/` nasce com 0700. Os arquivos nascem com 0600. A master key
+A pasta `~/.designfy/` é criada com permissão 0700. Os arquivos recebem permissão 0600. A master key
 vem de `DESIGNFY_MASTER_KEY` quando a variável existe e, sem ela, de
 `master.key`.
 
@@ -167,10 +167,10 @@ avisos `!` não reprovam.
 O código, os binários e as notas de versão ficam em
 [promovaweb/designfy](https://github.com/promovaweb/designfy), um repositório
 público sob a AGPL 3.0. O pacote do npm é `@promovaweb/designfy`. As skills vêm
-da mesma origem, e o guia do método que sustenta o binário fica no
+da mesma origem. O guia do método usado para construir o binário fica no
 [Termfy](https://github.com/promovaweb/termfy). A versão online deste guia e a
 documentação técnica ficam em
-[promovaweb.com/docs/designfy](https://promovaweb.com/docs/designfy/), e a
+[promovaweb.com/docs/designfy](https://promovaweb.com/docs/designfy/). Você encontra a
 apresentação do projeto em
 [promovaweb.com/designfy](https://promovaweb.com/designfy/).
 

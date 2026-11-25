@@ -128,8 +128,8 @@ A saída do projeto de exemplo:
 
 O painel separa a detecção atual (`Detected framework`) da configuração em
 vigor, que vem do `designfy.json`. Quando os dois divergem, o arquivo vale.
-`Skills installed` conta as skills do catálogo já instaladas no projeto ou no
-escopo global. `Components copied` conta os arquivos do registro que já estão
+`Skills installed` mostra o total de skills do catálogo já instaladas no projeto ou no
+escopo global. `Components copied` mostra quantos arquivos do registro já estão
 na pasta do projeto. `Viewspec guide` diz se o `VIEWSPEC.md` da raiz existe. `Tailwind theme` mostra
 `not found` até o tema ser copiado; depois do `components add designfy-theme`,
 ela aponta o CSS de entrada.
@@ -174,7 +174,7 @@ designfy components add site-header --allow-tailwind3
 
 Não rode `designfy deps install` sem grupo num projeto que já tem Tailwind: o
 grupo `core` traz o Tailwind 4. No Tailwind 3, use o item do registro como
-referência de estrutura, de estados e de movimento, e escreva o componente no
+referência de estrutura, de estados e de movimento ao escrever o componente no
 padrão do projeto.
 
 ## Rodar a partir de outra pasta
@@ -188,7 +188,7 @@ designfy --project ../app capture run http://localhost:4321/ --viewport mobile
 ```
 
 A variável `DESIGNFY_PROJECT` define o padrão quando a option não aparece. A
-option vence a variável, e o command usa a pasta atual quando as duas faltam.
+option vence a variável. O command usa a pasta atual quando as duas faltam.
 Caminhos relativos passados aos commands, como `theme show --file`, partem da
 raiz escolhida. Uma pasta inexistente sai com exit code 6. No servidor MCP, a
 mesma escolha vale por chamada, pelo argumento `project`.
@@ -251,7 +251,7 @@ error Missing: tw-animate-css, class-variance-authority, lucide-react, @tailwind
 ```
 
 Um `deps check` com exit code 0 significa que os grupos conferidos estão
-completos. Use `--group <id>` para conferir um grupo só, e `--json` para ler
+completos. Use `--group <id>` para conferir um grupo só e `--json` para ler
 `data` num script.
 
 ## Instalar
@@ -299,7 +299,7 @@ Tailwind novo, componente copiado ou dependência instalada nesse momento.
 
 Os sinais de que o caminho de adoção vale: páginas ou telas no ar, CSS de tema
 ou `tailwind.config.*`, documento de marca ou de componentes, regras de
-interface no `AGENTS.md`, no `CLAUDE.md` ou no `README.md`, e monorepo com a
+interface no `AGENTS.md`, no `CLAUDE.md` ou no `README.md` e monorepo com a
 pasta do projeto dentro de outro repositório que tem instruções próprias.
 
 A sequência:
@@ -312,7 +312,7 @@ A sequência:
 3. **Ler o tema real.** Rode `designfy theme show --json` e
    `designfy status --json` e anote a versão do Tailwind, o arquivo de tokens e
    como o modo escuro é ligado. Projeto antigo usa escala própria
-   (`primary-500`), e o guia descreve a escala do projeto, sem trocar pelos
+   (`primary-500`). Nesse caso, o guia descreve a escala do projeto, sem trocar pelos
    papéis do shadcn.
 4. **Ler as telas.** Liste os componentes e leia duas ou três telas de cada
    tipo. Capture antes de mudar, para ter a linha de base:

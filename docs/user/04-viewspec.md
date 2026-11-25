@@ -1,7 +1,7 @@
 # Capítulo 4: Viewspec
 
 Você abre o projeto pela manhã e roda `designfy viewspec progress`. A tela
-responde que existe um viewspec em `in_progress`, com `2/4` itens marcados, e
+responde que existe um viewspec em `in_progress` com `2/4` itens marcados e
 que o próximo `id` livre é `0002`. O agente que retoma o trabalho lê o
 `VIEWSPEC.md` da tela, vê a checklist e continua do item seguinte. Esse é o
 efeito do viewspec, a especificação de interface do Designfy.
@@ -83,14 +83,14 @@ letra seguindo a seção:
 | `a` | Acessibilidade |
 | `d` | Faça e não faça |
 
-A origem é `@pessoa` (dita por quem responde pelo projeto), `@agente`
+A origem é `@pessoa` (indicada pelo responsável pelo projeto), `@agente`
 (escolhida pelo agente e ainda não contestada) ou `@revisão` (achado em captura
 ou auditoria). Parágrafo ou item sem `{#id}` é contexto, não regra. Uma regra
 `@pessoa` só muda com o aceite dela; uma `@agente` pode ser revista, com entrada
 nova em Aprendizados.
 
 Uma regra boa cabe numa conferência de captura ou de código e diz o que fazer,
-por quê e quem disse. "Um só `h1` por tela" é regra; "usar boa hierarquia" não
+por qual motivo e com qual origem. "Um só `h1` por tela" é regra; "usar boa hierarquia" não
 é. "Tabela com mais de quatro colunas vira cartões abaixo de 640 px" é regra;
 "tabelas responsivas" não é.
 
@@ -111,7 +111,7 @@ confirmou, ou `descartado` com o motivo.
 - 2026-11-24 `@revisão` O cartão de preço estourava a largura em 390 px. → {#r001}
 ```
 
-Entrada nunca é apagada: a mudança ganha entrada nova que cita a anterior.
+Preserve cada entrada e descreva a mudança em outra que cite a anterior.
 Quando um aprendizado vira padrão, ele sobe para a seção do assunto e recebe o
 identificador.
 
@@ -156,7 +156,7 @@ Os campos opcionais são `priority` (`low`, `medium` ou `high`), `dependsOn`
 `captures` (execuções da revisão).
 
 O `trackedBy` liga o viewspec ao registro da tarefa em outro sistema. Cada
-vínculo informa `system`, `id` e `path`, e o caminho parte da raiz do projeto e
+vínculo informa `system`, `id` e `path`. O caminho parte da raiz do projeto e
 aponta para um arquivo que existe:
 
 ```yaml
@@ -175,7 +175,7 @@ Numa entrega com várias telas, crie todos os viewspecs antes da primeira
 implementação e marque a ordem em `dependsOn`: o shell antes das telas, a
 listagem antes do detalhe.
 
-As nove seções do corpo são Objetivo (quem usa, o que precisa conseguir e a ação
+As nove seções do corpo são Objetivo (o público, o que ele precisa conseguir e a ação
 principal), Conteúdo (o que aparece e a origem de cada texto, dado e mídia),
 Estrutura (as regiões de cima para baixo, com o fragmento de cada uma), Estados
 (vazio, carregando, erro, sucesso, sem permissão, parcial e lotado), Responsivo
@@ -198,7 +198,7 @@ Integrations
 ```
 
 O `status --json` entrega o mesmo em `integrations.astrofy` e
-`integrations.specsfy`, e a tool `project_status` expõe os mesmos dados.
+`integrations.specsfy`. A tool `project_status` expõe os mesmos dados.
 Caminho ausente vem `null`.
 
 ### Astrofy
@@ -218,7 +218,7 @@ O projeto usa Astrofy quando tem `.sitespec/` com tarefas
 O Designfy não grava sitespec e o Astrofy não grava viewspec. Cada um cita o
 outro: a sitespec aponta o viewspec pelo caminho relativo e o `trackedBy` do
 viewspec aponta a sitespec com `system: astrofy`. O CSS gerado pelo Astrofy é a
-fonte dos tokens, e o `tokensFile` do guia aponta para ele. O
+fonte dos tokens. O `tokensFile` do guia aponta para ele. O
 `designfy theme check` mede o contraste desse CSS e a correção volta ao JSON.
 
 ### Specsfy
@@ -235,17 +235,16 @@ O projeto usa Specsfy quando tem `specs/` com as pastas de estado, `.specsfy/`,
 | Guia do Designfy, citando o `DESIGNSYSTEM.MD` | Designfy | `VIEWSPEC.md` |
 | Execução da interface, checklist e capturas | Designfy | `viewspec/<id>-<slug>/VIEWSPEC.md` |
 
-A spec manda. Quando o viewspec e a spec divergem, vale a spec, e o que faltar
-volta para ela antes de entrar no viewspec. Spec com `Interface para pessoas:
+A spec manda. Quando o viewspec e a spec divergem, siga a spec. Registre nela o que faltar antes de acrescentar o conteúdo ao viewspec. Spec com `Interface para pessoas:
 Não` não ganha viewspec. Antes de copiar um item do registro, procure no
-`INTERFACE.md` o componente que já faz a função, e um componente novo entra no
+`INTERFACE.md` o componente que já faz a função. Registre um componente novo no
 `INTERFACE.md` na mesma entrega. Os itens da checklist citam o ID da tarefa
 `[CODE]` da spec quando executam uma delas.
 
 ## Modelos e exemplos
 
 A skill traz dois modelos em `assets/templates/`, `VIEWSPEC.guia.md` e
-`VIEWSPEC.tela.md`, e cinco exemplos em `assets/examples/`: `guia-de-site.md`,
+`VIEWSPEC.tela.md`. Os cinco exemplos ficam em `assets/examples/`: `guia-de-site.md`,
 `guia-de-sistema.md`, `tela-landing-page.md`, `tela-dashboard.md` e
 `tela-artigo.md`. Os exemplos mostram o detalhe esperado em cada seção; use como forma, não como
 texto para copiar.
@@ -277,7 +276,7 @@ de `skills`. O `{#id}` é criado uma vez e mantido. Item sem `{#id}` ou com
 | `done` | checklist completa e revisão com capturas registrada em `captures` |
 | `archived` | encerrado sem conclusão; exige `archivedReason` |
 
-Quem edita o arquivo muda o estado. O leitor não infere estado. Item pendente
+Você altera o estado ao editar o arquivo. O leitor usa o estado explícito. Item pendente
 recusa `done`.
 
 ## Ler e validar
@@ -290,7 +289,7 @@ designfy viewspec progress
 designfy viewspec validate
 ```
 
-O `guide` mostra o front matter, as seções presentes, a contagem de regras por
+O `guide` mostra o front matter, as seções presentes, o total de regras por
 seção e por origem e as propostas pendentes:
 
 ```text

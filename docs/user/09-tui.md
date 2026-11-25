@@ -3,7 +3,7 @@
 Você digita `designfy` no terminal e a Home abre em forma de menu: a faixa do
 próximo passo, um cartão numerado por módulo com o resumo vivo do projeto e a
 linha de totais. Não existe barra de abas. Você escolhe o módulo pelo número,
-pelas setas ou pelo clique, e volta com o chip `← Back`.
+pelas setas ou pelo clique e volta com o chip `← Back`.
 
 ## Abrir
 
@@ -123,7 +123,7 @@ borda. O painel em foco destaca o título e a borda.
 | `?` | abre ou fecha o help |
 | `q` ou `Ctrl+C` | sai |
 
-A paleta procura módulo e ação, e aceita as letras em sequência. No pé, a barra de teclas mostra os atalhos do módulo, um divisor e os globais; clique
+Para procurar um módulo ou uma ação na paleta, digite as letras em sequência. No pé, a barra de teclas mostra os atalhos do módulo, um divisor e os globais; clique
 num chip para executar.
 
 ## Listas, filtros e planos
@@ -136,9 +136,9 @@ restaurar a busca anterior.
 Nas listas de seleção múltipla, `Space` marca o item, `a` marca todos os
 visíveis e `n` limpa.
 
-Toda ação de escrita segue o mesmo caminho: você pressiona
-o atalho e vê o plano com os comandos ou arquivos; pressiona de novo e a
-execução começa; acompanha o medidor, o tempo e os passos recentes; e lê o
+Toda ação de escrita segue o mesmo caminho: você usa
+o atalho para ver o plano com os comandos ou arquivos. Use o atalho de novo para iniciar a
+execução. Acompanhe o medidor, o tempo e os passos recentes até ler o
 resultado. Outra tecla cancela o plano.
 
 ## Tema, ícones e mouse
@@ -163,7 +163,7 @@ terminal pequeno até você ampliar.
 
 ## Conferir
 
-- `designfy` abre a Home em menu, sem barra de abas, e `q` fecha.
+- `designfy` abre o menu da Home sem barra de abas. Use `q` para fechar.
 - A faixa de próximo passo abre o módulo que resolve o que falta.
 - `1` a `9` e `0` abrem os módulos numerados de qualquer tela.
 - O chip `T` e a tecla `T` alternam `terminal`, `night` e `day`.

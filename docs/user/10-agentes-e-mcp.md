@@ -49,7 +49,7 @@ do site ou da aplicação, ou defina a pasta na linha de comando:
 designfy mcp --project ./website
 ```
 
-A option global `--project` (`-C`) vale para o servidor, e `DESIGNFY_PROJECT`
+A option global `--project` (`-C`) vale para o servidor. A variável `DESIGNFY_PROJECT`
 define o padrão quando ela falta. Nas tools que aceitam o argumento `project`,
 o caminho pode ser absoluto ou relativo à pasta do servidor e vale só para
 aquela chamada. Os outros caminhos da mesma chamada partem do projeto
@@ -62,7 +62,7 @@ As tools leem o mesmo domínio que o CLI. A tabela abaixo segue os grupos do
 
 | Tool | Entrada | Devolve |
 | --- | --- | --- |
-| `project_status` | nenhuma | detecção, configuração, contagens, guia e CSS do tema |
+| `project_status` | nenhuma | detecção, configuração, totais, guia e CSS do tema |
 | `skills_list` | `internal?`, `external?` | skills com estado de instalação |
 | `deps_list`, `deps_check` | `group?` | grupos, faixas e estado; a conferência reprovada vem com `isError` |
 | `catalog_list`, `catalog_show`, `catalog_search` | filtros, `id`, `text` | fragmentos de interface e a entrada inteira |
@@ -71,7 +71,7 @@ As tools leem o mesmo domínio que o CLI. A tabela abaixo segue os grupos do
 | `theme_show`, `theme_check` | `file?`, `group?` | tokens por grupo; contraste em claro e escuro |
 | `palette_generate`, `palette_wheel`, `palette_contrast` | `base`, uma cor, duas cores | escalas, harmonias e vereditos |
 | `viewspec_guide`, `viewspec_list`, `viewspec_show` | filtros, `id` | guia, lista e o arquivo da tela |
-| `viewspec_progress`, `viewspec_validate` | `id?` | contagem e próximo `id`; diagnósticos por arquivo e linha |
+| `viewspec_progress`, `viewspec_validate` | `id?` | total e próximo `id`; diagnósticos por arquivo e linha |
 | `capture_run`, `capture_list` | `urls`, opções; `outDir?` | manifesto e imagens |
 | `mcp_servers` | nenhuma | servidores sugeridos e estado por cliente |
 | `doctor` | nenhuma | verificações de ambiente, sem gravar arquivo |

@@ -33,7 +33,7 @@ designfy capture run http://localhost:4321/produto/
 ```
 
 O comando abre cada URL nos viewports escolhidos e grava um PNG por combinação.
-O padrão vem de `capture.viewports`, que nasce como `mobile,desktop`.
+O padrão vem de `capture.viewports`, cuja configuração inicial é `mobile,desktop`.
 
 ```bash
 designfy capture run http://localhost:4321/ http://localhost:4321/precos/ --viewport mobile,tablet,desktop --theme dark
@@ -69,22 +69,22 @@ As options cobrem o que a revisão precisa:
 | `--out <dir>` | troca a pasta raiz das capturas |
 | `--name <run>` | nomeia a pasta da execução |
 
-Com dois ou mais temas, cada combinação de URL, viewport e tema produz um PNG, e
-o nome termina em `--<viewport>--<theme>.png`. Com um tema, termina em
+Com dois ou mais temas, cada combinação de URL, viewport e tema produz um PNG cujo
+nome termina em `--<viewport>--<theme>.png`. Com um tema, termina em
 `--<viewport>.png`.
 
 ### A página inteira
 
 Antes do print da página inteira, o navegador percorre a página em passos da
 altura do viewport, aguarda a rede ficar ociosa e as imagens e fontes
-terminarem de carregar, e volta ao topo. Isso dispara as revelações por rolagem
+terminarem de carregar e volta ao topo. Isso dispara as revelações por rolagem
 e as imagens preguiçosas: sem a preparação, o PNG mostra só o que já estava na
 primeira dobra.
 
 - Iframes de outra origem abaixo da dobra são fotografados durante a preparação,
   para preservar o conteúdo visível no PNG.
 - Os overlays conhecidos de Astro, Vite e Next.js ficam ocultos por padrão.
-  `--show-dev-overlays` mantém todos, e `--hide` esconde qualquer outro
+  `--show-dev-overlays` mantém todos. A opção `--hide` esconde qualquer outro
   seletor.
 - `--scroll-budget` limita o tempo da preparação. Quando o limite chega, a
   captura segue e o manifesto marca `scrollBudgetExhausted`.
@@ -111,7 +111,7 @@ a dobra em `320x640,mobile,1280x800,desktop` com `--fold`; o tema escuro em
 com `--reduced-motion`. Em projeto com um tema só, a terceira não existe; com
 dois temas, uma execução com `--theme light,dark` cobre os dois de uma vez.
 Carregando, vazio e erro também são tela: capture com um parâmetro de
-desenvolvimento ou uma conta de teste, como descreve a referência de capturas.
+desenvolvimento ou um login de teste, como descreve a referência de capturas.
 
 ## O manifesto
 
@@ -131,7 +131,7 @@ Cada execução grava uma pasta em `.designfy/captures/<run>/`, com os PNGs e um
 Cada entrada de `shots` traz `url`, `viewport`, `theme`, `file` e o que a revisão
 lê: `title`, `documentWidth`, `documentHeight`, `viewportWidth`, `overflowX`,
 `consoleErrors`, `pageErrors`, `scrollSteps`, `incompleteImages`,
-`scrollBudgetExhausted` e `error` quando a captura falha. `scrollSteps` conta os
+`scrollBudgetExhausted` e `error` quando a captura falha. `scrollSteps` informa o total de
 passos da preparação; `incompleteImages` lista as imagens que ainda não tinham
 carregado; `scrollBudgetExhausted` avisa que o tempo de preparação acabou antes
 do fim da página. O `overflowX` é o primeiro sinal que a revisão lê. Ele indica
@@ -171,15 +171,14 @@ A skill `designfy-review` segue um caminho fixo:
 4. Classifica cada achado por gravidade e devolve para a especialista dona.
 5. Pede uma captura nova depois das correções e repete a leitura.
 
-A revisão não compara pixel a pixel. Ela lê a imagem e o manifesto, como uma
-pessoa faria, e registra o que achou.
+A revisão não compara pixel a pixel. A skill examina a imagem junto com o manifesto e registra os achados.
 
-## Rodadas, gravidade e veredito
+## Revisões, gravidade e veredito
 
-Cada rodada tem um nome: `<slug>-r1` para achar tudo, `<slug>-r2` para conferir
+Cada revisão tem um nome: `<slug>-r1` para achar tudo, `<slug>-r2` para conferir
 as correções e o que elas trouxeram e `<slug>-r3` para fechar o que restou. Em
-cada rodada nova, confira os achados anteriores primeiro (resolvido, parcial ou
-aberto) e depois olhe a tela inteira de novo. O limite é de três rodadas.
+cada nova revisão, confira os achados anteriores primeiro (resolvido, parcial ou
+aberto) e depois olhe a tela inteira de novo. O limite é de três revisões.
 
 A gravidade orienta a correção:
 
@@ -217,7 +216,7 @@ captures:
   - 2026-11-24T14-10-00-000Z
 ```
 
-Um item pendente recusa `done`. A captura que sustenta o estado fica na pasta da
+Um item pendente recusa `done`. A captura que documenta o estado fica na pasta da
 execução e o caminho aparece no relato da skill.
 
 ## Captura em CI
@@ -246,6 +245,6 @@ para conferir que a tela não depende de animação para aparecer.
 - `designfy capture run --theme light,dark` grava um PNG por viewport em cada tema.
 - O manifesto registra `scrollSteps` e `scrollBudgetExhausted` da preparação.
 - O manifesto tem `overflowX: false` nas capturas de celular.
-- Cada achado tem gravidade e dona, e a correção foi conferida em `r2`.
+- Cada achado tem gravidade e responsável. Você conferiu a correção em `r2`.
 - O veredito é `aprovada` ou `aprovada com ressalvas` antes do `done`.
 - O viewspec em `done` cita a execução em `captures`.

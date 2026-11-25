@@ -10,8 +10,8 @@
 <h1 align="center">Designfy</h1>
 
 <p align="center">
-  O framework visual que faz a interface de um projeto web sair desenhada, com
-  design system, componentes React e Astro e revisão por captura.
+  Memória de design para o seu agente de código: o viewspec guarda as escolhas
+  de interface do projeto, e cada tela nova sai no mesmo padrão.
 </p>
 
 <p align="center">Um projeto da <a href="https://promovaweb.com">Promovaweb</a></p>
@@ -39,22 +39,29 @@
 
 ## O que é
 
-Um site feito por agente costuma sair com a mesma cara: paleta improvisada,
-tipografia padrão, um componente novo a cada página, nada se move e o celular
-fica para depois. O Designfy entrega o método e as peças para quem constrói um
-site em Astro ou um sistema em React com um agente de código: uma skill
-orquestradora que entende o pedido, escreve a especificação da tela e aciona as
-especialistas, um registro de componentes que leem o tema e uma revisão com
-capturas em celular e desktop.
+O Designfy é um framework visual que trabalha junto do seu agente de código, no
+Claude Code, no Codex ou no OpenCode. Ele resolve um problema que todo mundo que
+constrói com IA conhece: cada conversa começa do zero. Você passa uma tarde
+ajustando o tom do botão, a fonte dos títulos e o espaço entre as seções. Na tela
+seguinte, o agente volta ao hero genérico, ao gradiente roxo e aos três cartões
+iguais.
 
-O mesmo executável atende a pessoa no terminal, os scripts de CI e o agente por
-MCP.
+O viewspec guarda o que você decidiu em dois níveis. O guia da raiz, o
+`VIEWSPEC.md`, reúne as orientações de interface do projeto, a origem de cada uma
+e o que as revisões já ensinaram. Cada tela ganha o próprio viewspec, com
+objetivo, conteúdo, estados, comportamento no celular e uma lista de tarefas
+dividida entre as dez especialistas do Designfy. O agente lê os dois antes de
+escrever código, monta a tela com os componentes do registro e só entrega depois
+de capturar a página no celular e no desktop. A vigésima tela sai com a mesma
+cara da primeira.
+
+O mesmo executável atende você no terminal, os scripts de CI e o agente por MCP.
 
 | Entrega | O que você recebe |
 | --- | --- |
-| Skill orquestradora e especialistas | a skill `designfy` recebe o pedido e chama viewspec, design system, componentes, movimento, sites, conteúdo, web apps, responsivo, acessibilidade e revisão, dez especialistas no total |
+| Skill orquestradora e especialistas | a skill `designfy` recebe a tela que você quer construir e chama viewspec, design system, componentes, movimento, sites, conteúdo, web apps, responsivo, acessibilidade e revisão, dez especialistas no total |
 | Viewspec | o guia `VIEWSPEC.md` na raiz do projeto e um viewspec por tela em `viewspec/<id>-<slug>/VIEWSPEC.md`, com nove seções e checklist por especialista |
-| Catálogo de interface | 91 fragmentos comuns de site e de web app, com propósito, anatomia, variações, estados, acessibilidade, tokens e fonte de implementação |
+| Catálogo de interface | 91 padrões comuns de site e de web app, com propósito, anatomia, variações, estados, acessibilidade, tokens e fonte de implementação |
 | Registro de componentes | 69 itens React e 57 Astro sobre Tailwind 4, shadcn e Motion, copiados para o projeto com as dependências resolvidas |
 | Tema e paleta | leitura do tema do Tailwind 4 e do Tailwind 3, contraste WCAG 2.2 e APCA, escala OKLCH e harmonias da roda de cores |
 | Presets de fundo | 334 presets de fundo por tema, categoria e legibilidade, gerados a partir do tema |
@@ -64,8 +71,8 @@ MCP.
 | MCP | tools de projeto, skills, dependências, catálogo, componentes, tema, paleta, capturas e viewspecs para o agente |
 
 A skill orquestradora é a porta de entrada do framework. Você descreve a tela,
-ela lê o projeto e o guia, classifica o pedido, escolhe os fragmentos no
-catálogo, monta o viewspec e passa cada parte para a especialista certa.
+ela lê o projeto e o guia, escolhe os padrões no catálogo, monta o viewspec e
+passa cada parte para a especialista certa.
 
 ## Instalação
 
@@ -196,12 +203,12 @@ Escreva a entrada do servidor MCP nos clientes do projeto:
 designfy mcp setup
 ```
 
-Por fim, chame a skill com o pedido da tela:
+Por fim, chame a skill com a tela que você quer construir:
 
 - "Use a skill designfy para criar a landing page de preços na rota `/precos`,
   com o conteúdo de `src/content/precos.md`."
 - "Use a skill designfy para redesenhar o dashboard em `/app/vendas`, com
-  quatro contadores, um gráfico de receita e a tabela dos pedidos recentes."
+  quatro contadores, um gráfico de receita e a tabela das vendas recentes."
 - "Use a skill designfy para montar o artigo `/blog/tailwind-4`, com índice,
   bloco de código e embed de vídeo, e revisar com captura no celular e no
   desktop."
@@ -385,7 +392,7 @@ designfy viewspec validate
 
 O guia da raiz vale para todas as telas. Cada viewspec de tela guarda objetivo,
 conteúdo, estrutura, estados, responsivo, movimento, acessibilidade, checklist e
-notas. O binário lê e valida; quem escreve é a skill `designfy-viewspec`.
+notas. O binário lê e valida. A escrita fica com a skill `designfy-viewspec`.
 
 O campo `trackedBy` liga o viewspec ao registro da tarefa no Astrofy ou no
 Specsfy, e o `viewspec validate` confere o arquivo de cada vínculo:
@@ -460,8 +467,8 @@ skills, dependências e MCP têm seleção múltipla: `space` marca, `a` marca t
 
 ### Skills
 
-As skills são arquivos de instrução que o agente lê. A `designfy` recebe o
-pedido e chama as especialistas na ordem do viewspec. O comando abaixo instala
+As skills são arquivos de instrução que o agente lê. A `designfy` recebe a
+tela que você quer construir e chama as especialistas na ordem do viewspec. O comando abaixo instala
 as internas e as externas compatíveis:
 
 ```bash
@@ -572,7 +579,7 @@ dados com exit code diferente de zero: confira `data.ok` no `doctor`,
 | Caminho | Conteúdo |
 | --- | --- |
 | `designfy.json` | projeto detectado, framework, gerenciador, Tailwind, shadcn e caminhos |
-| `VIEWSPEC.md` | guia de interface do projeto, com regras e aprendizados |
+| `VIEWSPEC.md` | guia de interface do projeto, com orientações e aprendizados |
 | `viewspec/<id>-<slug>/VIEWSPEC.md` | especificação e checklist de uma tela |
 | `.designfy/captures/<run>/` | capturas e `manifest.json` de cada execução |
 | `~/.designfy/settings.json` | preferências, em texto claro, com permissão 0600 |
@@ -656,7 +663,7 @@ O histórico completo está no [CHANGELOG.md](https://github.com/promovaweb/desi
 ## Comunidade e suporte
 
 - **Discord:** [obter ajuda e conversar com a Comunidade](https://promovaweb.com/discord).
-- **Bugs e pedidos:** abra uma [issue](https://github.com/promovaweb/designfy/issues)
+- **Bugs e sugestões:** abra uma [issue](https://github.com/promovaweb/designfy/issues)
   com a versão, o sistema operacional e o passo a passo para reproduzir.
 - **Novidades:** acompanhe o [CHANGELOG](https://github.com/promovaweb/designfy/blob/main/CHANGELOG.md)
   e as [releases](https://github.com/promovaweb/designfy/releases).

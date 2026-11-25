@@ -45,7 +45,7 @@ Escreve e mantém o guia `VIEWSPEC.md` da raiz e o viewspec de cada tela em
 `viewspec/<id>-<slug>/VIEWSPEC.md`, com as nove seções e a checklist. É chamada
 para criar o guia, especificar uma tela, retomar um trabalho aberto ou validar
 arquivos. Lê o contrato, o guia do projeto, o viewspec da tela, as checklists
-por tipo, a execução e os erros de validação, e usa os modelos e exemplos da
+por tipo, a execução e os erros de validação. Também usa os modelos e exemplos da
 skill. Entrega o arquivo válido, com o progresso e as notas.
 
 ### `designfy-design-system`
@@ -62,7 +62,7 @@ guia atualizado.
 
 Resolve de onde vem cada peça da tela e como ela se comporta. Entra quando a
 região precisa de componente, quando é hora de instalar shadcn ou ReUI e quando
-um componente novo precisa nascer nas convenções do registro. Lê o catálogo de
+um componente novo precisa seguir as convenções do registro. Lê o catálogo de
 interface, fontes e instalação, o registro, shadcn e ReUI, componentização,
 estados, Tailwind, React, Astro e bibliotecas sugeridas. Entrega os arquivos no
 projeto, as dependências resolvidas, os estados cobertos e os componentes novos
@@ -71,7 +71,7 @@ documentados.
 ### `designfy-motion`
 
 Define o movimento de cada parte da tela. Entra em toda tela, porque movimento
-é o padrão, e com mais peso quando há entrada, revelação ao rolar, laço ou
+é o padrão. Dedica mais atenção a telas com entrada, revelação ao rolar, laço ou
 troca de estado. Lê princípios, movimento por tipo de tela, utilidades do
 Tailwind e do Designfy, CSS moderno, `motion/react`, receitas, movimento
 reduzido e desempenho. Entrega a lista do que se move com gatilho, duração e
@@ -108,15 +108,14 @@ estados vistos e o estado de tela na URL.
 Planeja cada largura em vez de encolher o desktop. Entra em pedido de versão
 mobile, correção de rolagem horizontal, tabela no celular, menu mobile e ajuste
 de tela larga. Lê as faixas e pontos de quebra, os padrões de adaptação, a
-fluidez e as consultas de contêiner, o toque e o celular, o estouro e a
+fluidez e as consultas de container, o toque e o celular, o estouro e a
 conferência com capturas. Entrega o plano por região, as capturas antes e
 depois e os padrões levados ao guia.
 
 ### `designfy-accessibility`
 
-Confere a tela contra a WCAG 2.2 nível AA e corrige o que encontra. Entra em
-pedido de acessibilidade, auditoria, contraste, teclado, leitor de tela e ARIA,
-e no fechamento de toda tela. Lê a WCAG na prática, teclado e foco, semântica e
+Confere a tela contra a WCAG 2.2 nível AA e corrige o que encontra. Use a skill ao revisar acessibilidade ou auditar contraste, teclado, leitor de tela e ARIA.
+Ela também participa da revisão final de cada tela. Lê a WCAG na prática, teclado e foco, semântica e
 nomes, cor e contraste, formulários, componentes interativos, mídia e movimento
 e a auditoria. Entrega a auditoria automática, o roteiro manual, as correções e
 o relatório.
@@ -137,10 +136,10 @@ celular. `skills/designfy-websites/references/estudos/` traz páginas de site e
 `skills/designfy-webapps/references/estudos/` traz telas de sistema, no mesmo
 formato.
 
-O primeiro estudo é a landing de oferta com prazo e turma limitada do plano
-Founders, em `landing-de-oferta-founders.md`. Ele lê as 21 seções na ordem, com
-a pergunta que cada uma responde, o palco de pixels do hero, a contagem
-regressiva do prazo, o carrossel de depoimentos e a tabela de preço de um plano
+O primeiro estudo é a landing de oferta com prazo e turma limitada do
+Plano Founders, em `landing-de-oferta-founders.md`. Ele lê as 21 seções na ordem, com
+a pergunta que cada uma responde, o palco de pixels do hero, o relógio
+regressivo do prazo, o carrossel de depoimentos e a tabela de preço de um plano
 só. Foi dele que saíram os onze itens novos do registro, no capítulo 6.
 
 A pasta de telas de sistema já traz o formato e ainda não tem estudo. O primeiro
@@ -150,7 +149,7 @@ comuns.
 
 O estudo serve para o argumento e a composição, não para copiar dados, nomes de
 clientes ou a marca do produto estudado. Cada estudo termina apontando os itens
-do registro que nasceram dele.
+do registro criados a partir dele.
 
 ## O fluxo da skill `designfy`
 
@@ -179,7 +178,7 @@ classifica como `site-page`, superfície `site`, cria
 
 **Dashboard.** "Redesenha o dashboard de vendas em `/app/vendas`; os dados vêm
 de `GET /api/sales/summary`; a ação principal é abrir os pedidos em atraso." A
-classificação é `dashboard`, superfície `webapp`, e o viewspec nasce como
+classificação é `dashboard` e a superfície é `webapp`. O agente cria o viewspec em
 `viewspec/0002-dashboard-de-vendas/VIEWSPEC.md`. Rodam
 `designfy-design-system` se faltar papel de cor, `designfy-webapps`,
 `designfy-components`, `designfy-motion`, `designfy-responsive`,

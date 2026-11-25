@@ -49,7 +49,7 @@ As propriedades são poucas:
 | --- | --- | --- |
 | `preset` | o slug de um padrão | escolhe o desenho |
 | `fade` | `none`, `bottom`, `edges`, `radial` | aplica máscara na camada do padrão |
-| `className` ou `class` | classes do projeto | ajuste local do contêiner |
+| `className` ou `class` | classes do projeto | ajuste local do container |
 
 O componente renderiza a camada do padrão com `aria-hidden="true"` e mantém o
 conteúdo numa camada acima. Todos os presets leem os papéis do tema e mudam com
@@ -82,10 +82,10 @@ Nove presets se movem, com brilho que pulsa, feixe que varre ou grade com foco.
 Use um por página, em seção curta. Todos param com `prefers-reduced-motion` e
 quando saem da tela. Padrão geométrico sem função vira enfeite: ele funciona
 quando sugere a matéria do produto, como grade para ferramenta de layout e
-pontos para mapa e dado.
+pontos para cartografia e estatísticas.
 
-Os presets vêm do ReactBD BG, que distribui padrões do Pattern Craft de Megh
-Bari sob a licença MIT, e do GradientDeck, que convida a copiar os padrões e
+Os presets vêm de duas fontes. O ReactBD BG distribui padrões do Pattern Craft de Megh
+Bari sob a licença MIT. O GradientDeck convida a copiar os padrões e
 não publica licença para eles. O Designfy converteu as cores em papéis do tema
 e manteve a geometria.
 
@@ -101,8 +101,8 @@ designfy components add designfy-motion
 
 O arquivo `designfy-motion.css` declara as animações, as utilidades e o runtime
 `initDesignfyMotion`, que liga a classe `js` no `html`, marca as revelações e
-pausa laços fora da tela. O CSS resolve a maior parte; o
-[Motion](https://motion.dev) entra quando o CSS não dá conta.
+pausa laços fora da tela. Use CSS para a maior parte dos efeitos e recorra ao
+[Motion](https://motion.dev) quando a animação exigir mais recursos.
 
 ### Utilidades de CSS
 
@@ -111,11 +111,11 @@ pausa laços fora da tela. O CSS resolve a maior parte; o
 | `data-df-reveal` | revela o elemento uma vez ao aparecer; valores `up`, `down`, `left`, `right`, `scale`, `fade` e `mask` |
 | `data-df-stagger` no pai | numera os filhos e escalona a revelação |
 | `style="--df-i: 3"` | posição na sequência, quando não há pai com `data-df-stagger` |
-| `data-df-count="1250"` | conta até o valor ao aparecer, com `data-df-count-from` e `data-df-count-duration` |
+| `data-df-count="1250"` | anima o número até o valor final ao aparecer, com `data-df-count-from` e `data-df-count-duration` |
 | `data-df-loop` | marca um laço para pausar fora da tela |
 | `animate-df-*` | animações prontas: `fade-in`, `fade-up`, `fade-down`, `slide-in-left`, `slide-in-right`, `scale-in`, `mask-up`, `pop`, `shake`, `draw`, `check`, `marquee`, `shimmer`, `pulse-soft`, `float`, `pan`, `spin-slow`, `border-beam`, `collapse-down` e `collapse-up` |
-| `df-lift` | elevação de 2 px e borda mais forte no hover, com pressão no clique |
-| `df-press` | escala 0.98 ao pressionar, com transição de cor |
+| `df-lift` | elevação de 2 px e borda mais forte no hover, com efeito de botão apertado no clique |
+| `df-press` | escala 0.98 enquanto o botão estiver apertado, com transição de cor |
 | `df-underline` | sublinhado que cresce da esquerda no hover e no foco |
 | `df-collapse` com `data-df-open` | painel que abre por `grid-template-rows` |
 | `df-marquee` | faixa rolante, com `--df-marquee-duration`, `--df-marquee-gap` e `data-df-direction="right"` |
@@ -135,9 +135,9 @@ As durações e curvas vêm do tema: `--duration-instant` (100 ms),
 ### O que se move
 
 - Só `transform`, `opacity`, `clip-path`, `mask` e `background-position`
-  animam. Nunca `transition-all`, `width`, `height`, `top`, `left`, `margin` ou
+  animam. Exclua da animação `transition-all`, `width`, `height`, `top`, `left`, `margin` ou
   `padding`.
-- Um sinal de hover por elemento, no contêiner, nunca só na imagem.
+- Um sinal de hover por elemento, aplicado ao container para abranger também a área ao redor da imagem.
 - Laço pausa no hover, no foco e fora da tela. Com movimento reduzido, o laço
   para.
 - Fundo animado fica em seção curta. Atrás de texto longo, prefira o estático e
@@ -148,7 +148,7 @@ As durações e curvas vêm do tema: `--duration-instant` (100 ms),
 
 Quando o CSS não resolve, a skill `designfy-motion` usa `motion/react` para
 animação de layout, entrada e saída de elemento, gesto e número com mola.
-Importe sempre de `motion/react`, nunca de `framer-motion`, e mantenha a versão
+Use `motion/react` para a importação. Mantenha `framer-motion` fora das importações e mantenha a versão
 parada.
 
 ```tsx

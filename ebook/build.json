@@ -2,8 +2,8 @@
   "schema_version": 1,
   "version": "0.2.0",
   "edition": "v0.2.0",
-  "generated_at": "2026-11-25T05:56:01Z",
-  "source_sha256": "bf1bba8650b2f4e849eb6135d9b80e39745ef395ce757ced2ca317dd9e68ac99",
+  "generated_at": "2026-11-25T13:36:14Z",
+  "source_sha256": "f0ee1954ae186c887a681cf77b94f880222ed4ee1dd762ef1d42094f4d3c41ff",
   "sources": [
     ".ebook/build-ebook.mjs",
     ".ebook/epub.css",
@@ -36,11 +36,11 @@
   "artifacts": {
     "pdf": {
       "file": "Designfy-Guia-do-Usuario-v0.2.0.pdf",
-      "sha256": "af65ce536340648e2167b216e541dc1653167b01f129f099ce802144e4e587ac"
+      "sha256": "4ccbe6f194f783570043eb8b707358b8f33aba306c532b6d8dceab97c26a75b3"
     },
     "epub": {
       "file": "Designfy-Guia-do-Usuario-v0.2.0.epub",
-      "sha256": "24d27d9d398e1659a2201d9e490483a3415d8b6d7af2d13747eec474d9eef2fb"
+      "sha256": "d586a852ae530f2bb8694625241fa7b2476fe03daa54084a5da6723150f3ea30"
     }
   }
 }
