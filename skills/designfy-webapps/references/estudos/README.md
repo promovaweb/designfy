@@ -22,10 +22,13 @@ nomes de clientes ou a marca do sistema estudado.
 
 ## Estudos
 
-Ainda não há estudo de tela de sistema. O primeiro entra quando houver uma
-tela de sistema real, em uso, para ler do começo ao fim. Até lá, os
-exemplos de `examples/react-system` no repositório do Designfy e as
-referências desta skill cobrem as telas comuns.
+| Estudo | Tela | O que ensina |
+| --- | --- | --- |
+| [Configurações de equipe do Larafy](configuracoes-de-equipe-larafy.md) | membros, convites, papéis e exclusão de uma equipe | permissão por controle numa tela de edição e consulta, confirmação proporcional à ação, zona de exclusão com os papéis do tema |
+
+Para listagem, painel e formulário longo ainda não há estudo. Os exemplos de
+`examples/react-system` no repositório do Designfy e as referências desta
+skill cobrem essas telas até o próximo estudo.
 
 ## Formato de um estudo
 

@@ -1,0 +1,72 @@
+# Installs the npm wrapper on Linux, macOS and Windows after each release and
+# runs the downloaded binary, so a broken asset name, checksum or launcher on
+# one platform shows up before anyone installs it.
+name: npm smoke test
+
+on:
+  workflow_run:
+    workflows: ["Release"]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to test (vX.Y.Z)"
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    name: Instalar e rodar (${{ matrix.os }})
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, ubuntu-24.04-arm, macos-latest, macos-13, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Definir a tag
+        id: tag
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "tag=${{ inputs.tag }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=${{ github.event.workflow_run.head_branch }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Obter código da tag
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ steps.tag.outputs.tag }}
+
+      - name: Configurar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Instalar o pacote empacotado
+        shell: bash
+        run: |
+          cd npm
+          npm pack
+          npm install -g ./promovaweb-designfy-*.tgz
+
+      - name: Conferir a versão
+        shell: bash
+        run: |
+          esperado="designfy ${GITHUB_TAG#v}"
+          obtido="$(designfy --version)"
+          echo "$obtido"
+          test "$obtido" = "$esperado"
+        env:
+          GITHUB_TAG: ${{ steps.tag.outputs.tag }}
+
+      - name: Rodar comandos sem projeto
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/vazio" && cd "$RUNNER_TEMP/vazio"
+          designfy doctor
+          designfy components list --json > /dev/null
+          designfy palette generate --base '#0ea5e9' --json > /dev/null

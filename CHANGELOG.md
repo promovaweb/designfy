@@ -2,6 +2,13 @@
 
 Formato baseado em Keep a Changelog. Versões seguem SemVer.
 
+## [0.2.4] - 2026-11-25
+
+### Adicionado
+
+- Primeiro estudo de tela de sistema na skill `designfy-webapps`: as configurações de equipe do Larafy, com regiões, estados por permissão, confirmação proporcional à ação, o que copiar e o que não copiar (botão de ícone sem nome acessível, cores fixas na zona de exclusão, troca de papel sem retorno) e as peças do registro que cobrem a tela.
+- Workflow `npm-smoke.yml`: depois de cada release, instala o pacote do npm no Linux (x64 e arm64), no macOS (Intel e Apple Silicon) e no Windows, confere a versão e roda `doctor`, `components list` e `palette generate`. O CONTRIBUTING explica como repetir o teste de uma tag.
+
 ## [0.2.3] - 2026-11-25
 
 ### Alterado

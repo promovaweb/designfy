@@ -85,7 +85,8 @@ scripts/              build, geração do registro e dos fundos, sincronização
 tests/                bun test, com fixtures e quadros de referência da TUI
 template/             stubs de command, screen, tool e do banco SQLite opcional
 .agents/skills/       skills do framework Termfy, instaladas por npx skills
-.github/workflows/    ci.yml (validação) e release.yml (binários e GitHub Release)
+.github/workflows/    ci.yml (validação), release.yml (binários e GitHub Release) e
+                      npm-smoke.yml (pacote do npm nas cinco plataformas)
 dist/                 binários compilados por bun run build (gerado, fora do Git)
 ```
 
@@ -409,6 +410,14 @@ todos os alvos, roda `bun run validate`, compila os binários das cinco
 plataformas, gera o `SHA256SUMS` e publica a GitHub Release com as notas do
 changelog. O repositório é público sob a AGPL 3.0. A publicação no npm sai do
 pacote em `npm/`, com a mesma versão, logo depois da release.
+
+Quando a release termina, o workflow `npm-smoke.yml` empacota o `npm/` da
+tag e o instala no Linux (x64 e arm64), no macOS (Intel e Apple Silicon) e no
+Windows. Em cada máquina, ele confere que `designfy --version` mostra a versão
+da tag e roda `doctor`, `components list` e `palette generate` numa pasta
+vazia. Uma falha ali aponta binário, checksum ou launcher quebrado naquela
+plataforma. Para repetir o teste de uma tag já publicada, dispare o workflow
+pela aba Actions com a tag.
 
 O passo a passo está em [RELEASING.md](RELEASING.md) e em
 [docs/release.md](docs/release.md).
