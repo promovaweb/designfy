@@ -6,7 +6,7 @@ import { join } from "node:path";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
-import { collectDoctorChecks, doctorCommand } from "../src/cli/commands/doctor.ts";
+import { checkBaseDirectory, collectDoctorChecks, doctorCommand } from "../src/cli/commands/doctor.ts";
 import { HOME_VARIABLE, MASTER_KEY_VARIABLE, paths } from "../src/config/paths.ts";
 import { setCredential } from "../src/config/credentials.ts";
 import { registerDoctorTools } from "../src/mcp/tools/doctor.ts";
@@ -106,4 +106,13 @@ test("missing Node tools and project files are warnings, and detecting project f
     expect(checks).toContainEqual(expect.objectContaining({ name, status: "ok" }));
   }
   expect(checks).toContainEqual({ name: "tailwind-theme", status: "ok", detail: theme });
+});
+
+test("base directory mode is enforced on POSIX and ignored on Windows", () => {
+  const dir = { isDirectory: () => true, mode: 0o40777 };
+  expect(() => checkBaseDirectory(dir, "linux")).toThrow("Invalid directory mode");
+  expect(() => checkBaseDirectory(dir, "darwin")).toThrow("Invalid directory mode");
+  expect(() => checkBaseDirectory(dir, "win32")).not.toThrow();
+  expect(() => checkBaseDirectory({ isDirectory: () => true, mode: 0o40700 }, "linux")).not.toThrow();
+  expect(() => checkBaseDirectory({ isDirectory: () => false, mode: 0o100700 }, "win32")).toThrow("Not a directory");
 });

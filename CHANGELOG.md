@@ -2,6 +2,12 @@
 
 Formato baseado em Keep a Changelog. Versões seguem SemVer.
 
+## [0.2.5] - 2026-11-25
+
+### Corrigido
+
+- `doctor` no Windows: a verificação da pasta `~/.designfy/` exigia o modo POSIX 0700, que o Windows não tem, e o comando terminava com código 3 em toda instalação. No Windows, ela confere só se a pasta existe e é um diretório. A falha apareceu no primeiro teste do pacote do npm nas cinco plataformas, que passou no Linux e no macOS.
+
 ## [0.2.4] - 2026-11-25
 
 ### Adicionado

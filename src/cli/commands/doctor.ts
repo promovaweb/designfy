@@ -20,6 +20,16 @@ export interface DoctorCheck {
   detail: string;
 }
 
+/**
+ * Checks the settings directory. POSIX systems require mode 0700; Windows has
+ * no POSIX permission bits (stat reports 0666 or 0777), so there only the
+ * directory type is checked.
+ */
+export function checkBaseDirectory(stat: { isDirectory(): boolean; mode: number }, platform: NodeJS.Platform = process.platform): void {
+  if (!stat.isDirectory()) throw new Error("Not a directory");
+  if (platform !== "win32" && (stat.mode & 0o777) !== 0o700) throw new Error("Invalid directory mode");
+}
+
 /** Collects independent checks without writing files or exposing secrets. */
 export function collectDoctorChecks(runtime = { version: Bun.version, stdin: Boolean(process.stdin.isTTY), stdout: Boolean(process.stdout.isTTY) }, cwd = process.cwd()) {
   const checks: DoctorCheck[] = [];
@@ -37,10 +47,8 @@ export function collectDoctorChecks(runtime = { version: Bun.version, stdin: Boo
     try { check(); add(name, "ok", detail); }
     catch { add(name, "fail", "Unreadable, invalid or incorrectly configured"); }
   };
-  inspect("directory", paths.base(), () => {
-    const stat = statSync(paths.base());
-    if (!stat.isDirectory() || (stat.mode & 0o777) !== 0o700) throw new Error("Invalid directory mode");
-  }, "Directory exists; mode 0700");
+  inspect("directory", paths.base(), () => checkBaseDirectory(statSync(paths.base())),
+    process.platform === "win32" ? "Directory exists" : "Directory exists; mode 0700");
   inspect("settings", paths.settings(), () => {
     const data: unknown = JSON.parse(readFileSync(paths.settings(), "utf8"));
     if (!data || typeof data !== "object" || Array.isArray(data)) throw new Error("Expected object");

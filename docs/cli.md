@@ -189,7 +189,7 @@ por `readSecret()`; grave com `setCredential()`; recupere com
 ## Diagnóstico e completion
 
 `{{bin}} doctor` confere Bun 1.4.4 ou superior, TTY de stdin/stdout,
-pasta de dados com 0700, leitura de settings.json, origem da master key,
+pasta de dados com 0700 (no Windows, só que ela existe), leitura de settings.json, origem da master key,
 decifragem do cofre, versão e plataforma. Também procura `node` e `npx`
 no PATH, `designfy.json`, o CSS do Tailwind e o `VIEWSPEC.md` da raiz.
 Essas cinco verificações adicionais usam apenas `ok` ou `warn`. Cada linha usa ✓, ! ou ✗.

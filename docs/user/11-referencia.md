@@ -143,7 +143,7 @@ No site da Promovaweb, o `VIEWSPEC.md` da raiz reúne as orientações comuns à
 | `src/components/designfy/` | componentes copiados, por padrão |
 | `src/styles/` | estilos copiados, por padrão |
 
-Os caminhos iniciados por `~/` pertencem ao usuário. A pasta `~/.designfy/` tem permissão `0700` e seus arquivos usam `0600`. Na leitura do cofre, a variável `DESIGNFY_MASTER_KEY` fornece a chave quando está definida. Na ausência dela, a chave vem do arquivo `master.key`.
+Os caminhos iniciados por `~/` pertencem ao usuário. A pasta `~/.designfy/` tem permissão `0700` e seus arquivos usam `0600`. No Windows, que não tem esses bits de permissão, o `doctor` confere só se a pasta existe e é um diretório. Na leitura do cofre, a variável `DESIGNFY_MASTER_KEY` fornece a chave quando está definida. Na ausência dela, a chave vem do arquivo `master.key`.
 
 ## Variáveis de ambiente do processo
 
