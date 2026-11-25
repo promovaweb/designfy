@@ -1,0 +1,142 @@
+[
+  {
+    "name": "pixel-stage",
+    "type": "registry:component",
+    "title": "Pixel stage",
+    "description": "Places a pausable theme-driven pixel mosaic behind landing content.",
+    "categories": [
+      "layout"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/astro/pixel-stage/PixelStage.astro",
+        "type": "registry:component",
+        "target": "pixel-stage/PixelStage.astro"
+      },
+      {
+        "path": "registry/shared/scripts/pixel-stage.ts",
+        "type": "registry:lib",
+        "target": "pixel-stage/pixel-stage-runtime.ts"
+      }
+    ],
+    "meta": {
+      "catalog": "pixel-stage",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "hero-pixel",
+    "type": "registry:block",
+    "title": "Pixel hero",
+    "description": "Opens a landing with an optional aside over a pixel stage.",
+    "categories": [
+      "hero"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "pixel-stage"
+    ],
+    "files": [
+      {
+        "path": "registry/astro/hero-pixel/HeroPixel.astro",
+        "type": "registry:component",
+        "target": "hero-pixel/HeroPixel.astro"
+      }
+    ],
+    "meta": {
+      "catalog": "hero-pixel",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "feature-rows",
+    "type": "registry:block",
+    "title": "Feature rows",
+    "description": "Presents numbered benefits in aligned rows with an optional sticky introduction.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/astro/feature-rows/FeatureRows.astro",
+        "type": "registry:component",
+        "target": "feature-rows/FeatureRows.astro"
+      }
+    ],
+    "meta": {
+      "catalog": "feature-rows",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "milestone-timeline",
+    "type": "registry:block",
+    "title": "Milestone timeline",
+    "description": "Shows dated events or phases in order with a current marker and aligned outcomes.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/astro/milestone-timeline/MilestoneTimeline.astro",
+        "type": "registry:component",
+        "target": "milestone-timeline/MilestoneTimeline.astro"
+      }
+    ],
+    "meta": {
+      "catalog": "milestone-timeline",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "profile-split",
+    "type": "registry:block",
+    "title": "Profile split",
+    "description": "Introduces a person with a portrait, credentials and links.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/astro/profile-split/ProfileSplit.astro",
+        "type": "registry:component",
+        "target": "profile-split/ProfileSplit.astro"
+      }
+    ],
+    "meta": {
+      "catalog": "profile-split",
+      "motion": true,
+      "surface": "site"
+    }
+  }
+]

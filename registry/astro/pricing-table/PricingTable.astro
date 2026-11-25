@@ -18,17 +18,28 @@ type Plan = {
   recommended?: boolean;
 };
 
-interface Props {
+type SingleOffer = {
+  label: string;
+  currency: string;
+  price: string;
+  period: string;
+  installment?: string;
+  action: Action;
+  finePrint?: string;
+  included: string[];
+};
+
+type PricingMode =
+  | { variant: "single"; offer: SingleOffer; plans?: never; id?: string }
+  | { variant?: "plans"; offer?: never; plans: Plan[]; id: string };
+
+type Props = PricingMode & {
   /** Section heading. */
   title: string;
   /** Supporting sentence. */
   lead?: string;
   /** Heading level in the page outline. */
   headingLevel?: 2 | 3 | 4 | 5 | 6;
-  /** Unique prefix for the billing group. */
-  id: string;
-  /** Plans with formatted prices and labelled features. */
-  plans: Plan[];
   /** Label for the monthly period. */
   monthlyLabel?: string;
   /** Label for the yearly period. */
@@ -45,14 +56,16 @@ interface Props {
   initialPeriod?: "monthly" | "yearly";
   /** Additional classes on the root element. */
   class?: string;
-}
+};
 
 const {
   title,
   lead,
   headingLevel = 2,
   id,
-  plans,
+  plans = [],
+  variant,
+  offer,
   monthlyLabel = "Monthly",
   yearlyLabel = "Yearly",
   billingLabel = "Billing period",
@@ -85,111 +98,163 @@ const entries = [...plans].sort(
         )
       }
     </header>
-    <fieldset hidden class="mb-8 min-w-0">
-      <legend class="sr-only">{billingLabel}</legend>
-      <div
-        class="inline-flex max-w-full flex-wrap rounded-xl border border-border bg-muted p-1"
-      >
-        {
-          (["monthly", "yearly"] as const).map((period) => (
-            <label class="df-press relative flex min-h-11 cursor-pointer items-center rounded-lg px-4 py-2 text-sm font-semibold text-muted-foreground has-checked:bg-primary has-checked:text-primary-foreground has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-ring">
-              <input
-                type="radio"
-                name={id + "-billing"}
-                value={period}
-                checked={initialPeriod === period}
-                class="sr-only"
-              />
-              {period === "monthly" ? monthlyLabel : yearlyLabel}
-            </label>
-          ))
-        }
-      </div>
-    </fieldset>
-    <ul
-      data-df-stagger
-      class="grid gap-4 sm:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(min(100%,14rem),1fr))]"
-    >
-      {
-        entries.map((plan) => (
-          <li
-            data-df-reveal="up"
-            class={cn(
-              "group relative flex min-w-0 flex-col rounded-2xl border border-border bg-card p-6 text-card-foreground",
-              plan.recommended && "border-primary/65 bg-primary/5",
-            )}
-          >
-            {plan.recommended && (
-              <span
-                aria-hidden="true"
-                data-df-loop
-                class="pointer-events-none absolute inset-x-6 top-0 h-px bg-linear-to-r from-primary/0 via-primary/65 to-primary/0 bg-size-[200%_100%] motion-safe:animate-df-pan group-hover:[animation-play-state:paused] group-focus-within:[animation-play-state:paused]"
-              />
-            )}
-            <ItemHeading class="text-title font-semibold">
-              {plan.name}
-            </ItemHeading>
-            {plan.recommended && (
-              <p class="mt-1 text-sm font-semibold text-primary">
-                {recommendedLabel}
+    {
+      variant === "single" && offer ? (
+        <article
+          data-df-reveal="up"
+          class="@container rounded-2xl border border-border bg-card p-6 text-card-foreground sm:p-10"
+        >
+          <div class="grid gap-6 @2xl:grid-cols-2">
+            <div class="grid justify-items-start gap-4">
+              <ItemHeading class="text-title font-semibold">
+                {offer.label}
+              </ItemHeading>
+              <p class="flex flex-wrap items-baseline gap-2">
+                <>
+                  <span>{offer.currency}</span>
+                  <strong class="font-heading text-headline tabular-nums">
+                    {offer.price}
+                  </strong>
+                  <span>{offer.period}</span>
+                </>
               </p>
-            )}
-            <div aria-live="polite" class="mt-6 min-w-0 overflow-hidden py-1">
-              {(["monthly", "yearly"] as const).map((period) => (
-                <div
-                  data-price={period}
-                  hidden={initialPeriod !== period}
-                  class="min-w-0 break-words [&[hidden]]:hidden!"
-                >
-                  <span class="font-heading text-headline font-semibold tabular-nums">
-                    {plan[period]}
-                  </span>
-                  <span class="ms-2 text-sm text-muted-foreground">
-                    {period === "monthly" ? monthlyLabel : yearlyLabel}
-                  </span>
-                </div>
-              ))}
+              {offer.installment && (
+                <p class="text-muted-foreground">{offer.installment}</p>
+              )}
+              <a
+                href={offer.action.href}
+                class="df-press inline-flex min-h-11 items-center justify-center rounded-lg bg-primary px-5 py-3 font-semibold text-primary-foreground hover:bg-primary/90"
+              >
+                {offer.action.label}
+              </a>
+              {offer.finePrint && (
+                <p class="text-sm text-muted-foreground">{offer.finePrint}</p>
+              )}
             </div>
-            {plan.description && (
-              <p class="mt-2 text-sm text-muted-foreground">
-                {plan.description}
-              </p>
-            )}
-            <ul class="my-6 grid gap-3 border-t border-border pt-6 text-sm">
-              {plan.features.map((feature) => (
-                <li
-                  class={cn(
-                    "flex min-w-0 items-start gap-2 break-words",
-                    !feature.included && "text-muted-foreground",
-                  )}
-                >
-                  <span class="shrink-0 text-primary" aria-hidden="true">
-                    {feature.included ? "+" : "−"}
+            <ul
+              role="list"
+              aria-label={includedLabel}
+              class="grid content-center gap-3 border-t border-border pt-6 @2xl:border-s @2xl:border-t-0 @2xl:ps-8 @2xl:pt-0"
+            >
+              {offer.included.map((item, i) => (
+                <li class="flex gap-3">
+                  <span aria-hidden="true" class="text-primary">
+                    ✓
                   </span>
-                  <span>
-                    <span class="sr-only">
-                      {feature.included ? includedLabel : excludedLabel}:{" "}
-                    </span>
-                    {feature.label}
-                  </span>
+                  {item}
                 </li>
               ))}
             </ul>
-            <a
-              href={plan.action.href}
-              class={cn(
-                "mt-auto",
-                plan.recommended
-                  ? "df-press inline-flex min-h-12 min-w-11 items-center justify-center rounded-lg bg-primary px-5 py-2 text-center text-sm font-semibold text-primary-foreground hover:bg-primary/90"
-                  : "df-press inline-flex min-h-12 min-w-11 items-center justify-center rounded-lg border border-border bg-background px-5 py-2 text-center text-sm font-semibold hover:bg-muted",
-              )}
-            >
-              {plan.action.label}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+          </div>
+        </article>
+      ) : (
+        <>
+          <fieldset hidden class="mb-8 min-w-0">
+            <legend class="sr-only">{billingLabel}</legend>
+            <div class="inline-flex max-w-full flex-wrap rounded-xl border border-border bg-muted p-1">
+              {(["monthly", "yearly"] as const).map((period) => (
+                <label class="df-press relative flex min-h-11 cursor-pointer items-center rounded-lg px-4 py-2 text-sm font-semibold text-muted-foreground has-checked:bg-primary has-checked:text-primary-foreground has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-ring">
+                  <input
+                    type="radio"
+                    name={id + "-billing"}
+                    value={period}
+                    checked={initialPeriod === period}
+                    class="sr-only"
+                  />
+                  {period === "monthly" ? monthlyLabel : yearlyLabel}
+                </label>
+              ))}
+            </div>
+          </fieldset>
+          <ul
+            data-df-stagger
+            class="grid gap-4 sm:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(min(100%,14rem),1fr))]"
+          >
+            {entries.map((plan) => (
+              <li
+                data-df-reveal="up"
+                class={cn(
+                  "group relative flex min-w-0 flex-col rounded-2xl border border-border bg-card p-6 text-card-foreground",
+                  plan.recommended && "border-primary/65 bg-primary/5",
+                )}
+              >
+                {plan.recommended && (
+                  <span
+                    aria-hidden="true"
+                    data-df-loop
+                    class="pointer-events-none absolute inset-x-6 top-0 h-px bg-linear-to-r from-primary/0 via-primary/65 to-primary/0 bg-size-[200%_100%] motion-safe:animate-df-pan group-hover:[animation-play-state:paused] group-focus-within:[animation-play-state:paused]"
+                  />
+                )}
+                <ItemHeading class="text-title font-semibold">
+                  {plan.name}
+                </ItemHeading>
+                {plan.recommended && (
+                  <p class="mt-1 text-sm font-semibold text-primary">
+                    {recommendedLabel}
+                  </p>
+                )}
+                <div
+                  aria-live="polite"
+                  class="mt-6 min-w-0 overflow-hidden py-1"
+                >
+                  {(["monthly", "yearly"] as const).map((period) => (
+                    <div
+                      data-price={period}
+                      hidden={initialPeriod !== period}
+                      class="min-w-0 break-words [&[hidden]]:hidden!"
+                    >
+                      <span class="font-heading text-headline font-semibold tabular-nums">
+                        {plan[period]}
+                      </span>
+                      <span class="ms-2 text-sm text-muted-foreground">
+                        {period === "monthly" ? monthlyLabel : yearlyLabel}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                {plan.description && (
+                  <p class="mt-2 text-sm text-muted-foreground">
+                    {plan.description}
+                  </p>
+                )}
+                <ul class="my-6 grid gap-3 border-t border-border pt-6 text-sm">
+                  {plan.features.map((feature) => (
+                    <li
+                      class={cn(
+                        "flex min-w-0 items-start gap-2 break-words",
+                        !feature.included && "text-muted-foreground",
+                      )}
+                    >
+                      <span class="shrink-0 text-primary" aria-hidden="true">
+                        {feature.included ? "+" : "−"}
+                      </span>
+                      <span>
+                        <span class="sr-only">
+                          {feature.included ? includedLabel : excludedLabel}
+                          :{" "}
+                        </span>
+                        {feature.label}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href={plan.action.href}
+                  class={cn(
+                    "mt-auto",
+                    plan.recommended
+                      ? "df-press inline-flex min-h-12 min-w-11 items-center justify-center rounded-lg bg-primary px-5 py-2 text-center text-sm font-semibold text-primary-foreground hover:bg-primary/90"
+                      : "df-press inline-flex min-h-12 min-w-11 items-center justify-center rounded-lg border border-border bg-background px-5 py-2 text-center text-sm font-semibold hover:bg-muted",
+                  )}
+                >
+                  {plan.action.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </>
+      )
+    }
     {
       Astro.slots.has("comparison") && (
         <div class="mt-10">

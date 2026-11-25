@@ -1,0 +1,2 @@
+/* The main stylesheet delegates the Tailwind base and token declarations. */
+@import url(./brand/global.css);

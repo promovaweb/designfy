@@ -22,6 +22,8 @@ export interface FaqProps {
   items: Question[];
   /** Centered column or two columns with the intro on the left. */
   variant?: "single" | "split";
+  /** Keep the split introduction in view on large screens. */
+  stickyIntro?: boolean;
   /** Include FAQPage JSON-LD only for content that qualifies. */
   structuredData?: boolean;
   /** Additional classes on the root element. */
@@ -78,6 +80,7 @@ export function Faq({
   headingLevel = 2,
   items,
   variant = "single",
+  stickyIntro = false,
   structuredData = false,
   className,
 }: FaqProps) {
@@ -110,15 +113,24 @@ export function Faq({
             : "max-w-4xl",
         )}
       >
-        <header data-df-reveal="up" className="mb-10 md:mb-14">
-          <Heading className="font-heading text-headline font-semibold">
-            {title}
-          </Heading>
-          {lead && (
-            <p className="mt-4 max-w-2xl text-lead text-muted-foreground">
-              {lead}
-            </p>
+        <header
+          className={cn(
+            "mb-10 md:mb-14",
+            variant === "split" &&
+              stickyIntro &&
+              "lg:sticky lg:top-[calc(var(--header-height,4rem)+1rem)]",
           )}
+        >
+          <div data-df-reveal="up">
+            <Heading className="font-heading text-headline font-semibold">
+              {title}
+            </Heading>
+            {lead && (
+              <p className="mt-4 max-w-2xl text-lead text-muted-foreground">
+                {lead}
+              </p>
+            )}
+          </div>
         </header>
         <div
           data-df-reveal="up"

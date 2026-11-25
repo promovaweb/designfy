@@ -1,0 +1,58 @@
+---
+/** Pairs a two-tone statement with stat notes. Follow with milestone-timeline for a dated rail. Uses theme motion with a static reduced-motion state. */
+import { cn } from "@designfy/components/lib/cn";
+
+interface Props {
+  /** Heading text. */
+  title: string;
+  /** Heading level in the surrounding document. */
+  headingLevel?: 2 | 3 | 4 | 5 | 6;
+  /** Emphasized second line. */
+  emphasis: string;
+  /** Values with their explanations. */
+  stats: { value: string; description: string }[];
+  /** Use the dark theme locally by default. */
+  dark?: boolean;
+  /** Additional root classes. */
+  class?: string;
+}
+
+const {
+  title,
+  headingLevel = 2,
+  emphasis,
+  stats,
+  dark = true,
+  class: className,
+} = Astro.props;
+
+const Heading = `h${headingLevel}` as "h2";
+---
+
+<section
+  class={cn(
+    "@container rounded-2xl bg-background p-6 text-foreground sm:p-10",
+    dark && "dark",
+    className,
+  )}
+>
+  <div class="grid items-start gap-8 @3xl:grid-cols-[3fr_2fr]">
+    <Heading
+      data-df-reveal="up"
+      class="font-heading text-headline font-semibold tracking-tight"
+      >{title} <strong class="block text-primary">{emphasis}</strong></Heading
+    >
+    <dl data-df-stagger class="divide-y divide-border">
+      {
+        stats.map((stat, i) => (
+          <div data-df-reveal="up" class="grid gap-2 py-4 first:pt-0">
+            <>
+              <dt class="text-title font-semibold">{stat.value}</dt>
+              <dd class="text-muted-foreground">{stat.description}</dd>
+            </>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>

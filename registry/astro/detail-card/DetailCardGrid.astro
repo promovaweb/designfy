@@ -1,0 +1,20 @@
+---
+/** Arranges detail cards in two columns with one tall card. Motion comes from the child cards. */
+import { cn } from "@designfy/components/lib/cn";
+
+interface Props {
+  /** Additional root classes. */
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class={cn("@container", className)}>
+  <div
+    data-df-stagger
+    class="grid gap-4 @2xl:grid-cols-2 @2xl:[&>[data-tall]]:row-span-2"
+  >
+    <slot />
+  </div>
+</div>

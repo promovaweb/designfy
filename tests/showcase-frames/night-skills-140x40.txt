@@ -19,7 +19,7 @@
    │   internal · no                       ┃│  │                                                                                        │
    │ ▏ □ designfy-content      ○ Available ┃│  │                                                                                        │
    │   internal · no                       ┃│  │                                                                                        │
-   │ ▏ □ designfy-systems      ○ Available ┃│  │                                                                                        │
+   │ ▏ □ designfy-webapps      ○ Available ┃│  │                                                                                        │
    │   internal · no                       ┃│  │                                                                                        │
    │ ▏ □ designfy-responsive   ○ Available ┃│  │                                                                                        │
    │   internal · no                       ┃│  │                                                                                        │
@@ -27,11 +27,11 @@
    │   internal · no                       ┃│  │                                                                                        │
    │ ▏ □ designfy-review       ○ Available ┃│  │                                                                                        │
    │   internal · no                       ┃│  │                                                                                        │
-   │ External · 5                          ┃│  │                                                                                        │
+   │ External · 6                          ┃│  │                                                                                        │
    │ ▏ □ hallmark              ○ Available ┃│  │                                                                                        │
    │   external · no                       ┃│  │                                                                                        │
-   │ ▏ □ shadcn                ○ Available ┃│  │                                                                                        │
-   │   external · no                       ┃│  │                                                                                        │
+   │ ▏ □ shadcn                ○ Available ││  │                                                                                        │
+   │   external · no                       ││  │                                                                                        │
    │ ▏ □ migrate-radix-to-base ○ Available ││  │                                                                                        │
    │   external · no                       ││  │                                                                                        │
    │ ▏ □ astrofy               ○ Available ││  │                                                                                        │

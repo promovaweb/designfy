@@ -1,6 +1,6 @@
     ◆ Designfy   v0.0.0  › ◐ Theme  fixture-proj...· react-vite   T night   linux-x64 · Bun 0.0.0
     ← Back   ◐ Theme  Inspect the project's Tailwind theme and contrast
-   light · colors · globals.css
+   light · colors · custom · globals.css
    ╭─ Tab · Theme tokens ────────────╮  ╭─ Tab · Details ───────────────────────────────────────╮
    │ >     background         ✓ Pass │  │ --color-background                                    │
    │   #ffffff  #ff...  18.88:1 pass │  │                                                       │
@@ -10,7 +10,7 @@
    │                                 │  │ OKLCH             oklch(1 0 0)                        │
    │                                 │  │ Against backgro   1.00:1 fail                         │
    │                                 │  │ Against foregro   18.88:1 pass                        │
-   │                                 │  │ ✓ foreground / background                             │
+   │                                 │  │ ✓ --color-foreground / --color-background             │
    │                                 │  │ ━━━━━━━━ 18.88/21 89%                                 │
    │                                 │  │                                                       │
    │                                 │  │                                                       │
@@ -27,4 +27,4 @@
    │                                 │  │                                                       │
    │                                 │  │                                                       │
    ╰─────────────────────────────────╯  ╰───────────────────────────────────────────────────────╯
-    t  light / dark   g  next group   Enter  inspect color   /  filter  │   ?  help   q  quit
+    t  light / dark   g  next group   c  contrast pairs  │   Esc  back   ?  help   q  quit

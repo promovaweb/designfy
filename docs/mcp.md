@@ -36,8 +36,8 @@ Para desenvolvimento, sem compilar: `"command": "bun", "args": ["run", "src/main
 | `catalog_search` | `text` | fragmentos que correspondem à busca |
 | `components_list` | `project?`, `framework?`, `category?`, `surface?` | metadados dos itens e aviso de compatibilidade no Tailwind 3 |
 | `components_show` | `project?`, `name`, `framework?`, `source?` | metadados, arquivos, aviso de compatibilidade no Tailwind 3 e conteúdo se solicitado |
-| `theme_show` | `project?`, `file?`, `group?` | major, arquivos de origem, avisos e tokens por grupo |
-| `theme_check` | `project?`, `file?` | contraste em claro e escuro e papéis semânticos ausentes, com `isError: true` quando a conferência reprova |
+| `theme_show` | `project?`, `file?`, `group?` | major, arquivos de origem, regra de seleção (`selection`), entrada que importa o CSS selecionado (`entryFile`, quando encontrada), avisos e tokens por grupo |
+| `theme_check` | `project?`, `file?` | modo `shadcn` ou `custom`, contraste, notas e papéis ausentes quando aplicável, com `isError: true` quando a checagem reprova |
 | `palette_generate` | `base`, `harmony?` | escalas OKLCH, tokens claros e escuros e contraste |
 | `palette_wheel` | `color` | cores de cada harmonia em hex e OKLCH |
 | `palette_contrast` | `foreground`, `background` | razão WCAG, APCA e vereditos por uso |
@@ -49,7 +49,15 @@ Para desenvolvimento, sem compilar: `"command": "bun", "args": ["run", "src/main
 | `capture_list` | `project?`, `outDir?` | manifestos de captura, do mais recente ao mais antigo |
 | `mcp_servers` | `project?` | servidores sugeridos e estado nos arquivos de cada cliente |
 | `components_add` | `project?`, `names`, `framework?`, `path?`, `overwrite?`, `dryRun?`, `allowTailwind3?` | grava componentes e retorna arquivos e dependências. `dryRun` simula a cópia |
-| `capture_run` | `project?`, `urls`, `viewports?`, `theme?`, `fullPage?`, `reducedMotion?`, `waitMs?`, `selector?`, `outDir?`, `name?` | visita URLs e grava imagens e manifesto |
+| `capture_run` | `project?`, `urls`, `viewports?`, `theme?`, `fullPage?`, `scroll?`, `scrollBudgetMs?`, `showDevOverlays?`, `hide?`, `reducedMotion?`, `waitMs?`, `selector?`, `outDir?`, `name?` | visita URLs e grava imagens e manifesto |
+
+Em `capture_run`, `theme` aceita `light` (padrão), `dark`, uma lista
+separada por vírgula ou um array. Envie `scroll: false` para pular a
+preparação da página inteira ou ajuste `scrollBudgetMs` (15000 por padrão).
+`showDevOverlays: true` mantém os overlays conhecidos de desenvolvimento
+visíveis. `hide` aceita um seletor CSS ou um array de seletores. A resposta
+registra `theme`, `scrollSteps`, `incompleteImages` e
+`scrollBudgetExhausted` por captura.
 
 Inicie o servidor com `{{bin}} mcp --project ./website` (ou `-C ./website`)
 para definir a pasta de trabalho. `DESIGNFY_PROJECT` define o padrão na

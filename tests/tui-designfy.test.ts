@@ -142,6 +142,22 @@ test("theme toggles modes, exposes color details, and cycles groups", async () =
   }, "theme"));
 });
 
+test("theme shows the custom audit and its configured pairs", async () => {
+  await withProject(async (dir) => {
+    writeFileSync(join(dir, "designfy.json"), JSON.stringify({
+      theme: { pairs: [{ fg: "foreground", bg: "background", label: "Page text", min: 7 }] },
+    }));
+    await withTui(async (setup) => {
+      await frameWith(setup, "light · colors · custom");
+      await key(setup, "c");
+      const report = await frameWith(setup, "Page text");
+      expect(report).toContain("Contrast pairs");
+      expect(report).toContain("18.88:1 pass");
+      expect(report).toContain("min 7:1");
+    }, "theme");
+  });
+});
+
 test("catalog filters surface, kind and text live in the key bar", async () => {
   await withProject(async () => withTui(async (setup) => {
     await frameWith(setup, "Purpose");

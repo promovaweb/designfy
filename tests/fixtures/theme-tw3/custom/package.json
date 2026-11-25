@@ -1,0 +1,5 @@
+{
+  "name": "theme-tw3-custom-fixture",
+  "private": true,
+  "dependencies": { "tailwindcss": "^3.4.0" }
+}

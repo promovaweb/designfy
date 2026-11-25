@@ -158,7 +158,7 @@ A gravidade orienta a correção:
 Cada achado vai à especialista dona: `designfy-design-system` para cor, tipo,
 espaço e tema; `designfy-components` para componente, estado e dependência;
 `designfy-motion` para animação; `designfy-websites`, `designfy-content` e
-`designfy-systems` para a composição do tipo de tela; `designfy-responsive`
+`designfy-webapps` para a composição do tipo de tela; `designfy-responsive`
 para estouro, empilhamento e toque; `designfy-accessibility` para foco, teclado,
 nomes e semântica; `designfy-viewspec` para o arquivo ou uma regra do guia. O que
 falta de conteúdo vai para você, pela `designfy`.

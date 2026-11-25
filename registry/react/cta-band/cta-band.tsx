@@ -18,6 +18,8 @@ export interface CtaBandProps {
   headingLevel?: 2 | 3 | 4 | 5 | 6;
   /** Main action link. */
   action?: Action;
+  /** Optional supporting action beside the main link. */
+  secondaryAction?: Action;
   /** Full-width band or inset composition. */
   variant?: "full" | "inset";
   /** Inline alternative to the action link. */
@@ -34,6 +36,7 @@ export function CtaBand({
   lead,
   headingLevel = 2,
   action,
+  secondaryAction,
   variant = "inset",
   form,
   background,
@@ -50,7 +53,7 @@ export function CtaBand({
       <div
         data-df-reveal="fade"
         className={cn(
-          "relative isolate overflow-clip",
+          "relative isolate overflow-clip focus-within:opacity-100!",
           variant === "inset"
             ? "rounded-2xl bg-primary/10 p-6 sm:p-10 lg:p-14"
             : "df-section df-container",
@@ -64,7 +67,7 @@ export function CtaBand({
             {background}
           </div>
         )}
-        <div className="grid min-w-0 items-end gap-6 md:grid-cols-[minmax(0,1fr)_auto]">
+        <div className="grid min-w-0 items-end gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,auto)]">
           <div className="min-w-0">
             <Heading className="font-heading text-headline font-semibold">
               {title}
@@ -75,13 +78,32 @@ export function CtaBand({
               </p>
             )}
           </div>
-          {action && (
-            <a
-              href={action.href}
-              className="df-press inline-flex min-h-12 min-w-11 items-center justify-center rounded-lg bg-primary px-5 py-2 text-center text-sm font-semibold text-primary-foreground hover:bg-primary/90 w-full md:w-auto"
+          {(action || secondaryAction) && (
+            <div
+              className={cn(
+                "flex min-w-0 flex-col items-stretch gap-3",
+                action &&
+                  secondaryAction &&
+                  "sm:flex-row sm:flex-wrap md:flex-col md:items-end",
+              )}
             >
-              {action.label}
-            </a>
+              {action && (
+                <a
+                  href={action.href}
+                  className="df-press inline-flex min-h-12 min-w-11 items-center justify-center rounded-lg bg-primary px-5 py-2 text-center text-sm [overflow-wrap:anywhere] font-semibold text-primary-foreground hover:bg-primary/90"
+                >
+                  {action.label}
+                </a>
+              )}
+              {secondaryAction && (
+                <a
+                  href={secondaryAction.href}
+                  className="df-press inline-flex min-h-12 min-w-11 items-center justify-center rounded-lg border border-border bg-background px-5 py-2 text-center text-sm [overflow-wrap:anywhere] font-medium text-foreground hover:bg-muted"
+                >
+                  {secondaryAction.label}
+                </a>
+              )}
+            </div>
           )}
         </div>
         {form && <div className="mt-6 max-w-xl">{form}</div>}

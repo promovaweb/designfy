@@ -12,7 +12,7 @@ framework: react-vite
 route: /app/vendas
 createdAt: 2026-11-24T15:00:00-03:00
 updatedAt: 2026-11-24T16:20:00-03:00
-skills: [designfy-systems, designfy-components, designfy-motion, designfy-responsive, designfy-accessibility, designfy-review]
+skills: [designfy-webapps, designfy-components, designfy-motion, designfy-responsive, designfy-accessibility, designfy-review]
 components: [app-shell, stat-card, data-table, chart-area]
 relatedFiles:
   - src/pages/app/vendas.tsx
@@ -61,7 +61,7 @@ tabela equivalente acessível por um botão.
 
 ## Checklist
 
-- [x] Shell e cabeçalho da página `#designfy-systems` {#k2a9}
+- [x] Shell e cabeçalho da página `#designfy-webapps` {#k2a9}
 - [ ] Contadores com o estado de carregamento `#designfy-components` {#p0x4}
 - [ ] Contagem animada com versão parada `#designfy-motion` {#m7d1}
 - [ ] Tabela como cartões no celular `#designfy-responsive` {#r3c8}

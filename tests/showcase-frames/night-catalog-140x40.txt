@@ -8,7 +8,7 @@
    │ > Button                              ┃│  │ Surface           both                                                                ┃│
    │   both · landing-...l, settings, auth ┃│  │ Kinds             landing-page, home, site-page, blog-index, blog-post, docs-page,    ┃│
    │   Dropdown menu                       ┃│  │                   dashboard, table, form, crud, detail, settings, auth                ┃│
-   │   both · landing-... detail, settings ┃│  │ Purpose                                                                               ┃│
+   │   both · landing-... detail, settings ││  │ Purpose                                                                               ┃│
    │   Segmented control                   ││  │ Triggers an action or submits a form.                                                 ┃│
    │   both · dashboar...g-page, site-page ││  │ Use when                                                                              ┃│
    │   Text link                           ││  │ The person changes something, sends data or moves to the next step.                   ┃│

@@ -1,0 +1,174 @@
+[
+  {
+    "name": "offer-card",
+    "type": "registry:block",
+    "title": "Offer card",
+    "description": "Presents a time-limited offer with optional capacity and a primary action.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/offer-card/offer-card.tsx",
+        "type": "registry:component",
+        "target": "offer-card/offer-card.tsx"
+      },
+      {
+        "path": "registry/shared/scripts/offer-deadline.ts",
+        "type": "registry:lib",
+        "target": "offer-card/deadline.ts"
+      }
+    ],
+    "meta": {
+      "catalog": "offer-card",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "audience-fit",
+    "type": "registry:block",
+    "title": "Audience fit",
+    "description": "Pairs positive and negative fit criteria in two lists.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/audience-fit/audience-fit.tsx",
+        "type": "registry:component",
+        "target": "audience-fit/audience-fit.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "audience-fit",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "numbered-checklist",
+    "type": "registry:block",
+    "title": "Numbered checklist",
+    "description": "Lists inclusions with numbered chips and optional highlights.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/numbered-checklist/numbered-checklist.tsx",
+        "type": "registry:component",
+        "target": "numbered-checklist/numbered-checklist.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "numbered-checklist",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "outcome-grid",
+    "type": "registry:block",
+    "title": "Outcome grid",
+    "description": "Presents short outcomes in a responsive grid of icon tiles.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/outcome-grid/outcome-grid.tsx",
+        "type": "registry:component",
+        "target": "outcome-grid/outcome-grid.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "outcome-grid",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "detail-card",
+    "type": "registry:block",
+    "title": "Detail card",
+    "description": "Explains a feature with an icon, paragraphs and optional checks. Includes DetailCardGrid for a two-column arrangement with a tall card.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/detail-card/detail-card-grid.tsx",
+        "type": "registry:component",
+        "target": "detail-card/detail-card-grid.tsx"
+      },
+      {
+        "path": "registry/react/detail-card/detail-card.tsx",
+        "type": "registry:component",
+        "target": "detail-card/detail-card.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "detail-card",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "statement-stats",
+    "type": "registry:block",
+    "title": "Statement stats",
+    "description": "Pairs a two-tone statement with stacked stat notes. Compose with milestone-timeline for a dated rail.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/react/statement-stats/statement-stats.tsx",
+        "type": "registry:component",
+        "target": "statement-stats/statement-stats.tsx"
+      }
+    ],
+    "meta": {
+      "catalog": "statement-stats",
+      "motion": true,
+      "surface": "site"
+    }
+  }
+]

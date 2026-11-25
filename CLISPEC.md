@@ -45,7 +45,7 @@ mesma base atende a pessoa no terminal, os scripts e os agentes.
 
 | Command | Função |
 | --- | --- |
-| `init` | detecta o projeto (Astro, React com Vite, Next.js, Tailwind, shadcn) e grava `designfy.json` |
+| `init` | detecta o projeto e grava `designfy.json`, com `--theme-path <path>` para escolher o CSS do tema |
 | `status` | mostra o projeto detectado, o major do Tailwind, skills, dependências, componentes e viewspecs |
 | `skills list` | catálogo de skills internas e externas, com o estado no projeto |
 | `skills install [names...]` | instala skills pelo `skills` CLI; `--all`, `--internal`, `--external`, `--agent`, `--global`, `--dry-run` |
@@ -67,8 +67,8 @@ mesma base atende a pessoa no terminal, os scripts e os agentes.
 | `catalog list` | catálogo de componentes comuns de interface, por superfície, categoria e tipo de tela |
 | `catalog show <id>` | propósito, anatomia, variações, estados e onde está a implementação |
 | `catalog search <text>` | busca no catálogo |
-| `theme show` | tokens e fontes do tema Tailwind 3 ou 4, incluindo config no Tailwind 3 |
-| `theme check` | contraste dos pares do tema e papéis que faltam no CSS ou no config Tailwind 3 |
+| `theme show` | tokens, regra de seleção e fontes do tema Tailwind 3 ou 4, incluindo config no Tailwind 3 |
+| `theme check` | contraste dos pares nos modos `shadcn` e `custom` e papéis do registro ausentes em temas shadcn |
 | `viewspec guide` | o guia do projeto, `VIEWSPEC.md` na raiz: seções, regras e aprendizados |
 | `viewspec list` | viewspecs do projeto, com status, tipo e progresso |
 | `viewspec show <id>` | um viewspec inteiro |
@@ -86,7 +86,7 @@ sobre `DESIGNFY_PROJECT`. Caminho inexistente retorna 6.
 | --- | --- |
 | `overview` (Home) | menu em grade de cartões numerados com o resumo vivo de cada módulo e a faixa de próximo passo |
 | `project` | projeto detectado: framework, gerenciador de pacotes, Tailwind e shadcn |
-| `theme` | tema do Tailwind do projeto: amostras de cor, tipografia, raios, espaçamento e movimento |
+| `theme` | amostras de cor, tipografia, raios, espaçamento e movimento, com o modo da auditoria e os pares de contraste em `c` |
 | `catalog` | catálogo de interface por categoria, com anatomia, estados e fontes |
 | `skills` | lista de seleção múltipla, internas e externas, com instalar, atualizar e remover |
 | `components` | registro por categoria, com prévia dos arquivos e cópia para o projeto |
@@ -110,7 +110,7 @@ painel de detalhe e os temas `terminal`, `night` e `day`.
 | `deps_list`, `deps_check` | catálogo de bibliotecas e conferência do `package.json` |
 | `components_list`, `components_show`, `components_add` | registro de componentes e cópia para o projeto. `allowTailwind3` autoriza a cópia com aviso |
 | `catalog_list`, `catalog_show`, `catalog_search` | catálogo de interface que as skills leem para escolher os fragmentos |
-| `theme_show`, `theme_check` | tema Tailwind 3 ou 4, fontes do tema e contraste |
+| `theme_show`, `theme_check` | tema Tailwind 3 ou 4, regra de seleção, fontes e auditoria de contraste em `shadcn` ou `custom` |
 | `doctor` | diagnóstico do ambiente e de compatibilidade do registro |
 | `mcp_servers` | catálogo de servidores MCP |
 | `palette_generate`, `palette_wheel`, `palette_contrast` | paleta, harmonias e contraste |
@@ -132,7 +132,7 @@ As tools de projeto aceitam `project` para selecionar a pasta em cada chamada.
 | `designfy-motion` | movimento: entrada, rolagem, hover, transições de estado, contadores e movimento reduzido |
 | `designfy-websites` | sites e landing pages: estrutura, hero, seções, navegação, rodapé e conversão |
 | `designfy-content` | blogs e artigos: diagramação de texto, leitura, índice, embeds de vídeo e mídia |
-| `designfy-systems` | telas de sistema: shell, tabelas, formulários, dashboards, contadores, CRUD e configurações |
+| `designfy-webapps` | telas de sistema: shell, tabelas, formulários, dashboards, contadores, CRUD e configurações |
 | `designfy-responsive` | celular, tablet e desktop: pontos de quebra, container queries, toque e tabelas no celular |
 | `designfy-accessibility` | WCAG 2.2: contraste, foco, teclado, leitores de tela, formulários e movimento |
 | `designfy-review` | revisão com capturas do Playwright em celular e desktop e a lista de acabamento |
@@ -160,7 +160,7 @@ existe.
 
 | Arquivo | Função |
 | --- | --- |
-| `designfy.json` | projeto detectado, framework, pasta dos componentes e alias de import |
+| `designfy.json` | projeto detectado, framework, pasta dos componentes, alias de import, CSS opcional em `paths.theme` e pares de contraste em `theme.pairs` |
 | `VIEWSPEC.md` | guia de interface do projeto: preferências, diretrizes, padrões e aprendizados que valem para todas as telas |
 | `viewspec/<id>-<slug>/VIEWSPEC.md` | especificação de uma página ou tela |
 | `.designfy/captures/<run>/` | capturas e `manifest.json` de cada execução |
@@ -176,6 +176,7 @@ O binário não guarda segredo próprio; o cofre vem do starter kit.
 | --- | --- | --- |
 | [0001](specs/0001-fundacao-do-framework.md) | done | catálogos, skills, dependências, MCP, componentes, paleta, capturas, viewspec, TUI e tools |
 | [0002](specs/0002-tailwind-3-e-projetos.md) | done | Tailwind 3 e seleção de projeto |
+| [0003](specs/0003-theme-discovery-and-contrast.md) | done | Descoberta de tema e contraste de escalas próprias |
 
 ## Notes
 
@@ -194,3 +195,4 @@ O binário não guarda segredo próprio; o cofre vem do starter kit.
 - A captura roda o Playwright pelo Node do projeto. O binário compilado não
   leva o navegador.
 - 2026-11-24: spec 0002 (Tailwind 3 e seleção de projeto) concluída.
+- 2026-11-24: spec 0003 (Descoberta de tema e contraste de escalas próprias) concluída.

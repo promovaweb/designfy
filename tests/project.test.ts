@@ -78,15 +78,17 @@ test("init returns 6 for missing package.json, previews overrides and requires f
   });
   expect(() => run()).toThrow(expect.objectContaining({ code: ExitCode.NOT_FOUND }));
   put("package.json", { dependencies: { astro: "^5" } });
-  const preview = await run({ "dry-run": true, framework: "react", "components-path": "ui" });
-  expect(preview.data).toMatchObject({ dryRun: true, config: { framework: "react", paths: { components: "ui" } } });
+  const preview = await run({ "dry-run": true, framework: "react", "components-path": "ui", "theme-path": "theme.css" });
+  expect(preview.data).toMatchObject({
+    dryRun: true, config: { framework: "react", paths: { components: "ui", theme: "theme.css" } },
+  });
   expect(existsSync(join(dir, "designfy.json"))).toBe(false);
 
   await run();
   expect(() => run()).toThrow(expect.objectContaining({ code: ExitCode.USAGE }));
   expect(readProjectConfig(dir)?.framework).toBe("astro");
-  await run({ force: true, framework: "react" });
-  expect(readProjectConfig(dir)?.framework).toBe("react");
+  await run({ force: true, framework: "react", "theme-path": "src/styles/theme.css" });
+  expect(readProjectConfig(dir)).toMatchObject({ framework: "react", paths: { theme: "src/styles/theme.css" } });
 });
 
 test("reports copied components, viewspec counts, guide rules and the detected stylesheet", () => {

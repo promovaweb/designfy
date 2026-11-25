@@ -3,15 +3,15 @@
     › Install dependencies   [Enter]
 
    ╭─ 1 ◐ Theme ─────────────────────────────╮  ╭─ 2 ≡ Catalog ────────────────────────────╮  ╭─ 3 λ Components ────────────────────────╮
-   │ globals.css                             │  │ 80 patterns                              │  │ Registry · react-vite                   │
-   │ ██ ██ ░░ ░░ ░░ ░░ ░░              ╭─ ⌨ Keys ───────────────────────────────────────────────────╮d ━━━━━━━━ 0/58 0%                 │
+   │ globals.css                             │  │ 91 patterns                              │  │ Registry · react-vite                   │
+   │ ██ ██ ░░ ░░ ░░ ░░ ░░              ╭─ ⌨ Keys ───────────────────────────────────────────────────╮d ━━━━━━━━ 0/69 0%                 │
    │ ✓ 18.88:1 FG / BG                 │                                                            │                                   │
    │ Inter, sans-serif                 │  ⌂ Home                                                    │                                   │
    ╰───────────────────────────────────│  Enter             open                                    │───────────────────────────────────╯
                                        │  r                 ↻ reload                                │
    ╭─ 4 ⇌ Skills ──────────────────────│  Arrows / hjkl     move across cards                       │MCP ───────────────────────────────╮
-   │ Installed ━━━━━━━━ 1/16 6%        │  c                 ◈ Credentials                           │vers in catalog                    │
-   │ 11 internal · 5 external          │  d                 ≡ Docs                                  │ude 0  ○ codex 0                   │
+   │ Installed ━━━━━━━━ 1/17 5%        │  c                 ◈ Credentials                           │vers in catalog                    │
+   │ 11 internal · 6 external          │  d                 ≡ Docs                                  │ude 0  ○ codex 0                   │
    │ ● designfy installed              │  a                 ℹ About                                 │ncode 0  ○ cursor 0                │
    │                                   │  Global                                                    │ini 0                              │
    ╰───────────────────────────────────│  Ctrl+K  :         ⌨ command palette                       │───────────────────────────────────╯

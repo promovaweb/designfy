@@ -17,7 +17,7 @@
    │   internal · no                ┃│  │                                                       │
    │ ▏ □ desig...content○ Available ┃│  │                                                       │
    │   internal · no                ┃│  │                                                       │
-   │ ▏ □ desig...systems○ Available ┃│  │                                                       │
+   │ ▏ □ desig...webapps○ Available ┃│  │                                                       │
    │   internal · no                ││  │                                                       │
    │ ▏ □ desig...ponsive○ Available ││  │                                                       │
    │   internal · no                ││  │                                                       │
@@ -25,6 +25,6 @@
    │   internal · no                ││  │                                                       │
    │ ▏ □ designfy-review○ Available ││  │                                                       │
    │   internal · no                ││  │                                                       │
-   │ External · 5                   ││  │                                                       │
+   │ External · 6                   ││  │                                                       │
    ╰─────────────────────────────────╯  ╰───────────────────────────────────────────────────────╯
     g  next kind   i  install marked   u  update marked   d  remove marked  │   ?  help   q  quit

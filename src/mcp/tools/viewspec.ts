@@ -84,6 +84,7 @@ export function registerViewspecTools({ server, catalog }: Registrar): void {
     outputSchema: {
       items: z.array(z.object({
         file: z.string(), id, title: z.string(), summary: z.string(), kind, status, progress: progressSchema,
+        trackedBy: viewFrontMatterSchema.shape.trackedBy,
       })),
       errors: errorsSchema, nextId: id.nullable(),
     },

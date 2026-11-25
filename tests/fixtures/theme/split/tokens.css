@@ -2,7 +2,12 @@
 @import "tailwindcss";
 @import "./globals.css";
 @import url("./type.css");
-:root { --background: #fff; --foreground: #000; }
+:root {
+  --background: #fff;
+  --foreground: #000;
+  --primary: #111;
+  --primary-foreground: #fff;
+}
 @media (prefers-color-scheme: dark) {
   @layer base {
     :root { --background: #111; --foreground: #fff; }

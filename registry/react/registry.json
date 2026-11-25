@@ -587,7 +587,7 @@
       "name": "marquee",
       "type": "registry:component",
       "title": "Marquee",
-      "description": "Scrolls short passive content with an accessible stop control when the content is meaningful.",
+      "description": "Scrolls short passive content with an accessible stop control when the content is meaningful. The accent band adds diamond separators.",
       "categories": [
         "site-sections"
       ],
@@ -641,7 +641,7 @@
       "name": "pricing-table",
       "type": "registry:block",
       "title": "Pricing table",
-      "description": "Compares plan cards with a billing period switch and an optional comparison below.",
+      "description": "Compares plan cards with a billing period switch and an optional comparison below. The single variant pairs one offer with its inclusions.",
       "categories": [
         "site-sections"
       ],
@@ -827,6 +827,318 @@
         "catalog": "theme-toggle",
         "motion": true,
         "surface": "both"
+      }
+    },
+    {
+      "name": "feature-rows",
+      "type": "registry:block",
+      "title": "Feature rows",
+      "description": "Presents numbered benefits in aligned rows with an optional sticky introduction.",
+      "categories": [
+        "site-sections"
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "registryDependencies": [
+        "cn",
+        "designfy-motion"
+      ],
+      "files": [
+        {
+          "path": "registry/react/feature-rows/feature-rows.tsx",
+          "type": "registry:component",
+          "target": "feature-rows/feature-rows.tsx"
+        }
+      ],
+      "meta": {
+        "catalog": "feature-rows",
+        "motion": true,
+        "surface": "site"
+      }
+    },
+    {
+      "name": "hero-pixel",
+      "type": "registry:block",
+      "title": "Pixel hero",
+      "description": "Opens a landing with an optional aside over a pixel stage.",
+      "categories": [
+        "hero"
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "registryDependencies": [
+        "cn",
+        "pixel-stage"
+      ],
+      "files": [
+        {
+          "path": "registry/react/hero-pixel/hero-pixel.tsx",
+          "type": "registry:component",
+          "target": "hero-pixel/hero-pixel.tsx"
+        }
+      ],
+      "meta": {
+        "catalog": "hero-pixel",
+        "motion": true,
+        "surface": "site"
+      }
+    },
+    {
+      "name": "milestone-timeline",
+      "type": "registry:block",
+      "title": "Milestone timeline",
+      "description": "Shows dated events or phases in order with a current marker and aligned outcomes.",
+      "categories": [
+        "site-sections"
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "registryDependencies": [
+        "cn",
+        "designfy-motion"
+      ],
+      "files": [
+        {
+          "path": "registry/react/milestone-timeline/milestone-timeline.tsx",
+          "type": "registry:component",
+          "target": "milestone-timeline/milestone-timeline.tsx"
+        }
+      ],
+      "meta": {
+        "catalog": "milestone-timeline",
+        "motion": true,
+        "surface": "site"
+      }
+    },
+    {
+      "name": "pixel-stage",
+      "type": "registry:component",
+      "title": "Pixel stage",
+      "description": "Places a pausable theme-driven pixel mosaic behind landing content.",
+      "categories": [
+        "layout"
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "registryDependencies": [
+        "cn",
+        "designfy-motion"
+      ],
+      "files": [
+        {
+          "path": "registry/react/pixel-stage/pixel-stage.tsx",
+          "type": "registry:component",
+          "target": "pixel-stage/pixel-stage.tsx"
+        },
+        {
+          "path": "registry/shared/scripts/pixel-stage.ts",
+          "type": "registry:lib",
+          "target": "pixel-stage/pixel-stage-runtime.ts"
+        }
+      ],
+      "meta": {
+        "catalog": "pixel-stage",
+        "motion": true,
+        "surface": "site"
+      }
+    },
+    {
+      "name": "profile-split",
+      "type": "registry:block",
+      "title": "Profile split",
+      "description": "Introduces a person with a portrait, credentials and links.",
+      "categories": [
+        "site-sections"
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "registryDependencies": [
+        "cn",
+        "designfy-motion"
+      ],
+      "files": [
+        {
+          "path": "registry/react/profile-split/profile-split.tsx",
+          "type": "registry:component",
+          "target": "profile-split/profile-split.tsx"
+        }
+      ],
+      "meta": {
+        "catalog": "profile-split",
+        "motion": true,
+        "surface": "site"
+      }
+    },
+    {
+      "name": "audience-fit",
+      "type": "registry:block",
+      "title": "Audience fit",
+      "description": "Pairs positive and negative fit criteria in two lists.",
+      "categories": [
+        "site-sections"
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "registryDependencies": [
+        "cn",
+        "designfy-motion"
+      ],
+      "files": [
+        {
+          "path": "registry/react/audience-fit/audience-fit.tsx",
+          "type": "registry:component",
+          "target": "audience-fit/audience-fit.tsx"
+        }
+      ],
+      "meta": {
+        "catalog": "audience-fit",
+        "motion": true,
+        "surface": "site"
+      }
+    },
+    {
+      "name": "detail-card",
+      "type": "registry:block",
+      "title": "Detail card",
+      "description": "Explains a feature with an icon, paragraphs and optional checks. Includes DetailCardGrid for a two-column arrangement with a tall card.",
+      "categories": [
+        "site-sections"
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "registryDependencies": [
+        "cn",
+        "designfy-motion"
+      ],
+      "files": [
+        {
+          "path": "registry/react/detail-card/detail-card-grid.tsx",
+          "type": "registry:component",
+          "target": "detail-card/detail-card-grid.tsx"
+        },
+        {
+          "path": "registry/react/detail-card/detail-card.tsx",
+          "type": "registry:component",
+          "target": "detail-card/detail-card.tsx"
+        }
+      ],
+      "meta": {
+        "catalog": "detail-card",
+        "motion": true,
+        "surface": "site"
+      }
+    },
+    {
+      "name": "numbered-checklist",
+      "type": "registry:block",
+      "title": "Numbered checklist",
+      "description": "Lists inclusions with numbered chips and optional highlights.",
+      "categories": [
+        "site-sections"
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "registryDependencies": [
+        "cn",
+        "designfy-motion"
+      ],
+      "files": [
+        {
+          "path": "registry/react/numbered-checklist/numbered-checklist.tsx",
+          "type": "registry:component",
+          "target": "numbered-checklist/numbered-checklist.tsx"
+        }
+      ],
+      "meta": {
+        "catalog": "numbered-checklist",
+        "motion": true,
+        "surface": "site"
+      }
+    },
+    {
+      "name": "offer-card",
+      "type": "registry:block",
+      "title": "Offer card",
+      "description": "Presents a time-limited offer with optional capacity and a primary action.",
+      "categories": [
+        "site-sections"
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "registryDependencies": [
+        "cn",
+        "designfy-motion"
+      ],
+      "files": [
+        {
+          "path": "registry/react/offer-card/offer-card.tsx",
+          "type": "registry:component",
+          "target": "offer-card/offer-card.tsx"
+        },
+        {
+          "path": "registry/shared/scripts/offer-deadline.ts",
+          "type": "registry:lib",
+          "target": "offer-card/deadline.ts"
+        }
+      ],
+      "meta": {
+        "catalog": "offer-card",
+        "motion": true,
+        "surface": "site"
+      }
+    },
+    {
+      "name": "outcome-grid",
+      "type": "registry:block",
+      "title": "Outcome grid",
+      "description": "Presents short outcomes in a responsive grid of icon tiles.",
+      "categories": [
+        "site-sections"
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "registryDependencies": [
+        "cn",
+        "designfy-motion"
+      ],
+      "files": [
+        {
+          "path": "registry/react/outcome-grid/outcome-grid.tsx",
+          "type": "registry:component",
+          "target": "outcome-grid/outcome-grid.tsx"
+        }
+      ],
+      "meta": {
+        "catalog": "outcome-grid",
+        "motion": true,
+        "surface": "site"
+      }
+    },
+    {
+      "name": "statement-stats",
+      "type": "registry:block",
+      "title": "Statement stats",
+      "description": "Pairs a two-tone statement with stacked stat notes. Compose with milestone-timeline for a dated rail.",
+      "categories": [
+        "site-sections"
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "registryDependencies": [
+        "cn",
+        "designfy-motion"
+      ],
+      "files": [
+        {
+          "path": "registry/react/statement-stats/statement-stats.tsx",
+          "type": "registry:component",
+          "target": "statement-stats/statement-stats.tsx"
+        }
+      ],
+      "meta": {
+        "catalog": "statement-stats",
+        "motion": true,
+        "surface": "site"
       }
     },
     {

@@ -1,0 +1,174 @@
+[
+  {
+    "name": "offer-card",
+    "type": "registry:block",
+    "title": "Offer card",
+    "description": "Presents a time-limited offer with optional capacity and a primary action.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/astro/offer-card/OfferCard.astro",
+        "type": "registry:component",
+        "target": "offer-card/OfferCard.astro"
+      },
+      {
+        "path": "registry/shared/scripts/offer-deadline.ts",
+        "type": "registry:lib",
+        "target": "offer-card/deadline.ts"
+      }
+    ],
+    "meta": {
+      "catalog": "offer-card",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "audience-fit",
+    "type": "registry:block",
+    "title": "Audience fit",
+    "description": "Pairs positive and negative fit criteria in two lists.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/astro/audience-fit/AudienceFit.astro",
+        "type": "registry:component",
+        "target": "audience-fit/AudienceFit.astro"
+      }
+    ],
+    "meta": {
+      "catalog": "audience-fit",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "numbered-checklist",
+    "type": "registry:block",
+    "title": "Numbered checklist",
+    "description": "Lists inclusions with numbered chips and optional highlights.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/astro/numbered-checklist/NumberedChecklist.astro",
+        "type": "registry:component",
+        "target": "numbered-checklist/NumberedChecklist.astro"
+      }
+    ],
+    "meta": {
+      "catalog": "numbered-checklist",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "outcome-grid",
+    "type": "registry:block",
+    "title": "Outcome grid",
+    "description": "Presents short outcomes in a responsive grid of icon tiles.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/astro/outcome-grid/OutcomeGrid.astro",
+        "type": "registry:component",
+        "target": "outcome-grid/OutcomeGrid.astro"
+      }
+    ],
+    "meta": {
+      "catalog": "outcome-grid",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "detail-card",
+    "type": "registry:block",
+    "title": "Detail card",
+    "description": "Explains a feature with an icon, paragraphs and optional checks. Includes DetailCardGrid for a two-column arrangement with a tall card.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/astro/detail-card/DetailCard.astro",
+        "type": "registry:component",
+        "target": "detail-card/DetailCard.astro"
+      },
+      {
+        "path": "registry/astro/detail-card/DetailCardGrid.astro",
+        "type": "registry:component",
+        "target": "detail-card/DetailCardGrid.astro"
+      }
+    ],
+    "meta": {
+      "catalog": "detail-card",
+      "motion": true,
+      "surface": "site"
+    }
+  },
+  {
+    "name": "statement-stats",
+    "type": "registry:block",
+    "title": "Statement stats",
+    "description": "Pairs a two-tone statement with stacked stat notes. Compose with milestone-timeline for a dated rail.",
+    "categories": [
+      "site-sections"
+    ],
+    "dependencies": [],
+    "devDependencies": [],
+    "registryDependencies": [
+      "cn",
+      "designfy-motion"
+    ],
+    "files": [
+      {
+        "path": "registry/astro/statement-stats/StatementStats.astro",
+        "type": "registry:component",
+        "target": "statement-stats/StatementStats.astro"
+      }
+    ],
+    "meta": {
+      "catalog": "statement-stats",
+      "motion": true,
+      "surface": "site"
+    }
+  }
+]

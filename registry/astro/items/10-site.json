@@ -193,7 +193,7 @@
     "name": "marquee",
     "type": "registry:component",
     "title": "Marquee",
-    "description": "Scrolls short passive content with an accessible stop control when the content is meaningful.",
+    "description": "Scrolls short passive content with an accessible stop control when the content is meaningful. The accent band adds diamond separators.",
     "categories": [
       "site-sections"
     ],
@@ -275,7 +275,7 @@
     "name": "pricing-table",
     "type": "registry:block",
     "title": "Pricing table",
-    "description": "Compares plan cards with a billing period switch and an optional comparison below.",
+    "description": "Compares plan cards with a billing period switch and an optional comparison below. The single variant pairs one offer with its inclusions.",
     "categories": [
       "site-sections"
     ],

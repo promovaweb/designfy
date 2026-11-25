@@ -19,7 +19,7 @@ com o que foi aprendido.
 | `designfy-motion` | movimento de entrada, rolagem, hover e troca de estado |
 | `designfy-websites` | páginas de site e landing pages |
 | `designfy-content` | blog, artigo, documentação e mídia |
-| `designfy-systems` | telas de sistema |
+| `designfy-webapps` | telas de sistema |
 | `designfy-responsive` | celular, tablet e desktop |
 | `designfy-accessibility` | WCAG 2.2 |
 | `designfy-review` | capturas e lista de acabamento |
@@ -34,6 +34,8 @@ Leia só o que o estágio pede:
 | Escolher especialistas e fragmentos por tipo de tela | [references/roteamento.md](references/roteamento.md) |
 | Conduzir os estágios e os pontos de parada | [references/fluxo.md](references/fluxo.md) |
 | Entender e documentar um projeto que já tem interface, tema ou regras de design | [references/projeto-existente.md](references/projeto-existente.md) |
+| Trabalhar num site com Astrofy: sitespec, tokens e skills `astrofy-*` | [references/integracao-astrofy.md](references/integracao-astrofy.md) |
+| Trabalhar num projeto com Specsfy: spec, `DESIGNSYSTEM.MD` e `INTERFACE.md` | [references/integracao-specsfy.md](references/integracao-specsfy.md) |
 | Preparar um projeto que ainda não tem o Designfy | [references/preparo-do-projeto.md](references/preparo-do-projeto.md) |
 | Fechar a entrega e registrar aprendizados | [references/entrega.md](references/entrega.md) |
 | Usar o binário `designfy` e o servidor MCP | [references/binario.md](references/binario.md) |
@@ -80,7 +82,11 @@ Modelos prontos em `assets/`: [pedido-de-esclarecimento.md](assets/pedido-de-esc
     prontas, tema próprio ou regras de design escritas, o primeiro resultado
     é o guia descrevendo o que existe, com a fonte de cada regra. Tema,
     Tailwind, dependências e componentes do projeto não mudam nessa etapa.
-12. **O guia aprende.** Toda preferência dita pela pessoa, toda escolha nova
+12. **Astrofy e Specsfy primeiro.** Projeto com Astrofy registra a entrega
+    na sitespec; projeto com Specsfy tem a spec como fonte normativa e o
+    `DESIGNSYSTEM.MD` como fonte das orientações gerais. O viewspec liga os
+    dois pelo `trackedBy` e segue a referência de cada integração.
+13. **O guia aprende.** Toda preferência dita pela pessoa, toda escolha nova
     e todo achado de revisão entram em `## Aprendizados` do guia antes do
     relato final.
 
@@ -101,6 +107,10 @@ Sem o binário, leia `designfy.json`, o `package.json`, o CSS do tema, o
 [references/projeto-existente.md](references/projeto-existente.md) antes de
 qualquer gravação. Projeto novo segue
 [references/preparo-do-projeto.md](references/preparo-do-projeto.md).
+Quando o bloco de integrações de `designfy status` mostrar Astrofy ou
+Specsfy, leia [references/integracao-astrofy.md](references/integracao-astrofy.md)
+ou [references/integracao-specsfy.md](references/integracao-specsfy.md)
+antes do passo 3.
 
 ### 2. Ler o pedido
 
@@ -143,7 +153,7 @@ menos que o pedido tenha deixado uma escolha de estrutura em aberto.
 Na ordem de `skills` do viewspec. O caminho comum:
 
 1. `designfy-design-system`, se faltar token, papel de cor ou fonte.
-2. `designfy-websites`, `designfy-content` ou `designfy-systems`, conforme a
+2. `designfy-websites`, `designfy-content` ou `designfy-webapps`, conforme a
    superfície: estrutura e composição da tela.
 3. `designfy-components`: copiar, instalar e compor os fragmentos.
 4. `designfy-motion`: o movimento da tela.

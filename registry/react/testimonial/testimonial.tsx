@@ -28,6 +28,8 @@ export interface TestimonialProps {
   items: Quote[];
   /** Presentation of the quotes. */
   variant?: "single" | "grid" | "carousel";
+  /** Show up to three quotes at a time in the carousel. */
+  carouselLayout?: "single" | "responsive";
   /** Previous quote button text. */
   previousLabel?: string;
   /** Next quote button text. */
@@ -41,14 +43,45 @@ function bindTestimonial(root: HTMLElement) {
   if (!track) return;
   const abort = new AbortController();
   const controls = root.querySelectorAll<HTMLButtonElement>("[data-slide]");
+  const responsive = track.dataset.carouselLayout === "responsive";
+  function syncBounds() {
+    const offset = Math.abs(track.scrollLeft);
+    const limit = track.scrollWidth - track.clientWidth;
+    for (const control of controls) {
+      const atBoundary =
+        Number(control.dataset.slide) < 0 ? offset <= 1 : offset >= limit - 1;
+      control.setAttribute("aria-disabled", String(atBoundary));
+    }
+  }
+  const resize =
+    responsive && typeof ResizeObserver === "function"
+      ? new ResizeObserver(syncBounds)
+      : undefined;
+  if (responsive) {
+    syncBounds();
+    resize?.observe(track);
+    track.addEventListener("scroll", syncBounds, {
+      passive: true,
+      signal: abort.signal,
+    });
+    if (!resize)
+      window.addEventListener("resize", syncBounds, { signal: abort.signal });
+  }
   for (const control of controls) {
     control.hidden = false;
     control.addEventListener(
       "click",
       () => {
-        const distance = track.clientWidth * Number(control.dataset.slide);
+        if (control.getAttribute("aria-disabled") === "true") return;
+        const first = track.firstElementChild;
+        const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+        const distance =
+          responsive && first
+            ? first.getBoundingClientRect().width + gap
+            : track.clientWidth;
+        const delta = distance * Number(control.dataset.slide);
         track.scrollBy({
-          left: track.matches(":dir(rtl)") ? -distance : distance,
+          left: track.matches(":dir(rtl)") ? -delta : delta,
           behavior: matchMedia("(prefers-reduced-motion: reduce)").matches
             ? "instant"
             : "smooth",
@@ -57,7 +90,11 @@ function bindTestimonial(root: HTMLElement) {
       { signal: abort.signal },
     );
   }
-  return () => abort.abort();
+  return () => {
+    abort.abort();
+    resize?.disconnect();
+    for (const control of controls) control.removeAttribute("aria-disabled");
+  };
 }
 
 /** Presents attributed testimonials as a single quote, grid or manually controlled carousel. */
@@ -67,6 +104,7 @@ export function Testimonial({
   headingLevel = 2,
   items,
   variant = "single",
+  carouselLayout = "single",
   previousLabel = "Previous",
   nextLabel = "Next",
   className,
@@ -75,7 +113,7 @@ export function Testimonial({
   useEffect(() => {
     if (!root.current) return;
     return bindTestimonial(root.current);
-  }, []);
+  }, [variant, carouselLayout, items.length]);
   const Heading = `h${headingLevel}` as "h2";
   const carousel = variant === "carousel";
   return (
@@ -97,6 +135,7 @@ export function Testimonial({
         </header>
         <ul
           data-testimonial-track
+          data-carousel-layout={carousel ? carouselLayout : undefined}
           data-df-stagger
           aria-label={carousel ? title : undefined}
           tabIndex={carousel ? 0 : undefined}
@@ -105,6 +144,9 @@ export function Testimonial({
             variant === "grid" && "md:grid-cols-2",
             carousel &&
               "grid-flow-col auto-cols-[100%] snap-x snap-mandatory overflow-x-auto",
+            carousel &&
+              carouselLayout === "responsive" &&
+              "md:auto-cols-[calc((100%-1.5rem)/2)] lg:auto-cols-[calc((100%-3rem)/3)]",
           )}
         >
           {(variant === "single" ? items.slice(0, 1) : items).map((item) => (
@@ -128,7 +170,10 @@ export function Testimonial({
                   cite={item.cite}
                   className={cn(
                     "text-pretty font-heading font-semibold",
-                    variant === "grid" ? "text-title" : "text-headline",
+                    variant === "grid" ||
+                      (carousel && carouselLayout === "responsive")
+                      ? "text-title"
+                      : "text-headline",
                   )}
                 >
                   <p>{item.quote}</p>
@@ -163,7 +208,7 @@ export function Testimonial({
               hidden
               type="button"
               data-slide="-1"
-              className="df-press inline-flex min-h-12 min-w-11 items-center justify-center rounded-lg border border-border bg-background px-5 py-2 text-center text-sm font-semibold hover:bg-muted"
+              className="df-press inline-flex min-h-12 min-w-11 items-center justify-center rounded-lg border border-border bg-background px-5 py-2 text-center text-sm font-semibold hover:bg-muted aria-disabled:opacity-50"
             >
               {previousLabel}
             </button>
@@ -171,7 +216,7 @@ export function Testimonial({
               hidden
               type="button"
               data-slide="1"
-              className="df-press inline-flex min-h-12 min-w-11 items-center justify-center rounded-lg border border-border bg-background px-5 py-2 text-center text-sm font-semibold hover:bg-muted"
+              className="df-press inline-flex min-h-12 min-w-11 items-center justify-center rounded-lg border border-border bg-background px-5 py-2 text-center text-sm font-semibold hover:bg-muted aria-disabled:opacity-50"
             >
               {nextLabel}
             </button>

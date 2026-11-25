@@ -2,23 +2,25 @@
 import { z } from "zod";
 import { AppError } from "../../app/errors.ts";
 import {
-  checkTheme, readTheme, requiredThemeRoles, themeGroups, themeSources,
+  checkTheme, readTheme, themeGroups, themeSelections, themeSources,
 } from "../../design/theme.ts";
 import { projectInput, toolProject } from "../project.ts";
 import type { Registrar } from "../server.ts";
 
 const fileInput = z.string().min(1).optional().describe("Explicit CSS path, relative to the selected project directory or absolute.");
 const value = z.object({ declared: z.string(), resolved: z.string().nullable() }).nullable();
-const token = z.object({ name: z.string(), light: value, dark: value });
+const token = z.object({ name: z.string(), light: value, dark: value, darkOverride: z.literal(true).optional() });
 const tokens = z.array(token);
 const mode = z.enum(["light", "dark"]);
 const contrast = z.object({
   mode, foreground: z.string(), background: z.string(), ratio: z.number().nullable(),
   status: z.enum(["pass", "fail", "missing", "unresolved"]),
+  label: z.string().optional(), min: z.number().optional(),
 });
 const sources = {
   file: z.string(), files: z.array(z.string()), tailwind: z.union([z.literal(3), z.literal(4)]),
   configFile: z.string().nullable(), warnings: z.array(z.string()),
+  selection: z.enum(themeSelections), entryFile: z.string().nullable(),
 };
 const showOutput = {
   ...sources,
@@ -30,6 +32,7 @@ const showOutput = {
 };
 const checkOutput = {
   ...sources, ok: z.boolean(), contrast: z.array(contrast),
+  mode: z.enum(["shadcn", "custom"]), notes: z.array(z.string()),
   missingRoles: z.array(z.object({ role: z.string(), modes: z.array(mode) })),
   summary: z.object({ passed: z.number(), failed: z.number(), missing: z.number(), unresolved: z.number() }),
 };
@@ -64,7 +67,7 @@ export function registerThemeTools({ server, catalog }: Registrar): void {
     return group ? { ...themeSources(theme), [group]: theme[group] } : { ...theme };
   }));
 
-  const check = "Check known color contrast pairs and required registry roles. Returns light and dark results and a pass or fail summary.";
+  const check = "Check color contrast in shadcn and custom themes. Returns the audit mode, pair results and any missing shadcn roles.";
   catalog.tools.push({ name: "theme_check", description: check });
   server.registerTool("theme_check", {
     title: "Check Tailwind theme",
@@ -74,6 +77,6 @@ export function registerThemeTools({ server, catalog }: Registrar): void {
     annotations: { readOnlyHint: true, openWorldHint: false },
   }, ({ project, file }) => reply(async () => {
     const cwd = toolProject(project);
-    return { ...checkTheme(await readTheme(cwd, { file }), { requiredRoles: requiredThemeRoles(cwd) }) };
+    return { ...checkTheme(await readTheme(cwd, { file }), { cwd }) };
   }, true));
 }

@@ -22,7 +22,7 @@ Para cada item pendente, na ordem da checklist:
    | --- | --- |
    | `designfy-design-system` | `designfy theme check` com saída 0 |
    | `designfy-components` | `designfy deps check` com saída 0 e o componente renderizando |
-   | `designfy-websites`, `designfy-content`, `designfy-systems` | a região aparece com o conteúdo real e os estados descritos |
+   | `designfy-websites`, `designfy-content`, `designfy-webapps` | a região aparece com o conteúdo real e os estados descritos |
    | `designfy-motion` | o movimento roda e a versão parada funciona com movimento reduzido |
    | `designfy-responsive` | captura em 390 e 820 com `overflowX` falso |
    | `designfy-accessibility` | navegação por teclado completa e contraste medido |

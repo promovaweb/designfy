@@ -1836,7 +1836,8 @@
       "variants": [
         "left",
         "right",
-        "two rows in opposite directions"
+        "two rows in opposite directions",
+        "accent com separadores em losango"
       ],
       "states": [
         "default"
@@ -1933,7 +1934,8 @@
       ],
       "variants": [
         "cards",
-        "cards plus comparison table"
+        "cards plus comparison table",
+        "single com oferta e lista de inclusões"
       ],
       "states": [
         "monthly",
@@ -4329,6 +4331,580 @@
       ],
       "sources": [
         "shadcn:toggle-group"
+      ]
+    },
+    {
+      "id": "pixel-stage",
+      "name": "Pixel stage",
+      "surface": "site",
+      "category": "layout",
+      "purpose": "Places a pausable theme-driven pixel mosaic behind landing content.",
+      "useWhen": [
+        "Abrir uma seção curta com movimento ambiental e texto em primeiro plano."
+      ],
+      "avoidWhen": [
+        "Atrás de texto longo ou de outro movimento simultâneo."
+      ],
+      "anatomy": [
+        "canvas decorativo",
+        "véu",
+        "conteúdo",
+        "controle de pausa"
+      ],
+      "variants": [
+        "tema claro ou escuro"
+      ],
+      "states": [
+        "running",
+        "paused",
+        "reduced motion"
+      ],
+      "responsive": "O véu protege o topo em telas estreitas e o início da linha em telas largas.",
+      "motion": "Desloca pontos em uma grade com brilho localizado. Suspende o loop fora da tela, em hover, com foco, por comando e em movimento reduzido.",
+      "accessibility": [
+        "Canvas oculto da árvore de acessibilidade.",
+        "Controle com aria-pressed e foco visível."
+      ],
+      "tokens": [
+        "background",
+        "foreground",
+        "primary",
+        "accent-foreground",
+        "muted-foreground",
+        "border",
+        "ring"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page"
+      ],
+      "related": [
+        "background-pattern",
+        "hero-pixel"
+      ],
+      "sources": [
+        "designfy:pixel-stage"
+      ]
+    },
+    {
+      "id": "hero-pixel",
+      "name": "Pixel hero",
+      "surface": "site",
+      "category": "hero",
+      "purpose": "Opens a landing with an optional aside over a pixel stage.",
+      "useWhen": [
+        "Apresentar a promessa e até duas ações de uma landing, com resumo lateral opcional."
+      ],
+      "avoidWhen": [
+        "Quando a imagem do produto for a prova principal da abertura."
+      ],
+      "anatomy": [
+        "título e ênfase",
+        "apoio",
+        "ações",
+        "nota opcional",
+        "coluna lateral opcional"
+      ],
+      "variants": [
+        "com ou sem resumo lateral"
+      ],
+      "states": [
+        "default",
+        "hover",
+        "focus",
+        "active",
+        "paused"
+      ],
+      "responsive": "Ações em linha quando há espaço. Resumo lateral a partir de lg.",
+      "motion": "O resumo entra com a revelação do Designfy; o palco tem pausa independente.",
+      "accessibility": [
+        "Um H1 e ações com rótulos descritivos.",
+        "Texto disponível na primeira pintura."
+      ],
+      "tokens": [
+        "background",
+        "foreground",
+        "primary",
+        "primary-foreground",
+        "muted-foreground",
+        "border",
+        "ring"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page"
+      ],
+      "related": [
+        "pixel-stage",
+        "hero-split"
+      ],
+      "sources": [
+        "designfy:hero-pixel"
+      ]
+    },
+    {
+      "id": "feature-rows",
+      "name": "Feature rows",
+      "surface": "site",
+      "category": "site-sections",
+      "purpose": "Presents numbered benefits in aligned rows with an optional sticky introduction.",
+      "useWhen": [
+        "Comparar benefícios, capacidades ou cenários com espaço para explicar cada item."
+      ],
+      "avoidWhen": [
+        "Quando cada entrada precisa de mídia ou várias ações."
+      ],
+      "anatomy": [
+        "título da seção",
+        "número",
+        "título do item",
+        "descrição",
+        "detalhe opcional"
+      ],
+      "variants": [
+        "introdução acima",
+        "introdução lateral fixa"
+      ],
+      "states": [
+        "default",
+        "hover",
+        "focus",
+        "active",
+        "empty"
+      ],
+      "responsive": "Número e título compartilham a primeira linha no celular; três trilhas a partir de lg.",
+      "motion": "Os itens entram com o stagger do Designfy; links respondem à pressão.",
+      "accessibility": [
+        "Lista ordenada nativa.",
+        "Números visuais decorativos; links recebem foco nativo."
+      ],
+      "tokens": [
+        "background",
+        "card",
+        "card-foreground",
+        "primary",
+        "muted-foreground",
+        "border",
+        "ring"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page"
+      ],
+      "related": [
+        "feature-grid",
+        "feature-split"
+      ],
+      "sources": [
+        "designfy:feature-rows"
+      ]
+    },
+    {
+      "id": "milestone-timeline",
+      "name": "Milestone timeline",
+      "surface": "site",
+      "category": "site-sections",
+      "purpose": "Shows dated events or phases in order with a current marker and aligned outcomes.",
+      "useWhen": [
+        "Mostrar datas e fases de uma entrega e destacar um marco vigente."
+      ],
+      "avoidWhen": [
+        "Quando a interação altera etapas de um formulário."
+      ],
+      "anatomy": [
+        "marcador",
+        "data ou fase",
+        "título",
+        "descrição",
+        "resultado opcional"
+      ],
+      "variants": [
+        "cronograma com datas",
+        "etapas com resultados"
+      ],
+      "states": [
+        "default",
+        "current",
+        "empty"
+      ],
+      "responsive": "Trilho vertical no celular; duas colunas em sm e até quatro em lg, com subgrid quando disponível.",
+      "motion": "Revelação sequencial e traçado do conector em desktop; versão estática com movimento reduzido.",
+      "accessibility": [
+        "Sequência em lista ordenada.",
+        "Datas podem usar time; o marco atual recebe aria-current."
+      ],
+      "tokens": [
+        "muted",
+        "primary",
+        "primary-foreground",
+        "background",
+        "foreground",
+        "card",
+        "border"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page"
+      ],
+      "related": [
+        "steps",
+        "activity-feed"
+      ],
+      "sources": [
+        "designfy:milestone-timeline"
+      ]
+    },
+    {
+      "id": "profile-split",
+      "name": "Profile split",
+      "surface": "site",
+      "category": "site-sections",
+      "purpose": "Introduces a person with a portrait, credentials and links.",
+      "useWhen": [
+        "Apresentar a pessoa que conduz uma oferta, com retrato, bio e credenciais verificadas."
+      ],
+      "avoidWhen": [
+        "Para a assinatura compacta de um artigo."
+      ],
+      "anatomy": [
+        "retrato",
+        "credenciais",
+        "nome",
+        "papel",
+        "biografia",
+        "links"
+      ],
+      "variants": [
+        "com ou sem credenciais e links"
+      ],
+      "states": [
+        "default",
+        "hover",
+        "focus",
+        "active"
+      ],
+      "responsive": "Texto antes do retrato no celular; duas colunas a partir de md.",
+      "motion": "Revelação do texto e do retrato em sequência; links respondem à pressão.",
+      "accessibility": [
+        "Retrato com dimensões e texto alternativo fornecidos.",
+        "Links com rótulo e credenciais legíveis como texto."
+      ],
+      "tokens": [
+        "background",
+        "foreground",
+        "primary",
+        "muted-foreground",
+        "card",
+        "card-foreground",
+        "border",
+        "ring"
+      ],
+      "kinds": [
+        "landing-page",
+        "home",
+        "site-page"
+      ],
+      "related": [
+        "author-box",
+        "feature-split"
+      ],
+      "sources": [
+        "designfy:profile-split"
+      ]
+    },
+    {
+      "id": "offer-card",
+      "name": "Offer card",
+      "surface": "site",
+      "category": "site-sections",
+      "purpose": "Presents a time-limited offer with optional capacity and a primary action.",
+      "useWhen": [
+        "Apresentar prazo e capacidade junto da decisão de inscrição."
+      ],
+      "avoidWhen": [
+        "Para comparar vários planos."
+      ],
+      "anatomy": [
+        "título",
+        "apoio",
+        "prazo",
+        "relógio",
+        "capacidade",
+        "ação"
+      ],
+      "variants": [
+        "tinted",
+        "stage"
+      ],
+      "states": [
+        "default",
+        "active",
+        "expired",
+        "focus",
+        "hover"
+      ],
+      "responsive": "Uma coluna com quatro unidades de tempo de largura estável.",
+      "motion": "Revelação de entrada com versão estática em movimento reduzido.",
+      "accessibility": [
+        "O prazo fica legível sem JavaScript e o relógio evita anúncios por segundo."
+      ],
+      "tokens": [
+        "background",
+        "foreground",
+        "primary",
+        "border"
+      ],
+      "kinds": [
+        "landing-page",
+        "site-page"
+      ],
+      "related": [
+        "pricing-table"
+      ],
+      "sources": [
+        "designfy:offer-card"
+      ]
+    },
+    {
+      "id": "audience-fit",
+      "name": "Audience fit",
+      "surface": "site",
+      "category": "site-sections",
+      "purpose": "Pairs positive and negative fit criteria in two lists.",
+      "useWhen": [
+        "Explicar para quem a oferta é indicada."
+      ],
+      "avoidWhen": [
+        "Quando há somente um critério simples."
+      ],
+      "anatomy": [
+        "título",
+        "grupos",
+        "critérios",
+        "nota"
+      ],
+      "variants": [
+        "com nota",
+        "sem nota"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Os cartões empilham e passam a duas colunas de mesma altura.",
+      "motion": "Revelação de entrada com versão estática em movimento reduzido.",
+      "accessibility": [
+        "Os títulos identificam as listas e os símbolos são decorativos."
+      ],
+      "tokens": [
+        "background",
+        "foreground",
+        "primary",
+        "border"
+      ],
+      "kinds": [
+        "landing-page",
+        "site-page"
+      ],
+      "related": [
+        "comparison-table"
+      ],
+      "sources": [
+        "designfy:audience-fit"
+      ]
+    },
+    {
+      "id": "numbered-checklist",
+      "name": "Numbered checklist",
+      "surface": "site",
+      "category": "site-sections",
+      "purpose": "Lists inclusions with numbered chips and optional highlights.",
+      "useWhen": [
+        "Enumerar entregas e destacar itens adicionais."
+      ],
+      "avoidWhen": [
+        "Quando os itens representam etapas interativas."
+      ],
+      "anatomy": [
+        "título",
+        "lista ordenada",
+        "chips",
+        "destaque"
+      ],
+      "variants": [
+        "uma coluna",
+        "duas colunas"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "A segunda coluna aparece quando há espaço.",
+      "motion": "Revelação de entrada com versão estática em movimento reduzido.",
+      "accessibility": [
+        "A lista mantém a ordem de leitura e o destaque recebe um rótulo textual."
+      ],
+      "tokens": [
+        "background",
+        "foreground",
+        "primary",
+        "border"
+      ],
+      "kinds": [
+        "landing-page",
+        "site-page"
+      ],
+      "related": [
+        "steps"
+      ],
+      "sources": [
+        "designfy:numbered-checklist"
+      ]
+    },
+    {
+      "id": "outcome-grid",
+      "name": "Outcome grid",
+      "surface": "site",
+      "category": "site-sections",
+      "purpose": "Presents short outcomes in a responsive grid of icon tiles.",
+      "useWhen": [
+        "Resumir os resultados esperados em textos curtos."
+      ],
+      "avoidWhen": [
+        "Quando cada resultado precisa de uma explicação longa."
+      ],
+      "anatomy": [
+        "título",
+        "ícones",
+        "resultados",
+        "fechamento"
+      ],
+      "variants": [
+        "com fechamento",
+        "sem fechamento"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "Grade de duas a cinco colunas pela largura disponível.",
+      "motion": "Revelação de entrada com versão estática em movimento reduzido.",
+      "accessibility": [
+        "Os ícones decorativos ficam ocultos da árvore acessível."
+      ],
+      "tokens": [
+        "background",
+        "foreground",
+        "primary",
+        "border"
+      ],
+      "kinds": [
+        "landing-page",
+        "site-page"
+      ],
+      "related": [
+        "feature-grid"
+      ],
+      "sources": [
+        "designfy:outcome-grid"
+      ]
+    },
+    {
+      "id": "detail-card",
+      "name": "Detail card",
+      "surface": "site",
+      "category": "site-sections",
+      "purpose": "Explains a feature with an icon, paragraphs and optional checks. Includes DetailCardGrid for a two-column arrangement with a tall card.",
+      "useWhen": [
+        "Explicar detalhes de uma entrega, com apoio opcional de uma lista."
+      ],
+      "avoidWhen": [
+        "Quando o conteúdo cabe em uma única linha."
+      ],
+      "anatomy": [
+        "ícone",
+        "rótulo",
+        "título",
+        "parágrafos",
+        "lista",
+        "nota"
+      ],
+      "variants": [
+        "neutral",
+        "tinted",
+        "tall"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "O helper empilha os cartões e aceita um cartão alto em duas colunas.",
+      "motion": "Revelação de entrada com versão estática em movimento reduzido.",
+      "accessibility": [
+        "Os parágrafos e a lista preservam a ordem do conteúdo."
+      ],
+      "tokens": [
+        "background",
+        "foreground",
+        "primary",
+        "border"
+      ],
+      "kinds": [
+        "landing-page",
+        "site-page"
+      ],
+      "related": [
+        "bento-grid"
+      ],
+      "sources": [
+        "designfy:detail-card"
+      ]
+    },
+    {
+      "id": "statement-stats",
+      "name": "Statement stats",
+      "surface": "site",
+      "category": "site-sections",
+      "purpose": "Pairs a two-tone statement with stacked stat notes. Compose with milestone-timeline for a dated rail.",
+      "useWhen": [
+        "Dar contexto aos números que sustentam uma afirmação."
+      ],
+      "avoidWhen": [
+        "Quando os números precisam de uma tabela comparativa."
+      ],
+      "anatomy": [
+        "afirmação",
+        "ênfase",
+        "valores",
+        "descrições"
+      ],
+      "variants": [
+        "escuro local",
+        "tema herdado"
+      ],
+      "states": [
+        "default"
+      ],
+      "responsive": "As notas ficam abaixo do título em espaços estreitos e ao lado em espaços largos.",
+      "motion": "Revelação de entrada com versão estática em movimento reduzido.",
+      "accessibility": [
+        "Cada valor e sua descrição formam um par na lista de definições."
+      ],
+      "tokens": [
+        "background",
+        "foreground",
+        "primary",
+        "border"
+      ],
+      "kinds": [
+        "landing-page",
+        "site-page"
+      ],
+      "related": [
+        "milestone-timeline"
+      ],
+      "sources": [
+        "designfy:statement-stats"
       ]
     }
   ]

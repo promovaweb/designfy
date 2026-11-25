@@ -72,14 +72,14 @@
       "description": "Blogs and articles: text layout, reading, table of contents, video embeds and media."
     },
     {
-      "name": "designfy-systems",
-      "title": "Systems",
+      "name": "designfy-webapps",
+      "title": "Web apps",
       "kind": "internal",
       "source": "promovaweb/designfy",
       "group": "surfaces",
       "frameworks": [],
       "default": true,
-      "description": "System screens: shell, tables, forms, dashboards, counters, CRUD and settings pages."
+      "description": "Web app screens: shell, tables, forms, dashboards, counters, CRUD and settings pages."
     },
     {
       "name": "designfy-responsive",
@@ -151,6 +151,17 @@
       "default": false,
       "all": true,
       "description": "Promovaweb skill library for Astro projects: architecture, pages, SEO, content and deploy. Installs every skill of the source."
+    },
+    {
+      "name": "specsfy",
+      "title": "Specsfy",
+      "kind": "external",
+      "source": "promovaweb/specsfy",
+      "group": "external",
+      "frameworks": [],
+      "default": false,
+      "all": true,
+      "description": "Promovaweb library for feature specifications, including specsfy-specialist-interface for interface requirements."
     },
     {
       "name": "brandfy",

@@ -3,7 +3,7 @@
   "opencli": "0.1",
   "info": {
     "title": "Designfy",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "summary": "Visual framework for web projects: design system, React and Astro components with Tailwind, shadcn and motion, skills, dependency and MCP setup, and Playwright screen captures.",
     "description": "Visual framework for web projects: design system, React and Astro components with Tailwind, shadcn and motion, skills, dependency and MCP setup, and Playwright screen captures. Without arguments it opens the TUI; \"designfy mcp\" starts the MCP server over stdio; any other command runs as a CLI with text or --json output.",
     "contact": {
@@ -145,6 +145,20 @@
               {
                 "name": "x-default",
                 "value": "src/styles"
+              }
+            ]
+          },
+          {
+            "name": "--theme-path",
+            "description": "Set the CSS path used for theme inspection and checks.",
+            "arguments": [
+              {
+                "name": "path",
+                "required": true,
+                "arity": {
+                  "minimum": 1,
+                  "maximum": 1
+                }
               }
             ]
           },
@@ -1284,7 +1298,7 @@
           },
           {
             "name": "check",
-            "description": "Measure known light and dark contrast pairs and check registry theme roles.",
+            "description": "Check light and dark contrast for the project's shadcn or custom theme.",
             "options": [
               {
                 "name": "--file",
@@ -1886,7 +1900,7 @@
         "commands": [
           {
             "name": "run",
-            "description": "Capture each URL at the selected viewport sizes.",
+            "description": "Capture each URL at the selected viewport sizes and color schemes.",
             "arguments": [
               {
                 "name": "urls",
@@ -1914,7 +1928,7 @@
               },
               {
                 "name": "--theme",
-                "description": "Browser color scheme. Defaults to light.",
+                "description": "Browser color schemes: light or dark. Repeat or separate with commas. Defaults to light.",
                 "arguments": [
                   {
                     "name": "theme",
@@ -1922,11 +1936,7 @@
                     "arity": {
                       "minimum": 1,
                       "maximum": 1
-                    },
-                    "acceptedValues": [
-                      "light",
-                      "dark"
-                    ]
+                    }
                   }
                 ]
               },
@@ -1937,6 +1947,42 @@
               {
                 "name": "--fold",
                 "description": "Capture only the visible viewport."
+              },
+              {
+                "name": "--no-scroll",
+                "description": "Skip scrolling and the asset readiness check before a full-page capture."
+              },
+              {
+                "name": "--scroll-budget",
+                "description": "Time limit in milliseconds for full-page scrolling and asset readiness. Defaults to 15000.",
+                "arguments": [
+                  {
+                    "name": "ms",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    }
+                  }
+                ]
+              },
+              {
+                "name": "--show-dev-overlays",
+                "description": "Keep known framework development overlays visible."
+              },
+              {
+                "name": "--hide",
+                "description": "Hide elements matching this CSS selector. Repeat to hide more elements.",
+                "arguments": [
+                  {
+                    "name": "css",
+                    "required": true,
+                    "arity": {
+                      "minimum": 1,
+                      "maximum": 1
+                    }
+                  }
+                ]
               },
               {
                 "name": "--reduced-motion",
@@ -2000,7 +2046,7 @@
               }
             ],
             "examples": [
-              "designfy capture run http://localhost:4321 --viewport mobile,desktop",
+              "designfy capture run http://localhost:4321 --viewport mobile,desktop --theme light,dark",
               "designfy capture run http://localhost:4321 --viewport mobile --viewport tablet --fold"
             ],
             "exitCodes": [

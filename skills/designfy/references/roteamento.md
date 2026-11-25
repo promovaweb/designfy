@@ -10,7 +10,7 @@ tela não precisa.
 
 1. `designfy-design-system` (só quando falta token, papel ou fonte)
 2. a especialista da superfície: `designfy-websites`, `designfy-content` ou
-   `designfy-systems`
+   `designfy-webapps`
 3. `designfy-components`
 4. `designfy-motion`
 5. `designfy-responsive`
@@ -89,7 +89,7 @@ tela não precisa.
 
 ### `dashboard`
 
-- Especialistas: `designfy-systems`, `designfy-components`,
+- Especialistas: `designfy-webapps`, `designfy-components`,
   `designfy-motion`, `designfy-responsive`, `designfy-accessibility`,
   `designfy-review`.
 - Fragmentos: `app-shell`, `page-header`, `segmented-control` ou seletor de
@@ -100,7 +100,7 @@ tela não precisa.
 
 ### `table`
 
-- Especialistas: `designfy-systems`, `designfy-components`,
+- Especialistas: `designfy-webapps`, `designfy-components`,
   `designfy-responsive`, `designfy-accessibility`, `designfy-motion`,
   `designfy-review`.
 - Fragmentos: `app-shell`, `page-header`, `filter-bar`, `data-table`,
@@ -111,7 +111,7 @@ tela não precisa.
 
 ### `form`
 
-- Especialistas: `designfy-systems`, `designfy-components`,
+- Especialistas: `designfy-webapps`, `designfy-components`,
   `designfy-accessibility`, `designfy-responsive`, `designfy-motion`,
   `designfy-review`.
 - Fragmentos: `app-shell`, `page-header`, `form-layout`, `form-field`,
@@ -123,7 +123,7 @@ tela não precisa.
 ### `crud`
 
 - Especialistas: as de `table` mais a parte de formulário de
-  `designfy-systems`.
+  `designfy-webapps`.
 - Fragmentos: os de `table`, `drawer` ou página de edição com `form-layout`
   e `form-field`, `description-list` no detalhe, `confirm-dialog`.
 - Conferir: criar, ver, editar e excluir têm caminho e retorno; exclusão
@@ -131,7 +131,7 @@ tela não precisa.
 
 ### `detail`
 
-- Especialistas: `designfy-systems`, `designfy-components`,
+- Especialistas: `designfy-webapps`, `designfy-components`,
   `designfy-responsive`, `designfy-accessibility`, `designfy-motion`,
   `designfy-review`.
 - Fragmentos: `app-shell`, `breadcrumbs`, `page-header` com status,
@@ -142,7 +142,7 @@ tela não precisa.
 
 ### `settings`
 
-- Especialistas: `designfy-systems`, `designfy-components`,
+- Especialistas: `designfy-webapps`, `designfy-components`,
   `designfy-accessibility`, `designfy-responsive`, `designfy-motion`,
   `designfy-review`.
 - Fragmentos: `app-shell`, `settings-layout`, `settings-section`,
@@ -151,7 +151,7 @@ tela não precisa.
 
 ### `auth`
 
-- Especialistas: `designfy-systems`, `designfy-components`,
+- Especialistas: `designfy-webapps`, `designfy-components`,
   `designfy-accessibility`, `designfy-responsive`, `designfy-motion`,
   `designfy-review`.
 - Fragmentos: `auth-card`, `form-field`, `background-pattern`, `alert`.

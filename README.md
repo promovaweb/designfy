@@ -209,7 +209,7 @@ designfy skills list
   designfy-motion         Motion (internal, no)
   designfy-websites       Websites (internal, no)
   designfy-content        Content (internal, no)
-  designfy-systems        Systems (internal, no)
+  designfy-webapps        Systems (internal, no)
   designfy-responsive     Responsive (internal, no)
   designfy-accessibility  Accessibility (internal, no)
   designfy-review         Review (internal, no)

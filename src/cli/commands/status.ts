@@ -9,10 +9,12 @@ import { countCopiedComponents } from "../../design/registry.ts";
 import { findThemeFile } from "../../design/theme.ts";
 import { readGuide, readViewspecProgress, viewStatuses } from "../../design/viewspec.ts";
 import { listSkills } from "../../design/skills.ts";
-import { table } from "../format.ts";
+import { detectIntegrations, integrationsSchema } from "../../design/integrations.ts";
+import { blocks, section, table } from "../format.ts";
 import type { Command } from "../registry.ts";
 
 export const projectStatusSchema = z.object({
+  integrations: integrationsSchema,
   detected: projectDetectionSchema,
   project: projectConfigSchema,
   skillsInstalled: z.number().int(),
@@ -45,6 +47,7 @@ export function getProjectStatus(cwd: string): ProjectStatus {
     if (!(cause instanceof AppError) || cause.code !== ExitCode.NOT_FOUND) throw cause;
   }
   return {
+    integrations: detectIntegrations(cwd),
     detected,
     project,
     skillsInstalled,
@@ -56,6 +59,15 @@ export function getProjectStatus(cwd: string): ProjectStatus {
   };
 }
 
+/** Formats discovery details for status and doctor. */
+export function integrationsText(integrations: ProjectStatus["integrations"]): string {
+  return blocks(section("Integrations"), table(Object.entries(integrations).map(([name, integration]) => {
+    const details = Object.entries(integration).filter(([key, value]) => key !== "present" && value !== null)
+      .map(([key, value]) => key + "=" + value);
+    return [name, [integration.present ? "present" : "absent", ...details].join("  ")];
+  })));
+}
+
 export const statusCommand: Command = {
   name: "status",
   description: "Show the detected project and its Designfy installation state.",
@@ -65,7 +77,7 @@ export const statusCommand: Command = {
     const data = getProjectStatus(process.cwd());
     return {
       data,
-      text: () => table([
+      text: () => blocks(table([
         ["Framework", data.project.framework],
         ["Detected framework", data.detected.framework],
         ["TypeScript", data.project.typescript ? "yes" : "no"],
@@ -82,7 +94,7 @@ export const statusCommand: Command = {
         ["Next viewspec ID", data.viewspecs.nextId ?? "none"],
         ["Viewspec guide", data.guide.exists ? `${data.guide.rules} rules, ${data.guide.pendingProposals} pending proposals` : "not found"],
         ["Tailwind theme", data.theme.file ?? "not found"],
-      ]),
+      ]), integrationsText(data.integrations)),
     };
   },
 };

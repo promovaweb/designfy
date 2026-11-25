@@ -39,13 +39,17 @@ const list: Command = {
 
 const run: Command = {
   name: "run",
-  description: "Capture each URL at the selected viewport sizes.",
+  description: "Capture each URL at the selected viewport sizes and color schemes.",
   arguments: [{ name: "urls", description: "One or more HTTP or HTTPS URLs to capture.", required: true, variadic: true }],
   options: [
     viewportOption,
-    { name: "--theme", argument: { name: "theme", values: ["light", "dark"] }, description: "Browser color scheme. Defaults to light." },
+    { name: "--theme", argument: { name: "theme" }, repeatable: true, description: "Browser color schemes: light or dark. Repeat or separate with commas. Defaults to light." },
     { name: "--full-page", description: "Capture the full page. Enabled by default." },
     { name: "--fold", description: "Capture only the visible viewport." },
+    { name: "--no-scroll", description: "Skip scrolling and the asset readiness check before a full-page capture." },
+    { name: "--scroll-budget", argument: { name: "ms" }, description: "Time limit in milliseconds for full-page scrolling and asset readiness. Defaults to 15000." },
+    { name: "--show-dev-overlays", description: "Keep known framework development overlays visible." },
+    { name: "--hide", argument: { name: "css" }, repeatable: true, description: "Hide elements matching this CSS selector. Repeat to hide more elements." },
     { name: "--reduced-motion", description: "Set the browser preference to reduced motion." },
     { name: "--wait", argument: { name: "ms" }, description: "Wait this many milliseconds after page load. Defaults to zero." },
     { name: "--selector", argument: { name: "css" }, description: "Capture only the element matching this CSS selector." },
@@ -53,7 +57,7 @@ const run: Command = {
     { name: "--name", argument: { name: "run" }, description: "Name the run directory. Defaults to a UTC timestamp." },
   ],
   examples: [
-    `${manifest.bin} capture run http://localhost:4321 --viewport mobile,desktop`,
+    `${manifest.bin} capture run http://localhost:4321 --viewport mobile,desktop --theme light,dark`,
     `${manifest.bin} capture run http://localhost:4321 --viewport mobile --viewport tablet --fold`,
   ],
   exitCodes: [ExitCode.CONFIG, ExitCode.NETWORK_OR_API, ExitCode.NOT_FOUND, ExitCode.PERMISSION, ExitCode.CHECK_FAILED],
@@ -61,10 +65,18 @@ const run: Command = {
     if (options.fold && options["full-page"]) throw error.usage("Choose either --fold or --full-page.");
     const wait = options.wait as string | undefined;
     if (wait !== undefined && !/^\d+$/.test(wait)) throw error.usage("--wait requires a nonnegative integer.");
+    const scrollBudget = options["scroll-budget"] as string | undefined;
+    if (scrollBudget !== undefined && !/^\d+$/.test(scrollBudget)) {
+      throw error.usage("--scroll-budget requires a nonnegative integer.");
+    }
     const plan = planCapture(process.cwd(), args, {
       viewports: options.viewport as string | undefined,
-      theme: options.theme as "light" | "dark" | undefined,
+      theme: options.theme as string | undefined,
       fullPage: options.fold !== true,
+      scroll: options["no-scroll"] !== true,
+      scrollBudgetMs: scrollBudget !== undefined ? Number(scrollBudget) : undefined,
+      showDevOverlays: options["show-dev-overlays"] === true,
+      hide: options.hide as string | undefined,
       reducedMotion: options["reduced-motion"] === true,
       waitMs: wait !== undefined ? Number(wait) : undefined,
       selector: options.selector as string | undefined,

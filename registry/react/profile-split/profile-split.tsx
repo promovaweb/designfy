@@ -1,0 +1,108 @@
+/**
+ * ProfileSplit: introduces a real person with a portrait, proof points and profile links.
+ * Motion: a staggered entrance, with a quiet press response on links.
+ */
+import { cn } from "@designfy/components/lib/cn";
+
+type Portrait = { src: string; alt: string; width: number; height: number };
+type ProfileLink = { label: string; href: string };
+
+export interface ProfileSplitProps {
+  /** Name used as the section heading. */
+  title: string;
+  /** Role or relationship to the offer. */
+  role?: string;
+  /** Biography paragraphs in reading order. */
+  bio: string[];
+  /** Portrait with intrinsic size and appropriate alternative text. */
+  portrait: Portrait;
+  /** Up to two short, verified credentials. */
+  credentials?: string[];
+  /** Links to profile, work or other supporting material. */
+  links?: ProfileLink[];
+  /** Heading level in the page outline. */
+  headingLevel?: 2 | 3 | 4 | 5 | 6;
+  /** Additional classes on the section. */
+  className?: string;
+}
+
+import type { CSSProperties } from "react";
+
+/** Introduces a person and the credentials relevant to the page. */
+export function ProfileSplit({
+  title,
+  role,
+  bio,
+  portrait,
+  credentials,
+  links,
+  headingLevel = 2,
+  className,
+}: ProfileSplitProps) {
+  const Heading = `h${headingLevel}` as "h2";
+
+  return (
+    <section
+      className={cn("df-section bg-background text-foreground", className)}
+    >
+      <div className="df-container grid items-center gap-9 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16">
+        <div data-df-reveal="up" className="min-w-0 focus-within:opacity-100!">
+          <Heading className="font-heading text-headline font-semibold [overflow-wrap:anywhere]">
+            {title}
+          </Heading>
+          {role && <p className="mt-2 font-medium text-primary">{role}</p>}
+          {bio.length > 0 && (
+            <div className="mt-5 max-w-prose space-y-4 text-muted-foreground">
+              {bio.map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
+            </div>
+          )}
+          {links?.length ? (
+            <ul role="list" className="mt-5 flex flex-wrap gap-x-5 gap-y-1">
+              {links.map(({ href, label }) => (
+                <li key={href}>
+                  <a
+                    className="df-press inline-flex min-h-11 items-center rounded-sm font-medium underline decoration-border underline-offset-4 hover:decoration-current"
+                    href={href}
+                  >
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </div>
+        <figure
+          style={{ "--df-i": 1 } as CSSProperties}
+          data-df-reveal="scale"
+          className="relative m-0 min-w-0 md:order-first"
+        >
+          <img
+            src={portrait.src}
+            alt={portrait.alt}
+            width={portrait.width}
+            height={portrait.height}
+            loading="lazy"
+            decoding="async"
+            className="aspect-4/3 w-full rounded-2xl border border-border bg-muted object-cover md:aspect-square"
+          />
+          {credentials?.length ? (
+            <figcaption className="relative -mt-6 px-3 pb-2 sm:px-5">
+              <ul role="list" className="flex flex-wrap justify-between gap-3">
+                {credentials.slice(0, 2).map((credential) => (
+                  <li
+                    key={credential}
+                    className="max-w-full rounded-lg border border-border bg-card px-3 py-2 text-sm font-semibold text-card-foreground shadow-sm [overflow-wrap:anywhere] sm:first:-rotate-4 sm:[&:nth-child(2)]:rotate-3"
+                  >
+                    {credential}
+                  </li>
+                ))}
+              </ul>
+            </figcaption>
+          ) : null}
+        </figure>
+      </div>
+    </section>
+  );
+}

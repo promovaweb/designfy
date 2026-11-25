@@ -2,6 +2,21 @@
 
 Formato baseado em Keep a Changelog. Versões seguem SemVer.
 
+## [0.1.5] - 2026-11-25
+
+### Adicionado
+
+- Estudo da landing Founders, a primeira página real lida por inteiro: ordem das 21 seções com a pergunta que cada uma responde, anatomia, movimento, celular, o que copiar e o que não copiar (`skills/designfy-websites/references/estudos/`). Os estudos de telas de sistema ganham pasta própria em `skills/designfy-webapps/references/estudos/`, com o mesmo formato.
+- Onze itens novos no registro, em Astro e React, extraídos da landing: `pixel-stage` (mosaico de pixels em canvas, com pausa por teclado e versão parada), `hero-pixel`, `feature-rows`, `milestone-timeline`, `profile-split`, `offer-card` (prazo com contagem regressiva e vagas), `audience-fit`, `numbered-checklist`, `outcome-grid`, `detail-card` e `statement-stats`. Variantes novas em `faq` (`stickyIntro`), `cta-band` (segunda ação), `testimonial` (carrossel responsivo), `pricing-table` (`single`) e `marquee` (`accent`). O catálogo de interface passa a 91 padrões.
+- Integração com o Astrofy e o Specsfy: `status`, `doctor` e `project_status` reconhecem os dois; o viewspec de tela ganha o campo `trackedBy`, validado, para ligar a sitespec do Astrofy ou a spec do Specsfy; a skill `designfy` ganha as referências `integracao-astrofy.md` e `integracao-specsfy.md`; o Specsfy entra no catálogo de skills.
+- Escolha do arquivo de tema por `paths.theme`, pelo `tokensFile` do guia ou pela busca que prefere as entradas convencionais; `init --theme-path`.
+- `theme check` em modo `custom` para projetos com escalas próprias: mede os pares de `theme.pairs` no `designfy.json` ou os pares semânticos comuns, sem exigir os papéis do shadcn.
+- Captura que vê a página inteira: rola antes do print para disparar revelações e imagens preguiçosas, esconde as barras de desenvolvimento (Astro, Vite, Next.js), aceita `--hide`, `--scroll-budget`, `--no-scroll` e vários temas em `--theme light,dark`; o manifesto registra passos, imagens incompletas e orçamento.
+
+### Alterado
+
+- A skill `designfy-systems` passa a se chamar `designfy-webapps`.
+
 ## [0.1.4] - 2026-11-24
 
 ### Corrigido

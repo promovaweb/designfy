@@ -49,7 +49,11 @@ test("lists embedded skills and detects project, global, aggregate and absent en
   });
   const skills = Object.fromEntries(listSkills(dir).map(({ name, installed }) => [name, installed]));
   expect(skills).toMatchObject({
-    designfy: "project", shadcn: "project", hallmark: "global", astrofy: "global", brandfy: "no",
+    designfy: "project", shadcn: "project", hallmark: "global", astrofy: "global", specsfy: "no", brandfy: "no",
+  });
+  expect(loadSkillsCatalog().skills.find(({ name }) => name === "specsfy")).toMatchObject({
+    kind: "external", source: "promovaweb/specsfy", default: false, all: true,
+    description: expect.stringContaining("specsfy-specialist-interface"),
   });
   expect(listSkills(dir, { internal: true }).every(({ kind }) => kind === "internal")).toBe(true);
   expect(listSkills(dir, { external: true }).map(({ name }) => name)).toContain("hallmark");

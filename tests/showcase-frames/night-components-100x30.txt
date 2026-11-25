@@ -5,7 +5,7 @@
    │ actions · 1                    ┃│  │ Theme toggle                                          │
    │ > □ theme-toggle               ┃│  │ Switches the theme and persists a light, dark or      │
    │   Switches th...em preference. ┃│  │ system preference.                                    │
-   │ auth · 1                       ┃│  │ Type              registry:ui                         │
+   │ auth · 1                       ││  │ Type              registry:ui                         │
    │   □ auth-card                  ││  │ Files                                                 │
    │   Signs a per...lost password. ││  │ theme-toggle/theme-toggle.tsx                         │
    │ containers · 1                 ││  │ Dependencies                                          │

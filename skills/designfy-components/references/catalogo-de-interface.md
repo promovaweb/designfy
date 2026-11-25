@@ -2,7 +2,7 @@
 
 # Catálogo de interface
 
-Os 80 componentes comuns de interface de sites e de sistemas. É a fonte
+Os 91 componentes comuns de interface de sites e de sistemas. É a fonte
 para escolher os fragmentos de uma tela: leia a entrada antes de procurar
 uma implementação. O mesmo conteúdo sai do binário, sempre atualizado:
 
@@ -28,9 +28,9 @@ usados e a fonte da implementação. Fontes: `designfy:<item>` copia com
 
 | Tipo (`kind`) | Fragmentos |
 | --- | --- |
-| `landing-page` | `button`, `link`, `card`, `avatar`, `tabs`, `accordion`, `dropdown-menu`, `dialog`, `drawer`, `section`, `background-pattern`, `reveal`, `counter`, `theme-toggle`, `site-header`, `mobile-nav`, `announcement-bar`, `site-footer`, `hero-split`, `hero-centered`, `hero-media`, `feature-grid`, `bento-grid`, `feature-split`, `steps`, `stats-band`, `logo-strip`, `marquee`, `testimonial`, `pricing-table`, `comparison-table`, `faq`, `cta-band`, `newsletter-form`, `video-embed`, `form-field`, `toast`, `error-state`, `segmented-control` |
-| `home` | `button`, `link`, `card`, `badge`, `avatar`, `tabs`, `accordion`, `dropdown-menu`, `drawer`, `section`, `background-pattern`, `reveal`, `counter`, `theme-toggle`, `site-header`, `mobile-nav`, `mega-menu`, `announcement-bar`, `site-footer`, `hero-split`, `hero-centered`, `hero-media`, `feature-grid`, `bento-grid`, `feature-split`, `steps`, `stats-band`, `logo-strip`, `marquee`, `testimonial`, `pricing-table`, `faq`, `cta-band`, `newsletter-form`, `post-card`, `video-embed`, `error-state` |
-| `site-page` | `button`, `link`, `card`, `badge`, `avatar`, `tabs`, `accordion`, `dropdown-menu`, `drawer`, `section`, `background-pattern`, `reveal`, `counter`, `theme-toggle`, `site-header`, `mobile-nav`, `mega-menu`, `announcement-bar`, `breadcrumbs`, `site-footer`, `hero-split`, `hero-media`, `feature-grid`, `bento-grid`, `feature-split`, `steps`, `stats-band`, `logo-strip`, `marquee`, `testimonial`, `pricing-table`, `comparison-table`, `faq`, `cta-band`, `newsletter-form`, `prose`, `code-block`, `figure`, `video-embed`, `alert`, `error-state`, `segmented-control` |
+| `landing-page` | `button`, `link`, `card`, `avatar`, `tabs`, `accordion`, `dropdown-menu`, `dialog`, `drawer`, `section`, `background-pattern`, `reveal`, `counter`, `theme-toggle`, `site-header`, `mobile-nav`, `announcement-bar`, `site-footer`, `hero-split`, `hero-centered`, `hero-media`, `feature-grid`, `bento-grid`, `feature-split`, `steps`, `stats-band`, `logo-strip`, `marquee`, `testimonial`, `pricing-table`, `comparison-table`, `faq`, `cta-band`, `newsletter-form`, `video-embed`, `form-field`, `toast`, `error-state`, `segmented-control`, `pixel-stage`, `hero-pixel`, `feature-rows`, `milestone-timeline`, `profile-split`, `offer-card`, `audience-fit`, `numbered-checklist`, `outcome-grid`, `detail-card`, `statement-stats` |
+| `home` | `button`, `link`, `card`, `badge`, `avatar`, `tabs`, `accordion`, `dropdown-menu`, `drawer`, `section`, `background-pattern`, `reveal`, `counter`, `theme-toggle`, `site-header`, `mobile-nav`, `mega-menu`, `announcement-bar`, `site-footer`, `hero-split`, `hero-centered`, `hero-media`, `feature-grid`, `bento-grid`, `feature-split`, `steps`, `stats-band`, `logo-strip`, `marquee`, `testimonial`, `pricing-table`, `faq`, `cta-band`, `newsletter-form`, `post-card`, `video-embed`, `error-state`, `pixel-stage`, `hero-pixel`, `feature-rows`, `milestone-timeline`, `profile-split` |
+| `site-page` | `button`, `link`, `card`, `badge`, `avatar`, `tabs`, `accordion`, `dropdown-menu`, `drawer`, `section`, `background-pattern`, `reveal`, `counter`, `theme-toggle`, `site-header`, `mobile-nav`, `mega-menu`, `announcement-bar`, `breadcrumbs`, `site-footer`, `hero-split`, `hero-media`, `feature-grid`, `bento-grid`, `feature-split`, `steps`, `stats-band`, `logo-strip`, `marquee`, `testimonial`, `pricing-table`, `comparison-table`, `faq`, `cta-band`, `newsletter-form`, `prose`, `code-block`, `figure`, `video-embed`, `alert`, `error-state`, `segmented-control`, `pixel-stage`, `hero-pixel`, `feature-rows`, `milestone-timeline`, `profile-split`, `offer-card`, `audience-fit`, `numbered-checklist`, `outcome-grid`, `detail-card`, `statement-stats` |
 | `blog-index` | `button`, `link`, `card`, `badge`, `avatar`, `drawer`, `section`, `background-pattern`, `reveal`, `theme-toggle`, `site-header`, `mobile-nav`, `site-footer`, `newsletter-form`, `post-card`, `post-list`, `video-embed`, `pagination`, `empty-state`, `skeleton` |
 | `blog-post` | `button`, `link`, `card`, `badge`, `avatar`, `drawer`, `section`, `reveal`, `theme-toggle`, `site-header`, `mobile-nav`, `breadcrumbs`, `site-footer`, `newsletter-form`, `article-header`, `prose`, `table-of-contents`, `reading-progress`, `post-card`, `author-box`, `callout`, `code-block`, `figure`, `video-embed`, `pull-quote` |
 | `docs-page` | `button`, `link`, `card`, `badge`, `avatar`, `accordion`, `drawer`, `section`, `reveal`, `theme-toggle`, `site-header`, `mobile-nav`, `breadcrumbs`, `site-footer`, `article-header`, `prose`, `table-of-contents`, `reading-progress`, `callout`, `code-block`, `figure`, `video-embed` |
@@ -181,6 +181,21 @@ Decorates a band or a card with a quiet, token-colored pattern.
 - **Accessibility:** Decorative: aria-hidden. Text over the pattern keeps 4.5:1 measured on the lightest and darkest point.
 - **Tokens:** `background`, `border`, `primary`, `muted`.
 - **Sources:** `designfy:background`. **Related:** `section`, `hero-centered`.
+
+### `pixel-stage` · Pixel stage
+
+Places a pausable theme-driven pixel mosaic behind landing content.
+
+- **Use when:** Abrir uma seção curta com movimento ambiental e texto em primeiro plano.
+- **Avoid when:** Atrás de texto longo ou de outro movimento simultâneo.
+- **Anatomy:** canvas decorativo; véu; conteúdo; controle de pausa.
+- **Variants:** tema claro ou escuro.
+- **States:** running, paused, reduced motion.
+- **Responsive:** O véu protege o topo em telas estreitas e o início da linha em telas largas.
+- **Motion:** Desloca pontos em uma grade com brilho localizado. Suspende o loop fora da tela, em hover, com foco, por comando e em movimento reduzido.
+- **Accessibility:** Canvas oculto da árvore de acessibilidade. Controle com aria-pressed e foco visível.
+- **Tokens:** `background`, `foreground`, `primary`, `accent-foreground`, `muted-foreground`, `border`, `ring`.
+- **Sources:** `designfy:pixel-stage`. **Related:** `background-pattern`, `hero-pixel`.
 
 ## Motion (site e sistema)
 
@@ -667,6 +682,21 @@ Opens the page on a photograph or a video with the text over it.
 - **Tokens:** `background`, `foreground`, `primary`, `primary-foreground`, `ring`, `radius`.
 - **Sources:** `designfy:hero-media`. **Related:** `video-embed`.
 
+### `hero-pixel` · Pixel hero
+
+Opens a landing with an optional aside over a pixel stage.
+
+- **Use when:** Apresentar a promessa e até duas ações de uma landing, com resumo lateral opcional.
+- **Avoid when:** Quando a imagem do produto for a prova principal da abertura.
+- **Anatomy:** título e ênfase; apoio; ações; nota opcional; coluna lateral opcional.
+- **Variants:** com ou sem resumo lateral.
+- **States:** default, hover, focus, active, paused.
+- **Responsive:** Ações em linha quando há espaço. Resumo lateral a partir de lg.
+- **Motion:** O resumo entra com a revelação do Designfy; o palco tem pausa independente.
+- **Accessibility:** Um H1 e ações com rótulos descritivos. Texto disponível na primeira pintura.
+- **Tokens:** `background`, `foreground`, `primary`, `primary-foreground`, `muted-foreground`, `border`, `ring`.
+- **Sources:** `designfy:hero-pixel`. **Related:** `pixel-stage`, `hero-split`.
+
 ## Site sections (site)
 
 ### `feature-grid` · Feature grid
@@ -765,7 +795,7 @@ Scrolls a row of short items continuously.
 - **Use when:** Logos, short tags, tool names.
 - **Avoid when:** Text that must be read whole. More than two marquees on a page.
 - **Anatomy:** track; duplicated item group; edge fade.
-- **Variants:** left; right; two rows in opposite directions.
+- **Variants:** left; right; two rows in opposite directions; accent com separadores em losango.
 - **States:** default.
 - **Responsive:** Speed in pixels per second stays constant across widths.
 - **Motion:** Linear translate loop; pauses on hover, focus and when off screen.
@@ -794,7 +824,7 @@ Lets the person compare plans and choose one.
 
 - **Use when:** Two to four plans.
 - **Anatomy:** billing period switch; plan card: name, price, period, description, feature list, action; highlighted plan.
-- **Variants:** cards; cards plus comparison table.
+- **Variants:** cards; cards plus comparison table; single com oferta e lista de inclusões.
 - **States:** monthly, yearly.
 - **Responsive:** Cards stack with the recommended plan first; the comparison table becomes one plan per tab.
 - **Motion:** The price rolls when the period changes; the highlighted card has a quiet moving border or glow.
@@ -857,6 +887,141 @@ Collects an email address in one field and one button.
 - **Accessibility:** Visible or screen-reader label. Errors linked with aria-describedby and announced. autocomplete=email.
 - **Tokens:** `input`, `ring`, `primary`, `primary-foreground`, `ring`, `radius`.
 - **Sources:** `designfy:newsletter-form`. **Related:** `cta-band`, `form-field`.
+
+### `feature-rows` · Feature rows
+
+Presents numbered benefits in aligned rows with an optional sticky introduction.
+
+- **Use when:** Comparar benefícios, capacidades ou cenários com espaço para explicar cada item.
+- **Avoid when:** Quando cada entrada precisa de mídia ou várias ações.
+- **Anatomy:** título da seção; número; título do item; descrição; detalhe opcional.
+- **Variants:** introdução acima; introdução lateral fixa.
+- **States:** default, hover, focus, active, empty.
+- **Responsive:** Número e título compartilham a primeira linha no celular; três trilhas a partir de lg.
+- **Motion:** Os itens entram com o stagger do Designfy; links respondem à pressão.
+- **Accessibility:** Lista ordenada nativa. Números visuais decorativos; links recebem foco nativo.
+- **Tokens:** `background`, `card`, `card-foreground`, `primary`, `muted-foreground`, `border`, `ring`.
+- **Sources:** `designfy:feature-rows`. **Related:** `feature-grid`, `feature-split`.
+
+### `milestone-timeline` · Milestone timeline
+
+Shows dated events or phases in order with a current marker and aligned outcomes.
+
+- **Use when:** Mostrar datas e fases de uma entrega e destacar um marco vigente.
+- **Avoid when:** Quando a interação altera etapas de um formulário.
+- **Anatomy:** marcador; data ou fase; título; descrição; resultado opcional.
+- **Variants:** cronograma com datas; etapas com resultados.
+- **States:** default, current, empty.
+- **Responsive:** Trilho vertical no celular; duas colunas em sm e até quatro em lg, com subgrid quando disponível.
+- **Motion:** Revelação sequencial e traçado do conector em desktop; versão estática com movimento reduzido.
+- **Accessibility:** Sequência em lista ordenada. Datas podem usar time; o marco atual recebe aria-current.
+- **Tokens:** `muted`, `primary`, `primary-foreground`, `background`, `foreground`, `card`, `border`.
+- **Sources:** `designfy:milestone-timeline`. **Related:** `steps`, `activity-feed`.
+
+### `profile-split` · Profile split
+
+Introduces a person with a portrait, credentials and links.
+
+- **Use when:** Apresentar a pessoa que conduz uma oferta, com retrato, bio e credenciais verificadas.
+- **Avoid when:** Para a assinatura compacta de um artigo.
+- **Anatomy:** retrato; credenciais; nome; papel; biografia; links.
+- **Variants:** com ou sem credenciais e links.
+- **States:** default, hover, focus, active.
+- **Responsive:** Texto antes do retrato no celular; duas colunas a partir de md.
+- **Motion:** Revelação do texto e do retrato em sequência; links respondem à pressão.
+- **Accessibility:** Retrato com dimensões e texto alternativo fornecidos. Links com rótulo e credenciais legíveis como texto.
+- **Tokens:** `background`, `foreground`, `primary`, `muted-foreground`, `card`, `card-foreground`, `border`, `ring`.
+- **Sources:** `designfy:profile-split`. **Related:** `author-box`, `feature-split`.
+
+### `offer-card` · Offer card
+
+Presents a time-limited offer with optional capacity and a primary action.
+
+- **Use when:** Apresentar prazo e capacidade junto da decisão de inscrição.
+- **Avoid when:** Para comparar vários planos.
+- **Anatomy:** título; apoio; prazo; relógio; capacidade; ação.
+- **Variants:** tinted; stage.
+- **States:** default, active, expired, focus, hover.
+- **Responsive:** Uma coluna com quatro unidades de tempo de largura estável.
+- **Motion:** Revelação de entrada com versão estática em movimento reduzido.
+- **Accessibility:** O prazo fica legível sem JavaScript e o relógio evita anúncios por segundo.
+- **Tokens:** `background`, `foreground`, `primary`, `border`.
+- **Sources:** `designfy:offer-card`. **Related:** `pricing-table`.
+
+### `audience-fit` · Audience fit
+
+Pairs positive and negative fit criteria in two lists.
+
+- **Use when:** Explicar para quem a oferta é indicada.
+- **Avoid when:** Quando há somente um critério simples.
+- **Anatomy:** título; grupos; critérios; nota.
+- **Variants:** com nota; sem nota.
+- **States:** default.
+- **Responsive:** Os cartões empilham e passam a duas colunas de mesma altura.
+- **Motion:** Revelação de entrada com versão estática em movimento reduzido.
+- **Accessibility:** Os títulos identificam as listas e os símbolos são decorativos.
+- **Tokens:** `background`, `foreground`, `primary`, `border`.
+- **Sources:** `designfy:audience-fit`. **Related:** `comparison-table`.
+
+### `numbered-checklist` · Numbered checklist
+
+Lists inclusions with numbered chips and optional highlights.
+
+- **Use when:** Enumerar entregas e destacar itens adicionais.
+- **Avoid when:** Quando os itens representam etapas interativas.
+- **Anatomy:** título; lista ordenada; chips; destaque.
+- **Variants:** uma coluna; duas colunas.
+- **States:** default.
+- **Responsive:** A segunda coluna aparece quando há espaço.
+- **Motion:** Revelação de entrada com versão estática em movimento reduzido.
+- **Accessibility:** A lista mantém a ordem de leitura e o destaque recebe um rótulo textual.
+- **Tokens:** `background`, `foreground`, `primary`, `border`.
+- **Sources:** `designfy:numbered-checklist`. **Related:** `steps`.
+
+### `outcome-grid` · Outcome grid
+
+Presents short outcomes in a responsive grid of icon tiles.
+
+- **Use when:** Resumir os resultados esperados em textos curtos.
+- **Avoid when:** Quando cada resultado precisa de uma explicação longa.
+- **Anatomy:** título; ícones; resultados; fechamento.
+- **Variants:** com fechamento; sem fechamento.
+- **States:** default.
+- **Responsive:** Grade de duas a cinco colunas pela largura disponível.
+- **Motion:** Revelação de entrada com versão estática em movimento reduzido.
+- **Accessibility:** Os ícones decorativos ficam ocultos da árvore acessível.
+- **Tokens:** `background`, `foreground`, `primary`, `border`.
+- **Sources:** `designfy:outcome-grid`. **Related:** `feature-grid`.
+
+### `detail-card` · Detail card
+
+Explains a feature with an icon, paragraphs and optional checks. Includes DetailCardGrid for a two-column arrangement with a tall card.
+
+- **Use when:** Explicar detalhes de uma entrega, com apoio opcional de uma lista.
+- **Avoid when:** Quando o conteúdo cabe em uma única linha.
+- **Anatomy:** ícone; rótulo; título; parágrafos; lista; nota.
+- **Variants:** neutral; tinted; tall.
+- **States:** default.
+- **Responsive:** O helper empilha os cartões e aceita um cartão alto em duas colunas.
+- **Motion:** Revelação de entrada com versão estática em movimento reduzido.
+- **Accessibility:** Os parágrafos e a lista preservam a ordem do conteúdo.
+- **Tokens:** `background`, `foreground`, `primary`, `border`.
+- **Sources:** `designfy:detail-card`. **Related:** `bento-grid`.
+
+### `statement-stats` · Statement stats
+
+Pairs a two-tone statement with stacked stat notes. Compose with milestone-timeline for a dated rail.
+
+- **Use when:** Dar contexto aos números que sustentam uma afirmação.
+- **Avoid when:** Quando os números precisam de uma tabela comparativa.
+- **Anatomy:** afirmação; ênfase; valores; descrições.
+- **Variants:** escuro local; tema herdado.
+- **States:** default.
+- **Responsive:** As notas ficam abaixo do título em espaços estreitos e ao lado em espaços largos.
+- **Motion:** Revelação de entrada com versão estática em movimento reduzido.
+- **Accessibility:** Cada valor e sua descrição formam um par na lista de definições.
+- **Tokens:** `background`, `foreground`, `primary`, `border`.
+- **Sources:** `designfy:statement-stats`. **Related:** `milestone-timeline`.
 
 ## Content and articles (site)
 

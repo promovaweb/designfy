@@ -5,7 +5,7 @@ import { meter } from "../components.ts";
 import { AppError } from "../../app/errors.ts";
 import { ExitCode } from "../../app/exit-codes.ts";
 import { formatOklch, parseColor, toHex, wcagContrast } from "../../design/color.ts";
-import { checkTheme, findThemeFile, readTheme, themeGroups, type Theme, type ThemeGroup, type ThemeTextToken, type ThemeToken } from "../../design/theme.ts";
+import { checkTheme, findThemeFile, readTheme, themeGroups, type Theme, type ThemeCheck, type ThemeGroup, type ThemeTextToken, type ThemeToken } from "../../design/theme.ts";
 import { projectScreen, shortcut } from "./project-screen.ts";
 
 type ThemeRow = { id: string; token: ThemeToken; group: ThemeGroup };
@@ -28,8 +28,15 @@ function value(token: ThemeToken | null, mode: Mode): string {
   return token?.[mode]?.declared ?? "Not declared";
 }
 
-function ratioLabel(ratio: number): string {
-  return `${ratio.toFixed(2)}:1 ${ratio >= 4.5 ? "pass" : "fail"}`;
+function ratioLabel(ratio: number, min = 4.5): string {
+  return `${ratio.toFixed(2)}:1 ${ratio >= min ? "pass" : "fail"}`;
+}
+
+function contrastReport(check: ThemeCheck): string {
+  const pairs = check.contrast.map(({ mode, foreground, background, ratio, status, label, min = 4.5 }) =>
+    `- ${mode} \`${foreground}\` on \`${background}\`${label ? ` (${label})` : ""}: ${ratio === null ? status : ratioLabel(ratio, min)} (min ${min}:1)`);
+  const missing = check.missingRoles.map(({ role, modes }) => `- Missing \`${role}\` (${modes.join(", ")})`);
+  return [`Mode: ${check.mode}`, ...check.notes, pairs.join("\n"), missing.join("\n")].filter(Boolean).join("\n\n");
 }
 
 /** Creates a read-only theme inspection screen. */
@@ -38,7 +45,11 @@ export function createThemeScreen() {
   let groupIndex = 0;
   let loaded: Theme | undefined;
   let loading: Promise<Theme> | undefined;
-  let contrasts: ReturnType<typeof checkTheme>["contrast"] = [];
+  let audit: ThemeCheck | undefined;
+
+  function matchesToken(pair: ThemeCheck["contrast"][number], token: ThemeToken): boolean {
+    return [pair.foreground, pair.background].some((name) => name === token.name || name === role(token));
+  }
 
   function colorDetails(row: ThemeRow): string[] {
     const declared = row.token[mode];
@@ -60,9 +71,10 @@ export function createThemeScreen() {
     empty: () => loaded ? "No tokens in this group" : "No Tailwind CSS found",
     emptyHint: () => loaded ? undefined : "designfy components add designfy-theme",
     listTitle: "Theme tokens",
-    summary: () => `${mode} · ${themeGroups[groupIndex]} · ${loaded ? basename(loaded.file) : "No Tailwind CSS found"}`,
+    summary: () => `${mode} · ${themeGroups[groupIndex]} · ${loaded && audit ? `${audit.mode} · ${basename(loaded.file)}` : "No Tailwind CSS found"}`,
     watch(cwd) {
-      const files = [join(cwd, "designfy.json")];
+      const files = [join(cwd, "designfy.json"), join(cwd, "VIEWSPEC.md")];
+      if (loaded) return [...files, ...loaded.files, ...(loaded.configFile ? [loaded.configFile] : [])];
       try { files.push(findThemeFile(cwd)); } catch { /* The screen reports discovery errors. */ }
       return files;
     },
@@ -72,14 +84,15 @@ export function createThemeScreen() {
       try {
         const theme = await request;
         if (loading !== request) return [];
+        audit = checkTheme(theme, { cwd });
         loaded = theme;
       } catch (error) {
         if (loading !== request) return [];
         loaded = undefined;
+        audit = undefined;
         if (error instanceof AppError && error.code === ExitCode.NOT_FOUND) return [];
         throw error;
       }
-      contrasts = checkTheme(loaded).contrast;
       const group = themeGroups[groupIndex]!;
       return tokens(loaded, group).map((token) => ({ id: token.name, token, group }));
     },
@@ -94,9 +107,9 @@ export function createThemeScreen() {
       }
       if (group !== "colors") return `${token.name}  ${declared}`;
       const name = role(token);
-      const matches = contrasts.filter((pair) => pair.mode === mode && pair.ratio !== null &&
-        (pair.foreground === name || pair.background === name));
-      const checked = matches.map(({ratio}) => ratioLabel(ratio!)).join(" · ");
+      const matches = (audit?.contrast ?? []).filter((pair) =>
+        pair.mode === mode && pair.ratio !== null && matchesToken(pair, token));
+      const checked = matches.map(({ ratio, min }) => ratioLabel(ratio!, min)).join(" · ");
       const append = [declared, current?.resolved, checked].filter(Boolean).join("  ");
       return {
         content: new StyledText([
@@ -120,8 +133,8 @@ export function createThemeScreen() {
           if (split < 0) view.text(line);
           else view.field(line.slice(0, split), line.slice(split + 2));
         }
-        for (const pair of contrasts) {
-          if (pair.mode !== mode || pair.ratio === null || ![pair.foreground, pair.background].includes(role(row.token))) continue;
+        for (const pair of audit?.contrast ?? []) {
+          if (pair.mode !== mode || pair.ratio === null || !matchesToken(pair, row.token)) continue;
           const { renderer, theme } = view.ctx;
           view.tag(pair.status === "pass" ? "ok" : "error", `${pair.foreground} / ${pair.background}`);
           view.add(meter(renderer, theme, Number(pair.ratio.toFixed(2)), 21, { color: pair.status === "pass" ? theme.ok : theme.error }));
@@ -136,6 +149,10 @@ export function createThemeScreen() {
     actions: [
       shortcut("t", "light / dark", (view) => { mode = mode === "light" ? "dark" : "light"; return view.reload(); }),
       shortcut("g", "next group", (view) => { groupIndex = (groupIndex + 1) % themeGroups.length; return view.reload(); }),
+      shortcut("c", "contrast pairs", (view) => {
+        const check = audit;
+        if (check) return view.read("Contrast pairs", () => contrastReport(check));
+      }),
       shortcut("return", "inspect color", (view) => {
         const row = view.selected;
         if (row?.group === "colors") return view.read(row.token.name, () => colorDetails(row).join("\n"));

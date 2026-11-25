@@ -10,7 +10,7 @@
    │ auth · 1                              ┃│  │ Files                                                                                  │
    │   □ auth-card                         ┃│  │ theme-toggle/theme-toggle.tsx                                                          │
    │   Signs a person ... a lost password. ┃│  │ Dependencies                                                                           │
-   │ containers · 1                        ┃│  │ lucide-react                                                                           │
+   │ containers · 1                        ││  │ lucide-react                                                                           │
    │   □ card                              ││  │ Required items                                                                         │
    │   Groups a single...ion and a footer. ││  │ cn                                                                                     │
    │ content · 11                          ││  │ designfy-motion                                                                        │

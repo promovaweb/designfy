@@ -4,7 +4,7 @@ import { ExitCode } from "../../app/exit-codes.ts";
 import { manifest } from "../../app/manifest.ts";
 import {
   listViewspecSummaries, readGuide, readViewspec, readViewspecProgress, validateProjectViewspecs,
-  viewKinds, viewStatuses, type ViewKind, type ViewspecError, type ViewStatus,
+  viewKinds, viewStatuses, type Viewspec, type ViewKind, type ViewspecError, type ViewStatus,
 } from "../../design/viewspec.ts";
 import { blocks, section, table } from "../format.ts";
 import type { Command } from "../registry.ts";
@@ -24,9 +24,13 @@ function diagnostics(errors: ViewspecError[]): string {
   ).join("\n");
 }
 
+function linkText(link: NonNullable<Viewspec["frontMatter"]["trackedBy"]>[number]): string {
+  return link.system + " " + link.id + " (" + link.path + ")";
+}
+
 function frontMatterText(frontMatter: object | null): string {
   return frontMatter ? table(Object.entries(frontMatter).map(([key, value]) => [
-    key, Array.isArray(value) ? value.join(", ") : String(value),
+    key, Array.isArray(value) ? (key === "trackedBy" ? value.map(linkText) : value).join(", ") : String(value),
   ])) : "";
 }
 
@@ -74,8 +78,8 @@ const list: Command = {
       code: data.errors.length ? ExitCode.CHECK_FAILED : ExitCode.SUCCESS,
       text: () => blocks(
         data.items.length ? table(
-          data.items.map(({ id, title, kind, status, progress }) => [
-            id, [title, kind, status, progress.done + "/" + progress.total].join("  |  "),
+          data.items.map(({ id, title, kind, status, progress, trackedBy }) => [
+            id, [title, kind, status, progress.done + "/" + progress.total, ...(trackedBy ?? []).map(linkText)].join("  |  "),
           ]),
         ) : "No matching screen viewspecs.",
         diagnostics(data.errors),

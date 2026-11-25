@@ -19,6 +19,8 @@ interface Props {
   items: Question[];
   /** Centered column or two columns with the intro on the left. */
   variant?: "single" | "split";
+  /** Keep the split introduction in view on large screens. */
+  stickyIntro?: boolean;
   /** Include FAQPage JSON-LD only for content that qualifies. */
   structuredData?: boolean;
   /** Additional classes on the root element. */
@@ -31,6 +33,7 @@ const {
   headingLevel = 2,
   items,
   variant = "single",
+  stickyIntro = false,
   structuredData = false,
   class: className,
 } = Astro.props;
@@ -58,14 +61,24 @@ const schema = JSON.stringify({
         : "max-w-4xl",
     )}
   >
-    <header data-df-reveal="up" class="mb-10 md:mb-14">
-      <Heading class="font-heading text-headline font-semibold">{title}</Heading
-      >
-      {
-        lead && (
-          <p class="mt-4 max-w-2xl text-lead text-muted-foreground">{lead}</p>
-        )
-      }
+    <header
+      class={cn(
+        "mb-10 md:mb-14",
+        variant === "split" &&
+          stickyIntro &&
+          "lg:sticky lg:top-[calc(var(--header-height,4rem)+1rem)]",
+      )}
+    >
+      <div data-df-reveal="up">
+        <Heading class="font-heading text-headline font-semibold"
+          >{title}</Heading
+        >
+        {
+          lead && (
+            <p class="mt-4 max-w-2xl text-lead text-muted-foreground">{lead}</p>
+          )
+        }
+      </div>
     </header>
     <div
       data-df-reveal="up"

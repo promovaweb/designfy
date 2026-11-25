@@ -12,6 +12,8 @@ interface Props {
   items: string[];
   /** Direction, or two rows moving in opposite directions. */
   direction?: "left" | "right" | "opposed";
+  /** Accent band with decorative diamond separators. */
+  variant?: "default" | "accent";
   /** Travel speed in CSS pixels per second. */
   speed?: number;
   /** Label for the pause action. Supply for meaningful content. */
@@ -25,6 +27,7 @@ interface Props {
 const {
   items,
   direction = "left",
+  variant = "default",
   speed = 42,
   pauseLabel,
   resumeLabel,
@@ -35,7 +38,11 @@ const {
 <div
   data-site-marquee
   data-speed={speed}
-  class={cn("group min-w-0 max-w-full space-y-4", className)}
+  class={cn(
+    "group min-w-0 max-w-full space-y-4",
+    variant === "accent" && "bg-accent py-4 text-accent-foreground",
+    className,
+  )}
 >
   {
     (direction === "opposed" ? ["left", "right"] : [direction]).map(
@@ -57,7 +64,15 @@ const {
             >
               <slot />
               {items.map((text) => (
-                <li>{text}</li>
+                <li>
+                  {variant === "accent" && (
+                    <span
+                      aria-hidden="true"
+                      class="me-4 inline-block size-2 rotate-45 bg-current"
+                    />
+                  )}
+                  {text}
+                </li>
               ))}
             </ul>
           ))}

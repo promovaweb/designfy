@@ -51,7 +51,7 @@ para a seção da página que mais resolve e a lacuna vai para o viewspec.
 - Formulário sem destino configurado não finge sucesso: valida e diz que
   ainda não está ligado. A lacuna vai para o viewspec.
 
-O desenho de formulários longos é da `designfy-systems`.
+O desenho de formulários longos é da `designfy-webapps`.
 
 ## Prova
 

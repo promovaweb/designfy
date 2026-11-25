@@ -18,9 +18,15 @@ const viewportSchema = z.object({
   isMobile: z.boolean(),
   hasTouch: z.boolean(),
 });
+const themeSchema = z.enum(["light", "dark"]);
+const maxTimerMs = 2_147_483_647;
 const shotSchema = z.object({
   url: z.string(),
   viewport: z.string(),
+  theme: themeSchema.optional(),
+  scrollSteps: z.number().int().nonnegative().optional(),
+  incompleteImages: z.array(z.string()).optional(),
+  scrollBudgetExhausted: z.boolean().optional(),
   file: z.string().optional(),
   title: z.string().optional(),
   documentWidth: z.number().optional(),
@@ -33,7 +39,9 @@ const shotSchema = z.object({
 });
 const runnerResultSchema = z.object({
   shots: z.array(shotSchema),
-  errors: z.array(z.object({ url: z.string().optional(), viewport: z.string().optional(), error: z.string() })),
+  errors: z.array(z.object({
+    url: z.string().optional(), viewport: z.string().optional(), theme: themeSchema.optional(), error: z.string(),
+  })),
 });
 
 /** Runtime shape of a capture manifest returned by the CLI and MCP. */
@@ -43,8 +51,13 @@ export const captureManifestSchema = runnerResultSchema.extend({
   outDir: z.string(),
   urls: z.array(z.string()),
   viewports: z.array(viewportSchema),
-  theme: z.enum(["light", "dark"]),
+  theme: themeSchema,
+  themes: z.array(themeSchema).nonempty().optional(),
   fullPage: z.boolean(),
+  scroll: z.boolean().optional(),
+  scrollBudgetMs: z.number().int().nonnegative().optional(),
+  showDevOverlays: z.boolean().optional(),
+  hide: z.array(z.string()).optional(),
   reducedMotion: z.boolean(),
   waitMs: z.number(),
   selector: z.string().optional(),
@@ -52,11 +65,16 @@ export const captureManifestSchema = runnerResultSchema.extend({
 
 export type Viewport = z.infer<typeof viewportSchema>;
 export type CaptureManifest = z.infer<typeof captureManifestSchema>;
+type CaptureTheme = z.infer<typeof themeSchema>;
 
 export interface CaptureOptions {
   viewports?: string | readonly string[];
-  theme?: "light" | "dark";
+  theme?: string | readonly string[];
   fullPage?: boolean;
+  scroll?: boolean;
+  scrollBudgetMs?: number;
+  showDevOverlays?: boolean;
+  hide?: string | readonly string[];
   reducedMotion?: boolean;
   waitMs?: number;
   selector?: string;
@@ -64,7 +82,14 @@ export interface CaptureOptions {
   name?: string;
 }
 
-export type CapturePlan = Omit<CaptureManifest, "shots" | "errors"> & { cwd: string };
+export type CapturePlan = Omit<CaptureManifest, "shots" | "errors"> & {
+  cwd: string;
+  themes: [CaptureTheme, ...CaptureTheme[]];
+  scroll: boolean;
+  scrollBudgetMs: number;
+  showDevOverlays: boolean;
+  hide: string[];
+};
 
 const presets = {
   mobile: { name: "mobile", width: 390, height: 844, deviceScaleFactor: 3, isMobile: true, hasTouch: true },
@@ -92,6 +117,14 @@ export function parseViewports(values: string | readonly string[]): Viewport[] {
   if (list.length === 0) throw error.usage("At least one viewport is required.");
   const parsed = list.flatMap((value) => value.split(",").map(parseViewport));
   return [...new Map(parsed.map((viewport) => [viewport.name, viewport])).values()];
+}
+
+function parseThemes(values: string | readonly string[]): CapturePlan["themes"] {
+  const list = typeof values === "string" ? [values] : values;
+  const names = [...new Set(list.flatMap((value) => value.split(",").map((item) => item.trim())))];
+  const parsed = z.tuple([themeSchema]).rest(themeSchema).safeParse(names);
+  if (!parsed.success) throw error.usage("Capture themes must be light or dark.");
+  return parsed.data;
 }
 
 function captureRoot(cwd: string, outDir: unknown): string {
@@ -124,9 +157,16 @@ export function planCapture(
     throw error.usage("Use letters, digits, dots, hyphens, or underscores for the run name, starting with a letter or digit.");
   }
   const waitMs = options.waitMs ?? 0;
-  if (!Number.isInteger(waitMs) || waitMs < 0 || waitMs > 2_147_483_647) {
+  if (!Number.isInteger(waitMs) || waitMs < 0 || waitMs > maxTimerMs) {
     throw error.usage("Capture wait must be an integer between 0 and 2147483647 milliseconds.");
   }
+  const scrollBudgetMs = options.scrollBudgetMs ?? 15_000;
+  if (!Number.isInteger(scrollBudgetMs) || scrollBudgetMs < 0 || scrollBudgetMs > maxTimerMs) {
+    throw error.usage("Capture scroll budget must be an integer between 0 and 2147483647 milliseconds.");
+  }
+  const themes = parseThemes(options.theme ?? "light");
+  const hide = typeof options.hide === "string" ? [options.hide] : [...(options.hide ?? [])];
+  if (hide.some((selector) => !selector.trim())) throw error.usage("Capture hide selectors must not be empty.");
 
   const settings = readSettings();
   const savedViewports = getPath(settings, "capture.viewports");
@@ -141,8 +181,13 @@ export function planCapture(
     outDir: join(root, name),
     urls: [...urls],
     viewports: parseViewports(viewports),
-    theme: options.theme ?? "light",
+    theme: themes[0],
+    themes,
     fullPage: options.fullPage ?? true,
+    scroll: options.scroll ?? true,
+    scrollBudgetMs,
+    showDevOverlays: options.showDevOverlays ?? false,
+    hide,
     reducedMotion: options.reducedMotion ?? false,
     waitMs,
     selector: options.selector,

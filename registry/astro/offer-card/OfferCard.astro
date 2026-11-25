@@ -1,0 +1,114 @@
+---
+/** Presents an offer with an optional deadline and capacity. Uses theme motion with a static reduced-motion state. */
+import { cn } from "@designfy/components/lib/cn";
+
+interface Props {
+  /** Heading text. */
+  title: string;
+  /** Heading level in the surrounding document. */
+  headingLevel?: 2 | 3 | 4 | 5 | 6;
+  /** Supporting line below the title. */
+  supporting: string;
+  /** Absolute ISO instant, readable fallback, and expired copy. */
+  deadline?: {
+    iso: string;
+    label: string;
+    closedMessage: string;
+    units?: [string, string, string, string];
+  };
+  /** Capacity value and its meaning. */
+  capacity?: { value: string; label: string };
+  /** Primary link. */
+  action: { href: string; label: string };
+  /** Opaque tinted surface or dark stage card. */
+  variant?: "tinted" | "stage";
+  /** Additional root classes. */
+  class?: string;
+}
+
+const {
+  title,
+  headingLevel = 2,
+  supporting,
+  deadline,
+  capacity,
+  action,
+  variant = "tinted",
+  class: className,
+} = Astro.props;
+
+const Heading = `h${headingLevel}` as "h2";
+---
+
+<article
+  data-df-reveal="up"
+  class={cn(
+    "grid min-w-0 gap-5 rounded-2xl border p-6 sm:p-8",
+    variant === "stage"
+      ? "dark border-border bg-card text-card-foreground"
+      : "border-primary/25 bg-accent text-accent-foreground",
+    className,
+  )}
+>
+  <Heading class="font-heading text-title font-semibold tracking-tight"
+    >{title}</Heading
+  >
+  <p>{supporting}</p>
+  {
+    deadline && (
+      <df-offer-deadline data-deadline={deadline.iso} class="block">
+        <time datetime={deadline.iso}>{deadline.label}</time>
+        <p hidden data-closed>
+          {deadline.closedMessage}
+        </p>
+        <div
+          hidden
+          data-clock
+          role="timer"
+          aria-live="off"
+          class="mt-3 grid grid-cols-4 gap-1 [&[hidden]]:hidden!"
+        >
+          {(deadline.units ?? ["Days", "Hours", "Minutes", "Seconds"]).map(
+            (unit) => (
+              <span class="flex min-w-0 flex-col rounded-lg bg-background px-1 py-2 text-center text-foreground">
+                <b data-digit class="text-xl tabular-nums" />
+                <span class="break-words text-xs">{unit}</span>
+              </span>
+            ),
+          )}
+        </div>
+      </df-offer-deadline>
+    )
+  }
+  {
+    capacity && (
+      <p class="flex flex-wrap items-baseline gap-2 border-t border-current/20 pt-4">
+        <strong class="text-headline tabular-nums">{capacity.value}</strong>
+        {capacity.label}
+      </p>
+    )
+  }
+  <a
+    href={action.href}
+    class="df-press inline-flex min-h-11 items-center justify-center rounded-lg bg-primary px-5 py-3 font-semibold text-primary-foreground hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+    >{action.label}</a
+  >
+</article>
+
+<script>
+  import { bindDeadline } from "./deadline";
+  if (!customElements.get("df-offer-deadline")) {
+    customElements.define(
+      "df-offer-deadline",
+      class extends HTMLElement {
+        dispose?: () => void;
+        connectedCallback() {
+          this.dispose = bindDeadline(this);
+        }
+        disconnectedCallback() {
+          this.dispose?.();
+        }
+      },
+    );
+  }
+</script>

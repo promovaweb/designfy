@@ -59,10 +59,10 @@ caracteres.
 ## `dashboard`
 
 ```markdown
-- [ ] Shell e cabeçalho da página com período e ação principal `#designfy-systems`
-- [ ] Contadores com rótulo, valor, variação e origem do dado `#designfy-systems`
-- [ ] Gráficos com título, período, legenda e alternativa em tabela `#designfy-systems`
-- [ ] Carregando, vazio e erro por região `#designfy-systems`
+- [ ] Shell e cabeçalho da página com período e ação principal `#designfy-webapps`
+- [ ] Contadores com rótulo, valor, variação e origem do dado `#designfy-webapps`
+- [ ] Gráficos com título, período, legenda e alternativa em tabela `#designfy-webapps`
+- [ ] Carregando, vazio e erro por região `#designfy-webapps`
 - [ ] Contagem animada dos valores e desenho único dos gráficos `#designfy-motion`
 - [ ] Contadores em duas colunas e gráfico com altura fixa no celular `#designfy-responsive`
 - [ ] Resumo em texto de cada gráfico `#designfy-accessibility`
@@ -71,12 +71,12 @@ caracteres.
 ## `table`
 
 ```markdown
-- [ ] Cabeçalho da página com ação de criar `#designfy-systems`
-- [ ] Colunas, tipos de célula e alinhamento definidos `#designfy-systems`
-- [ ] Ordenação, filtros e paginação com estado na URL `#designfy-systems`
-- [ ] Seleção e barra de ações em lote `#designfy-systems`
-- [ ] Ações da linha em menu, com confirmação nas destrutivas `#designfy-systems`
-- [ ] Carregando com linhas de esqueleto, vazio e sem resultado `#designfy-systems`
+- [ ] Cabeçalho da página com ação de criar `#designfy-webapps`
+- [ ] Colunas, tipos de célula e alinhamento definidos `#designfy-webapps`
+- [ ] Ordenação, filtros e paginação com estado na URL `#designfy-webapps`
+- [ ] Seleção e barra de ações em lote `#designfy-webapps`
+- [ ] Ações da linha em menu, com confirmação nas destrutivas `#designfy-webapps`
+- [ ] Carregando com linhas de esqueleto, vazio e sem resultado `#designfy-webapps`
 - [ ] Formato no celular: cartões ou primeira coluna fixa `#designfy-responsive`
 - [ ] `th` com escopo, `aria-sort` e anúncio da contagem `#designfy-accessibility`
 ```
@@ -84,11 +84,11 @@ caracteres.
 ## `form`
 
 ```markdown
-- [ ] Seções do formulário e ordem dos campos `#designfy-systems`
-- [ ] Rótulo, ajuda e erro de cada campo `#designfy-systems`
-- [ ] Validação por campo e resumo de erros no envio `#designfy-systems`
-- [ ] Envio com progresso, confirmação e destino `#designfy-systems`
-- [ ] Aviso ao sair com alteração não salva `#designfy-systems`
+- [ ] Seções do formulário e ordem dos campos `#designfy-webapps`
+- [ ] Rótulo, ajuda e erro de cada campo `#designfy-webapps`
+- [ ] Validação por campo e resumo de erros no envio `#designfy-webapps`
+- [ ] Envio com progresso, confirmação e destino `#designfy-webapps`
+- [ ] Aviso ao sair com alteração não salva `#designfy-webapps`
 - [ ] Barra de ações fixa no celular `#designfy-responsive`
 - [ ] `autocomplete`, `inputmode` e erro ligado ao campo `#designfy-accessibility`
 - [ ] Erro com deslocamento curto e botão com progresso `#designfy-motion`
@@ -99,28 +99,28 @@ caracteres.
 Os itens de `table`, mais:
 
 ```markdown
-- [ ] Criar e editar em gaveta ou página, com o mesmo formulário `#designfy-systems`
-- [ ] Detalhe do registro com lista de atributos `#designfy-systems`
-- [ ] Excluir com confirmação que nomeia o registro `#designfy-systems`
-- [ ] Retorno à lista com filtros e página preservados `#designfy-systems`
+- [ ] Criar e editar em gaveta ou página, com o mesmo formulário `#designfy-webapps`
+- [ ] Detalhe do registro com lista de atributos `#designfy-webapps`
+- [ ] Excluir com confirmação que nomeia o registro `#designfy-webapps`
+- [ ] Retorno à lista com filtros e página preservados `#designfy-webapps`
 ```
 
 ## `detail`
 
 ```markdown
-- [ ] Cabeçalho com nome, estado e ações `#designfy-systems`
-- [ ] Atributos em grupos, com os mais consultados no topo `#designfy-systems`
-- [ ] Abas para conteúdo relacionado, com URL própria `#designfy-systems`
-- [ ] Histórico do registro `#designfy-systems`
+- [ ] Cabeçalho com nome, estado e ações `#designfy-webapps`
+- [ ] Atributos em grupos, com os mais consultados no topo `#designfy-webapps`
+- [ ] Abas para conteúdo relacionado, com URL própria `#designfy-webapps`
+- [ ] Histórico do registro `#designfy-webapps`
 - [ ] Rótulo acima do valor no celular `#designfy-responsive`
 ```
 
 ## `settings`
 
 ```markdown
-- [ ] Áreas com navegação e URL própria `#designfy-systems`
-- [ ] Seções com título, explicação e salvamento próprio `#designfy-systems`
-- [ ] Zona de ações destrutivas separada, com confirmação `#designfy-systems`
+- [ ] Áreas com navegação e URL própria `#designfy-webapps`
+- [ ] Seções com título, explicação e salvamento próprio `#designfy-webapps`
+- [ ] Zona de ações destrutivas separada, com confirmação `#designfy-webapps`
 - [ ] Confirmação de salvo em cada seção `#designfy-motion`
 - [ ] Navegação das áreas como lista no celular `#designfy-responsive`
 - [ ] Alternadores com rótulo e descrição ligados `#designfy-accessibility`
@@ -129,8 +129,8 @@ Os itens de `table`, mais:
 ## `auth`
 
 ```markdown
-- [ ] Cartão com título, campos, envio e link para o fluxo alternativo `#designfy-systems`
-- [ ] Erros que não revelam se a conta existe `#designfy-systems`
+- [ ] Cartão com título, campos, envio e link para o fluxo alternativo `#designfy-webapps`
+- [ ] Erros que não revelam se a conta existe `#designfy-webapps`
 - [ ] Painel de marca com fundo do guia `#designfy-design-system`
 - [ ] `autocomplete` de usuário, senha e código `#designfy-accessibility`
 - [ ] Cartão de borda a borda no celular `#designfy-responsive`

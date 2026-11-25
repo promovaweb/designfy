@@ -1,0 +1,19 @@
+/* Project-specific scales and semantic aliases in Tailwind 3 RGB channels. */
+@tailwind base;
+:root {
+  --primary-500: 42 213 190;
+  --primary-950: 0 22 30;
+  --neutral-600: 82 82 91;
+  --neutral-100: 244 244 245;
+  --bg-page: 255 255 255;
+  --text-body: var(--neutral-600);
+  --text-heading: var(--primary-950);
+  --accent-text: var(--link);
+  --link: var(--primary-950);
+}
+.dark {
+  --bg-page: var(--primary-950);
+  --text-body: var(--neutral-100);
+  --text-heading: var(--neutral-100);
+  --link: var(--primary-500);
+}

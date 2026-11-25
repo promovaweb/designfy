@@ -1,6 +1,6 @@
 /** Exercises Tailwind discovery, local imports, token resolution, contrast, and tool output. */
 import { expect, test } from "bun:test";
-import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { cpSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
@@ -19,6 +19,10 @@ const fixture = join(import.meta.dir, "fixtures", "theme");
 const shadcn = join(fixture, "shadcn", "globals.css");
 const split = join(fixture, "split", "globals.css");
 const themeOnly = join(fixture, "theme-only.css");
+const custom = join(import.meta.dir, "fixtures/theme-tw3/custom");
+const entry = "src/styles/global.css";
+const brand = "src/styles/brand/global.css";
+const docs = "src/styles/docs-theme.css";
 
 async function withProject(run: (cwd: string) => void | Promise<void>): Promise<void> {
   const directory = mkdtempSync(join(tmpdir(), "designfy-theme-"));
@@ -30,7 +34,7 @@ async function withProject(run: (cwd: string) => void | Promise<void>): Promise<
 }
 
 test("discovers entry points in the specified search order and honors --file", () => withProject(async (cwd) => {
-  const paths = ["assets/css/a.css", "src/styles/a.css", "src/app/nested/a.css", "src/index.css", "app/globals.css"];
+  const paths = ["src/index.css", "app/globals.css", "assets/css/a.css", "src/styles/a.css", "src/app/nested/a.css"];
   writeFileSync(join(cwd, "designfy.json"), JSON.stringify({ paths: { styles: "assets/css" } }));
   mkdirSync(join(cwd, "src/app/nested"), { recursive: true });
   mkdirSync(join(cwd, "src/styles"), { recursive: true });
@@ -112,7 +116,9 @@ test("measures each of the seven contrast pairs in both modes and checks require
     mode: "dark", foreground: "foreground", background: "background", ratio: expect.any(Number), status: "fail",
   });
   expect(failing.missingRoles).toEqual([{ role: "ring", modes: ["light", "dark"] }, { role: "dark-only", modes: ["light"] }]);
-  expect(checkTheme(await readTheme(fixture, { file: themeOnly })).summary.passed).toBe(2);
+  expect(checkTheme(await readTheme(fixture, { file: themeOnly }))).toMatchObject({
+    mode: "custom", summary: { passed: 1 },
+  });
 });
 
 test("checks token roles used by registry components in the selected framework", () => withProject(async (cwd) => {
@@ -154,7 +160,8 @@ test("filters CLI groups, prints truecolor swatches, and reports failed checks a
     forceColors(true);
     const result = await runTheme(["show", "--file", themeOnly, "--group", "colors"]);
     expect(result.data).toEqual({
-      file: themeOnly, files: [themeOnly], tailwind: 4, configFile: null, warnings: [], colors: expect.any(Array),
+      file: themeOnly, files: [themeOnly], selection: "--file", entryFile: null,
+      tailwind: 4, configFile: null, warnings: [], colors: expect.any(Array),
     });
     const render = result.text as () => string;
     expect(render()).toContain("\u001b[48;2;170;187;204m  \u001b[0m");
@@ -189,6 +196,12 @@ test("registers read-only theme tools and marks failing checks in the MCP respon
     const checked = await client.callTool({ name: "theme_check", arguments: { file: split } });
     expect(checked.isError).toBe(true);
     expect((checked.structuredContent as ThemeCheck).summary.failed).toBe(1);
+    const customCheck = await client.callTool({ name: "theme_check", arguments: { project: custom } });
+    expect(customCheck.isError).toBeUndefined();
+    expect(customCheck.structuredContent).toMatchObject({
+      mode: "custom", selection: "conventional entry", summary: { passed: 3, failed: 0 },
+      contrast: [{ label: "Body", min: 4.5 }, { label: "Strong accent", min: 7 }, { label: "Body", mode: "dark" }],
+    });
     const missing = await client.callTool({ name: "theme_show", arguments: { file: join(fixture, "missing.css") } });
     expect(missing.isError).toBe(true);
     const errors = missing.content as Array<{ text: string }>;
@@ -198,6 +211,72 @@ test("registers read-only theme tools and marks failing checks in the MCP respon
     await server.close();
   }
 });
+
+test("prioritizes paths.theme, the root tokensFile and conventional imports over isolated areas", () => withProject(async (cwd) => {
+  cpSync(custom, cwd, { recursive: true });
+  const guide = join(cwd, "VIEWSPEC.md");
+  const config = join(cwd, "designfy.json");
+  writeFileSync(guide, `---\ntokensFile: "${brand}" # canonical tokens\n---\n`);
+  writeFileSync(config, JSON.stringify({ paths: { theme: docs } }));
+  expect(await readTheme(cwd)).toMatchObject({ selection: "paths.theme", file: join(cwd, docs) });
+  expect(await readTheme(cwd, { file: entry })).toMatchObject({ selection: "--file", file: join(cwd, entry) });
+
+  rmSync(config);
+  expect(await readTheme(cwd)).toMatchObject({ selection: "tokensFile", file: join(cwd, brand), entryFile: join(cwd, entry) });
+  writeFileSync(guide, "---\ntokensFile: src/styles/missing.css\n---\n");
+  expect(await readTheme(cwd)).toMatchObject({
+    selection: "conventional entry", file: join(cwd, entry), files: [join(cwd, entry), join(cwd, brand)],
+  });
+
+  rmSync(join(cwd, entry));
+  writeFileSync(join(cwd, "src/styles/site-theme.css"), '@import "./brand/global.css";');
+  expect(findThemeFile(cwd)).toBe(join(cwd, brand));
+  rmSync(join(cwd, "src/styles/site-theme.css"));
+  const fallback = join(cwd, "src/styles/site-theme.css");
+  writeFileSync(fallback, "@tailwind base;");
+  rmSync(join(cwd, brand));
+  expect(findThemeFile(cwd)).toBe(fallback);
+}));
+
+test("checks configured Tailwind 3 contrast pairs with RGB channels, labels and thresholds", () => withProject(async (cwd) => {
+  cpSync(custom, cwd, { recursive: true });
+  const config = join(cwd, "designfy.json");
+  const main = join(import.meta.dir, "../src/main.ts");
+  const run = (...args: string[]) => Bun.spawnSync([process.execPath, "run", main, "-C", cwd, "theme", "check", ...args]);
+  const passing = run();
+  expect(passing.exitCode).toBe(0);
+  expect(passing.stdout.toString()).toContain("dark --text-body on --bg-page (Body)");
+  expect(passing.stdout.toString()).toContain("min 7:1");
+  const failing = [
+    { fg: "primary-500", bg: "white" },
+    { fg: "--text-body", bg: "--bg-page", min: 10 },
+    { fg: "--missing", bg: "white" },
+  ];
+  writeFileSync(config, JSON.stringify({ theme: { pairs: failing } }));
+  const checked = run("--json");
+  expect(checked.exitCode).toBe(10);
+  expect(JSON.parse(checked.stdout.toString())).toMatchObject({ error: { details: {
+    mode: "custom", missingRoles: [], summary: { passed: 1, failed: 2, missing: 1, unresolved: 0 },
+  } } });
+
+  writeFileSync(config, JSON.stringify({ theme: { pairs: [failing[2]] } }));
+  const missing = run();
+  expect(missing.exitCode).toBe(0);
+  expect(missing.stdout.toString()).toContain("missing (min 4.5:1)");
+}));
+
+test("uses semantic defaults in a custom theme and suggests configuration when no pairs exist", () => withProject(async (cwd) => {
+  cpSync(custom, cwd, { recursive: true });
+  rmSync(join(cwd, "designfy.json"));
+  const result = checkTheme(await readTheme(cwd), { cwd });
+  expect(result).toMatchObject({ ok: true, mode: "custom", summary: { passed: 6 }, missingRoles: [] });
+  expect(result.notes[1]).toContain("Default semantic pairs: --text-body on --bg-page, --text-heading on --bg-page, --accent-text on --bg-page.");
+  expect(result.contrast.find(({ mode, foreground }) => mode === "dark" && foreground === "--accent-text")?.ratio)
+    .toBeCloseTo(10.02, 2);
+  const noPairs = checkTheme(await readTheme(cwd, { file: docs }), { cwd });
+  expect(noPairs).toMatchObject({ ok: true, mode: "custom", contrast: [] });
+  expect(noPairs.notes[1]).toContain("Set theme.pairs");
+}));
 
 test("reads Tailwind 3 CSS imports, color channels and explicit config tokens", async () => {
   const cwd = join(import.meta.dir, "fixtures/theme-tw3/shadcn");

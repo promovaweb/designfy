@@ -20,14 +20,14 @@ percebe e é atrapalhada? Sim, sobe. Só quem desenha percebe, desce.
 | animação ausente, exagerada, que engasga, sem versão parada, conteúdo escondido por animação | `designfy-motion` |
 | ordem das seções, hero, dobra, prova, preço, chamada, cabeçalho e rodapé de site, vício de página gerada | `designfy-websites` |
 | medida do texto, artigo, listagem, tabela e código no texto, embed de vídeo | `designfy-content` |
-| shell, tabela de dados, formulário, dashboard, CRUD, configurações, estados de tela de sistema | `designfy-systems` |
+| shell, tabela de dados, formulário, dashboard, CRUD, configurações, estados de tela de sistema | `designfy-webapps` |
 | estouro, empilhamento, ponto de quebra, alvo de toque, formato no celular | `designfy-responsive` |
 | foco, teclado, nomes, semântica, leitor de tela, legendas | `designfy-accessibility` |
 | viewspec incompleto ou desatualizado, regra do guia a criar ou mudar | `designfy-viewspec` |
 | conteúdo que falta ou está errado, escolha de produto | a pessoa, pela `designfy` |
 
 Achado que toca duas donas vai para a que resolve a causa. "Tabela
-estoura no celular" é da `designfy-systems` se falta escolher o formato,
+estoura no celular" é da `designfy-webapps` se falta escolher o formato,
 e da `designfy-responsive` se o formato existe e o CSS estoura.
 
 ## Formato do achado

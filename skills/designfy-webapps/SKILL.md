@@ -1,9 +1,9 @@
 ---
-name: designfy-systems
-description: Especialista em telas de sistema do Designfy para React com shadcn, ReUI e Tailwind. Desenha o shell (barra lateral, topo, cabeçalho de página), tabelas de dados com ordenação, filtro, seleção e ações, formulários com validação e fluxo em etapas, dashboards com contadores e gráficos, CRUD completo, tela de detalhe, páginas de configuração e autenticação, cobrindo carregando, vazio, erro e sucesso em cada região. Use quando a pessoa pedir dashboard, painel administrativo, tabela, listagem, formulário, cadastro, CRUD, tela de detalhe, configurações, login, contadores, indicadores, filtros, ou quando a skill designfy chamar esta etapa para um viewspec de sistema.
+name: designfy-webapps
+description: Especialista em web apps do Designfy, as telas de sistema da área logada, para React com shadcn, ReUI e Tailwind. Desenha o shell (barra lateral, topo, cabeçalho de página), tabelas de dados com ordenação, filtro, seleção e ações, formulários com validação e fluxo em etapas, dashboards com contadores e gráficos, CRUD completo, tela de detalhe, páginas de configuração e autenticação, cobrindo carregando, vazio, erro e sucesso em cada região. Use quando a pessoa pedir dashboard, painel administrativo, tabela, listagem, formulário, cadastro, CRUD, tela de detalhe, configurações, login, contadores, indicadores, filtros, ou quando a skill designfy chamar esta etapa para um viewspec de sistema.
 ---
 
-# Telas de sistema
+# Web apps
 
 Uma tela de sistema é uma ferramenta: a pessoa volta a ela todo dia para
 ver um estado e fazer uma tarefa. O desenho privilegia achar, comparar e
@@ -23,6 +23,7 @@ agir, com densidade, estados completos e movimento contido.
 | Carregando, vazio, erro, sucesso e avisos | [references/estados-e-avisos.md](references/estados-e-avisos.md) |
 | Densidade, texto de interface e formatos | [references/densidade-e-texto.md](references/densidade-e-texto.md) |
 | Conferência antes de entregar | [references/checklist.md](references/checklist.md) |
+| Telas reais estudadas por inteiro, com regiões, estados e as peças no registro | [references/estudos/README.md](references/estudos/README.md) |
 
 Modelos em `assets/`: [especificacao-de-tabela.md](assets/especificacao-de-tabela.md),
 [especificacao-de-formulario.md](assets/especificacao-de-formulario.md) e
@@ -61,6 +62,10 @@ para preencher antes de escrever código.
     caixa, a barra lateral vira gaveta, as ações vão para o pé.
 13. **Tema e mais nada.** Papéis do tema, inclusive `sidebar-*` e
     `chart-*`.
+14. **Em projeto com Specsfy, a spec e o `DESIGNSYSTEM.MD` vêm antes.** A
+    tela segue a seção "Interface" da spec e os padrões de CRUD e de
+    dashboard do `DESIGNSYSTEM.MD`; os componentes já registrados no
+    `INTERFACE.md` são usados antes dos do registro.
 
 ## Passos
 

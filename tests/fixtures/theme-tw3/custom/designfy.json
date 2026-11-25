@@ -1,0 +1,8 @@
+{
+  "theme": {
+    "pairs": [
+      { "fg": "--text-body", "bg": "--bg-page", "label": "Body" },
+      { "fg": "primary-950", "bg": "white", "label": "Strong accent", "min": 7 }
+    ]
+  }
+}

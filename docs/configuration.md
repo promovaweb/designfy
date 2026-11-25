@@ -31,6 +31,11 @@ Use notação de ponto para acessar as keys pelo CLI.
 | `capture.outDir` | string | `.designfy/captures` | pasta das capturas, relativa ao projeto por padrão |
 | `telemetry.enabled` | boolean | `false` | reservado para projetos derivados |
 
+A lista de temas, o orçamento de rolagem e os seletores ocultos são definidos
+por execução de `capture run` ou `capture_run`. Por padrão, cada captura de
+página inteira usa o tema `light`, tem 15000 ms para rolar e aguardar os
+recursos e oculta os overlays conhecidos de desenvolvimento.
+
 Commands:
 
 ```bash
@@ -62,8 +67,37 @@ de projeto e o alias podem ser ajustados no próprio arquivo.
 | `shadcn` | Booleano que indica a presença de `components.json` |
 | `paths.components` | Pasta para os componentes copiados. Padrão `src/components/designfy` |
 | `paths.styles` | Pasta para estilos copiados e entrada de busca do tema. Padrão `src/styles` |
+| `paths.theme` | Caminho opcional do CSS do tema, relativo à raiz do projeto ou absoluto. Também aceito por `init --theme-path <path>` |
 | `paths.viewspec` | Pasta das especificações de tela. Padrão `viewspec` |
 | `aliases.components` | Alias que substitui `@designfy/components` nos arquivos copiados. Padrão `@/components/designfy` |
+| `theme.pairs` | Lista opcional de pares de contraste para o modo `custom`, em objetos com `fg`, `bg`, `label?` e `min?` |
+
+`theme show` e `theme check` seguem esta ordem de seleção: `--file`, se
+informado, `paths.theme`, `tokensFile` do `VIEWSPEC.md` da raiz quando
+aponta para um arquivo existente e a busca por CSS do Tailwind. A busca
+prioriza arquivos como `global.css`, `app.css` e `main.css` com a diretiva
+Tailwind no próprio CSS ou em um import local. Áreas como `docs/`,
+`docs-theme.css`, `admin/` e `email/` ficam no fim da busca.
+
+Em projetos com escalas próprias, `fg` e `bg` aceitam variáveis CSS com o
+prefixo `--` e nomes de cores do tema Tailwind, como `primary-950` e `white`.
+`label` dá um nome ao par. `min` aceita razões de 1 a 21 e tem padrão 4,5.
+A checagem repete o par no tema escuro quando algum token tem declaração
+escura ou muda de valor. Sem pares
+configurados, tenta `--text-body`, `--text-heading` e `--accent-text` sobre
+`--bg-page`, além de `--foreground` sobre `--background`, quando disponíveis.
+
+```json
+{
+  "paths": { "theme": "src/styles/global.css" },
+  "theme": {
+    "pairs": [
+      { "fg": "--text-body", "bg": "--bg-page", "label": "Texto corrido" },
+      { "fg": "primary-950", "bg": "white", "label": "Destaque", "min": 7 }
+    ]
+  }
+}
+```
 
 ## credentials.json
 
@@ -150,3 +184,25 @@ gravação comuns restauram a chave anterior por substituição atômica. Se ess
 restauração também falhar, os arquivos de recuperação ficam na pasta
 `.rotate-*` indicada pelo erro; a cópia `previous.key` mantém permissão 0600. Como são dois arquivos, uma
 interrupção do processo entre as substituições exige recuperação de backup.
+
+## Integrações com Astrofy e Specsfy
+
+Os comandos `status` e `doctor` exibem o bloco **Integrations**. Na saída
+JSON, `integrations.astrofy` e `integrations.specsfy` informam a presença
+de cada framework e os caminhos relativos ao projeto. Caminhos ausentes
+recebem `null`. A tool `project_status` expõe os mesmos dados.
+
+O Designfy reconhece o Astrofy por `.sitespec/`, `.astrofy/` ou pela
+dependência `@promovaweb/astrofy`. O campo `dependency` traz a versão
+declarada. O CSS de tokens gerado usa `designsystem.css` por padrão. O
+Astrofy permite definir outro destino em `designSystemCss` no arquivo
+`.astrofy/config/paths.json`. O doctor avisa quando falta o guia
+`VIEWSPEC.md` ou quando existe `.astrofy/design/design-system.json` e o
+`tokensFile` do guia aponta para outro arquivo.
+
+O Designfy reconhece o Specsfy por `.specsfy/`, por `DESIGNSYSTEM.MD` ou
+por uma pasta de estado dentro de `specs/`. Também mostra `INTERFACE.md` e
+`.specsfy/STACK.md` quando presentes. Em pacotes sem `specs/` local, a
+busca por arquivos compartilhados termina na raiz do repositório Git.
+Se existir `DESIGNSYSTEM.MD`, o doctor verifica se o corpo do guia o cita.
+Os avisos de integração preservam o código de saída do diagnóstico.

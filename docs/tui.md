@@ -39,7 +39,7 @@ ou as teclas de página. Pressione `Esc` ou `?` para fechá-lo.
 | Tecla | ID | Conteúdo e ações |
 | --- | --- | --- |
 | | `overview` | Home com a faixa de próximo passo, os cartões e os totais. Pressione `r` para reler o projeto. |
-| `1` | `theme` | Lista de tokens com amostras truecolor e painel de valores e contraste WCAG. Use `t` para alternar o tema do projeto entre claro e escuro, `g` para trocar o grupo de tokens e `Enter` para abrir detalhes da cor. |
+| `1` | `theme` | Lista de tokens com amostras truecolor, valores e modo de auditoria `shadcn` ou `custom`. Use `t` para alternar entre claro e escuro, `g` para trocar o grupo de tokens, `c` para ver os pares de contraste e `Enter` para abrir detalhes da cor. |
 | `2` | `catalog` | Lista de padrões por categoria e prévia de uso, anatomia, estados, responsividade, acessibilidade, tokens e fontes. Use `s` para alternar a superfície, `k` para escolher o tipo de viewspec e `Enter` para focar a prévia. |
 | `3` | `components` | Registro por categoria e prévia de arquivos e dependências. Use `f` para alternar React e Astro, `Enter` para focar a prévia e `i` para copiar os componentes marcados. |
 | `4` | `skills` | Lista de skills com origem, escopo e estado da instalação. Use `g` para alternar entre todas, internas e externas. Use `i` para instalar, `u` para atualizar e `d` para remover as marcadas. |

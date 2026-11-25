@@ -1,11 +1,14 @@
 /** Read-only environment diagnostics shared by CLI and MCP. */
 import { statSync, readFileSync } from "node:fs";
-import { join } from "node:path";
+import { join, resolve } from "node:path";
 import { manifest } from "../../app/manifest.ts";
 import { ExitCode } from "../../app/exit-codes.ts";
 import { paths } from "../../config/paths.ts";
 import { getMasterKey, masterKeySource } from "../../config/crypto.ts";
 import { readVault } from "../../config/credentials.ts";
+import { astrofyTokensPath, detectIntegrations } from "../../design/integrations.ts";
+import { parseViewspec } from "../../design/viewspec.ts";
+import { integrationsText } from "./status.ts";
 import { detectProject } from "../../design/project.ts";
 import { tailwindRegistryNote } from "../../design/registry.ts";
 import { findThemeFile } from "../../design/theme.ts";
@@ -72,9 +75,31 @@ export function collectDoctorChecks(runtime = { version: Bun.version, stdin: Boo
   } catch (cause) {
     add("tailwind-theme", "warn", cause instanceof Error ? cause.message : "Cannot locate theme stylesheet");
   }
+  let integrations;
+  try {
+    integrations = detectIntegrations(cwd);
+    const { astrofy, specsfy } = integrations;
+    const hasGuide = statSync(join(cwd, "VIEWSPEC.md"), { throwIfNoEntry: false })?.isFile();
+    if (astrofy.present && !hasGuide) add("astrofy-guide", "warn", "Create the project guide VIEWSPEC.md.");
+    if (astrofy.designSystemJson || specsfy.designSystemMd) {
+      const file = join(cwd, "VIEWSPEC.md");
+      const guide = hasGuide ? readFileSync(file, "utf8") : "";
+      const body = guide.replace(/^\uFEFF?---\r?\n(?:[\s\S]*?\r?\n)?---(?:\r?\n|$)/, "");
+      if (specsfy.designSystemMd && !body.includes("DESIGNSYSTEM.MD")) {
+        add("specsfy-guide", "warn", "Cite DESIGNSYSTEM.MD in the body of the project guide.");
+      }
+      const tokens = parseViewspec(file, guide).frontMatter.tokensFile;
+      const expected = astrofyTokensPath(cwd);
+      if (astrofy.designSystemJson && typeof tokens === "string" && resolve(cwd, tokens) !== resolve(cwd, expected)) {
+        add("astrofy-tokens", "warn", "Set tokensFile to the Astrofy build output: " + expected);
+      }
+    }
+  } catch (cause) {
+    add("integrations", "warn", cause instanceof Error ? cause.message : "Cannot inspect project integrations");
+  }
   add("binary", "ok", `${manifest.bin} ${manifest.version}`);
   add("platform", "ok", `${process.platform}-${process.arch}`);
-  return { checks, ok: checks.every((check) => check.status !== "fail") };
+  return { checks, integrations: integrations ?? null, ok: checks.every((check) => check.status !== "fail") };
 }
 
 export const doctorCommand: Command = {
@@ -84,6 +109,6 @@ export const doctorCommand: Command = {
   run: () => {
     const data = collectDoctorChecks();
     const marks = { ok: "✓", warn: "!", fail: "✗" };
-    return { data, text: data.checks.map((c) => `${marks[c.status]} ${c.name}: ${c.detail}`).join("\n"), code: data.ok ? ExitCode.SUCCESS : ExitCode.CONFIG };
+    return { data, text: data.checks.map((c) => `${marks[c.status]} ${c.name}: ${c.detail}`).join("\n") + "\n\n" + (data.integrations ? integrationsText(data.integrations) : "Integrations unavailable"), code: data.ok ? ExitCode.SUCCESS : ExitCode.CONFIG };
   },
 };

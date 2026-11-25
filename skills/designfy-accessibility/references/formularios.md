@@ -1,6 +1,6 @@
 # Formulários acessíveis
 
-O desenho de formulários está na `designfy-systems`. Aqui fica o que
+O desenho de formulários está na `designfy-webapps`. Aqui fica o que
 torna cada campo usável por teclado e por leitor de tela.
 
 ## Rótulo

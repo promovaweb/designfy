@@ -31,6 +31,11 @@ export const initCommand: Command = {
       description: "Set the project path for styles.",
     },
     {
+      name: "--theme-path",
+      argument: { name: "path" },
+      description: "Set the CSS path used for theme inspection and checks.",
+    },
+    {
       name: "--framework",
       argument: { name: "framework", values: frameworks },
       description: "Override the detected framework (astro, next, react-vite, react or unknown).",
@@ -58,7 +63,10 @@ export const initCommand: Command = {
 
     if (typeof options["components-path"] === "string") config.paths.components = options["components-path"];
     if (typeof options["styles-path"] === "string") config.paths.styles = options["styles-path"];
-    if (!config.paths.components.trim() || !config.paths.styles.trim()) throw error.usage("Project paths cannot be empty.");
+    if (typeof options["theme-path"] === "string") config.paths.theme = options["theme-path"].trim();
+    if (!config.paths.components.trim() || !config.paths.styles.trim() || config.paths.theme === "") {
+      throw error.usage("Project paths cannot be empty.");
+    }
     if (options.framework !== undefined) {
       const framework = frameworks.find((value) => value === options.framework);
       if (!framework) throw error.usage("Unknown framework.");

@@ -36,7 +36,7 @@ export function registerCaptureReadTools({ server, catalog }: Registrar): void {
 
 /** Registers browser capture for write-enabled MCP mode. */
 export function registerCaptureWriteTools({ server, catalog }: Registrar): void {
-  const description = "Use to capture pages across viewport sizes. Visits the URLs, writes screenshots and a manifest, and returns screenshot paths, page metrics, and browser errors.";
+  const description = "Use to capture pages across viewport sizes and color schemes. Visits the URLs, writes screenshots and a manifest, and returns screenshot paths, page metrics, scroll diagnostics, and browser errors.";
   catalog.tools.push({ name: "capture_run", description });
   server.registerTool("capture_run", {
     title: "Capture browser screenshots",
@@ -47,8 +47,15 @@ export function registerCaptureWriteTools({ server, catalog }: Registrar): void 
       urls: z.array(z.string().min(1)).nonempty().describe("HTTP or HTTPS URLs to capture."),
       viewports: z.union([z.string().min(1), z.array(z.string().min(1)).nonempty()]).optional()
         .describe("Named or WIDTHxHEIGHT viewports. Accepts an array or comma-separated text and defaults to capture.viewports."),
-      theme: z.enum(["light", "dark"]).optional().describe("Browser color scheme. Defaults to light."),
+      theme: z.union([z.string().min(1), z.array(z.string().min(1)).nonempty()]).optional()
+        .describe("Browser color schemes: light or dark. Accepts an array or comma-separated text. Defaults to light."),
       fullPage: z.boolean().optional().describe("Capture the full page when true, or the visible viewport when false. Defaults to true."),
+      scroll: z.boolean().optional().describe("Scroll and check asset readiness before full-page captures. Defaults to true."),
+      scrollBudgetMs: z.number().int().nonnegative().optional()
+        .describe("Time limit for full-page scrolling and asset readiness in milliseconds. Defaults to 15000."),
+      showDevOverlays: z.boolean().optional().describe("Keep known framework development overlays visible. Defaults to false."),
+      hide: z.union([z.string().min(1), z.array(z.string().min(1)).nonempty()]).optional()
+        .describe("CSS selector or array of selectors for extra elements to hide."),
       reducedMotion: z.boolean().optional().describe("Ask the page for reduced motion. Defaults to false."),
       waitMs: z.number().int().nonnegative().optional().describe("Extra time to wait after load in milliseconds."),
       selector: z.string().min(1).optional().describe("Capture only the element matching this CSS selector."),

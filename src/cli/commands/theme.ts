@@ -3,8 +3,8 @@ import { error } from "../../app/errors.ts";
 import { ExitCode } from "../../app/exit-codes.ts";
 import { manifest } from "../../app/manifest.ts";
 import {
-  checkTheme, readTheme, requiredThemeRoles, themeGroups, themeSources,
-  type Theme, type ThemeGroup, type ThemeToken, type ThemeValue,
+  checkTheme, readTheme, themeGroups, themeSources,
+  type Theme, type ThemeCheck, type ThemeGroup, type ThemeToken, type ThemeValue,
 } from "../../design/theme.ts";
 import { blocks, section, table, useColors } from "../format.ts";
 import type { Command } from "../registry.ts";
@@ -61,7 +61,9 @@ const show: Command = {
       text: () => blocks(
         `Tailwind ${data.tailwind}`,
         table([
-          ...data.files.map((file, index): [string, string] => [index === 0 ? "CSS" : "", file]),
+          ["Selected by", data.selection],
+          ...(data.entryFile ? [["Entry", data.entryFile] as [string, string]] : []),
+          ...data.files.map((file, index): [string, string] => [index === 0 ? "CSS" : "Import", file]),
           ...(data.configFile ? [["Config", data.configFile] as [string, string]] : []),
         ]),
         ...(group ? [groupText(data, group) || `No ${group} tokens found.`] :
@@ -71,9 +73,16 @@ const show: Command = {
   },
 };
 
+function contrastTable(result: ThemeCheck): string {
+  return table(result.contrast.map(({ mode, foreground, background, ratio, status, label, min }) => [
+    `${mode} ${foreground} on ${background}${label ? ` (${label})` : ""}`,
+    `${ratio === null ? status : `${ratio.toFixed(2)}:1 ${status}`}${min === undefined ? "" : ` (min ${min}:1)`}`,
+  ]));
+}
+
 const check: Command = {
   name: "check",
-  description: "Measure known light and dark contrast pairs and check registry theme roles.",
+  description: "Check light and dark contrast for the project's shadcn or custom theme.",
   options: [fileOption],
   examples: [`${manifest.bin} theme check`, `${manifest.bin} theme check --file app/globals.css --json`],
   exitCodes: [...codes, ExitCode.CHECK_FAILED],
@@ -81,7 +90,13 @@ const check: Command = {
     const cwd = process.cwd();
     const theme = await readTheme(cwd, { file: options.file as string | undefined });
     for (const warning of theme.warnings) stderr(`Warning: ${warning}`);
-    const result = checkTheme(theme, { requiredRoles: requiredThemeRoles(cwd) });
+    const result = checkTheme(theme, { cwd });
+    const customReport = () => blocks("Mode: custom", ...result.notes, contrastTable(result));
+    if (result.mode === "custom") {
+      if (!result.ok) throw error.checkFailed(`Theme check failed.\n${customReport()}`, { ...result });
+      return { data: result, text: () => blocks("Theme check passed.", customReport()) };
+    }
+
     const failures = result.contrast.filter(({ status }) => status === "fail" || status === "unresolved")
       .map(({ mode, foreground, background, ratio }) =>
         `${mode} ${foreground} on ${background} (${ratio === null ? "unresolved" : `${ratio.toFixed(2)}:1`})`);
@@ -96,9 +111,7 @@ const check: Command = {
       data: result,
       text: () => blocks("Theme check passed.",
         skipped ? `Skipped ${skipped} contrast checks with missing tokens.` : "",
-        table(result.contrast.map(({ mode, foreground, background, ratio, status }) => [
-          `${mode} ${foreground} on ${background}`, ratio === null ? status : `${ratio.toFixed(2)}:1 ${status}`,
-        ]))),
+        contrastTable(result)),
     };
   },
 };

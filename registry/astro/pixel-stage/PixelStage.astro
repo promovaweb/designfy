@@ -1,0 +1,66 @@
+---
+/**
+ * PixelStage: places a decorative theme-driven canvas and a readable veil behind a default slot.
+ * Motion: snapped pixels drift in a bounded frame loop, with reduced motion and independent pause.
+ */
+import { cn } from "@designfy/components/lib/cn";
+
+interface Props {
+  /** Accessible toggle label, kept stable when the pressed state changes. */
+  pauseLabel: string;
+  /** Additional classes on the stage. Use children to determine its height. */
+  class?: string;
+}
+const { pauseLabel, class: className } = Astro.props;
+---
+
+<div
+  data-df-pixel-stage
+  class={cn(
+    "relative isolate overflow-clip bg-background text-foreground [--df-pixel-accent:var(--accent-foreground)] [--df-pixel-detail:var(--foreground)] [--df-pixel-highlight:var(--muted-foreground)] [--df-pixel-primary:var(--primary)]",
+    className,
+  )}
+>
+  <canvas
+    width="1"
+    height="1"
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0 -z-20 size-full"></canvas>
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0 -z-10 bg-linear-to-b from-background via-background/95 to-background/40 lg:bg-linear-to-r lg:via-background/90 lg:to-background/30"
+  >
+  </div>
+  <slot />
+  <button
+    type="button"
+    data-df-pixel-control
+    aria-pressed="false"
+    hidden
+    class="df-press absolute -start-[999rem] top-2 z-10 min-h-11 min-w-11 rounded-lg border border-border bg-background px-4 text-sm hover:bg-muted focus-visible:start-2 [&[hidden]]:hidden"
+    >{pauseLabel}</button
+  >
+</div>
+
+<script>
+  import { bindPixelStage } from "@designfy/components/pixel-stage/pixel-stage-runtime";
+
+  const mounted = new Map<HTMLElement, () => void>();
+
+  function mount() {
+    for (const stage of document.querySelectorAll<HTMLElement>(
+      "[data-df-pixel-stage]",
+    )) {
+      if (mounted.has(stage)) continue;
+      const dispose = bindPixelStage(stage);
+      if (dispose) mounted.set(stage, dispose);
+    }
+  }
+
+  document.addEventListener("astro:before-swap", () => {
+    for (const dispose of mounted.values()) dispose();
+    mounted.clear();
+  });
+  document.addEventListener("astro:page-load", mount);
+  mount();
+</script>

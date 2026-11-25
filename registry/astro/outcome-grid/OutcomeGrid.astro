@@ -1,0 +1,56 @@
+---
+/** Groups short outcomes into responsive icon tiles. Uses theme motion with a static reduced-motion state. */
+import { cn } from "@designfy/components/lib/cn";
+
+interface Props {
+  /** Heading text. */
+  title: string;
+  /** Heading level in the surrounding document. */
+  headingLevel?: 2 | 3 | 4 | 5 | 6;
+  /** Outcomes with decorative icons (named slots in Astro). */
+  items: { text: string; icon: string }[];
+  /** Closing paragraph beneath the tiles. */
+  closing?: string;
+  /** Additional root classes. */
+  class?: string;
+}
+
+const {
+  title,
+  headingLevel = 2,
+  items,
+  closing,
+  class: className,
+} = Astro.props;
+
+const Heading = `h${headingLevel}` as "h2";
+---
+
+<section class={cn("@container space-y-6", className)}>
+  <Heading class="font-heading text-title font-semibold tracking-tight"
+    >{title}</Heading
+  >
+  <ul
+    role="list"
+    data-df-stagger
+    class="grid grid-cols-2 gap-3 @xl:grid-cols-3 @3xl:grid-cols-4 @5xl:grid-cols-5"
+  >
+    {
+      items.map(async (item) => (
+        <li
+          data-df-reveal="up"
+          class="min-w-0 space-y-4 rounded-xl border border-primary/20 bg-primary/5 p-4"
+        >
+          <span
+            aria-hidden="true"
+            class="block text-xl text-primary [&_svg]:size-5"
+          >
+            <Fragment set:html={await Astro.slots.render(item.icon)} />
+          </span>
+          <p class="break-words font-medium">{item.text}</p>
+        </li>
+      ))
+    }
+  </ul>
+  {closing && <p class="df-measure text-muted-foreground">{closing}</p>}
+</section>

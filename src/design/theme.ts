@@ -1,12 +1,13 @@
 /** Discovers Tailwind stylesheets, reads their tokens, and audits semantic contrast. */
 import { readdirSync, readFileSync, realpathSync, statSync } from "node:fs";
-import { dirname, resolve } from "node:path";
+import { basename, dirname, relative, resolve, sep } from "node:path";
 import { classifyFsError, error } from "../app/errors.ts";
 import { ExitCode } from "../app/exit-codes.ts";
 import { parseColor, toHex, wcagContrast, type Oklch } from "./color.ts";
-import { detectProject, readProjectConfig, resolveProject } from "./project.ts";
+import { detectProject, readProjectConfig, resolveProject, type ProjectConfigOverrides, type ThemePair } from "./project.ts";
 import { loadRegistry } from "./registry.ts";
 import { readTailwindConfig } from "./theme-config.ts";
+import { parseViewspec } from "./viewspec.ts";
 
 export const themeGroups = ["colors", "fonts", "text", "radius", "spacing", "shadows", "breakpoints", "motion"] as const;
 export type ThemeGroup = (typeof themeGroups)[number];
@@ -22,6 +23,7 @@ export interface ThemeToken {
   name: string;
   light: ThemeValue | null;
   dark: ThemeValue | null;
+  darkOverride?: true;
 }
 
 export interface ThemeTextToken extends ThemeToken {
@@ -32,10 +34,15 @@ export interface ThemeTextToken extends ThemeToken {
 export interface ThemeSources {
   file: string;
   files: string[];
+  selection: ThemeSelection;
+  entryFile: string | null;
   tailwind: 3 | 4;
   configFile: string | null;
   warnings: string[];
 }
+
+export const themeSelections = ["--file", "paths.theme", "tokensFile", "conventional entry", "Tailwind search"] as const;
+type ThemeSelection = (typeof themeSelections)[number];
 
 export interface Theme extends ThemeSources {
   colors: ThemeToken[];
@@ -61,9 +68,13 @@ interface ContrastCheck {
   background: string;
   ratio: number | null;
   status: "pass" | "fail" | "missing" | "unresolved";
+  label?: string;
+  min?: number;
 }
 
 export interface ThemeCheck extends ThemeSources {
+  mode: "shadcn" | "custom";
+  notes: string[];
   ok: boolean;
   contrast: ContrastCheck[];
   missingRoles: { role: string; modes: Mode[] }[];
@@ -112,7 +123,8 @@ function* statements(css: string): Generator<Statement> {
 
 function importTarget(statement: Statement): string | undefined {
   if (statement.opens) return undefined;
-  return /^@import\s+(?:url\(\s*)?(["'])([^"']+)\1/i.exec(statement.text)?.[2];
+  return /^@import\s+(?:url\(\s*)?(["'])([^"']+)\1/i.exec(statement.text)?.[2]
+    ?? /^@import\s+url\(\s*([^\s"')]+)\s*\)/i.exec(statement.text)?.[1];
 }
 
 function localImport(file: string, target: string): string | undefined {
@@ -137,7 +149,7 @@ function isFile(file: string): boolean {
   }
 }
 
-function readCss(file: string): string {
+function readSource(file: string): string {
   try {
     return readFileSync(file, "utf8");
   } catch (cause) {
@@ -161,52 +173,87 @@ function cssFiles(directory: string): string[] {
   }
 }
 
-function containsTailwind(file: string, tailwind: 3 | 4, active = new Set<string>()): boolean {
+function findCssSource(file: string, matches: (file: string, statement: Statement) => boolean, active = new Set<string>()): string | undefined {
   const key = realpathSync(file);
-  if (active.has(key)) return false;
+  if (active.has(key)) return;
   active.add(key);
   try {
-    for (const statement of statements(readCss(file))) {
+    for (const statement of statements(readSource(file))) {
+      if (matches(file, statement)) return file;
       const target = importTarget(statement);
-      if (tailwind === 3
-        ? target === "tailwindcss/base" || (!statement.opens && /^@tailwind\s+base$/i.test(statement.text))
-        : target === "tailwindcss") return true;
       const imported = target && localImport(file, target);
-      if (imported && isFile(imported) && containsTailwind(imported, tailwind, active)) return true;
+      if (imported && isFile(imported)) {
+        const found = findCssSource(imported, matches, active);
+        if (found) return found;
+      }
     }
-    return false;
   } finally {
     active.delete(key);
   }
 }
 
-/** Locates the first Tailwind CSS entry point, or uses an explicitly selected stylesheet. */
-export function findThemeFile(cwd: string, override?: string): string {
-  const hint = "designfy components add designfy-theme";
-  if (override !== undefined) {
-    const file = resolve(cwd, override);
-    if (isFile(file)) return file;
-    throw error.notFound(`Theme stylesheet not found: ${file}. Run "${hint}".`, { file, hint });
-  }
+const themeHint = "designfy components add designfy-theme";
+const entryNames = new Set(["global.css", "globals.css", "app.css", "main.css", "index.css", "styles.css", "tailwind.css"]);
 
-  return discoverThemeFile(cwd, detectProject(cwd).tailwind === 3 ? 3 : 4);
+function requireThemeFile(cwd: string, path: string): string {
+  const file = resolve(cwd, path);
+  if (isFile(file)) return file;
+  throw error.notFound(`Theme stylesheet not found: ${file}. Run "${themeHint}".`, { file, hint: themeHint });
 }
 
-function discoverThemeFile(cwd: string, tailwind: 3 | 4): string {
-  const hint = "designfy components add designfy-theme";
-  const styles = readProjectConfig(cwd)?.paths?.styles ?? "src/styles";
+function themeCandidates(cwd: string, styles: string) {
   const directories = new Set([styles, "src/styles", "src/app"].map((path) => resolve(cwd, path)));
-  for (const directory of directories) {
-    const candidates = isFile(directory) ? [directory] : cssFiles(directory);
-    const match = candidates.find((file) => containsTailwind(file, tailwind));
-    if (match) return match;
-  }
+  const files = new Set([...directories].flatMap((directory) => isFile(directory) ? [directory] : cssFiles(directory)));
   for (const path of ["src/index.css", "app/globals.css"]) {
     const file = resolve(cwd, path);
-    if (isFile(file) && containsTailwind(file, tailwind)) return file;
+    if (isFile(file)) files.add(file);
+  }
+  return [...files].map((file) => {
+    const parts = relative(cwd, file).split(sep);
+    const isolated = parts.some((part) => /^(docs|admin|email)(?:[-_.]|$)/i.test(part));
+    const conventional = entryNames.has(basename(file).toLowerCase());
+    return { file, conventional, priority: isolated ? 2 : conventional ? 0 : 1, depth: parts.length };
+  }).sort((a, b) => a.priority - b.priority || (a.priority === 0 ? a.depth - b.depth : 0));
+}
+
+type ThemeLocation = Pick<ThemeSources, "file" | "entryFile" | "selection">;
+
+function discoverThemeFile(cwd: string, tailwind: 3 | 4, config: ProjectConfigOverrides | null): ThemeLocation {
+  const configured = config?.paths?.theme;
+  const guide = resolve(cwd, "VIEWSPEC.md");
+  const tokensFile = configured === undefined && isFile(guide)
+    ? parseViewspec(guide, readSource(guide)).frontMatter.tokensFile
+    : undefined;
+  const explicit = configured !== undefined ? requireThemeFile(cwd, configured) :
+    typeof tokensFile === "string" && isFile(resolve(cwd, tokensFile)) ? resolve(cwd, tokensFile) : undefined;
+  const candidates = themeCandidates(cwd, config?.paths?.styles ?? "src/styles");
+  if (explicit) {
+    const key = realpathSync(explicit);
+    const entry = candidates.find(({ file, priority }) => priority === 0 && realpathSync(file) !== key &&
+      findCssSource(file, (source, statement) => {
+        const target = importTarget(statement);
+        const imported = target && localImport(source, target);
+        return Boolean(imported && isFile(imported) && realpathSync(imported) === key);
+      }));
+    return { file: explicit, selection: configured !== undefined ? "paths.theme" : "tokensFile", entryFile: entry?.file ?? null };
   }
 
-  throw error.notFound(`No Tailwind stylesheet found. Run "${hint}".`, { hint });
+  for (const { file, conventional } of candidates) {
+    const source = findCssSource(file, (_, statement) => {
+      const target = importTarget(statement);
+      return tailwind === 3
+        ? target === "tailwindcss/base" || (!statement.opens && /^@tailwind\s+base$/i.test(statement.text))
+        : target === "tailwindcss";
+    });
+    if (source) return { file, entryFile: null, selection: conventional ? "conventional entry" : "Tailwind search" };
+  }
+  throw error.notFound(`No Tailwind stylesheet found. Run "${themeHint}".`, { hint: themeHint });
+}
+
+/** Locates the project's Tailwind stylesheet, with an optional explicit override. */
+export function findThemeFile(cwd: string, override?: string): string {
+  if (override !== undefined) return requireThemeFile(cwd, override);
+  return discoverThemeFile(cwd, detectProject(cwd).tailwind === 3 ? 3 : 4, readProjectConfig(cwd)).file;
 }
 
 type Scope = "theme" | "root" | Mode;
@@ -240,7 +287,7 @@ function collectTokens(file: string) {
   const keyframes = new Set<string>();
 
   function visit(path: string): void {
-    const css = readCss(path);
+    const css = readSource(path);
     const key = realpathSync(path);
     if (active.has(key)) return;
     files.add(path);
@@ -270,7 +317,7 @@ function collectTokens(file: string) {
   visit(file);
   const base = [...declarations.theme, ...declarations.root];
   return {
-    files: [...files], keyframes: [...keyframes],
+    files: [...files], keyframes: [...keyframes], darkOverrides: declarations.dark,
     light: new Map([...base, ...declarations.light]),
     dark: new Map([...base, ...declarations.dark]),
   };
@@ -395,6 +442,14 @@ const contrastPairs = [
   ["destructive-foreground", "destructive"],
 ] as const;
 
+const shadcnCore = ["background", "foreground", "primary", "primary-foreground", "muted", "muted-foreground"];
+const defaultCustomPairs: readonly ThemePair[] = [
+  { fg: "--text-body", bg: "--bg-page" },
+  { fg: "--text-heading", bg: "--bg-page" },
+  { fg: "--accent-text", bg: "--bg-page" },
+  { fg: "--foreground", bg: "--background" },
+];
+
 const semanticColors = new Set([
   ...contrastPairs.flat(), "popover", "popover-foreground", "border", "input", "ring",
   "secondary", "secondary-foreground", "sidebar", "sidebar-foreground", "sidebar-primary",
@@ -416,15 +471,16 @@ function classify(name: string): Exclude<ThemeGroup, "motion"> | "motion" | "wei
 }
 
 /** Selects the source metadata also included with a single token group. */
-export function themeSources({ file, files, tailwind, configFile, warnings }: Theme): ThemeSources {
-  return { file, files, tailwind, configFile, warnings };
+export function themeSources({ file, files, selection, entryFile, tailwind, configFile, warnings }: Theme): ThemeSources {
+  return { file, files, selection, entryFile, tailwind, configFile, warnings };
 }
 
 /** Reads Tailwind and shadcn tokens, preserving declarations and resolving both theme modes. */
 export async function readTheme(cwd: string, { file }: { file?: string } = {}): Promise<Theme> {
   const tailwind = detectProject(cwd).tailwind === 3 ? 3 : 4;
-  const path = file === undefined ? discoverThemeFile(cwd, tailwind) : findThemeFile(cwd, file);
-  const { files, keyframes, light, dark } = collectTokens(path);
+  const location: ThemeLocation = file === undefined ? discoverThemeFile(cwd, tailwind, readProjectConfig(cwd)) :
+    { file: requireThemeFile(cwd, file), selection: "--file", entryFile: null };
+  const { files, keyframes, light, dark, darkOverrides } = collectTokens(location.file);
   const resolveLight = resolver(light);
   const resolveDark = resolver(dark);
   const configFile = tailwind === 3
@@ -442,7 +498,7 @@ export async function readTheme(cwd: string, { file }: { file?: string } = {}): 
     }
   }
   const theme: Theme = {
-    file: path, files, tailwind, configFile, warnings, colors: [], fonts: [], text: [], weights: [], radius: [], spacing: [],
+    ...location, files, tailwind, configFile, warnings, colors: [], fonts: [], text: [], weights: [], radius: [], spacing: [],
     shadows: [], breakpoints: [], motion: { tokens: [], keyframes }, other: [],
   };
 
@@ -457,7 +513,9 @@ export async function readTheme(cwd: string, { file }: { file?: string } = {}): 
       const parsed = isColor ? readColor(resolved) : null;
       return { declared, resolved: isColor ? (parsed && toHex(parsed)) : resolved };
     }
-    return { name, light: value(light, resolveLight), dark: value(dark, resolveDark) };
+    const result: ThemeToken = { name, light: value(light, resolveLight), dark: value(dark, resolveDark) };
+    if (darkOverrides.has(name)) result.darkOverride = true;
+    return result;
   }
 
   const names = new Set([...light.keys(), ...dark.keys(), ...configTokens.keys()]);
@@ -497,8 +555,60 @@ export function requiredThemeRoles(cwd: string): string[] {
   return [...roles].sort();
 }
 
-/** Measures the known contrast pairs per mode and verifies that required theme roles exist. */
-export function checkTheme(theme: Theme, { requiredRoles = [] }: { requiredRoles?: readonly string[] } = {}): ThemeCheck {
+function customColor(value: ThemeValue): string | null {
+  const raw = value.resolved;
+  const channels = raw?.split(/\s+/);
+  const rgb = channels?.length === 3 && channels.every((channel) => cssNumber.exec(channel)?.[1] === channel);
+  const color = readColor(rgb ? `rgb(${raw})` : raw);
+  return color && toHex(color);
+}
+
+function customContrast(
+  tokens: ReadonlyMap<string, ThemeToken>,
+  configured?: readonly ThemePair[],
+): Pick<ThemeCheck, "contrast" | "notes"> {
+  function tokenFor(name: string): ThemeToken | undefined {
+    if (name.startsWith("--")) return tokens.get(name);
+    const token = tokens.get(`--color-${name}`) ?? tokens.get(`--${name}`);
+    if (token || (name !== "black" && name !== "white")) return token;
+    const value = { declared: name, resolved: name };
+    return { name, light: value, dark: value };
+  }
+
+  const defaults = defaultCustomPairs.map(({ fg, bg }) => ({
+    fg: fg === "--foreground" && !tokens.has(fg) ? "--color-foreground" : fg,
+    bg: bg === "--background" && !tokens.has(bg) ? "--color-background" : bg,
+  })).filter(({ fg, bg }) => tokenFor(fg) && tokenFor(bg));
+  const pairs: readonly ThemePair[] = configured?.length ? configured : defaults;
+  const notes = ["project uses its own color scales; shadcn roles not checked"];
+  if (!pairs.length) notes.push("No common semantic pairs found. Set theme.pairs in designfy.json to check contrast.");
+  else if (!configured?.length) notes.push(`Default semantic pairs: ${pairs.map(({ fg, bg }) => `${fg} on ${bg}`).join(", ")}.`);
+
+  const changes = (token?: ThemeToken) => token?.dark &&
+    (token.darkOverride || token.dark.declared !== token.light?.declared || token.dark.resolved !== token.light?.resolved);
+  const contrast: ContrastCheck[] = modes.flatMap((mode) => pairs.flatMap(({ fg, bg, label, min = 4.5 }): ContrastCheck[] => {
+    const foreground = tokenFor(fg);
+    const background = tokenFor(bg);
+    if (mode === "dark" && !changes(foreground) && !changes(background)) return [];
+
+    const first = foreground?.[mode];
+    const second = background?.[mode];
+    const pair = { mode, foreground: fg, background: bg, ...(label ? { label } : {}), min };
+    if (!first || !second) return [{ ...pair, ratio: null, status: "missing" }];
+    const fgColor = customColor(first);
+    const bgColor = customColor(second);
+    if (!fgColor || !bgColor) return [{ ...pair, ratio: null, status: "unresolved" }];
+    const ratio = wcagContrast(fgColor, bgColor);
+    return [{ ...pair, ratio, status: ratio >= min ? "pass" : "fail" }];
+  }));
+  return { contrast, notes };
+}
+
+/** Measures contrast and applies the registry role requirements to shadcn themes. */
+export function checkTheme(
+  theme: Theme,
+  { cwd, requiredRoles }: { cwd?: string; requiredRoles?: readonly string[] } = {},
+): ThemeCheck {
   const colors = new Map(theme.colors.map((token) => [token.name, token]));
   const tokens = new Map([
     ...theme.colors, ...theme.fonts, ...theme.text, ...theme.weights, ...theme.radius, ...theme.spacing,
@@ -506,14 +616,21 @@ export function checkTheme(theme: Theme, { requiredRoles = [] }: { requiredRoles
   ].map((token) => [token.name, token]));
   const colorFor = (role: string, mode: Mode) =>
     colors.get(`--color-${role}`)?.[mode] ?? colors.get(`--${role}`)?.[mode];
-  const missingRoles = [...new Set(requiredRoles.map((role) => role.replace(/^--(?:color-)?/, "")))].flatMap((role) => {
+  const definesRole = (role: string) => modes.some((mode) => {
+    const value = colorFor(role, mode);
+    return value && !/^initial$/i.test(value.declared);
+  });
+  const shadcn = definesRole("background") && definesRole("foreground") &&
+    shadcnCore.filter(definesRole).length > shadcnCore.length / 2;
+  const roles = shadcn ? requiredRoles ?? (cwd ? requiredThemeRoles(cwd) : []) : [];
+  const missingRoles = [...new Set(roles.map((role) => role.replace(/^--(?:color-)?/, "")))].flatMap((role) => {
     const absent = modes.filter((mode) => {
       const value = colorFor(role, mode) ?? tokens.get(`--${role}`)?.[mode];
       return !value || /^initial$/i.test(value.declared);
     });
     return absent.length ? [{ role, modes: absent }] : [];
   });
-  const contrast: ContrastCheck[] = modes.flatMap((mode) => contrastPairs.map(([foreground, background]) => {
+  const registryContrast = (): ContrastCheck[] => modes.flatMap((mode) => contrastPairs.map(([foreground, background]) => {
     const fg = colorFor(foreground, mode);
     const bg = colorFor(background, mode);
     if (!fg || !bg) return { mode, foreground, background, ratio: null, status: "missing" };
@@ -521,10 +638,16 @@ export function checkTheme(theme: Theme, { requiredRoles = [] }: { requiredRoles
     const ratio = wcagContrast(fg.resolved, bg.resolved);
     return { mode, foreground, background, ratio, status: ratio >= 4.5 ? "pass" : "fail" };
   }));
+  const { contrast, notes } = shadcn ? { contrast: registryContrast(), notes: [] } :
+    customContrast(tokens, cwd ? readProjectConfig(cwd)?.theme?.pairs : undefined);
   const summary = { passed: 0, failed: 0, missing: 0, unresolved: 0 };
   for (const { status } of contrast) {
     const key = status === "pass" ? "passed" : status === "fail" ? "failed" : status;
     summary[key]++;
   }
-  return { ...themeSources(theme), ok: summary.failed === 0 && summary.unresolved === 0 && !missingRoles.length, contrast, missingRoles, summary };
+  return {
+    ...themeSources(theme), mode: shadcn ? "shadcn" : "custom", notes,
+    ok: summary.failed === 0 && (!shadcn || (summary.unresolved === 0 && !missingRoles.length)),
+    contrast, missingRoles, summary,
+  };
 }

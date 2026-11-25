@@ -1,0 +1,3 @@
+/* Conventional name inside an independent documentation area. */
+@tailwind base;
+:root { --docs-paper: white; }

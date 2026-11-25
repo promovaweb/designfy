@@ -111,7 +111,7 @@ const form = useForm<Values>({ resolver: zodResolver(schema), mode: "onBlur" });
 Valida ao sair do campo, mostra o erro abaixo dele com `aria-invalid` e
 `aria-describedby`, e no envio com falha foca o resumo de erros. A
 estrutura é a do `field` do shadcn; o desenho da tela é da
-`designfy-systems`.
+`designfy-webapps`.
 
 ## Acesso a dado na tela
 

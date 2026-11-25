@@ -22,6 +22,7 @@ peças do catálogo de interface e o conteúdo real do projeto.
 | Imagens, capturas do produto e vídeo | [references/imagens-e-midia.md](references/imagens-e-midia.md) |
 | O que faz uma página parecer gerada, e a correção | [references/vicios-de-pagina-gerada.md](references/vicios-de-pagina-gerada.md) |
 | Conferência antes de entregar | [references/checklist.md](references/checklist.md) |
+| Páginas reais estudadas por inteiro, com a ordem, a anatomia e as peças no registro | [references/estudos/README.md](references/estudos/README.md) |
 
 Modelos em `assets/`: [estruturas.md](assets/estruturas.md) (roteiros de
 página por tipo), [pagina.astro](assets/pagina.astro) e
@@ -62,6 +63,10 @@ registro).
 13. **Mudança de endereço e página rasa seguem o guia do projeto**: página
     sem conteúdo próprio se funde a outra, e endereço que muda ganha
     redirecionamento permanente.
+14. **Em site com Astrofy, a entrega técnica é do Astrofy.** Rotas, SEO,
+    dados estruturados, imagens, Open Graph e build ficam com as skills
+    `astrofy-*` e com a sitespec da tela; esta skill cuida da composição
+    descrita no viewspec.
 
 ## Passos
 
@@ -73,8 +78,9 @@ conteúdo`, `## Fundos e profundidade`.
 
 ### 2. Montar o argumento
 
-Com [references/arquitetura-da-pagina.md](references/arquitetura-da-pagina.md)
-e [assets/estruturas.md](assets/estruturas.md): escreva a pergunta que cada
+Com [references/arquitetura-da-pagina.md](references/arquitetura-da-pagina.md),
+[assets/estruturas.md](assets/estruturas.md) e o estudo do mesmo tipo de
+página em [references/estudos/](references/estudos/README.md), quando houver: escreva a pergunta que cada
 seção responde, na ordem das perguntas do visitante. Corte a seção que
 não responde a nada ou não tem conteúdo real.
 

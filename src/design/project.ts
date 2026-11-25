@@ -19,14 +19,25 @@ export const projectDetectionSchema = z.object({
   shadcn: z.boolean(),
 });
 
+const themePairSchema = z.object({
+  fg: z.string().trim().min(1),
+  bg: z.string().trim().min(1),
+  label: z.string().trim().min(1).optional(),
+  min: z.number().min(1).max(21).optional(),
+});
+
+export type ThemePair = z.infer<typeof themePairSchema>;
+
 export const projectConfigSchema = projectDetectionSchema.extend({
   schemaVersion: z.literal(1),
   paths: z.object({
     components: z.string().min(1),
     styles: z.string().min(1),
+    theme: z.string().trim().min(1).optional(),
     viewspec: z.string().min(1),
   }),
   aliases: z.object({ components: z.string().min(1) }),
+  theme: z.object({ pairs: z.array(themePairSchema).optional() }).optional(),
 });
 
 const projectOverrides = projectConfigSchema.partial().extend({

@@ -61,7 +61,7 @@ consultar argumentos, valores aceitos e exit codes pelo registry.
 
 | Command | Options locais e comportamento |
 | --- | --- |
-| `init` | Detecta framework e Tailwind pelo `package.json`, shadcn pelo `components.json` e gerenciador pelo lockfile. `--framework <framework>`, `--components-path <path>` e `--styles-path <path>` ajustam o resultado. `--dry-run` exibe a proposta. `--force` substitui o arquivo. Sem `package.json`, sai com 6. |
+| `init` | Detecta framework e Tailwind pelo `package.json`, shadcn pelo `components.json` e gerenciador pelo lockfile. `--framework <framework>`, `--components-path <path>`, `--styles-path <path>` e `--theme-path <path>` ajustam o resultado. `--dry-run` exibe a proposta. `--force` substitui o arquivo. Sem `package.json`, sai com 6. |
 | `status` | Compara a detecção atual com a configuração em vigor. Conta skills, dependências, itens copiados e viewspecs válidos por status. Mostra o próximo ID livre, o guia com suas contagens, o major do Tailwind e o caminho do CSS. |
 | `skills list` | Lista skills internas e externas com estado `project`, `global` ou `no`. `--internal` e `--external` selecionam os tipos. |
 | `skills install [names...]` | Instala nomes indicados ou as recomendações compatíveis com o projeto. `--all` inclui todos os frameworks. `--internal` e `--external` filtram. `--agent <agents>` aceita nomes separados por vírgula. `--global` instala no escopo global. `--dry-run` imprime o plano. Nome desconhecido sai com 6. |
@@ -76,8 +76,8 @@ consultar argumentos, valores aceitos e exit codes pelo registry.
 | `components list` | Lista itens do registro por `--framework <framework>`, `--category <category>` e `--surface <surface>`. Usa o framework do projeto por padrão. Next.js e React com Vite usam o registro React. Em Tailwind 3, avisa que os itens usam Tailwind 4. |
 | `components show <name>` | Exibe arquivos e dependências. `--framework <framework>` escolhe o registro e `--source` inclui o código-fonte. Nome desconhecido sai com 6. Em Tailwind 3, exibe o aviso de compatibilidade. |
 | `components add <names...>` | Copia cada item e suas dependências do registro. `--framework <framework>` escolhe o registro. `--path <dir>` substitui a pasta de destino. `--overwrite` substitui arquivos diferentes. `--dry-run` exibe o plano, inclusive dependências pendentes. Sem `--overwrite`, o comando preserva arquivos diferentes e avisa. Em Tailwind 3, sai com 10. `--allow-tailwind3` permite copiar os arquivos com aviso. |
-| `theme show` | Mostra o major, o CSS do Tailwind, seus imports locais e o arquivo de configuração do Tailwind 3, quando encontrado. `--file <path>` escolhe o CSS. `--group <group>` restringe a `colors`, `fonts`, `text`, `radius`, `spacing`, `shadows`, `breakpoints` ou `motion`. Sem CSS, sai com 6. |
-| `theme check` | Mede o contraste claro e escuro e verifica os papéis do registro, incluindo os declarados na configuração do Tailwind 3. `--file <path>` escolhe o CSS. Sai com 10 por reprovação de contraste, par sem resolução ou papel obrigatório ausente. Pares opcionais com tokens ausentes são pulados e aparecem no resultado. |
+| `theme show` | Mostra o major, a regra que escolheu o CSS, seus imports locais, a entrada convencional que importa o arquivo escolhido quando encontrada e a configuração do Tailwind 3. `--file <path>` escolhe o CSS. `--group <group>` restringe a `colors`, `fonts`, `text`, `radius`, `spacing`, `shadows`, `breakpoints` ou `motion`. Sem CSS, sai com 6. |
+| `theme check` | Mede contraste em claro e escuro. Em `shadcn`, também verifica os papéis do registro e sai com 10 se faltar um papel obrigatório ou um par estiver abaixo do mínimo ou sem resolução. Em `custom`, mede `theme.pairs` ou os pares semânticos disponíveis e sai com 10 quando um contraste medido fica abaixo do mínimo. `--file <path>` escolhe o CSS. |
 | `palette generate` | Gera escalas e tokens claros e escuros com `--base <color>`. `--harmony <harmony>` acrescenta escalas de acento. `--format <format>` aceita `css` (padrão), `json` ou `tailwind`. `--out <file>` grava o resultado. |
 | `palette wheel <color>` | Mostra todas as harmonias em hex e OKLCH. |
 | `palette contrast <foreground> <background>` | Mede WCAG e APCA. `--min <ratio>` faz o command sair com 10 abaixo da razão WCAG indicada, de 1 a 21. |
@@ -86,7 +86,7 @@ consultar argumentos, valores aceitos e exit codes pelo registry.
 | `viewspec show <id>` | Lê front matter, seções e checklist. O ID tem quatro dígitos. ID inexistente sai com 6. |
 | `viewspec progress` | Conta viewspecs por status, mostra itens feitos e totais da checklist e o próximo ID livre. |
 | `viewspec validate [id]` | Valida todas as telas ou a tela indicada e o guia da raiz. Um guia ausente gera aviso. Arquivo inválido sai com 10, também nos demais subcommands que analisam viewspecs. |
-| `capture run <urls...>` | Captura URLs HTTP(S) com o Playwright do projeto. `--viewport <viewport>` se repete ou aceita lista por vírgula. `--theme <theme>` aceita `light` (padrão) ou `dark`. `--full-page` captura a página inteira por padrão. `--fold` captura só a área visível. `--reduced-motion` emula a preferência por movimento reduzido. `--wait <ms>` espera após o carregamento e `--selector <css>` limita a captura ao elemento. `--out <dir>` e `--name <run>` definem a pasta e o nome da execução. Sem Playwright, sai com 10. Falha da captura sai com 5. |
+| `capture run <urls...>` | Captura URLs HTTP(S) com o Playwright do projeto. `--viewport <viewport>` e `--theme <theme>` se repetem ou aceitam listas por vírgula. Os temas são `light` (padrão) e `dark`. `--full-page` captura a página inteira por padrão. `--fold` captura só a área visível. `--no-scroll` desativa a rolagem de preparação. `--scroll-budget <ms>` limita a rolagem e a espera por recursos a 15000 ms por padrão. `--show-dev-overlays` mantém visíveis os overlays de desenvolvimento. `--hide <css>` oculta elementos que correspondem ao seletor e pode ser repetida. `--reduced-motion` emula a preferência por movimento reduzido. `--wait <ms>` acrescenta uma espera e `--selector <css>` limita a captura ao elemento. `--out <dir>` e `--name <run>` definem a pasta e o nome da execução. Sem Playwright, sai com 10. Falha da captura sai com 5. |
 | `capture list` | Lê os manifestos da execução mais recente à mais antiga. `--out <dir>` seleciona a pasta. |
 | `tui [--tab <tab>]` | Abre a Home de módulos. Passe `--tab <tab>` com um ID de `tui.initialTab` para abrir uma tela diretamente. Sai com 8 quando não há TTY. |
 | `about` | Mostra versão, executável, runtime, plataforma e créditos. |
@@ -114,9 +114,26 @@ envelope do CLI.
 
 Os presets de captura são `mobile` (390×844), `tablet` (820×1180),
 `desktop` (1440×900) e `wide` (1920×1080). Use `LARGURAxALTURA` para
-outra dimensão. O padrão vem de `capture.viewports`. O `manifest.json`
-registra, por captura, o título, as medidas da página, erros do console e
-`overflowX` para detectar conteúdo mais largo que o viewport.
+outra dimensão. O padrão vem de `capture.viewports`. Cada combinação de
+URL, viewport e tema produz um PNG. Com dois temas, o nome termina em
+`--<viewport>--<theme>.png`. Com um tema, termina em `--<viewport>.png`.
+Acima de 64 Mi pixels físicos, a captura de página inteira usa a escala
+CSS para reduzir o uso de memória do Chromium.
+
+Antes de capturar a página inteira, o navegador percorre a página em passos
+da altura do viewport, aguarda a rede ficar ociosa e as imagens e fontes
+terminarem de carregar, e retorna ao topo. Iframes de outra origem abaixo da
+dobra são fotografados durante a preparação para preservar seu conteúdo
+visível no PNG. `--fold` e `--selector` pulam essa
+preparação. O Designfy oculta os overlays conhecidos de Astro, Vite e Next.js
+por padrão. Passe seletores CSS adicionais entre aspas, por exemplo
+`--hide '#chat' --hide '.floating-button'`.
+
+O `manifest.json` registra por captura o tema (`theme`), o número de passos
+(`scrollSteps`), as URLs de imagens ainda incompletas (`incompleteImages`)
+e se o tempo de preparação se esgotou (`scrollBudgetExhausted`). Também
+registra título, dimensões, erros do navegador e `overflowX`. No nível da
+execução, `themes` lista os temas em ordem e `theme` guarda o primeiro.
 
 Argumentos inválidos saem com 2. Configuração inválida sai com 3 e
 permissão negada sai com 7. Consulte a [tabela de exit codes](exit-codes.md).

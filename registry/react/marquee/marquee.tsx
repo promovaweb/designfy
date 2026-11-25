@@ -15,6 +15,8 @@ export interface MarqueeProps {
   items: string[];
   /** Direction, or two rows moving in opposite directions. */
   direction?: "left" | "right" | "opposed";
+  /** Accent band with decorative diamond separators. */
+  variant?: "default" | "accent";
   /** Travel speed in CSS pixels per second. */
   speed?: number;
   /** Label for the pause action. Supply for meaningful content. */
@@ -85,6 +87,7 @@ function bindMarquee(root: HTMLDivElement) {
 export function Marquee({
   items,
   direction = "left",
+  variant = "default",
   speed = 42,
   pauseLabel,
   resumeLabel,
@@ -101,7 +104,11 @@ export function Marquee({
       ref={root}
       data-site-marquee
       data-speed={speed}
-      className={cn("group min-w-0 max-w-full space-y-4", className)}
+      className={cn(
+        "group min-w-0 max-w-full space-y-4",
+        variant === "accent" && "bg-accent py-4 text-accent-foreground",
+        className,
+      )}
     >
       {(direction === "opposed" ? ["left", "right"] : [direction]).map(
         (side, row) => (
@@ -124,7 +131,15 @@ export function Marquee({
               >
                 {children}
                 {items.map((text) => (
-                  <li key={text}>{text}</li>
+                  <li key={text}>
+                    {variant === "accent" && (
+                      <span
+                        aria-hidden="true"
+                        className="me-4 inline-block size-2 rotate-45 bg-current"
+                      />
+                    )}
+                    {text}
+                  </li>
                 ))}
               </ul>
             ))}

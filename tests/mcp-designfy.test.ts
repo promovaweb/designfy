@@ -238,11 +238,11 @@ test("reads the theme, reports contrast findings and computes palette data", asy
     })]),
   });
   expect(await structured("theme_check", {}, true)).toMatchObject({
-    file, ok: false, missingRoles: expect.any(Array), summary: { failed: expect.any(Number) },
-    contrast: expect.arrayContaining([
-      { mode: "light", foreground: "foreground", background: "background", ratio: 21, status: "pass" },
-      { mode: "dark", foreground: "foreground", background: "background", ratio: 1, status: "fail" },
-    ]),
+    file, mode: "custom", ok: false, missingRoles: [], summary: { failed: 1 },
+    contrast: [
+      { mode: "light", foreground: "--foreground", background: "--background", min: 4.5, ratio: 21, status: "pass" },
+      { mode: "dark", foreground: "--foreground", background: "--background", min: 4.5, ratio: 1, status: "fail" },
+    ],
   });
   expect(await structured("palette_generate", { base: "#336699", harmony: "complementary" })).toMatchObject({
     scales: { primary: { "500": { l: expect.any(Number), c: expect.any(Number), h: expect.any(Number) } } },

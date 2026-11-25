@@ -4,7 +4,7 @@
    ╭─ Tab · Catalog ─────────────────╮  ╭─ Tab · Details ───────────────────────────────────────╮
    │ Actions · 5                    ┃│  │ Button                                               ┃│
    │ > Button                       ┃│  │ Surface           both                               ┃│
-   │   both · land...settings, auth ┃│  │ Kinds             landing-page, home, site-page,     ┃│
+   │   both · land...settings, auth ││  │ Kinds             landing-page, home, site-page,     ┃│
    │   Dropdown menu                ││  │                   blog-index, blog-post, docs-page,  ┃│
    │   both · land...tail, settings ││  │                   dashboard, table, form, crud,      ┃│
    │   Segmented control            ││  │                   detail, settings, auth             ┃│

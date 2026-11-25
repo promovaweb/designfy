@@ -174,12 +174,36 @@ desconhecido, enum inválido ou tipo errado recusam a leitura do arquivo.
 | `relatedFiles` | lista de string | Sim | Arquivos do projeto criados ou alterados. Pode ser vazia antes da execução. |
 | `priority` | enum | Não | `low`, `medium` ou `high`. Padrão `medium`. |
 | `dependsOn` | lista de `id` | Não | Viewspecs que precisam estar `done` antes. |
+| `trackedBy` | lista de objetos | Não | Cada vínculo informa `system`, `id` e `path`. O caminho parte da raiz do projeto e aponta para um arquivo existente. |
 | `source` | string | Não | Origem do pedido. |
 | `blockedReason` | string | Só com `status: blocked` | O que impede o trabalho. |
 | `archivedReason` | string | Só com `status: archived` | Por que foi encerrado sem conclusão. |
 | `captures` | lista de string | Não | Execuções de `designfy capture run` usadas na revisão. |
 | `guideRules` | lista de string | Não | Regras do guia que esta tela aplica de forma direta, pelo identificador (`c014`, `t003`). |
 | `deviations` | lista de string | Não | Regras do guia que esta tela não segue; cada uma tem o motivo em `## Notas`. |
+
+No Astrofy, o sitespec registra a entrega Astro e aponta para os viewspecs
+das telas envolvidas. O vínculo de volta usa `system: astrofy` e o arquivo
+`.sitespec/<id>-<slug>/SITEPEC.md`. O ID de quatro dígitos deve coincidir
+com o da pasta e com a string `id` no front matter do sitespec.
+
+No Specsfy, a spec é a única fonte normativa da funcionalidade. O viewspec
+é o arquivo de trabalho da interface, derivado da seção “Interface” da spec.
+Em caso de conflito, prevalece a spec. Use `system: specsfy` e o caminho
+`specs/<estado>/<id>-<slug>/spec.md`. Os estados são `draft`, `defined`,
+`planned`, `in-progress`, `review` e `completed`. Quando a spec muda de
+estado, a validação procura o ID e indica o caminho atualizado.
+
+Para outro sistema, use `system: other`, um identificador de texto livre
+e o caminho do arquivo de referência no projeto. A listagem e a consulta
+individual mostram os vínculos tanto na CLI quanto nas tools MCP.
+
+```yaml
+trackedBy:
+  - system: specsfy
+    id: "0007"
+    path: specs/planned/0007-pedidos/spec.md
+```
 
 Valores de `kind`:
 
@@ -298,7 +322,7 @@ framework: react-vite
 route: /app/vendas
 createdAt: 2026-11-24T15:00:00-03:00
 updatedAt: 2026-11-24T16:20:00-03:00
-skills: [designfy-systems, designfy-components, designfy-motion, designfy-responsive, designfy-accessibility, designfy-review]
+skills: [designfy-webapps, designfy-components, designfy-motion, designfy-responsive, designfy-accessibility, designfy-review]
 components: [app-shell, stat-card, data-table, chart-area]
 relatedFiles:
   - src/pages/app/vendas.tsx
@@ -347,7 +371,7 @@ tabela equivalente acessível por um botão.
 
 ## Checklist
 
-- [x] Shell e cabeçalho da página `#designfy-systems` {#k2a9}
+- [x] Shell e cabeçalho da página `#designfy-webapps` {#k2a9}
 - [ ] Contadores com o estado de carregamento `#designfy-components` {#p0x4}
 - [ ] Contagem animada com versão parada `#designfy-motion` {#m7d1}
 - [ ] Tabela como cartões no celular `#designfy-responsive` {#r3c8}

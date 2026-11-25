@@ -1,0 +1,3 @@
+/* Independent documentation stylesheet, sorted before global.css by name. */
+@tailwind base;
+:root { --docs-paper: white; }

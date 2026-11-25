@@ -1,7 +1,8 @@
 /** Reads and validates Designfy screen specifications and the root interface guide. */
-import { readFileSync, readdirSync, type Dirent } from "node:fs";
-import { basename, dirname, join, resolve } from "node:path";
+import { readFileSync, readdirSync, realpathSync, statSync, type Dirent } from "node:fs";
+import { basename, dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { z } from "zod";
+import { detectSpecsfy, specStates } from "./integrations.ts";
 import { resolveProject } from "./project.ts";
 
 const filename = "VIEWSPEC.md";
@@ -51,6 +52,7 @@ export const viewFrontMatterSchema = z.strictObject({
   relatedFiles: z.array(text),
   priority: z.enum(["low", "medium", "high"]).default("medium"),
   dependsOn: z.array(z.string().regex(viewId, "Use four-digit viewspec ids.")).optional(),
+  trackedBy: z.array(z.strictObject({ system: z.enum(["astrofy", "specsfy", "other"]), id: text, path: text })).optional(),
   source: text.optional(),
   blockedReason: text.optional(),
   archivedReason: text.optional(),
@@ -98,7 +100,7 @@ export type ProjectGuide = {
   errors: ViewspecError[];
 };
 export type ViewspecList = { items: Viewspec[]; errors: ViewspecError[]; nextId: string | null };
-type ViewspecSummary = Pick<Viewspec["frontMatter"], "id" | "title" | "summary" | "kind" | "status">
+type ViewspecSummary = Pick<Viewspec["frontMatter"], "id" | "title" | "summary" | "kind" | "status" | "trackedBy">
   & Pick<Viewspec, "file" | "progress">;
 export type ViewspecSummaryList = Omit<ViewspecList, "items"> & { items: ViewspecSummary[] };
 export type ViewspecRead = { item: Viewspec | null; found: boolean; errors: ViewspecError[] };
@@ -112,7 +114,7 @@ export type ViewspecValidation = { valid: boolean; guide: "missing" | "valid" | 
 type Scalar = string | number | boolean | null;
 type ParsedDocument = {
   file: string;
-  frontMatter: Record<string, Scalar | Scalar[]>;
+  frontMatter: Record<string, unknown>;
   fieldLines: Record<string, number>;
   sections: ViewspecSection[];
   errors: ViewspecError[];
@@ -228,6 +230,14 @@ export function parseViewspec(file: string, markdown: string): ParsedDocument {
         }
         fieldLines[field] = line;
         const value = withoutComment(entry[2]!).trim();
+        if (field === "trackedBy") {
+          let next = index + 1;
+          while (next < end && !/^[^\s#-]/.test(lines[next]!)) next++;
+          const mapping = Bun.YAML.parse(lines.slice(index, next).join("\n")) as Record<string, unknown>;
+          frontMatter[field] = mapping[field];
+          index = next - 1;
+          continue;
+        }
         frontMatter[field] = value ? parseValue(value) : null;
         if (!value) listField = field;
       } else if (item && listField !== undefined) {
@@ -340,10 +350,70 @@ function readChecklist(parsed: ParsedDocument, errors: ViewspecError[], firstSki
   return checklist;
 }
 
+type TrackingLink = NonNullable<Viewspec["frontMatter"]["trackedBy"]>[number];
+
+function contained(root: string, file: string): boolean {
+  const path = relative(root, file);
+  return path !== ".." && !path.startsWith(".." + sep) && !isAbsolute(path);
+}
+
+function findSpecById(root: string, id: string): string | undefined {
+  for (const state of specStates) {
+    const dir = join(root, state);
+    if (!statSync(dir, { throwIfNoEntry: false })?.isDirectory()) continue;
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      if (!entry.isDirectory() || !entry.name.startsWith(id + "-")) continue;
+      const candidate = join(dir, entry.name, "spec.md");
+      if (statSync(candidate, { throwIfNoEntry: false })?.isFile()) return candidate;
+    }
+  }
+}
+
+function trackingError(project: string, link: TrackingLink): string | undefined {
+  const { system, id, path } = link;
+  if (isAbsolute(path)) return "Use a project-relative path: " + path;
+  if (system !== "other" && !viewId.test(id)) return "Use a four-digit " + system + " id.";
+  const file = resolve(project, path);
+  let root = project;
+  if (system === "specsfy") {
+    root = resolve(project, detectSpecsfy(project).specsDir ?? "specs");
+    const [state, folder, name, ...extra] = relative(root, file).split(sep);
+    if (!specStates.some(value => value === state) || !folder?.startsWith(id + "-") || folder.length <= 5
+      || name !== "spec.md" || extra.length) return "Use specs/<state>/" + id + "-<slug>/spec.md.";
+  } else if (system === "astrofy") {
+    root = join(project, ".sitespec");
+    if (!new RegExp("^" + id + "-[^/]+/SITEPEC\\.md$").test(relative(root, file).split(sep).join("/"))) {
+      return "Use .sitespec/" + id + "-<slug>/SITEPEC.md.";
+    }
+  }
+  if (!contained(root, file)) return "Path is outside the project: " + path;
+  try {
+    if (!statSync(file, { throwIfNoEntry: false })?.isFile()) {
+      if (system === "specsfy") {
+        const moved = findSpecById(root, id);
+        if (moved) return "Tracked file is missing. Update path to " + relative(project, moved) + ".";
+      }
+      return "Tracked file is missing: " + path;
+    }
+    if (!contained(realpathSync(root), realpathSync(file))) return "Tracked file resolves outside its root: " + path;
+    if (system === "astrofy") {
+      const header = /^\uFEFF?---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/.exec(readFileSync(file, "utf8"));
+      const metadata = header && Bun.YAML.parse(header[1]!);
+      if (!metadata || typeof metadata !== "object" || !("id" in metadata) || metadata.id !== id) return "SITEPEC.md front matter must declare id " + id + ".";
+    }
+  } catch {
+    return "Could not read the tracked file or its front matter: " + path;
+  }
+}
+
 /** Checks a parsed screen specification and exposes an item only when valid. */
-export function validateViewspec(parsed: ParsedDocument): ViewspecRead {
+export function validateViewspec(parsed: ParsedDocument, project = resolve(dirname(parsed.file), "../..")): ViewspecRead {
   const errors = [...parsed.errors];
   const data = validateFrontMatter(parsed, viewFrontMatterSchema, errors);
+  for (const link of data?.trackedBy ?? []) {
+    const message = trackingError(project, link);
+    if (message) errors.push(fieldError(parsed, "trackedBy", message));
+  }
   validateSections(parsed, viewSections, errors);
   const checklist = readChecklist(parsed, errors, data?.skills[0] ?? "");
   const folder = basename(dirname(parsed.file));
@@ -436,7 +506,7 @@ function readCandidates(cwd: string): { files: { file: string; id: string | unde
   return { files, errors: [] };
 }
 
-function loadCandidates(files: ReturnType<typeof readCandidates>["files"], errors: ViewspecError[]): Viewspec[] {
+function loadCandidates(project: string, files: ReturnType<typeof readCandidates>["files"], errors: ViewspecError[]): Viewspec[] {
   const items: Viewspec[] = [];
   const used = new Map<string, string>();
   const duplicates = new Set<string>();
@@ -455,7 +525,7 @@ function loadCandidates(files: ReturnType<typeof readCandidates>["files"], error
       if (id !== undefined || !parsed.missing) errors.push(parsed.error);
       continue;
     }
-    const result = validateViewspec(parsed);
+    const result = validateViewspec(parsed, project);
     errors.push(...result.errors);
     if (result.item) items.push(result.item);
   }
@@ -465,7 +535,7 @@ function loadCandidates(files: ReturnType<typeof readCandidates>["files"], error
 /** Reads and filters screen viewspecs, preserving diagnostics for the whole collection. */
 export function readViewspecs(cwd: string, filter: ViewspecFilter = {}): ViewspecList {
   const { files, errors } = readCandidates(cwd);
-  const items = loadCandidates(files, errors);
+  const items = loadCandidates(cwd, files, errors);
   const used = new Set(files.map(({ id }) => id));
   let nextId: string | null = null;
   for (let index = 1; index <= 9999; index++) {
@@ -487,8 +557,8 @@ export function readViewspecs(cwd: string, filter: ViewspecFilter = {}): Viewspe
 export function listViewspecSummaries(cwd: string, filter: ViewspecFilter = {}): ViewspecSummaryList {
   const { items, errors, nextId } = readViewspecs(cwd, filter);
   return {
-    items: items.map(({ file, frontMatter: { id, title, summary, kind, status }, progress }) => ({
-      file, id, title, summary, kind, status, progress,
+    items: items.map(({ file, frontMatter: { id, title, summary, kind, status, trackedBy }, progress }) => ({
+      file, id, title, summary, kind, status, progress, ...(trackedBy && { trackedBy }),
     })),
     errors,
     nextId,
@@ -499,7 +569,7 @@ export function listViewspecSummaries(cwd: string, filter: ViewspecFilter = {}):
 export function readViewspec(cwd: string, id: string): ViewspecRead {
   const { files, errors } = readCandidates(cwd);
   const matching = files.filter((entry) => entry.id === id);
-  const [item] = loadCandidates(matching, errors);
+  const [item] = loadCandidates(cwd, matching, errors);
   return { item: item ?? null, found: matching.length > 0, errors };
 }
 

@@ -20,7 +20,7 @@ O catálogo tem onze skills `designfy*`, todas com origem em
 | `designfy-motion` | foundation | entrada, rolagem, hover e troca de estado | movimento com versão parada |
 | `designfy-websites` | surfaces | site, landing page e página pública | página montada como argumento |
 | `designfy-content` | surfaces | blog, artigo e documentação | leitura confortável e páginas ao redor |
-| `designfy-systems` | surfaces | dashboard, tabela, formulário e CRUD | tela de trabalho com todos os estados |
+| `designfy-webapps` | surfaces | dashboard, tabela, formulário e CRUD | tela de trabalho com todos os estados |
 | `designfy-responsive` | quality | celular, tablet e tela larga | plano por faixa e estouro corrigido |
 | `designfy-accessibility` | quality | WCAG 2.2 nível AA | auditoria, correções e relatório |
 | `designfy-review` | quality | fechamento de um viewspec | capturas, achados e veredito |
@@ -90,7 +90,7 @@ a página de artigo, a listagem, os elementos do texto, imagens e embeds,
 documentação e Markdown ou MDX. Entrega a medida e a escala, os elementos
 tratados, a listagem no ar e o comportamento de tabela e código no celular.
 
-### `designfy-systems`
+### `designfy-webapps`
 
 Desenha telas de trabalho em React com shadcn, ReUI e Tailwind. Entra em
 dashboard, tabela, formulário, CRUD, detalhe, configurações e autenticação. Lê o
@@ -154,7 +154,7 @@ classifica como `site-page`, superfície `site`, cria
 de `GET /api/sales/summary`; a ação principal é abrir os pedidos em atraso." A
 classificação é `dashboard`, superfície `system`, e o viewspec nasce como
 `viewspec/0002-dashboard-de-vendas/VIEWSPEC.md`. Rodam
-`designfy-design-system` se faltar papel de cor, `designfy-systems`,
+`designfy-design-system` se faltar papel de cor, `designfy-webapps`,
 `designfy-components`, `designfy-motion`, `designfy-responsive`,
 `designfy-accessibility` e `designfy-review`.
 

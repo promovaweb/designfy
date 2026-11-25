@@ -27,7 +27,7 @@ captura todas as larguras.
 | linhas de duas ou três palavras | duas colunas mantidas no celular | uma coluna na base | `designfy-responsive` |
 | botões lado a lado espremidos | grupo sem quebra | empilhar em largura total | `designfy-responsive` |
 | alvos pequenos e grudados | altura de 32 px, sem espaço | `min-h-11`, `gap-2` | `designfy-responsive` |
-| tabela cortada | tabela de desktop sem adaptação | cartões, colunas prioritárias ou rolagem própria | `designfy-systems`, `designfy-responsive` |
+| tabela cortada | tabela de desktop sem adaptação | cartões, colunas prioritárias ou rolagem própria | `designfy-webapps`, `designfy-responsive` |
 | menu ocupando três linhas | links sem recolher | gaveta abaixo do ponto de quebra | `designfy-websites` |
 | página muito longa | tudo empilhado com o espaço de desktop | espaço fluido, seções fundidas | `designfy-responsive` |
 | deserto entre seções | `py` fixo de desktop | `df-section` | `designfy-design-system` |
@@ -54,9 +54,9 @@ captura todas as larguras.
 | cartões pesados | borda e sombra juntas, cartão em cartão | uma camada, borda ou sombra | `designfy-design-system` |
 | acento por toda parte | `primary` como fundo de seção e de cartão | acento como sinal | `designfy-design-system` |
 | tela larga com conteúdo esticado | container sem teto | `--container-max` | `designfy-design-system` |
-| dashboard sem hierarquia | blocos de mesmo tamanho | contadores no topo, um gráfico principal | `designfy-systems` |
-| tabela com colunas demais | tudo visível | colunas prioritárias e seletor | `designfy-systems` |
-| formulário de largura total | campos esticados | coluna de 480 a 640 px | `designfy-systems` |
+| dashboard sem hierarquia | blocos de mesmo tamanho | contadores no topo, um gráfico principal | `designfy-webapps` |
+| tabela com colunas demais | tudo visível | colunas prioritárias e seletor | `designfy-webapps` |
+| formulário de largura total | campos esticados | coluna de 480 a 640 px | `designfy-webapps` |
 | página parada | sem movimento | plano de movimento | `designfy-motion` |
 
 ## Os dois: sintomas comuns

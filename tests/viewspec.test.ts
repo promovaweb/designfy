@@ -60,7 +60,7 @@ test("the complete contract example matches the fixture and validates cleanly", 
   expect(item?.frontMatter.id).toBe("0002");
   expect(item?.sections).toHaveLength(9);
   expect(item?.progress).toEqual({ done: 1, total: 6 });
-  expect(item?.checklist[0]).toMatchObject({ id: "k2a9", done: true, skill: "designfy-systems" });
+  expect(item?.checklist[0]).toMatchObject({ id: "k2a9", done: true, skill: "designfy-webapps" });
 });
 
 test("parses quoted scalars, block and inline lists, dates, BOM and CRLF", () => {
@@ -68,14 +68,14 @@ test("parses quoted scalars, block and inline lists, dates, BOM and CRLF", () =>
     .replace('priority: high', 'source: "Weekly \\"sales\\" review"')
     .replace("components: [app-shell, stat-card, data-table, chart-area]", 'components: ["shell, v2", \'chart-area\',] # components')
     .replace("2026-11-24T15:00:00-03:00", '"2026-11-24T15:00:00-03:00"')
-    .replace(" \x60#designfy-systems\x60 {#k2a9}", " {#k2a9}");
+    .replace(" \x60#designfy-webapps\x60 {#k2a9}", " {#k2a9}");
   const result = validate("\uFEFF" + markdown.replaceAll("\n", "\r\n"));
   expect(result.errors).toEqual([]);
   expect(result.item?.frontMatter).toMatchObject({
     title: "Operação d'água #1", priority: "medium", components: ["shell, v2", "chart-area"],
     relatedFiles: ["src/pages/app/vendas.tsx"], source: 'Weekly "sales" review',
   });
-  expect(result.item?.checklist[0]?.skill).toBe("designfy-systems");
+  expect(result.item?.checklist[0]?.skill).toBe("designfy-webapps");
 });
 
 const screenRejections: Array<[string, (value: string) => string, string, RegExp]> = [
@@ -96,7 +96,7 @@ const screenRejections: Array<[string, (value: string) => string, string, RegExp
   ["missing archived reason", (value) => value.replace("status: in_progress", "status: archived"), "archivedReason", /Provide a reason/],
   ["unexpected archived reason", (value) => value.replace("priority: high", "archivedReason: Duplicate"), "archivedReason", /Remove this reason/],
   ["kind and surface mismatch", (value) => value.replace("surface: system", "surface: site"), "surface", /Use "system"/],
-  ["skill outside the Designfy family", (value) => value.replace("skills: [designfy-systems", "skills: [hallmark"), "skills", /designfy/],
+  ["skill outside the Designfy family", (value) => value.replace("skills: [designfy-webapps", "skills: [hallmark"), "skills", /designfy/],
   ["nonexistent calendar date", (value) => value.replace("2026-11-24T", "2026-02-31T"), "createdAt", /ISO datetime/],
   ["duplicate front matter field", (value) => value.replace("priority: high", "priority: high\npriority: low"), "priority", /only once/],
   ["deviations without notes", (value) => value.replace("priority: high", "deviations: [c001]")
@@ -181,7 +181,8 @@ test("CLI returns 10 and structured diagnostics for invalid screens even when fi
 });
 
 test("MCP discovers five read-only tools and returns the same structured data as its JSON text", async () => {
-  addScreen("0002");
+  const link = { system: "other", id: "guide", path: "VIEWSPEC.md" };
+  addScreen("0002", example.replace("priority: high", "trackedBy: " + JSON.stringify([link])));
   cpSync(join(fixtures, "guide-valid", "VIEWSPEC.md"), join(project, "VIEWSPEC.md"));
   const previous = process.cwd();
   const catalog: Catalog = { name: "test", version: "1.0.0", tools: [], resources: [], prompts: [] };
@@ -202,6 +203,8 @@ test("MCP discovers five read-only tools and returns the same structured data as
       expect(result.isError).toBe(false);
       const [content] = result.content as Array<{ type: string; text: string }>;
       expect(JSON.parse(content!.text)).toEqual(result.structuredContent);
+      if (tool.name === "viewspec_list") expect(result.structuredContent).toMatchObject({ items: [{ trackedBy: [link] }] });
+      if (tool.name === "viewspec_show") expect(result.structuredContent).toMatchObject({ item: { frontMatter: { trackedBy: [link] } } });
     }
     const missing = await client.callTool({ name: "viewspec_show", arguments: { id: "0003" } });
     expect(missing.isError).toBe(true);
@@ -248,4 +251,34 @@ test("renders the guide in text and JSON and validates it with a selected screen
   const invalid = await run(["viewspec", "validate", "0002", "--json"]);
   expect(invalid.code).toBe(ExitCode.CHECK_FAILED);
   expect(JSON.parse(invalid.stdout).data).toMatchObject({ valid: false, guide: "invalid", errors: [{ file: guideFile }] });
+});
+
+test("shows tracked Astrofy and Specsfy links and diagnoses incorrect or moved targets", async () => {
+  for (const integration of ["astrofy", "specsfy"]) {
+    cpSync(join(fixtures, "../integrations", integration), project, { recursive: true });
+  }
+  const site = ".sitespec/0003-home/SITEPEC.md";
+  const spec = "specs/planned/0007-x/spec.md";
+  const trackedBy = [
+    { system: "astrofy" as const, id: "0003", path: site },
+    { system: "specsfy" as const, id: "0007", path: spec },
+  ];
+  const markdown = example.replace("priority: high", [
+    "trackedBy:", ...trackedBy.map(link => '  - system: ' + link.system + '\n    id: "' + link.id + '"\n    path: ' + link.path),
+  ].join("\n"));
+  addScreen("0002", markdown);
+  expect(readViewspec(project, "0002").item?.frontMatter.trackedBy).toEqual(trackedBy);
+  for (const args of [["list"], ["show", "0002"]]) {
+    const result = await run(["viewspec", ...args]);
+    expect(result.code).toBe(0);
+    expect(result.stdout).toContain(site);
+    expect(result.stdout).toContain(spec);
+  }
+  writeFileSync(join(project, site), '---\nid: "0004"\n---\n');
+  expect(readViewspec(project, "0002").errors[0]?.message).toContain("front matter");
+  rmSync(join(project, site));
+  expect(readViewspec(project, "0002").errors[0]?.message).toContain("missing");
+  cpSync(join(project, "specs/planned"), join(project, "specs/review"), { recursive: true });
+  rmSync(join(project, "specs/planned"), { recursive: true });
+  expect(readViewspec(project, "0002").errors.map(e => e.message).join("\n")).toContain("specs/review/0007-x/spec.md");
 });
