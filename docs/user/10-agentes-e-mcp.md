@@ -1,22 +1,16 @@
 # Capítulo 10: Agentes e MCP
 
-O agente abre a conversa e chama a tool `project_status`. Recebe o framework, o
-tema, as skills instaladas e o próximo viewspec livre. Em seguida chama
-`catalog_list` com `kind: "dashboard"`, escolhe os fragmentos e chama
-`components_add` com `dryRun: true` para ver os arquivos antes de escrever. Nada
-disso passa pelo terminal: o agente fala com o binário por MCP.
+No site da Promovaweb, a primeira leitura do tema encontrou `docs-theme.css`, a folha de estilos da documentação. Para revisar as páginas públicas, o guia indicou `src/styles/brand/global.css` em `tokensFile`. Quando você usa o Designfy por um agente, a primeira chamada que ajuda a distinguir esses dois arquivos é `project_status`. A resposta identifica o projeto e mostra qual CSS o servidor encontrou.
 
-## O servidor
+## Ligar o cliente ao projeto
+
+O cliente inicia o binário com o subcomando `mcp`. A conversa usa Model Context Protocol por stdio. O servidor reserva a saída padrão para as mensagens JSON-RPC e envia os diagnósticos para a saída de erro.
 
 ```bash
 designfy mcp
 ```
 
-O comando transforma o processo num servidor Model Context Protocol sobre
-stdio. Stdout fica reservado para JSON-RPC; diagnósticos vão para stderr. O
-cliente inicia o processo e conversa com ele.
-
-A configuração no cliente:
+Ao executar o comando diretamente, o processo aguarda mensagens do cliente. Para o cliente iniciar o processo sozinho, registre o executável e o argumento no arquivo de configuração. Nos clientes que usam `mcpServers`, a entrada tem este formato.
 
 ```json
 {
@@ -26,13 +20,13 @@ A configuração no cliente:
 }
 ```
 
-No Claude Code:
+O nome `designfy` identifica a conexão no cliente. No Claude Code, você também pode registrar o servidor pela linha de comando.
 
 ```bash
 claude mcp add designfy -- designfy mcp
 ```
 
-Para desenvolver sem compilar:
+O trecho depois de `--` indica o executável que o Claude Code vai iniciar. Durante o desenvolvimento do Designfy, você pode executar o código-fonte com Bun. A entrada abaixo pressupõe que o processo inicia na raiz do repositório do Designfy, onde existe `src/main.ts`.
 
 ```json
 {
@@ -42,57 +36,64 @@ Para desenvolver sem compilar:
 }
 ```
 
-As tools de projeto usam a pasta de trabalho do servidor. Abra o cliente na raiz
-do site ou da aplicação, ou defina a pasta na linha de comando:
+Com o binário instalado, a pasta de trabalho do servidor costuma ser a raiz do site ou da aplicação. Quando você abre o cliente na raiz do Hub, indique o subdiretório do site para que as tools leiam o projeto correto.
 
 ```bash
 designfy mcp --project ./website
 ```
 
-A option global `--project` (`-C`) vale para o servidor. A variável `DESIGNFY_PROJECT`
-define o padrão quando ela falta. Nas tools que aceitam o argumento `project`,
-o caminho pode ser absoluto ou relativo à pasta do servidor e vale só para
-aquela chamada. Os outros caminhos da mesma chamada partem do projeto
-selecionado.
+A opção global `--project` tem o atalho `-C` e prevalece sobre `DESIGNFY_PROJECT`. Uma tool com o argumento `project` pode escolher outra raiz só para aquela chamada. O argumento aceita caminho absoluto ou relativo à pasta do servidor. Os demais caminhos da chamada partem da raiz escolhida.
 
-## As tools
+## Escolher a tool pela operação
 
-As tools leem o mesmo domínio que o CLI. A tabela abaixo segue os grupos do
-`mcp --list`.
+Para montar um dashboard, use `catalog_list` com `kind: "dashboard"` para localizar os padrões de interface. Depois de escolher um componente do registro, chame `components_add` com o nome e `dryRun: true`. A resposta mostra os destinos dos arquivos e as dependências da cópia.
 
-| Tool | Entrada | Devolve |
+| Tool | Entrada | Saída |
 | --- | --- | --- |
-| `project_status` | nenhuma | detecção, configuração, totais, guia e CSS do tema |
-| `skills_list` | `internal?`, `external?` | skills com estado de instalação |
-| `deps_list`, `deps_check` | `group?` | grupos, faixas e estado; a conferência reprovada vem com `isError` |
-| `catalog_list`, `catalog_show`, `catalog_search` | filtros, `id`, `text` | fragmentos de interface e a entrada inteira |
-| `components_list`, `components_show` | filtros, `name`, `framework?`, `source?` | metadados, arquivos e conteúdo |
-| `components_add` | `names`, `framework?`, `path?`, `overwrite?`, `dryRun?` | arquivos gravados e dependências |
-| `theme_show`, `theme_check` | `file?`, `group?` | tokens por grupo; contraste em claro e escuro |
-| `palette_generate`, `palette_wheel`, `palette_contrast` | `base`, uma cor, duas cores | escalas, harmonias e vereditos |
-| `viewspec_guide`, `viewspec_list`, `viewspec_show` | filtros, `id` | guia, lista e o arquivo da tela |
-| `viewspec_progress`, `viewspec_validate` | `id?` | total e próximo `id`; diagnósticos por arquivo e linha |
-| `capture_run`, `capture_list` | `urls`, opções; `outDir?` | manifesto e imagens |
-| `mcp_servers` | nenhuma | servidores sugeridos e estado por cliente |
-| `doctor` | nenhuma | verificações de ambiente, sem gravar arquivo |
-| `about`, `exit_codes`, `skill`, `config_list`, `config_get`, `credentials_status` | conforme a tool | identidade, tabela, documentação, settings e metadados do cofre |
+| `doctor` | `project?` | `{ checks, ok }`. `isError: true` se houver `fail` |
+| `about` | nenhuma | identity, runtime, platform, data directory e credits |
+| `exit_codes` | nenhuma | tabela de exit codes |
+| `skill` | `topic?` (`cli`, `tui`, `mcp`, `config`, `exit-codes`, `reference`) | documentação em Markdown |
+| `config_list` | nenhuma | keys de settings.json em vigor e o schema |
+| `config_get` | `key` | valor da key. `isError` quando não existe |
+| `credentials_status` | nenhuma | file, master key source, count e names |
+| `project_status` | `project?` | detecção, configuração efetiva, totais de instalações e viewspecs, guia e CSS do tema |
+| `skills_list` | `project?`, `internal?`, `external?` | skills com estado de instalação |
+| `deps_list` | `project?`, `group?` | grupos, faixas de versões e estado no projeto |
+| `deps_check` | `project?`, `group?` | pacotes ausentes ou desatualizados, com `isError` quando a conferência reprova |
+| `catalog_list` | `surface?`, `category?`, `kind?` | fragmentos de interface filtrados |
+| `catalog_show` | `id` | propósito, anatomia, variações, estados, tokens e fontes |
+| `catalog_search` | `text` | fragmentos que correspondem à busca |
+| `components_list` | `project?`, `framework?`, `category?`, `surface?` | metadados dos itens e aviso de compatibilidade no Tailwind 3 |
+| `components_show` | `project?`, `name`, `framework?`, `source?` | metadados, arquivos, aviso de compatibilidade no Tailwind 3 e conteúdo se solicitado |
+| `theme_show` | `project?`, `file?`, `group?` | major, arquivos de origem, origem da seleção (`selection`), entrada que importa o CSS selecionado (`entryFile`, quando encontrada), avisos e tokens por grupo |
+| `theme_check` | `project?`, `file?` | modo `shadcn` ou `custom`, contraste, notas e papéis ausentes quando aplicável, com `isError: true` quando a checagem reprova |
+| `palette_generate` | `base`, `harmony?` | escalas OKLCH, tokens claros e escuros e contraste |
+| `palette_wheel` | `color` | cores de cada harmonia em hex e OKLCH |
+| `palette_contrast` | `foreground`, `background` | razão WCAG, APCA e vereditos por uso |
+| `viewspec_guide` | `project?` | guia do projeto, orientações e propostas |
+| `viewspec_list` | `project?`, `status?`, `kind?` | viewspecs com o progresso das checklists |
+| `viewspec_show` | `project?`, `id` | front matter, seções e checklist da tela |
+| `viewspec_progress` | `project?` | total por status, progresso das checklists e próximo ID livre |
+| `viewspec_validate` | `project?`, `id?` | estado do guia e diagnósticos dos viewspecs por arquivo e linha |
+| `capture_list` | `project?`, `outDir?` | manifestos de captura, do mais recente ao mais antigo |
+| `mcp_servers` | `project?` | servidores sugeridos e estado nos arquivos de cada cliente |
+| `components_add` | `project?`, `names`, `framework?`, `path?`, `overwrite?`, `dryRun?`, `allowTailwind3?` | grava componentes e retorna arquivos e dependências. `dryRun` simula a cópia |
+| `capture_run` | `project?`, `urls`, `viewports?`, `theme?`, `fullPage?`, `scroll?`, `scrollBudgetMs?`, `showDevOverlays?`, `hide?`, `reducedMotion?`, `waitMs?`, `selector?`, `outDir?`, `name?` | visita URLs e grava imagens e manifesto |
 
-As tools que escrevem no projeto são `components_add` e `capture_run`. Todas as
-outras só leem. Nenhuma tool devolve valor de credencial; o cofre expõe apenas
-metadados.
+Numa revisão de contraste, comece por `theme_show` para conferir a origem dos tokens. No site da Promovaweb, a conferência em modo `custom` mediu 9,19:1 no texto de corpo do tema claro, mas apenas 1,76:1 no botão secundário. O resultado de `theme_check` identifica o par que precisa de ajuste, mesmo quando o texto de corpo tem contraste suficiente.
 
-## Modo de leitura
+## Limitar o servidor à leitura
 
-Para um agente que só consulta, inicie o servidor sem as tools que gravam:
+A tool `components_add` copia os arquivos dos componentes. A outra tool com escrita, `capture_run`, grava as imagens e o manifesto. Para uma revisão do material existente, acrescente a opção de leitura aos argumentos de inicialização do servidor.
 
 ```bash
 designfy mcp --read-only
 ```
 
-O modo retira `components_add` e `capture_run` e mantém todas as outras. Use
-numa revisão, numa auditoria ou num agente que não deve alterar arquivos.
+Com `--read-only`, essas duas tools ficam fora do catálogo oferecido ao cliente. As consultas continuam disponíveis, inclusive `credentials_status`, que informa os nomes salvos e a origem da chave do cofre. Os valores das credenciais ficam fora das respostas.
 
-Para ver a superfície sem iniciar o servidor:
+Para verificar o catálogo antes de conectar o agente, compare as duas listagens. A terceira forma entrega o resultado em JSON para uso em scripts.
 
 ```bash
 designfy mcp --list
@@ -100,7 +101,7 @@ designfy mcp --list --read-only
 designfy mcp --list --json
 ```
 
-A listagem mostra cada tool com a descrição, os resources e os prompts:
+O trecho da listagem em texto mostra como localizar cada tipo de recurso pelo nome ou pela URI.
 
 ```text
 MCP server designfy v0.2.0
@@ -118,7 +119,7 @@ Prompts:
   operate  Guides the agent to read the documentation and run a task through the CLI.
 ```
 
-## Resources e prompts
+Em `Tools` ficam operações que o agente chama com argumentos. Em `Resources` ficam documentos que o cliente pode abrir pelo endereço. Para consultar apenas uma parte do manual, substitua `{topic}` pelo tópico, como em `designfy://skill/cli`.
 
 | Resource | Conteúdo |
 | --- | --- |
@@ -127,19 +128,17 @@ Prompts:
 | `designfy://skill` | documentação completa em Markdown |
 | `designfy://skill/{topic}` | uma seção da documentação |
 
-O prompt `operate` recebe `task` e instrui o agente a ler `skill cli` e executar
-a tarefa pelo CLI com `--json`. É o caminho para um agente que prefere o
-terminal ao MCP.
+O prompt `operate` recebe o argumento `task` e orienta o agente a ler `skill cli` antes de executar a tarefa no terminal com `--json`. Para interpretar o resultado de um comando, o cliente pode consultar a tabela publicada em `designfy://exit-codes`.
 
-## Configurar os clientes
+## Gravar a conexão no arquivo de cada cliente
 
-O catálogo de servidores traz três entradas: o próprio Designfy, o shadcn e o
-Playwright. O Designfy e o shadcn são recomendados; o Playwright entra com
-pedido.
+O Designfy reconhece cinco clientes. Comece pela consulta dos servidores registrados no projeto para identificar quais clientes já têm a conexão.
 
 ```bash
 designfy mcp servers
 ```
+
+Cada linha cruza um servidor do catálogo com os clientes reconhecidos. No exemplo, nenhum dos cinco tem uma entrada para os servidores listados.
 
 ```text
   designfy (Designfy)      claude: absent, codex: absent, opencode: absent, cursor: absent, gemini: absent
@@ -147,7 +146,7 @@ designfy mcp servers
   playwright (Playwright)  claude: absent, codex: absent, opencode: absent, cursor: absent, gemini: absent
 ```
 
-O `mcp setup` grava as entradas nos arquivos de projeto dos clientes:
+O estado `absent` descreve a configuração do cliente naquele projeto. O comando `mcp setup` propõe o Designfy e o shadcn por padrão. Playwright também está disponível no catálogo para seleção explícita. O destino da gravação varia conforme o cliente.
 
 | Cliente | Arquivo |
 | --- | --- |
@@ -157,45 +156,33 @@ O `mcp setup` grava as entradas nos arquivos de projeto dos clientes:
 | `cursor` | `.cursor/mcp.json` |
 | `gemini` | `.gemini/settings.json` |
 
+Antes de gravar, examine os caminhos que o comando selecionou. Sem `--client`, ele usa os clientes com arquivo no projeto. Quando nenhum tem arquivo, o destino padrão é o Claude Code.
+
 ```bash
 designfy mcp setup --dry-run
 ```
+
+Na prévia abaixo, as duas entradas têm o mesmo destino. O prefixo `planned add` indica uma inclusão prevista.
 
 ```text
   claude / designfy  planned add · /tmp/opencode/designfy-demo/.mcp.json
   claude / shadcn    planned add · /tmp/opencode/designfy-demo/.mcp.json
 ```
 
-Sem `--client`, o comando usa os clientes que já têm arquivo no projeto e, quando
-nenhum tem, o `claude`. Para escolher:
+Para instalar as mesmas entradas no Codex e no OpenCode, indique os dois clientes no comando de gravação.
 
 ```bash
 designfy mcp setup designfy shadcn --client codex,opencode
 ```
 
-O comando preserva as outras chaves e entradas. Uma entrada existente e
-diferente exige `--force`. `--dry-run` imprime o plano. Nenhuma entrada leva
-segredo: o servidor do Designfy não precisa de credencial para ler o projeto e
-as tools de catálogo não chamam API externa.
+O comando preserva as outras chaves dos arquivos. Para substituir uma entrada de mesmo nome com configuração diferente, é preciso usar `--force`. O servidor Designfy lê o projeto localmente. A configuração dispensa credenciais e as consultas ao catálogo usam o conteúdo embutido no binário.
 
-## Testar
+## Verificar a conexão com o Inspector
 
-O Inspector do MCP abre uma página local para chamar tools, ler resources e
-inspecionar as mensagens JSON-RPC:
+Reinicie o cliente após gravar a configuração e chame `project_status`. Compare o framework e a folha de estilos com o projeto aberto. Para examinar as mensagens da conexão, inicie o Inspector com o mesmo executável e argumento usados pelo cliente.
 
 ```bash
 npx @modelcontextprotocol/inspector designfy mcp
 ```
 
-Para testar sem interface, um cliente MCP mínimo inicia o processo, pede a
-listagem de tools e chama `project_status`. O retorno precisa trazer o projeto
-da pasta do servidor.
-
-## Conferir
-
-- `designfy mcp --list` mostra as tools, resources e prompts.
-- `designfy mcp --list --read-only` não lista `components_add` nem `capture_run`.
-- `designfy mcp setup --dry-run` mostra os arquivos de cada cliente.
-- O cliente reiniciado enxerga o servidor `designfy` e responde a
-  `project_status`.
-- Nenhuma resposta de tool traz valor de credencial.
+O Inspector abre uma interface local para chamar tools e ler resources. Também é possível testar sem interface com um cliente MCP mínimo. Inicie o servidor, liste as tools e chame `project_status`. Uma resposta com o framework de outro projeto indica que você deve conferir a pasta de trabalho ou o valor de `--project`.

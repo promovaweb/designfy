@@ -1,15 +1,10 @@
 # Capítulo 7: Fundos e movimento
 
-A landing page abre com o hero sobre um padrão de grade discreto, com um
-desvanecimento radial que segura o texto legível. As seções seguem na
-superfície, uma faixa tingida marca a virada de assunto e a chamada final repete
-o padrão do hero. Enquanto você rola, os blocos entram em cascata; no fim, tudo
-continua legível com o movimento reduzido ligado no sistema. Esse é o padrão que
-o Designfy entrega para fundo e movimento.
+Na revisão do Plano Founders, as linhas de vantagens reagiam ao ponteiro embora não abrissem link algum. O hover sugeria um clique sem destino e foi retirado. Na linha do tempo, a animação tinha outra função. O pulso destacava a etapa atual, por isso ficou restrito a três ciclos para que o marcador continuasse visível durante a leitura.
 
-## Três níveis de fundo
+## Superfície, faixa e padrão de fundo
 
-O fundo dá ritmo à página e separa seções sem precisar de caixa.
+Uma mudança de assunto pode ocupar toda a largura da página. Nesse caso, tingir o fundo da seção separa os blocos sem acrescentar uma borda a cada parágrafo. O Designfy oferece três níveis de fundo para compor esse ritmo.
 
 | Nível | O que é | Classe ou componente |
 | --- | --- | --- |
@@ -17,19 +12,17 @@ O fundo dá ritmo à página e separa seções sem precisar de caixa.
 | Faixa | seção inteira tingida | `bg-muted/60`, `bg-card`, ou `bg-primary text-primary-foreground` numa chamada |
 | Padrão | desenho discreto atrás do conteúdo | componente `Background` com um preset |
 
-Numa página de site, a maior parte das seções fica na superfície. Uma faixa
-tingida a cada duas ou três seções marca mudança de assunto. O padrão aparece no
-hero, na chamada final e, no máximo, em mais uma seção. Em sistema, o fundo é
-superfície e cartão; padrão só em tela de entrada, estado vazio e página de erro.
+Em um site, use a superfície na maior parte do percurso. Uma faixa a cada duas ou três seções pode marcar uma mudança de assunto. Reserve o padrão para o hero, a chamada final e no máximo uma seção adicional. Em aplicativos, prefira superfície e cartão na área de trabalho. Os padrões cabem na entrada, no estado vazio ou na tela de erro.
 
-## O componente Background
+## Instalação e máscara de Background
+
+O componente `Background` desenha o padrão em uma camada própria. Para usá-lo, copie o item do registro e importe a folha `designfy-backgrounds.css` uma vez no CSS de entrada.
 
 ```bash
 designfy components add background
 ```
 
-O comando copia o componente e o `designfy-backgrounds.css`. Importe o CSS uma
-vez no CSS de entrada.
+A cópia inclui tanto o componente quanto a folha de estilos. Em React, o exemplo envolve o hero com a grade `signal-grid`. A máscara radial atenua o desenho sem alterar a opacidade do título ou das ações.
 
 ```tsx
 <Background preset="signal-grid" fade="radial">
@@ -37,13 +30,15 @@ vez no CSS de entrada.
 </Background>
 ```
 
+Em Astro, o conteúdo pode vir de um slot. A máscara `bottom` suaviza o padrão na parte inferior, onde a abertura encontra a próxima seção.
+
 ```astro
 <Background preset="studio-soft-blueprint" fade="bottom">
   <slot />
 </Background>
 ```
 
-As propriedades são poucas:
+O conteúdo fica acima do desenho. A camada decorativa recebe `aria-hidden="true"` para ficar fora da leitura assistiva. As props controlam o desenho e o recorte dessa camada.
 
 | Prop | Valores | Efeito |
 | --- | --- | --- |
@@ -51,23 +46,20 @@ As propriedades são poucas:
 | `fade` | `none`, `bottom`, `edges`, `radial` | aplica máscara na camada do padrão |
 | `className` ou `class` | classes do projeto | ajuste local do container |
 
-O componente renderiza a camada do padrão com `aria-hidden="true"` e mantém o
-conteúdo numa camada acima. Todos os presets leem os papéis do tema e mudam com
-a paleta e com o modo escuro. Nenhum preset tem cor literal.
+As classes locais ajustam o container. As cores dos presets vêm dos papéis do tema, por isso acompanham a paleta e o modo escuro. Verifique o resultado com texto sobre a máscara nas duas versões.
 
-## Escolher um preset
+## Escolha entre os 334 presets
 
-O catálogo desta versão tem 334 presets, com 257 desenhos distintos, em quatro
-categorias:
+O catálogo distribui 334 presets em quatro categorias, com 257 desenhos distintos. Para uma ferramenta de layout, uma grade pode sugerir a superfície de trabalho. Para cartografia ou estatísticas, um campo de pontos pode fazer mais sentido atrás da ilustração.
 
 | Categoria | Presets | O que traz | Combina com |
 | --- | --- | --- | --- |
 | `geometric` | 125 | grades, pontos, linhas, hachuras | produto técnico, ferramenta, documentação, sistema |
 | `gradients` | 64 | lavagens e brilhos radiais | página de venda, marca suave, chamada final |
 | `decorative` | 66 | texturas e composições | marca com personalidade, página editorial |
-| `effects` | 79 | holofotes, auroras, brilhos animados | hero de lançamento; um por página |
+| `effects` | 79 | holofotes, auroras, brilhos animados | hero de lançamento (um por página) |
 
-Cada preset declara a legibilidade em `presets.json`:
+A categoria descreve a aparência. Antes de colocar texto sobre o desenho, confira também a classificação de legibilidade em `presets.json`. Há presets próprios para ficar ao lado do título, fora da coluna de leitura.
 
 | Valor | Presets | Como usar |
 | --- | --- | --- |
@@ -75,40 +67,25 @@ Cada preset declara a legibilidade em `presets.json`:
 | `needs-fade` | 114 | use com `fade="radial"` ou `fade="bottom"` e meça o contraste |
 | `decorative-only` | 60 | só em área sem texto: lateral do hero, painel de marca, rodapé |
 
-A classificação é uma estimativa do gerador. A conferência final é a medida de
-contraste no ponto mais difícil atrás do texto e a captura nos dois temas.
+A classificação vem de uma estimativa do gerador. Confira os pares de cor com `designfy theme check` e examine as capturas em ambos os temas. No trecho menos legível do fundo, meça o contraste com a cor local sob as letras. Uma medição sobre a cor uniforme da página pode esconder a interferência de uma faixa clara no padrão.
 
-Nove presets se movem, com brilho que pulsa, feixe que varre ou grade com foco.
-Use um por página, em seção curta. Todos param com `prefers-reduced-motion` e
-quando saem da tela. Padrão geométrico sem função vira enfeite: ele funciona
-quando sugere a matéria do produto, como grade para ferramenta de layout e
-pontos para cartografia e estatísticas.
+Nove presets têm movimento, como um brilho pulsante ou um feixe que percorre a grade. Use no máximo um por página e restrinja-o a uma seção curta. Eles param fora da tela e com a preferência por movimento reduzido. Atrás de texto longo, mantenha o padrão estático para preservar a leitura durante a rolagem.
 
-Os presets vêm de duas fontes. O ReactBD BG distribui padrões do Pattern Craft de Megh
-Bari sob a licença MIT. O GradientDeck convida a copiar os padrões e
-não publica licença para eles. O Designfy converteu as cores em papéis do tema
-e manteve a geometria.
+O ReactBD BG distribui sob licença MIT padrões do Pattern Craft de Megh Bari. A outra fonte, GradientDeck, convida à cópia dos padrões e não publica licença para eles. Na adaptação, o Designfy preservou a geometria e substituiu as cores pelos papéis do tema.
 
-## Movimento é o padrão
+## Revelação de conteúdo e pausa fora da tela
 
-Toda tela tem algum movimento com função: entrada, resposta ao toque, troca de
-estado ou rolagem. Tela parada só quando o guia do projeto disser. Todo
-movimento tem versão parada para `prefers-reduced-motion: reduce`.
+O movimento pode indicar a entrada de uma seção, o acionamento de um controle ou uma mudança de estado. O guia do projeto pode indicar uma tela estática. Para a preferência `prefers-reduced-motion: reduce`, use o estado final e reserve `df-keep-motion` para um indicador de progresso que precise continuar visível em movimento. Para usar as revelações do registro, instale o item de movimento.
 
 ```bash
 designfy components add designfy-motion
 ```
 
-O arquivo `designfy-motion.css` declara as animações, as utilidades e o runtime
-`initDesignfyMotion`, que liga a classe `js` no `html`, marca as revelações e
-pausa laços fora da tela. Use CSS para a maior parte dos efeitos e recorra ao
-[Motion](https://motion.dev) quando a animação exigir mais recursos.
-
-### Utilidades de CSS
+A folha `designfy-motion.css` fornece animações e utilidades. O script associado exporta `initDesignfyMotion`, que acrescenta a classe `js` ao `html` e acompanha a visibilidade dos elementos. Importe o CSS na entrada e inicialize o runtime para marcar revelações e pausar laços fora da tela.
 
 | Utilidade | O que faz |
 | --- | --- |
-| `data-df-reveal` | revela o elemento uma vez ao aparecer; valores `up`, `down`, `left`, `right`, `scale`, `fade` e `mask` |
+| `data-df-reveal` | revela o elemento uma vez ao aparecer com uma das variantes `up`, `down`, `left`, `right`, `scale`, `fade` e `mask` |
 | `data-df-stagger` no pai | numera os filhos e escalona a revelação |
 | `style="--df-i: 3"` | posição na sequência, quando não há pai com `data-df-stagger` |
 | `data-df-count="1250"` | anima o número até o valor final ao aparecer, com `data-df-count-from` e `data-df-count-duration` |
@@ -122,34 +99,19 @@ pausa laços fora da tela. Use CSS para a maior parte dos efeitos e recorra ao
 | `df-shimmer` | brilho de esqueleto com os papéis do tema |
 | `df-keep-motion` | mantém a animação com movimento reduzido, para indicador de progresso |
 
-A cascata usa `data-df-stagger` no pai. Os filhos recebem o índice em `--df-i` e
-o atraso sai de `--stagger`. A revelação só esconde o conteúdo quando o script
-adiciona `js` ao `html`; sem JavaScript e com animação por rolagem do navegador,
-o conteúdo aparece.
+Em uma sequência com `data-df-stagger`, o runtime atribui a cada filho um índice em `--df-i`. O CSS usa esse índice e `--stagger` para calcular o atraso. O estado oculto das revelações depende de `js` no `html`. Confira o texto com JavaScript desativado e com movimento reduzido. Em ambos os casos, a leitura precisa chegar até a última seção.
 
-As durações e curvas vêm do tema: `--duration-instant` (100 ms),
-`--duration-fast` (150 ms), `--duration-base` (250 ms), `--duration-slow`
-(500 ms) e `--duration-slower` (800 ms), com `--ease-out-expo`,
-`--ease-out-quart` e `--ease-spring` entre as curvas.
+As durações do tema vão de `--duration-instant` (100 ms) a `--duration-slower` (800 ms). Entre elas ficam `--duration-fast` (150 ms), `--duration-base` (250 ms) e `--duration-slow` (500 ms). Para mudar o ritmo da transição mantendo a mesma duração, consulte as curvas `--ease-out-expo`, `--ease-out-quart` e `--ease-spring`.
 
-### O que se move
+### Hover nas linhas e pausa na faixa do Plano Founders
 
-- Só `transform`, `opacity`, `clip-path`, `mask` e `background-position`
-  animam. Exclua da animação `transition-all`, `width`, `height`, `top`, `left`, `margin` ou
-  `padding`.
-- Um sinal de hover por elemento, aplicado ao container para abranger também a área ao redor da imagem.
-- Laço pausa no hover, no foco e fora da tela. Com movimento reduzido, o laço
-  para.
-- Fundo animado fica em seção curta. Atrás de texto longo, prefira o estático e
-  ponha o movimento no conteúdo.
-- O componente React lê `useReducedMotion()` e renderiza o estado final.
+Aplique o hover ao container de cada elemento acionável para abranger também a área ao redor da imagem. Um sinal por elemento é suficiente. Na landing do Plano Founders, a faixa rolante pausa fora da tela e o botão de pausa aparece ao receber foco pelo teclado. Confira também a pausa do laço ao passar o ponteiro, ao focar e ao ativar movimento reduzido.
 
-## Movimento com o Motion
+Para uma entrada, anime `transform` ou `opacity`. Para revelar um desenho, use `clip-path`, `mask` ou `background-position`. Declare a propriedade na transição. Com `transition-all`, mudanças em `width` ou `height` também poderiam animar e deslocar o texto vizinho. Preserve as dimensões e mantenha `top`, `left`, `margin` e `padding` fora da animação.
 
-Quando o CSS não resolve, a skill `designfy-motion` usa `motion/react` para
-animação de layout, entrada e saída de elemento, gesto e número com mola.
-Use `motion/react` para a importação. Mantenha `framer-motion` fora das importações e mantenha a versão
-parada.
+## Entrada de um valor em React com Motion
+
+O CSS atende a efeitos simples com pouco custo e pode funcionar antes da hidratação. Quando a composição precisa animar layout, entrada e saída, gestos ou um número com mola, a skill `designfy-motion` usa o pacote Motion. Faça a importação por `motion/react`. [Documentação do Motion](https://motion.dev)
 
 ```tsx
 import { motion, useReducedMotion } from "motion/react";
@@ -168,15 +130,4 @@ export function Stat({ value }: { value: number }) {
 }
 ```
 
-O CSS continua sendo a primeira escolha: custa menos, funciona sem JavaScript e
-não depende de hidratação.
-
-## Conferir
-
-- O CSS de entrada importa `designfy-backgrounds.css` e `designfy-motion.css`.
-- `designfy theme check` aprova o contraste do texto sobre o padrão escolhido.
-- Cada seção declara um nível de fundo: superfície, faixa ou padrão.
-- Todo preset usado atrás de texto é `text-safe` ou leva o `fade` indicado.
-- Todo movimento tem versão parada em `prefers-reduced-motion`.
-- Laços pausam no hover, no foco e fora da tela.
-- Nenhum arquivo usa `transition-all` nem anima altura ou largura.
+Com movimento habilitado, o valor começa 8 px abaixo da posição final e aparece em 0,25 segundo. Com movimento reduzido, `useReducedMotion()` faz `initial` receber `false`. O valor já aparece no estado final. Ao revisar um componente React existente, confira tanto esse comportamento quanto a origem da importação para evitar a antiga entrada `framer-motion`.

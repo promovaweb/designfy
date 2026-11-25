@@ -1,8 +1,54 @@
 # Capítulo 6: Catálogo e componentes
 
-O agente precisa de um cartão de indicador para o topo do dashboard. Em vez de
-inventar um, ele roda `designfy catalog show stat-card` e recebe a anatomia, os
-estados, o movimento, os papéis de cor e a origem da implementação:
+O estudo das 21 seções da landing page do Plano Founders rendeu onze itens para os registros React e Astro. Um deles foi `milestone-timeline`, que reúne datas, resultados e um marcador da etapa atual. Para aproveitar a mesma composição em outra tela, você precisa saber tanto o que a linha do tempo expressa quanto quais arquivos o seu framework recebe.
+
+## Da função da tela à ficha do catálogo
+
+O catálogo descreve 91 padrões de interface em 15 categorias. Você pode começar pela superfície da tela ou pelo tipo já definido no viewspec. Para um dashboard, o filtro por tipo inclui tanto a estrutura do aplicativo quanto os controles compartilhados com o site.
+
+```bash
+designfy catalog list
+designfy catalog list --surface webapp
+designfy catalog list --kind dashboard
+designfy catalog search table
+```
+
+Há 43 entradas de `site`, 22 de `webapp` e 26 de `both`. O nome antigo `system` continua aceito como `webapp`. No trecho da consulta por `--kind dashboard`, repare na superfície ao lado de cada nome.
+
+```text
+  button             Button (both, actions)
+  link               Text link (both, actions)
+  card               Card (both, containers)
+  badge              Badge (both, data-display)
+  avatar             Avatar (both, data-display)
+  tabs               Tabs (both, navigation)
+  dropdown-menu      Dropdown menu (both, actions)
+  tooltip            Tooltip (both, feedback)
+  dialog             Dialog (both, feedback)
+  drawer             Drawer (both, feedback)
+  counter            Animated counter (both, motion)
+  theme-toggle       Theme toggle (both, actions)
+  app-shell          App shell (webapp, shell)
+  ...
+```
+
+O `app-shell` oferece a moldura do aplicativo. Um botão classificado como `both` cabe também numa landing page. Para localizar uma função pelo vocabulário da ficha, use a busca. Ela ignora diferenças de caixa e acentuação. O termo `table` alcança entradas de comparação de planos e de exibição de registros.
+
+```text
+  dropdown-menu      Dropdown menu (both, actions)
+  pricing-table      Pricing table (site, site-sections)
+  comparison-table   Comparison table (site, site-sections)
+  prose              Prose (site, content)
+  table-of-contents  Table of contents (site, content)
+  figure             Figure (site, content)
+  chart-card         Chart card (webapp, data-display)
+  data-table         Data table (webapp, data-display)
+  filter-bar         Filter bar (webapp, data-display)
+  bulk-actions       Bulk action bar (webapp, data-display)
+  settings-layout    Settings layout (webapp, settings)
+```
+
+A lista reúne funções distintas. Abra uma ficha por ID com `designfy catalog show <id>` para ler a finalidade antes de escolher a implementação. Um ID desconhecido retorna o código 6. Para um cartão de indicador, a consulta `designfy catalog show stat-card` produz a ficha abaixo.
 
 ```text
 Stat card
@@ -24,72 +70,13 @@ Stat card
   Sources         designfy:stat-card
 ```
 
-A última linha diz de onde vem a peça. `designfy:stat-card` copia com o próprio
-binário; `shadcn:<item>` e `reui:<item>` instalam pelo CLI do shadcn; `custom`
-avisa que aquela função ainda não tem implementação pronta. O catálogo decide a
-forma; o registro entrega o arquivo.
+O valor do indicador aparece junto à variação desde o período anterior. Na ficha, `Accessibility` especifica como representar essa variação por sinal e texto para que a cor da seta seja dispensável. A skill `designfy-components` cruza o uso previsto em `useWhen` com as restrições de `avoidWhen`. Confira também os estados de carregamento, erro e ausência de registros antes de adotar o cartão.
 
-## O catálogo de interface
+O campo `Sources` indica como obter a implementação. Com `designfy:stat-card`, o próprio binário fornece os arquivos. Os prefixos `shadcn:` e `reui:` encaminham a instalação ao CLI do shadcn. Uma origem `custom` indica que você precisa implementar o padrão no projeto.
 
-O catálogo tem 91 fragmentos comuns de site e de sistema, em 15 categorias e
-três superfícies: 43 entradas de `site`, 22 de `webapp` e 26 de `both`. O valor
-antigo `system` continua aceito e é lido como `webapp`. Cada
-entrada declara propósito, quando usar, quando evitar, anatomia, variações,
-estados, responsividade, movimento, acessibilidade, papéis de tema, itens
-relacionados e as fontes de implementação.
+## Os componentes disponíveis para cada framework
 
-```bash
-designfy catalog list
-designfy catalog list --surface webapp
-designfy catalog list --kind dashboard
-designfy catalog search table
-```
-
-O `--kind` usa o mesmo tipo de tela do viewspec. Para um dashboard, a lista
-começa assim:
-
-```text
-  button             Button (both, actions)
-  link               Text link (both, actions)
-  card               Card (both, containers)
-  badge              Badge (both, data-display)
-  avatar             Avatar (both, data-display)
-  tabs               Tabs (both, navigation)
-  dropdown-menu      Dropdown menu (both, actions)
-  tooltip            Tooltip (both, feedback)
-  dialog             Dialog (both, feedback)
-  drawer             Drawer (both, feedback)
-  counter            Animated counter (both, motion)
-  theme-toggle       Theme toggle (both, actions)
-  app-shell          App shell (webapp, shell)
-  ...
-```
-
-A busca não diferencia caixa nem acento:
-
-```text
-  dropdown-menu      Dropdown menu (both, actions)
-  pricing-table      Pricing table (site, site-sections)
-  comparison-table   Comparison table (site, site-sections)
-  prose              Prose (site, content)
-  table-of-contents  Table of contents (site, content)
-  figure             Figure (site, content)
-  chart-card         Chart card (webapp, data-display)
-  data-table         Data table (webapp, data-display)
-  filter-bar         Filter bar (webapp, data-display)
-  bulk-actions       Bulk action bar (webapp, data-display)
-  settings-layout    Settings layout (webapp, settings)
-```
-
-Id desconhecido sai com exit code 6. A skill `designfy-components` exige que
-`useWhen` valha e `avoidWhen` não valha antes de escolher a peça.
-
-## O registro de componentes
-
-O registro tem dois manifestos no formato do shadcn,
-`registry/react/registry.json` e `registry/astro/registry.json`. O registro inclui também os arquivos
-de origem. O binário leva o registro embutido, gerado por
-`bun run registry:embed`, então `components list` funciona sem o repositório.
+O registro React oferece 69 itens. O Astro oferece 57. Ambos levam arquivos de origem e um manifesto no formato shadcn, em `registry/react/registry.json` ou `registry/astro/registry.json`. O build `bun run registry:embed` incorpora o registro ao binário, por isso a consulta funciona mesmo sem o checkout do Designfy.
 
 ```bash
 designfy components list
@@ -97,9 +84,7 @@ designfy components list --framework react
 designfy components list --surface webapp
 ```
 
-O registro React tem 69 itens e o Astro tem 57. Sem `--framework`, o comando usa
-o framework do `designfy.json`; `next` e `react-vite` leem o registro React. A
-lista desta versão:
+Sem `--framework`, a consulta usa o framework do `designfy.json`. Os valores `next` e `react-vite` selecionam o registro React. A tabela localiza as famílias disponíveis e identifica os itens exclusivos de React.
 
 | Categoria | Itens |
 | --- | --- |
@@ -113,24 +98,18 @@ lista desta versão:
 | `containers` | `card` |
 | `actions` | `theme-toggle` |
 | `content` | `article-header`, `author-box`, `callout`, `code-block`, `figure`, `post-card`, `post-list`, `prose`, `reading-progress`, `table-of-contents`, `video-embed` |
-| `data-display` | `activity-feed`, `description-list` no Astro; mais `chart-card`, `data-table`, `filter-bar`, `stat-card` no React |
+| `data-display` | `activity-feed`, `description-list` nos dois registros. O React acrescenta `chart-card`, `data-table`, `filter-bar`, `stat-card` no React |
 | `shell` | `app-shell`, `page-header`, só no React |
 | `auth` | `auth-card`, só no React |
 | `feedback` | `empty-state`, `error-state` |
 | `forms` | `file-upload`, `form-layout`, `stepper`, só no React |
 | `settings` | `settings-layout`, `settings-section`, só no React |
 
-A base do registro está nas três primeiras categorias da tabela:
-`designfy-theme` traz os tokens, `designfy-motion` e `designfy-motion-runtime`
-trazem o movimento e o script, `cn` combina classes, `designfy-prose` liga a
-tipografia de leitura, `background` e `background-styles` trazem os padrões de
-fundo e `section` fecha o ritmo das seções. Copie esses arquivos de estilo e de
-biblioteca uma vez por projeto.
+Na base compartilhada, `cn` combina classes e `section` define o espaçamento das seções. Instale os estilos comuns uma vez por projeto. O tema fornece os tokens, enquanto `designfy-prose` trata a tipografia de leitura. As animações usam o CSS de `designfy-motion` junto ao script de `designfy-motion-runtime`. Para fundos desenhados, o componente `background` usa a folha `background-styles`.
 
-### Os onze itens do estudo Founders
+### Composições do Plano Founders
 
-Onze itens vêm da landing de oferta lida no estudo do capítulo 3, em React
-e em Astro, com o mesmo nome, as mesmas props e a mesma estrutura:
+O palco de pixels e o hero são itens separados. Você pode aplicar o palco a outra seção ou usar o hero com o resumo lateral. As onze composições do estudo conservam nome, props e estrutura nas versões React e Astro.
 
 | Item | O que entrega |
 | --- | --- |
@@ -138,15 +117,15 @@ e em Astro, com o mesmo nome, as mesmas props e a mesma estrutura:
 | `hero-pixel` | abertura de landing sobre o palco de pixels, com resumo lateral opcional |
 | `feature-rows` | vantagens numeradas em linhas alinhadas, com introdução acima ou lateral fixa |
 | `milestone-timeline` | eventos datados ou etapas em ordem, com marcador do momento atual e resultados alinhados |
-| `profile-split` | apresenta uma pessoa com retrato, credenciais e links |
+| `profile-split` | reúne retrato, credenciais e links de um perfil |
 | `offer-card` | oferta com prazo, vagas opcionais e ação principal, nas variantes `tinted` e `stage` |
 | `audience-fit` | duas listas, com perfis indicados e contraindicados, com ou sem nota |
 | `numbered-checklist` | inclusões com chips numerados e destaques opcionais, em uma ou duas colunas |
 | `outcome-grid` | resultados curtos numa grade responsiva de blocos com ícone |
-| `detail-card` | explica um recurso com ícone, parágrafos e itens de conferência; inclui o `DetailCardGrid` |
+| `detail-card` | explica um recurso com ícone, parágrafos e itens de conferência. Inclui o `DetailCardGrid` |
 | `statement-stats` | frase em dois tons ao lado de estatísticas empilhadas, para compor com a linha do tempo |
 
-Cinco itens que já existiam ganharam variante:
+O estudo também mostrou onde cabia aproveitar um componente existente. A FAQ, por exemplo, ganhou uma disposição com a introdução à esquerda. As cinco variantes abaixo ampliam itens já disponíveis no registro.
 
 | Item | Variante nova |
 | --- | --- |
@@ -156,11 +135,17 @@ Cinco itens que já existiam ganharam variante:
 | `pricing-table` | `single`, um plano com oferta e lista de inclusões no lugar da grade |
 | `marquee` | `accent`, com separadores em losango e a cor de destaque do tema |
 
-## Conferir um item
+A variante `single` acomoda uma única oferta na tabela de preços. Para descobrir quais estilos acompanham um item antes da cópia, consulte sua ficha no registro do framework em uso.
+
+## Arquivos e dependências de hero-split
+
+Em um projeto Astro, a ficha de `hero-split` mostra o caminho do componente e os estilos necessários. Acrescente `--source` para ler o código que entrará no projeto. Um nome desconhecido retorna o código 6.
 
 ```bash
 designfy components show hero-split
 ```
+
+No exemplo, `Files` identifica um arquivo Astro. As dependências do registro aparecem separadas dos pacotes de produção e desenvolvimento.
 
 ```text
 Split hero
@@ -175,17 +160,13 @@ Pairs a headline and actions with a framed visual in a responsive, animated layo
   Registry dependencies  designfy-theme, designfy-motion
 ```
 
-`--source` inclui o código do arquivo na resposta. Nome desconhecido sai com
-exit code 6.
-
-## Copiar para o projeto
+O hero precisa dos itens de tema e movimento mesmo com `Dependencies` vazio. Para conferir os destinos e os pacotes que faltam, use `designfy components add hero-split --dry-run`. Para gravar os arquivos, execute a mesma chamada sem a simulação.
 
 ```bash
 designfy components add hero-split
 ```
 
-O comando resolve os itens exigidos do Designfy em ordem, grava cada arquivo no
-destino e relata o que fez:
+O comando resolve as dependências do registro em ordem antes de relatar a cópia. Na saída abaixo, apenas o componente foi gravado. O tema, o script e o CSS de movimento já estavam no projeto com o mesmo conteúdo.
 
 ```text
   Written               /tmp/opencode/designfy-demo/src/components/designfy/hero-split/HeroSplit.astro
@@ -198,71 +179,39 @@ destino e relata o que fez:
   Install shadcn items  None
 ```
 
-As categorias da resposta separam o resultado:
+Ao repetir a operação depois de editar o hero localmente, procure a linha `Skipped`. Ela identifica arquivos preservados por terem conteúdo diferente. Os outros campos distinguem o material copiado das instalações que ainda cabem a você.
 
 | Categoria | Significado |
 | --- | --- |
-| `Written` | arquivo novo gravado |
+| `Written` | arquivo gravado (novo ou substituído com `--overwrite`) |
 | `Unchanged` | o arquivo já estava igual |
 | `Skipped` | o arquivo existe com conteúdo diferente e mantém a versão local |
 | `Missing npm packages` | pacotes de produção que o arquivo importa e o projeto não tem |
 | `Missing dev packages` | pacotes de desenvolvimento que faltam |
 | `Install shadcn items` | itens `shadcn:` que precisam do CLI do shadcn |
 
-O destino segue o tipo de arquivo. Componente vai para `paths.components`;
-estilo, para `paths.styles`. O marcador `@designfy/components` é trocado pelo
-alias de `designfy.json`, então o import funciona com o alias do projeto. Um
-arquivo existente e diferente não é sobrescrito sem `--overwrite`. Depois de
-copiado, o arquivo pertence ao projeto e pode ser editado.
+Os componentes vão para `paths.components` e os estilos para `paths.styles`. Durante a cópia, o marcador `@designfy/components` recebe o alias configurado em `designfy.json`. Sem esse arquivo, o comando avisa que usará os destinos padrão. Você pode indicar outra pasta com `--path <dir>` ou selecionar o manifesto com `--framework <framework>`.
 
-O `--dry-run` mostra o plano sem gravar, inclusive as dependências pendentes.
-`--path <dir>` troca a pasta de destino e `--framework <framework>` escolhe o
-manifesto. Sem `designfy.json`, o comando usa os padrões e avisa.
+A cópia pertence ao projeto. Reserve `--overwrite` para quando quiser substituir uma edição local pelo conteúdo do registro. Depois de instalar os pacotes indicados na saída, rode `designfy deps check` e confira o código 0.
 
-## shadcn e ReUI
+## Primitivas do shadcn e blocos do ReUI
 
-O Designfy não substitui o CLI do shadcn. Os primitivos acessíveis continuam
-saindo do [shadcn](https://ui.shadcn.com):
+Para os controles básicos com suporte a teclado, use o CLI do shadcn. Esta chamada instala botão, cartão e diálogo no projeto que receberá a composição. [Registro do shadcn](https://ui.shadcn.com)
 
 ```bash
 npx shadcn@latest add button card dialog
 ```
 
-O [ReUI](https://reui.io) entra pelo registro `@reui` do mesmo CLI:
+O mesmo CLI reconhece o registro `@reui`. Para obter uma grade interativa, indique o registro no nome do item. O ReUI também oferece filtros e quadros kanban. [Registro do ReUI](https://reui.io)
 
 ```bash
 npx shadcn@latest add @reui/data-grid
 ```
 
-Os três usam o mesmo tema: papéis do shadcn sobre o Tailwind 4. O registro do
-Designfy traz composições de página, conteúdo e sistema, com movimento e com os
-estados descritos no catálogo. O shadcn traz as primitivas sem estilo. O ReUI
-traz blocos avançados, como grade de dados, filtros e kanban.
+As composições Designfy usam os mesmos papéis de tema do shadcn sobre o Tailwind 4. Assim, ao combinar a grade com um cabeçalho do Designfy, você consegue ajustar a tipografia e as superfícies no tema compartilhado.
 
-## A regra de tema único
+## O que preservar ao editar a cópia
 
-Todo item do registro obedece à mesma regra: cor, fonte, raio e movimento vêm
-dos papéis do tema. O item não leva cor literal, classe de paleta fixa
-(`bg-indigo-500`, `text-gray-900`), cor arbitrária (`bg-[#0af]`) nem
-`font-family` literal. Transparência sai do papel, como `bg-primary/10` ou
-`color-mix(in oklab, var(--primary) 18%, transparent)`.
+Cores, fontes, raios e movimento vêm do tema. Para uma superfície translúcida, use `bg-primary/10` ou `color-mix(in oklab, var(--primary) 18%, transparent)`. Classes fixas como `bg-indigo-500` e `text-gray-900` prendem o componente a uma paleta. O mesmo ocorre com `bg-[#0af]` ou uma declaração literal de `font-family`. O registro verifica essas restrições com `bun run registry:check`.
 
-`dark:` não serve para cor, porque os papéis já mudam com o tema. `dark:` fica
-para diferença que não é de cor, como trocar uma imagem. O
-`bun run registry:check` recusa o item fora da regra.
-
-O registro também exige conteúdo por propriedade. Nenhum texto com cara de real
-dentro do componente; texto, link, imagem e número chegam por prop ou slot.
-Região opcional sem conteúdo não renderiza nada. A peça é semântica, tem alvo
-de toque de 44 px no celular, mantém o foco visível e usa uma biblioteca de
-ícones só.
-
-## Conferir
-
-- `designfy catalog list --kind <tipo>` devolve os fragmentos do tipo de tela.
-- `designfy catalog show <id>` mostra a origem da implementação.
-- `designfy components list --framework react` mostra os 69 itens.
-- `designfy components list --framework astro` mostra os 57 itens.
-- `designfy components add <item> --dry-run` mostra os arquivos antes da cópia.
-- `designfy deps check` termina com exit code 0 depois da cópia.
-- Nenhum arquivo copiado tem cor literal ou `font-family`.
+Claro e escuro usam as mesmas classes de cor porque seus papéis mudam no CSS. Reserve `dark:` para outra diferença visual, como a troca de uma imagem. Ao preencher o componente, forneça texto, links, imagens e números por prop ou slot. Uma região opcional vazia deve ficar fora do HTML. Nos controles resultantes, confira a semântica, o foco visível e o alvo de toque de 44 px no celular. Mantenha uma única biblioteca de ícones na composição.

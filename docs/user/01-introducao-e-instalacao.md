@@ -1,22 +1,10 @@
 # Capítulo 1: Introdução e instalação
 
-Você abre o projeto Astro que acabou de clonar e roda `designfy status`. A
-resposta cabe numa tela: framework `astro`, Tailwind 4, `npm` como gerenciador,
-nenhuma skill de projeto instalada, `0001` como próximo viewspec e o caminho do
-CSS do tema. A partir dali, cada pedido de tela ganha um arquivo de
-especificação, um registro de componentes e uma captura para conferir o
-resultado.
+No site da Promovaweb, a primeira tela revisada com o Designfy foi a do Plano Founders. No celular, a linha com o prazo da oferta precisava aparecer sob os botões do hero. O agente registrou a mudança no viewspec da tela. Com o site aberto no navegador, uma captura permitiu conferir a posição do texto na largura de leitura.
 
-## O que o Designfy faz
+## O que instalar para trabalhar numa tela
 
-Um site feito por agente costuma sair com a mesma cara: uma paleta improvisada,
-tipografia padrão, um componente novo a cada página, nada se move e o celular
-fica para depois. O Designfy reúne o método e as peças para a interface sair
-desenhada. Ele não desenha sozinho. Ele prepara o projeto, entrega o catálogo de
-fragmentos, gera a paleta, copia componentes que leem o tema e captura as telas
-para a revisão.
-
-O trabalho acontece em quatro frentes:
+Você instala o executável para operar sobre os arquivos do projeto. Ele identifica o framework, localiza o tema e abre o navegador com Playwright quando chega a hora de fotografar a interface. O agente usa a skill `designfy` para conduzir esse trabalho. É nela que encontra as instruções para escrever a especificação e selecionar as especialistas de cada tela.
 
 | Frente | O que entrega |
 | --- | --- |
@@ -25,70 +13,56 @@ O trabalho acontece em quatro frentes:
 | Peças | registro de componentes React e Astro, catálogo de interface, paleta e fundos |
 | Conferência | `theme check`, `deps check`, `viewspec validate` e capturas com Playwright |
 
-A skill orquestradora `designfy` recebe o pedido, lê o projeto, monta o viewspec
-e chama as especialistas na ordem. O binário é a mão dela no terminal: detecta
-o projeto, copia arquivos, mede contraste e abre o navegador. A mesma base
-atende a pessoa no terminal, os scripts de CI e o agente por MCP.
+Na linha Conferência, cada comando examina uma parte diferente da entrega. O `theme check` mede contraste no tema. Para verificar a posição de um botão no celular, você precisa olhar a captura da rota indicada no viewspec.
 
-## Três modos no mesmo executável
+## TUI, CLI e MCP
 
-O `designfy` tem três formas de uso, com a mesma configuração em
-`~/.designfy/`:
+O executável lê a configuração de `~/.designfy/` nas três formas de acesso. Num terminal interativo, basta digitar `designfy` para abrir a TUI. Ao automatizar a mesma consulta, escolha a entrada conforme o programa que vai receber a resposta.
 
 | Modo | Como entrar | Público |
 | --- | --- | --- |
-| TUI | `designfy` sem argumentos, num terminal interativo | pessoas |
-| CLI | `designfy <command> [options]`, com texto ou `--json` | pessoas, scripts e CI |
+| TUI | `designfy` sem argumentos, num terminal interativo | uso interativo |
+| CLI | `designfy <command> [options]`, com texto ou `--json` | uso interativo, scripts e CI |
 | MCP | `designfy mcp`, servidor Model Context Protocol via stdio | agentes de IA |
 
-O CLI devolve dados em stdout, avisos em stderr e um exit code fixo por família
-de falha. Com `--json`, a resposta vem no envelope `{ ok, command, data }`, que
-um script lê sem interpretar texto.
+No CLI, a resposta sai em stdout e os avisos em stderr. Com `--json`, uma execução bem-sucedida devolve `{ ok, command, data }`. Um script de CI pode consultar o código de saída para identificar a família da falha e ler a mensagem sem interpretar o painel do terminal.
 
-## Requisitos
+## Instalação pelo pacote npm
 
-- **Node.js 18.17 ou superior** para três trabalhos: baixar o binário pelo pacote do npm,
-  instalar as skills com `npx skills` e executar o Playwright num processo Node
-  do projeto durante a captura.
-- **Bun 1.4.4 ou superior** só para rodar o código-fonte ou compilar o binário.
-  A versão mínima está em `package.json` e o `designfy doctor` a confere. O
-  executável da release já leva o runtime.
-- **Acesso ao GitHub** para o `npx skills add` buscar as skills em
-  `promovaweb/designfy`, quando você instalar a skill à mão.
-
-## Instalar com o npm
+O pacote usa Node.js 18.17 ou superior para baixar o executável. Essa versão do Node também atende à instalação de skills pelo `npx skills` e ao processo do Playwright que roda no projeto durante a captura. Para usar o binário da release, o runtime do Bun já vem incluído.
 
 ```bash
 npm i -g @promovaweb/designfy
 designfy --version
 ```
 
-O pacote do npm é um invólucro fino. Ele baixa o binário da release da mesma
-versão para `~/.designfy/bin/v<versão>/`, confere o SHA-256 e o mantém em
-cache; as execuções seguintes usam o arquivo guardado. O `postinstall` adianta
-o download e a primeira execução o repete se o cache estiver vazio.
+O `postinstall` baixa o binário da mesma versão do pacote e confere o SHA-256 antes de guardá-lo em `~/.designfy/bin/v<versão>/`. Com o cache vazio, a primeira chamada tenta o download. A versão impressa pelo segundo comando confirma qual executável respondeu.
 
-## Instalar pelo binário da release
+## Binários da release por plataforma
 
-Baixe o executável da sua plataforma em
-[Releases](https://github.com/promovaweb/designfy/releases): `designfy-linux-x64`,
-`designfy-linux-arm64`, `designfy-darwin-x64`, `designfy-darwin-arm64` ou
-`designfy-windows-x64.exe`. Confira o arquivo com o `SHA256SUMS` da mesma
-release, dê permissão de execução e coloque numa pasta do `PATH`.
+Para instalar diretamente, escolha o arquivo da sua arquitetura na [release do Designfy](https://github.com/promovaweb/designfy/releases).
 
-## Instalar a skill no agente
+| Sistema | x64 | ARM64 |
+| --- | --- | --- |
+| Linux | `designfy-linux-x64` | `designfy-linux-arm64` |
+| macOS | `designfy-darwin-x64` | `designfy-darwin-arm64` |
+| Windows | `designfy-windows-x64.exe` | |
+
+Confira o download com o `SHA256SUMS` da mesma release. Coloque o arquivo em uma pasta do `PATH` com o nome de chamada `designfy` (`designfy.exe` no Windows). No Linux e no macOS, dê permissão de execução antes de consultar a versão.
+
+## Skills no ambiente do agente
+
+O agente precisa de acesso ao GitHub para buscar as instruções no repositório da Promovaweb. Para instalar a biblioteca diretamente com o instalador de skills, use a origem do projeto.
 
 ```bash
 npx skills add promovaweb/designfy
 ```
 
-O comando instala as skills que o agente lê. Dentro de um projeto, o caminho
-completo é o `designfy skills install`, do capítulo 3, que escolhe as skills
-compatíveis com o framework detectado.
+Dentro de uma aplicação, `designfy skills install` seleciona as skills compatíveis com o framework detectado. O capítulo 3 mostra como conferir essa seleção antes de instalar.
 
-## Do código-fonte
+## Compilação a partir do repositório
 
-Para desenvolver o Designfy ou gerar o binário da sua plataforma:
+Para alterar o código-fonte ou compilar sua própria cópia, use Bun 1.4.4 ou superior. O mínimo consta no `package.json` e entra na verificação do `designfy doctor`. Rode o build no clone e consulte a versão pelo caminho de saída.
 
 ```bash
 git clone https://github.com/promovaweb/designfy.git
@@ -98,14 +72,11 @@ bun run build
 ./dist/designfy --version
 ```
 
-O build gera `dist/designfy` para a plataforma da máquina. Para os cinco alvos
-de release, use `bun run build:all`. O ambiente de desenvolvimento, os testes e
-a validação estão no [CONTRIBUTING.md](../../CONTRIBUTING.md).
+O arquivo `dist/designfy` corresponde à plataforma da máquina que fez o build. Para gerar os cinco alvos de release, use `bun run build:all`. Os testes e o preparo do ambiente de desenvolvimento estão no [guia de contribuição](../../CONTRIBUTING.md).
 
-## Conferir a instalação
+## Leitura do diagnóstico de instalação
 
-Três comandos confirmam que o binário responde e que a pasta de dados pode ser
-criada:
+Em uma máquina com mais de uma instalação, confira primeiro a versão que o terminal encontra. Depois, use o relatório do executável para identificar de onde ele veio e o diagnóstico para verificar o ambiente.
 
 ```bash
 designfy --version
@@ -113,14 +84,13 @@ designfy about
 designfy doctor
 ```
 
-O `--version` imprime a versão:
+No registro abaixo, a consulta curta identifica a versão usada para produzir os exemplos do guia.
 
 ```text
 designfy 0.2.0
 ```
 
-O `about` mostra o executável, o runtime, a plataforma, a pasta de dados, a
-licença e os créditos:
+A mesma versão aparece no cabeçalho de `about`. Procure `Executable` para identificar o programa em execução e `Data` para localizar os arquivos locais. O relatório inclui a plataforma, a licença e os créditos das bibliotecas.
 
 ```text
 Designfy v0.2.0
@@ -150,9 +120,7 @@ Credits
   Zod                 schema validation for MCP tools https://zod.dev
 ```
 
-O `doctor` confere o ambiente sem gravar arquivo. Numa máquina nova, a pasta
-`~/.designfy/` ainda não existe e o resultado mostra `!` nas verificações que
-dependem dela:
+Nesse registro de desenvolvimento, o caminho termina em `bun` e a plataforma é `linux-x64`. Já o `doctor` examina o ambiente sem gravar arquivos. Num terminal redirecionado, as linhas de entrada e saída podem indicar `Not a TTY`, como neste diagnóstico.
 
 ```text
 ✓ bun: 1.4.4; minimum 1.4.4
@@ -171,36 +139,17 @@ dependem dela:
 ✓ platform: linux-x64
 ```
 
-O `✓` é uma verificação aprovada, o `!` é um aviso e o `✗` reprova o comando
-com exit code 3. Os avisos de `~/.designfy/` somem quando você grava a primeira
-preferência. `VIEWSPEC.md` passa a `✓` quando o guia é criado; num projeto sem
-`designfy.json` ou sem CSS do Tailwind, essas duas linhas também aparecem com
-`!` até o capítulo 2.
+O símbolo `✓` indica que a verificação passou. Um `!` junto de `directory` ou `settings` é esperado antes da primeira preferência gravada. O aviso de `VIEWSPEC.md` desaparece quando você cria o guia. Em uma aplicação ainda sem `designfy.json` ou CSS do Tailwind, o diagnóstico sinaliza também essas ausências. Uma falha marcada com `✗` leva ao código de saída 3. Uma execução aprovada termina com 0.
 
-## Ajuda embutida
+## Ajuda do comando instalado
 
-Todo comando aceita `--help`, com arguments, options, exemplos e os exit codes
-que ele pode devolver:
+Ao preparar uma captura no celular, você pode consultar a largura aceita pelo binário antes de abrir o navegador. A ajuda geral de `designfy --help` apresenta os comandos e as opções globais. Acrescente `--help` ao caminho da operação para consultar os argumentos, exemplos e códigos de saída específicos.
 
 ```bash
 designfy capture run --help
 designfy components add --help
 ```
 
-O binário também carrega a documentação escrita para agentes. O
-`designfy --skill` imprime tudo em Markdown; `designfy --skill cli` imprime só
-a seção do CLI, com a referência gerada do registry. Os tópicos são `cli`,
-`tui`, `mcp`, `config`, `exit-codes` e `reference`. A documentação viaja dentro
-do executável, então o agente lê a versão exata instalada na máquina.
+A primeira consulta mostra as opções da captura, inclusive a largura do navegador. A segunda descreve a cópia de componentes. Para ler a referência técnica da versão instalada em Markdown, use `designfy --skill`. O conteúdo vem de `docs/` e acompanha o executável.
 
-A pasta `docs/` do repositório é a fonte dessa documentação. Este guia é outro
-texto: ele explica o uso desde o primeiro contato com o produto, com cenas de resultado,
-enquanto `docs/` é a referência técnica do binário.
-
-## Conferir
-
-- `designfy --version` responde com a versão do binário.
-- `designfy about` mostra runtime, plataforma, pasta de dados e licença.
-- `designfy doctor` termina com exit code 0 e sem `✗`.
-- `designfy --help` lista os commands e as options globais.
-- `designfy --skill cli` imprime a documentação embutida do CLI.
+Com `designfy --skill cli`, você recebe somente a referência do CLI, gerada a partir do registro de comandos. As outras partes têm os nomes `tui`, `mcp`, `config`, `exit-codes` e `reference`. Um agente pode consultar o tópico de que precisa mesmo quando o repositório do Designfy não está na máquina.

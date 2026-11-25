@@ -2,63 +2,36 @@
 
 ![Logo do Designfy](../../brand/logo/icon.png)
 
-O Designfy é um framework visual para projetos web. Ele reúne o método e as
-peças para uma interface sair desenhada: uma skill orquestradora que recebe o
-pedido, o viewspec que especifica cada tela, um catálogo de fragmentos, um
-registro de componentes React e Astro sobre Tailwind, shadcn e Motion, a paleta
-pela roda de cores e a captura das telas em celular e desktop para a revisão. O
-mesmo binário atende a pessoa no terminal, os scripts de CI e o agente por MCP.
+Na revisão do Plano Founders, uma das nove tarefas era manter o prazo da oferta logo abaixo dos botões do hero no celular. A posição ficou registrada no viewspec da tela. Depois do ajuste, a captura `founders-0001-depois` permitiu conferir a disposição dos elementos. O manifesto também registrou que o conteúdo cabia na largura da janela.
 
-Este guia acompanha a versão 0.2.0. Os exemplos usam comandos reais do binário.
-Cada option citada existe no `designfy --help` da mesma versão.
+Com o Designfy, você trabalha com esses dois arquivos em momentos diferentes. O viewspec descreve o que a interface precisa fazer. A captura permite comparar o resultado com o que ficou escrito. Entre uma etapa e outra, o catálogo ajuda a escolher um padrão de interface e o registro fornece componentes React ou Astro para implementar a tela com Tailwind. Há componentes que usam shadcn e Motion.
 
-## Leia online ou como ebook
+## Capítulos do guia
 
-Os capítulos deste diretório também formam o ebook
-**Designfy · Guia do Usuário**. O PDF preserva a diagramação para leitura e
-impressão. O EPUB deixa você ajustar fonte e tamanho no leitor digital.
+Na primeira instalação, comece pelos capítulos 1 e 2 para reconhecer o projeto e conferir as bibliotecas. Num site que já tem identidade visual, vá ao capítulo 5 antes de escolher novas cores. A origem dos tokens determina qual folha de estilos entra na medição de contraste.
 
-- [Baixe o PDF](../../ebook/Designfy-Guia-do-Usuario-v0.2.0.pdf).
-- [Baixe o EPUB](../../ebook/Designfy-Guia-do-Usuario-v0.2.0.epub).
-- [Consulte a edição e os hashes](../../ebook/README.md).
+1. [Introdução e instalação](01-introducao-e-instalacao.md) para instalar e testar o binário.
+2. [Preparar o projeto](02-preparar-o-projeto.md) para conferir o framework e trabalhar com um design existente.
+3. [Skills](03-skills.md) para acionar a orquestradora ou estudar uma tela com uma especialista.
+4. [Viewspec](04-viewspec.md) para escrever o guia do projeto e vincular a especificação da tela ao Astrofy ou ao Specsfy.
+5. [Tema e paleta](05-tema-e-paleta.md) para localizar os tokens, explorar a roda de cores e medir contraste.
+6. [Catálogo e componentes](06-catalogo-e-componentes.md) para escolher um padrão e consultar o código disponível.
+7. [Fundos e movimento](07-fundos-e-movimento.md) para aplicar um preset de fundo ou ajustar uma animação.
+8. [Capturas e revisão](08-capturas-e-revisao.md) para capturar a página inteira com Playwright e conferir o resultado no celular e no desktop.
+9. [TUI](09-tui.md) para acompanhar o projeto pelos cartões da Home e operar os módulos pelo teclado.
+10. [Agentes e MCP](10-agentes-e-mcp.md) para conectar um cliente ao binário e consultar o projeto por uma tool.
+11. [Referência](11-referencia.md) para localizar um arquivo, alterar uma preferência ou interpretar o código de saída no CI.
 
-## Percurso
+## Edição em PDF e EPUB
 
-Leia na ordem na primeira vez. Depois, cada capítulo funciona como consulta:
+Os capítulos também estão disponíveis em livro. O PDF preserva a composição das páginas para leitura e impressão. No EPUB, você ajusta a fonte e o tamanho do texto no leitor. Para conferir um download, compare o hash do arquivo com o publicado para a edição correspondente.
 
-1. [Introdução e instalação](01-introducao-e-instalacao.md)
-2. [Preparar o projeto](02-preparar-o-projeto.md)
-3. [Skills](03-skills.md)
-4. [Viewspec](04-viewspec.md)
-5. [Tema e paleta](05-tema-e-paleta.md)
-6. [Catálogo e componentes](06-catalogo-e-componentes.md)
-7. [Fundos e movimento](07-fundos-e-movimento.md)
-8. [Capturas e revisão](08-capturas-e-revisao.md)
-9. [TUI](09-tui.md)
-10. [Agentes e MCP](10-agentes-e-mcp.md)
-11. [Referência](11-referencia.md)
+- [Baixar o PDF da versão 0.2.1](../../ebook/Designfy-Guia-do-Usuario-v0.2.1.pdf)
+- [Baixar o EPUB da versão 0.2.1](../../ebook/Designfy-Guia-do-Usuario-v0.2.1.epub)
+- [Consultar a edição e os hashes](../../ebook/README.md)
 
-Os capítulos 1 e 2 levam você da instalação ao projeto preparado, com as
-bibliotecas conferidas, inclusive num projeto que já tem design. O 3 apresenta
-as skills, os estudos de páginas e de telas e como chamar a orquestradora. O 4
-explica o guia da raiz, o viewspec de cada tela e o vínculo com o Astrofy e o
-Specsfy. O 5 e o 6 cuidam do tema, da paleta, do catálogo e dos componentes. O 7
-cobre fundos e movimento. O 8 mostra a captura com Playwright, a página inteira
-e a revisão. O 9 percorre a Home em menu e os módulos da TUI. O 10 liga o
-binário ao agente por MCP. O 11 reúne preferências, arquivos, exit codes e
-solução de problemas.
+## Referência embutida e versão online
 
-## Documentação técnica
+Na máquina onde você instalou o binário, `designfy --skill` imprime o manual técnico em Markdown. Para verificar uma opção da sua versão, abra a ajuda do comando com `--help`. Os arquivos que acompanham o executável documentam o contrato do viewspec, os comandos do CLI, os módulos da TUI e as tools MCP. [Documentação embutida](../../docs/README.md)
 
-A pasta [docs/](../../docs/README.md) guarda a documentação que viaja dentro do
-executável, com o contrato do viewspec, a referência do CLI, os módulos da TUI e as
-tools MCP. O `designfy --skill` imprime essa documentação em Markdown.
-
-## Onde encontrar o projeto
-
-O código, os binários e as notas de cada versão ficam no repositório público
-[promovaweb/designfy](https://github.com/promovaweb/designfy). O pacote do npm é
-`@promovaweb/designfy`. A versão online deste guia e a documentação técnica ficam
-em [promovaweb.com/docs/designfy](https://promovaweb.com/docs/designfy/); a
-apresentação do projeto, em
-[promovaweb.com/designfy](https://promovaweb.com/designfy/).
+O Designfy é distribuído no npm como `@promovaweb/designfy`. O repositório público reúne o código, os binários e as notas de versão. No site da Promovaweb, você encontra a apresentação do projeto e pode ler o guia no navegador. [Repositório do Designfy](https://github.com/promovaweb/designfy) · [Portal do Designfy](https://promovaweb.com/designfy/) · [Guia e documentação online](https://promovaweb.com/docs/designfy/)

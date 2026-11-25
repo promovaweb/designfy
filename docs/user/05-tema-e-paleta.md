@@ -1,7 +1,133 @@
 # Capítulo 5: Tema e paleta
 
-O `designfy theme check` responde com catorze pares medidos e a frase
-`Theme check passed.`:
+Na instalação do Designfy no site da Promovaweb, a primeira consulta ao tema abriu `docs-theme.css`. As cores faziam sentido para a documentação, que tem estilo próprio. Para medir o contraste dos botões dos planos, era preciso ler o CSS do site. O ajuste foi indicar `src/styles/brand/global.css` no campo `tokensFile` do `VIEWSPEC.md` da raiz.
+
+## Qual arquivo o theme show abriu
+
+Rode a consulta na raiz do seu projeto. A primeira linha da resposta traz o caminho do CSS. Confira esse caminho antes de interpretar uma cor ou investigar um token ausente.
+
+```bash
+designfy theme show
+```
+
+No exemplo abaixo, a leitura começa em `app.css` e segue os imports locais até as declarações em `@theme` e `@theme inline`. Para mostrar o fundo nos dois modos, o comando procura o valor de base em `:root` e verifica se há uma substituição em `.dark`.
+
+```text
+/tmp/opencode/designfy-demo/src/styles/app.css
+
+colors
+  --color-background          light var(--background) → #f7fbfb | dark var(--background) → #061114
+  --color-foreground          light var(--foreground) → #0d1b1e | dark var(--foreground) → #e7f1f0
+  --color-primary             light var(--primary) → #006966 | dark var(--primary) → #4cd7c8
+  ...
+
+radius
+  --radius-sm   light calc(var(--radius) - 4px) | dark calc(var(--radius) - 4px)
+  --radius-lg   light var(--radius) | dark var(--radius)
+
+motion
+  --duration-base  light 250ms | dark 250ms
+  --ease-out-expo  light cubic-bezier(0.16, 1, 0.3, 1) | dark cubic-bezier(0.16, 1, 0.3, 1)
+```
+
+Na linha de `--color-background`, a seta liga a declaração ao valor resolvido. O mesmo nome aponta para um fundo quase branco no claro e para um fundo escuro no outro modo. Você pode restringir a saída a um grupo ou consultar um CSS específico.
+
+```bash
+designfy theme show --group colors
+designfy theme show --group motion
+designfy theme show --file src/styles/app.css
+```
+
+Além de `colors` e `motion`, o filtro aceita `fonts`, `text`, `radius`, `spacing`, `shadows` e `breakpoints`. Use `--json` para investigar a origem da escolha. O campo `entryFile` identifica a entrada que importa o arquivo selecionado quando ela existe. O valor de `selection` acompanha esta ordem de preferência.
+
+| `selection` | De onde vem o caminho |
+| --- | --- |
+| `--file` | Caminho indicado nesta chamada |
+| `paths.theme` | Campo do `designfy.json` configurável com `init --theme-path` |
+| `tokensFile` | Arquivo existente indicado pelo guia da raiz |
+| `conventional entry` | Entrada como `global.css`, `app.css` ou `main.css` que importa o Tailwind em `paths.styles`, `src/styles` ou `src/app` |
+| `Tailwind search` | Busca de CSS nesses diretórios, com `src/index.css` e `app/globals.css` entre os candidatos |
+
+Na busca automática, áreas isoladas como `docs/` e `admin/` têm prioridade menor. O mesmo vale para `docs-theme.css` e `email/`. Quando a busca termina sem localizar uma folha do Tailwind, o comando retorna o código 6.
+
+```text
+error No Tailwind stylesheet found. Run "designfy components add designfy-theme". [6 NOT_FOUND]
+```
+
+Num projeto novo, a sugestão da mensagem instala o tema do registro. Num projeto com Tailwind 3, como o site da Promovaweb, confira primeiro se a entrada usa `@tailwind base` ou `@import "tailwindcss/base"`. O Designfy reconhece essas declarações e completa a leitura com o `tailwind.config.*` da raiz. O resultado indica `tailwind: 3` e identifica o `configFile` e os arquivos lidos. Rode a consulta em projetos de confiança, pois ela executa o módulo de configuração. Em caso de falha ao carregá-lo, o aviso acompanha os tokens extraídos só do CSS.
+
+## Contraste no tema próprio do site
+
+No tema claro da Promovaweb, o texto corrido atingiu 9,19:1 sobre o fundo da página. Os títulos chegaram a 19,22:1 e o texto de destaque a 7,03:1. O botão secundário ficou em 1,76:1. Para encontrar essa diferença, você precisa medir a combinação que aparece no botão, além da usada no corpo do texto.
+
+```bash
+designfy theme check
+```
+
+Nos projetos com escala própria, `theme check` usa o modo `custom`. Declare cada combinação em `theme.pairs` no `designfy.json`. A configuração abaixo mede o texto corrido sobre a página e exige uma razão maior para o destaque.
+
+```json
+{
+  "theme": {
+    "pairs": [
+      { "fg": "--text-body", "bg": "--bg-page", "label": "Texto corrido" },
+      { "fg": "primary-950", "bg": "white", "label": "Destaque", "min": 7 }
+    ]
+  }
+}
+```
+
+Em `fg` e `bg`, você pode indicar uma variável CSS com o prefixo `--` ou uma cor do Tailwind pelo nome. O `label` identifica o uso na saída. A razão mínima em `min` vai de 1 a 21 e vale 4,5 por padrão. O comando repete a medida no escuro quando há uma declaração escura ou mudança de valor em pelo menos um dos tokens.
+
+```text
+Theme check passed.
+
+Mode: custom
+
+project uses its own color scales; shadcn roles not checked
+
+  light --text-body on --bg-page (Texto corrido)  7.73:1 pass (min 4.5:1)
+  light primary-950 on white (Destaque)           18.53:1 pass (min 7:1)
+  dark --text-body on --bg-page (Texto corrido)   16.86:1 pass (min 4.5:1)
+```
+
+Na saída de exemplo, o destaque atingiu 18,53:1 para um mínimo de 7:1. Sem pares explícitos, a busca tenta `--text-body`, `--text-heading` e `--accent-text` sobre `--bg-page`, além de `--foreground` sobre `--background`. Isso explica por que vale cadastrar os botões pelo uso. No site, os textos dos botões de IA Makers (4,43:1) e do Plano Founders (4,30:1) ficaram perto de 4,5:1. Os de Creators (3,19:1) e DevOps (3,06:1) também ficaram abaixo.
+
+## O tema shadcn no Tailwind 4
+
+Em um projeto com Tailwind 4, os componentes do registro leem os papéis do shadcn. Uma classe como `bg-primary` consulta a cor de ação definida no tema. Para instalar os tokens junto com os estilos de movimento, copie os dois itens para o projeto.
+
+```bash
+designfy components add designfy-theme designfy-motion
+```
+
+Os arquivos ficam em `paths.styles`. No CSS de entrada, importe os estilos nesta ordem. O próprio `designfy-theme.css` já importa `tailwindcss`.
+
+```css
+@import "./designfy-theme.css";
+@import "tw-animate-css";
+@import "./designfy-motion.css";
+```
+
+O bloco `@theme inline` associa as variáveis às utilidades. Assim, um cartão pode usar `text-foreground` no título e `text-muted-foreground` na legenda. Os papéis abaixo identificam qual parte do tema consultar para cada ajuste.
+
+| Grupo | Papéis |
+| --- | --- |
+| Superfície e texto | `background`, `foreground`, `card`, `popover`, `muted`, `muted-foreground` |
+| Marca e ação | `primary`, `primary-foreground`, `secondary`, `secondary-foreground`, `accent`, `accent-foreground` |
+| Estado | `destructive`, `success`, `warning`, `info`, cada um com o `-foreground` |
+| Linha e foco | `border`, `input`, `ring` |
+| Séries de gráficos | `chart-1` a `chart-5` |
+| Shell | `sidebar`, `sidebar-foreground`, `sidebar-primary`, `sidebar-accent`, `sidebar-border`, `sidebar-ring` |
+| Forma, tipo e movimento | `radius`, `df-font-sans`, `df-font-heading`, `duration-*`, `ease-*` |
+
+A mesma ligação atende à forma e à tipografia, por exemplo em `rounded-lg`, `font-heading` e `font-sans`. Para a superfície e a borda, use `bg-background` e `border-border`. Uma cor fixa como `bg-indigo-500` ou `text-[#123]` continuaria igual ao trocar a paleta.
+
+O tema declara `@custom-variant dark (&:where(.dark, .dark *))`. Com a classe `dark` no `html`, os valores de `.dark` substituem os de base. Confira a superfície `muted` e o anel de foco `ring` nos dois modos. Um papel sem substituição escura conserva o valor de base. Reserve `dark:` no componente para alterações como a troca de imagem.
+
+### Os pares medidos por theme check
+
+O modo `shadcn` verifica os papéis obrigatórios do registro e mede pares conhecidos nos dois modos de cor. Observe `muted-foreground` no relatório completo. A legenda precisa funcionar tanto sobre `muted` quanto sobre o fundo da página.
 
 ```text
 Theme check passed.
@@ -22,198 +148,29 @@ Theme check passed.
   dark destructive-foreground on destructive    6.59:1 pass
 ```
 
-Nenhum componente do registro carrega cor. Todos leem os papéis do tema definidos no mesmo arquivo CSS. Este capítulo mostra como ler esse arquivo, gerar a
-paleta e conferir o contraste antes de a tela existir.
-
-## O arquivo de tokens
-
-O Designfy usa o tema do Tailwind 4 no formato do shadcn. Um arquivo CSS com
-`@import "tailwindcss"`, um bloco `@theme inline` que liga as variáveis aos
-nomes do Tailwind e os blocos `:root` e `.dark` com os valores.
-
-Para criar o arquivo completo no projeto:
-
-```bash
-designfy components add designfy-theme designfy-motion
-```
-
-O comando grava `designfy-theme.css` e `designfy-motion.css` em
-`paths.styles`. Ligue os dois no CSS de entrada, nesta ordem:
-
-```css
-@import "./designfy-theme.css";
-@import "tw-animate-css";
-@import "./designfy-motion.css";
-```
-
-O `designfy-theme.css` já traz `@import "tailwindcss"`. Os papéis seguem os
-nomes do shadcn e cobrem superfície, texto, marca, estado, linha, foco, série de
-dados e shell:
-
-| Grupo | Papéis |
-| --- | --- |
-| Superfície e texto | `background`, `foreground`, `card`, `popover`, `muted`, `muted-foreground` |
-| Marca e ação | `primary`, `primary-foreground`, `secondary`, `secondary-foreground`, `accent`, `accent-foreground` |
-| Estado | `destructive`, `success`, `warning`, `info`, cada um com o `-foreground` |
-| Linha e foco | `border`, `input`, `ring` |
-| Dados | `chart-1` a `chart-5` |
-| Shell | `sidebar`, `sidebar-foreground`, `sidebar-primary`, `sidebar-accent`, `sidebar-border`, `sidebar-ring` |
-| Forma, tipo e movimento | `radius`, `df-font-sans`, `df-font-heading`, `duration-*`, `ease-*` |
-
-Nenhum componente usa `bg-indigo-500` nem `text-[#123]`. O código usa
-`bg-background`, `text-foreground`, `bg-primary`, `text-muted-foreground`,
-`border-border`, `font-heading`, `font-sans` e `rounded-lg`. A utilidade lê o
-papel. Assim, a troca de tema muda a tela inteira num lugar só.
-
-## Ler o tema do projeto
-
-```bash
-designfy theme show
-```
-
-O comando segue uma ordem para escolher o arquivo:
-
-1. `--file <path>`, quando você indica.
-2. `paths.theme` do `designfy.json`, gravado por `init --theme-path`.
-3. O `tokensFile` do `VIEWSPEC.md` da raiz, quando aponta para um arquivo que
-   existe.
-4. A entrada convencional em `paths.styles`, `src/styles` e `src/app`, com
-   `global.css`, `app.css` ou `main.css` que importem o Tailwind.
-5. A busca por CSS do Tailwind nesses mesmos diretórios, com `src/index.css` e
-   `app/globals.css` na lista.
-
-A busca segue os imports locais e extrai `@theme`, `@theme inline`, `:root` e
-`.dark`. Áreas como `docs/`, `docs-theme.css`, `admin/` e `email/` ficam no fim
-da fila. A resposta começa pelo arquivo lido e agrupa os tokens:
-
-```text
-/tmp/opencode/designfy-demo/src/styles/app.css
-
-colors
-  --color-background          light var(--background) → #f7fbfb | dark var(--background) → #061114
-  --color-foreground          light var(--foreground) → #0d1b1e | dark var(--foreground) → #e7f1f0
-  --color-primary             light var(--primary) → #006966 | dark var(--primary) → #4cd7c8
-  ...
-
-radius
-  --radius-sm   light calc(var(--radius) - 4px) | dark calc(var(--radius) - 4px)
-  --radius-lg   light var(--radius) | dark var(--radius)
-
-motion
-  --duration-base  light 250ms | dark 250ms
-  --ease-out-expo  light cubic-bezier(0.16, 1, 0.3, 1) | dark cubic-bezier(0.16, 1, 0.3, 1)
-```
-
-Cada cor aparece em dois formatos quando o valor é uma variável: a declaração
-(`var(--background)`) e o valor resolvido em hex para claro e escuro. Use
-`--group` para ver um assunto só e `--file` para escolher outro CSS:
-
-```bash
-designfy theme show --group colors
-designfy theme show --group motion
-designfy theme show --file src/styles/app.css
-```
-
-Os grupos são `colors`, `fonts`, `text`, `radius`, `spacing`, `shadows`,
-`breakpoints` e `motion`. Sem CSS do Tailwind no projeto, o comando para com
-exit code 6 e a dica:
-
-```text
-error No Tailwind stylesheet found. Run "designfy components add designfy-theme". [6 NOT_FOUND]
-```
-
-O `--json` informa qual regra escolheu o arquivo: `selection` vale `--file`,
-`paths.theme`, `tokensFile`, `conventional entry` ou `Tailwind search`. O campo
-`entryFile` aponta o CSS de entrada que importa o arquivo escolhido, quando ele
-existe.
-
-### Tailwind 3
-
-Num projeto que ainda está no Tailwind 3, a busca aceita `@tailwind base` ou
-`@import "tailwindcss/base"` e completa os tokens com `tailwind.config.*` na
-raiz. A resposta informa `tailwind: 3`, o `configFile` e a lista de arquivos
-lidos. Se a configuração não carregar, um aviso aparece e o resultado traz só os
-tokens do CSS. O comando executa o módulo de configuração, então rode apenas em
-projeto cujo código você confia.
-
-## Conferir contraste
-
-```bash
-designfy theme check
-```
-
-O comando mede os pares conhecidos nos dois temas: `foreground` em
-`background`, `primary-foreground` em `primary`, `muted-foreground` em `muted` e
-em `background`, `card-foreground` em `card`, `accent-foreground` em `accent` e
-`destructive-foreground` em `destructive`. Também confere se os papéis que o
-registro usa existem no arquivo.
-
-Um par abaixo de 4.5 reprova o comando com exit code 10:
+Nesse tema, os catorze pares ultrapassam 4,5:1. O relatório identifica pares opcionais sem token e pula a medida correspondente. Quando um par medido fica abaixo do mínimo, o comando retorna o código 10 e identifica os dois papéis envolvidos.
 
 ```text
 error Theme check failed. light primary-foreground on primary (2.26:1). [10 CHECK_FAILED]
 ```
 
-Pares opcionais com token ausente são pulados e aparecem no resultado. O
-`--file` escolhe o CSS. Quando o tema está dividido em vários arquivos, aponte
-para o CSS de entrada que importa todos, porque o comando segue os imports
-locais:
+A mensagem situa a falha no texto da ação principal no modo claro. Antes de alterar a cor, confirme a entrada usada para a medição. Quando os estilos estão divididos, indique o arquivo que importa as partes.
 
 ```bash
 designfy theme check --file src/styles/app.css
 ```
 
-Sem o `--file`, o comando usa a mesma ordem de escolha do `theme show`:
-`paths.theme`, o `tokensFile` do guia e a busca no projeto. Se ele acusar um
-token de movimento ausente, falta o `designfy-motion.css` no projeto ou no CSS
-de entrada.
+Sem `--file`, vale a ordem de busca do `theme show`. Um token de movimento ausente pode indicar que falta instalar `designfy-motion.css` ou importá-lo na entrada. Após o ajuste, confira se o build resolve os imports e repita a medição até obter o código 0.
 
-### Modo custom
+## Da cor da marca às escalas do tema
 
-Um projeto com escalas próprias não precisa dos papéis do shadcn para medir
-contraste. Nesse caso o comando entra no modo `custom` e mede os pares que você
-declarar em `theme.pairs`, no `designfy.json`:
-
-```json
-{
-  "theme": {
-    "pairs": [
-      { "fg": "--text-body", "bg": "--bg-page", "label": "Texto corrido" },
-      { "fg": "primary-950", "bg": "white", "label": "Destaque", "min": 7 }
-    ]
-  }
-}
-```
-
-`fg` e `bg` aceitam variável CSS com o prefixo `--` e nome de cor do tema do
-Tailwind, como `primary-950` e `white`. `label` dá nome ao par e `min` aceita
-razão de 1 a 21, com 4,5 como padrão. O par se repete no tema escuro quando
-algum dos tokens tem declaração escura ou muda de valor. Sem pares configurados,
-o comando tenta `--text-body`, `--text-heading` e `--accent-text` sobre
-`--bg-page`, além de `--foreground` sobre `--background`, quando existirem.
-
-```text
-Theme check passed.
-
-Mode: custom
-
-project uses its own color scales; shadcn roles not checked
-
-  light --text-body on --bg-page (Texto corrido)  7.73:1 pass (min 4.5:1)
-  light primary-950 on white (Destaque)           18.53:1 pass (min 7:1)
-  dark --text-body on --bg-page (Texto corrido)   16.86:1 pass (min 4.5:1)
-```
-
-O modo `shadcn` continua para o tema com os papéis do registro. Nesse modo, o comando
-também confere se cada papel obrigatório existe.
-
-## A roda de cores
+Para escolher acentos a partir da marca, consulte a roda com a cor entre aspas. Ela aceita hex curto ou longo (`#RGB` ou `#RRGGBB`) e também `oklch(L C H)`.
 
 ```bash
 designfy palette wheel "#2AD5BE"
 ```
 
-A resposta traz a base e uma linha por harmonia, com hex e OKLCH:
+Cada linha mostra uma harmonia em hex e OKLCH. Na linha `analogous`, os dois matizes ficam próximos da base. A linha `complementary` mostra a cor do lado oposto da roda.
 
 ```text
   Base                 #2ad5be oklch(0.78624324 0.13467707 180.88504461)
@@ -225,22 +182,13 @@ A resposta traz a base e uma linha por harmonia, com hex e OKLCH:
   monochromatic        #00453c oklch(0.35 0.06313226 180.88504461), #a3cfc6 oklch(0.82 0.04713697 180.88504461)
 ```
 
-As harmonias são `complementary`, `analogous`, `triadic`,
-`split-complementary`, `tetradic` e `monochromatic`. Escolha pelo tipo de
-produto: complementar para contraste entre ação e destaque, análoga para um
-conjunto calmo, tríade para três papéis com a mesma força, monocromática para
-uma interface discreta.
-
-## Gerar a paleta
+Para distinguir três papéis de peso semelhante, você pode gerar as escalas da tríade. Para variações discretas de uma mesma cor, consulte `monochromatic`. A harmonia define quais matizes entram na paleta. O contraste do texto ainda depende do tom escolhido para cada superfície.
 
 ```bash
 designfy palette generate --base "#2AD5BE" --harmony triadic --format css
 ```
 
-O comando monta a escala `50` a `950` em OKLCH para `primary`, uma escala
-`neutral` com o matiz da base e croma baixo e, com `--harmony`, as escalas de
-acento. Também gera os tokens semânticos claros e escuros com o contraste
-conferido:
+O gerador monta a escala `primary` de 50 a 950. A escala `neutral` conserva o matiz da base com pouco croma. Nos neutros das superfícies, o croma em torno de 0,004 a 0,02 dá uma leve tonalidade até aos extremos claros e escuros. A opção `--harmony` acrescenta as escalas de acento. Este trecho mostra os papéis semânticos gerados com o contraste conferido.
 
 ```css
 :root {
@@ -262,19 +210,17 @@ conferido:
 }
 ```
 
-`--format` aceita `css` (padrão), `json` e `tailwind`. O `css` imprime
-variáveis no formato do shadcn com `@theme inline`; o `tailwind` imprime só o
-bloco `@theme`; o `json` devolve o objeto para um script. `--out <file>` grava
-no arquivo. Substitua os blocos `:root` e `.dark` do arquivo de tokens pelos
-papéis gerados e mantenha os tokens de tipo, forma, layout e movimento.
+No formato `css`, que é o padrão, a saída inclui `@theme inline`. Para obter só o bloco `@theme`, selecione `--format tailwind`. O formato `json` serve para processamento por script. Use `--out <file>` para gravar a saída. Ao incorporá-la, substitua as cores em `:root` e `.dark` e preserve os tokens de tipografia, forma, layout e movimento.
 
-Cores entram como hex (`#RGB`, `#RRGGBB`) ou `oklch(L C H)`. Use aspas no shell.
+## Medir a cor de um botão antes de editar o CSS
 
-## Medir um par
+Com duas cores conhecidas, você pode medir um par isolado. Informe primeiro a cor do texto e depois a do fundo. A ordem também determina a polaridade na leitura APCA.
 
 ```bash
 designfy palette contrast "#00161E" "#C6F4ED"
 ```
+
+O resultado distingue texto normal de texto grande e de componentes de interface. Na coluna AA, os mínimos são 4,5:1 para texto normal e 3:1 para as outras duas aplicações.
 
 ```text
   Foreground    #00161e
@@ -286,35 +232,10 @@ designfy palette contrast "#00161E" "#C6F4ED"
   UI component  AA pass, AAA N/A
 ```
 
-O veredito separa texto normal (4.5:1), texto grande (3:1) e elemento de
-interface (3:1). Se você usa a métrica mais recente, consulte o Lc com sinal do APCA.
-Por padrão, o comando sai com 0. A opção `--min <ratio>` faz sair com 10 abaixo do
-valor escolhido, o que serve para uma conferência em CI:
+Aqui a razão WCAG chega a 15,50:1. O valor APCA aparece separadamente como `Lc 93.0`, com sinal. Por padrão, a consulta retorna código 0 mesmo para um par de baixo contraste. Para que a CI detecte uma razão abaixo de 7:1, inclua o mínimo no comando.
 
 ```bash
 designfy palette contrast "#00161E" "#C6F4ED" --min 7
 ```
 
-## Claro e escuro
-
-Cada papel tem uma definição para o modo claro e outra para o escuro. O escuro não é uma inversão
-automática: o `primary` muda de luminosidade, o `muted` ganha outra superfície
-e o `ring` acompanha o acento. Por isso um papel sem valor no `.dark` aparece
-como ausente na leitura do tema.
-
-O arquivo de tema declara `@custom-variant dark (&:where(.dark, .dark *))` e
-cada papel muda sozinho quando a classe `dark` entra no `html`. Componente não
-usa `dark:` para cor. O `dark:` fica só para diferença que não é de cor, como a
-troca de uma imagem.
-
-Neutros levam um pouco do matiz da base, com croma entre 0.004 e 0.02. Cinza
-puro, preto absoluto e branco absoluto ficam fora das superfícies.
-
-## Conferir
-
-- O CSS de entrada importa o tema e o movimento. O build resolve os dois.
-- `designfy theme show --group colors` mostra claro e escuro para cada papel.
-- `designfy theme check` termina com exit code 0 nos dois temas.
-- Num projeto com escalas próprias, o modo `custom` mede os pares do `theme.pairs`.
-- `designfy palette wheel` lista as seis harmonias para a cor da marca.
-- `designfy palette contrast` aprova os pares que você usa em texto e botão.
+Esse par supera o limite. Com `--min`, uma combinação abaixo do valor escolhido retorna código 10, o que permite interromper o job antes de incorporar as novas cores.

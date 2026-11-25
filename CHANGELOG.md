@@ -2,6 +2,12 @@
 
 Formato baseado em Keep a Changelog. Versões seguem SemVer.
 
+## [0.2.2] - 2026-11-25
+
+### Alterado
+
+- Guia do usuário reescrito pelas regras editoriais da Promovaweb: cada capítulo parte de um caso real do projeto (a instalação no site da Promovaweb, a revisão da landing do Plano Founders, a captura que saía em branco antes da rolagem, o tema escolhido pela ordem nova), explica o mecanismo e o limite de cada comando e troca listas comprimidas por prosa. Comandos, opções e exemplos continuam os mesmos. O ebook acompanha.
+
 ## [0.2.1] - 2026-11-25
 
 ### Alterado
