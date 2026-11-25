@@ -41,9 +41,9 @@ CSS de entrada.
 </Background>
 ```
 
-- `preset`: o slug de um dos 314 presets. Os 241 distintos estão em
-  [backgrounds/catalogo.md](backgrounds/catalogo.md), por categoria, com a
-  técnica, os papéis de cor usados e os nomes equivalentes.
+- `preset`: o slug de um dos 334 presets. O
+  [catálogo](backgrounds/catalogo.md) reúne 257 desenhos distintos e indica
+  a fonte, a técnica, os papéis de cor e os equivalentes por categoria.
 - `fade`: `none`, `bottom`, `edges` ou `radial`. Aplica uma máscara na
   camada do padrão para o texto manter contraste.
 
@@ -114,8 +114,15 @@ Quando nenhum preset serve, escreva um novo na mesma regra:
 
 ## Origem dos presets
 
-Os presets vêm do catálogo MIT do ReactBD BG, com origem no Pattern Craft
-de Megh Bari. O aviso de licença está em
-[backgrounds/NOTICE.md](backgrounds/NOTICE.md) e os dados originais, com as
-cores literais, em `backgrounds/reactbd-bg.json`. O Designfy converteu as
-cores em papéis do tema; a geometria é a original.
+O ReactBD BG fornece 314 presets sob a licença MIT. Boa parte dos padrões
+vem do Pattern Craft de Megh Bari. Os dados originais estão em
+`backgrounds/reactbd-bg.json`.
+
+O GradientDeck fornece outros 20 presets e convida visitantes a copiar o
+código para seus projetos. O site não publica licença para os padrões.
+A Promovaweb escolheu incluí-los em 24 de novembro de 2026. Os dados
+originais estão em `backgrounds/gradientdeck.json`.
+
+O Designfy mantém a geometria e converte as cores das duas fontes em
+papéis do tema. Os créditos e a licença MIT estão no
+[aviso de terceiros](backgrounds/NOTICE.md).

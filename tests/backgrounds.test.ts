@@ -5,11 +5,15 @@ import { join } from "node:path";
 const root = join(import.meta.dir, "..");
 const shared = join(root, "registry/shared/backgrounds");
 const reference = join(root, "skills/designfy-design-system/references/backgrounds");
-const source = await Bun.file(join(reference, "reactbd-bg.json")).json() as {
+type PatternSource = "reactbd" | "gradientdeck";
+interface SourceCatalog {
   patterns: { id: string; theme: string; animated: boolean }[];
-};
+}
+const reactbd = await Bun.file(join(reference, "reactbd-bg.json")).json() as SourceCatalog;
+const gradientdeck = await Bun.file(join(reference, "gradientdeck.json")).json() as SourceCatalog;
 const presets = await Bun.file(join(shared, "presets.json")).json() as {
   slug: string;
+  source: PatternSource;
   sourceId: string;
   name: string;
   tone: string;
@@ -25,13 +29,21 @@ const rules = new Map([...css.matchAll(/\[data-df-bg="([^"]+)"\] \{([^{}]*)\}/g)
   .map(([, slug, declarations]) => [slug, declarations]));
 
 test("generates CSS and TypeScript for every source ID under a unique ASCII kebab-case slug", async () => {
-  expect(presets).toHaveLength(314);
-  expect(new Set(presets.map(({ slug }) => slug)).size).toBe(314);
-  expect(rules.size).toBe(314);
+  expect(presets).toHaveLength(334);
+  expect(bySlug.size).toBe(334);
+  expect(rules.size).toBe(334);
   expect([...rules.keys()]).toEqual(presets.map(({ slug }) => slug));
-  expect(presets.map(({ sourceId, tone, animated }) => ({ sourceId, tone, animated }))).toEqual(
-    source.patterns.map(({ id, theme, animated }) => ({ sourceId: id, tone: theme, animated })),
-  );
+  const sources = [
+    { source: "reactbd", catalog: reactbd, count: 314 },
+    { source: "gradientdeck", catalog: gradientdeck, count: 20 },
+  ] as const;
+  for (const { source, catalog, count } of sources) {
+    const imported = presets.filter((preset) => preset.source === source);
+    expect(imported).toHaveLength(count);
+    expect(imported.map(({ sourceId, tone, animated }) => ({ sourceId, tone, animated }))).toEqual(
+      catalog.patterns.map(({ id, theme, animated }) => ({ sourceId: id, tone: theme, animated })),
+    );
+  }
   for (const { slug } of presets) expect(slug).toMatch(/^[a-z0-9]+(?:-[a-z0-9]+)*$/);
   expect(bySlug.get("diagonal-red-blue-glow")?.sourceId).toBe("diagonal-red/blue-glow");
   expect(bySlug.get("diagonal-fade-bottom-grid-left")?.sourceId).toBe("diagonal-fade-bottom-grid-Left");
@@ -40,12 +52,13 @@ test("generates CSS and TypeScript for every source ID under a unique ASCII keba
   expect([...types.matchAll(/^  \| "([\w-]+)"/gm)].map(([, slug]) => slug)).toEqual([...rules.keys()]);
 });
 
-test("publishes 241 distinct presets and keeps the remaining 73 as equivalents", async () => {
+test("publishes 257 distinct presets and keeps the remaining 77 as equivalents", async () => {
   const canonical = presets.filter(({ variantOf }) => variantOf === null);
-  expect(canonical).toHaveLength(241);
+  expect(canonical).toHaveLength(257);
   const catalog = await Bun.file(join(reference, "catalogo.md")).text();
+  const rows = presets.filter(({ variantOf, source }) => variantOf === null || source === "gradientdeck");
   expect([...catalog.matchAll(/^\| `([\w-]+)` \|/gm)].map(([, slug]) => slug).sort())
-    .toEqual(canonical.map(({ slug }) => slug).sort());
+    .toEqual(rows.map(({ slug }) => slug).sort());
   const normalize = (rule: string) => rule.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\s+/g, "");
   const seen = new Map<string, string>();
   for (const { slug, variantOf, variants, legibility } of presets) {
@@ -64,6 +77,13 @@ test("publishes 241 distinct presets and keeps the remaining 73 as equivalents",
   }
   expect(bySlug.get("cyan-radial-glow")?.variantOf).toBe("purple-radial-glow");
   expect(catalog).toContain("Cyan Radial Glow (`cyan-radial-glow`)");
+  const gradientdeckVariants = presets.filter(({ source, variantOf }) => source === "gradientdeck" && variantOf);
+  expect(gradientdeckVariants.map(({ slug, variantOf }) => [slug, variantOf])).toEqual([
+    ["radial-teal-glow", "bottom-teal-glow"],
+    ["radial-pink-glow", "bottom-teal-glow"],
+    ["radial-amber-glow", "bottom-teal-glow"],
+    ["radial-emerald-glow", "bottom-teal-glow"],
+  ]);
 });
 
 test("assigns each pattern an estimated text legibility", () => {

@@ -1,0 +1,301 @@
+{
+  "source": "https://gradientdeck.com/pattern-backgrounds",
+  "fetchedAt": "2026-11-25T00:42:14.236Z",
+  "license": null,
+  "note": "No license published by the source; included by decision of the project owner on 2026-11-24. The site invites visitors to copy the code into their projects.",
+  "patterns": [
+    {
+      "id": "radial-teal-glow",
+      "name": "Teal Glow",
+      "category": "decorative",
+      "theme": "light",
+      "style": {
+        "background": "#ffffff",
+        "backgroundImage": "\n      radial-gradient(125% 125% at 50% 90%, #ffffff 40%, #14b8a6 100%)\n    ",
+        "backgroundSize": "100% 100%"
+      },
+      "code": "<div className=\"min-h-screen w-full bg-white relative\">\n  {/* Teal Glow Background */}\n  <div\n    className=\"absolute inset-0 z-0\"\n    style={{\n      backgroundImage: `\n        radial-gradient(125% 125% at 50% 90%, #ffffff 40%, #14b8a6 100%)\n      `,\n      backgroundSize: \"100% 100%\",\n    }}\n  />\n  {/* Your Content/Components */}\n</div>",
+      "animated": false,
+      "keyframes": null,
+      "technique": "radial gradient, tile 100% 100%"
+    },
+    {
+      "id": "radial-pink-glow",
+      "name": "Pink Glow",
+      "category": "decorative",
+      "theme": "light",
+      "style": {
+        "background": "#ffffff",
+        "backgroundImage": "\n      radial-gradient(125% 125% at 50% 90%, #ffffff 40%, #ec4899 100%)\n    ",
+        "backgroundSize": "100% 100%"
+      },
+      "code": "<div className=\"min-h-screen w-full bg-white relative\">\n  {/* Pink Glow Background */}\n  <div\n    className=\"absolute inset-0 z-0\"\n    style={{\n      backgroundImage: `\n        radial-gradient(125% 125% at 50% 90%, #ffffff 40%, #ec4899 100%)\n      `,\n      backgroundSize: \"100% 100%\",\n    }}\n  />\n  {/* Your Content/Components */}\n</div>",
+      "animated": false,
+      "keyframes": null,
+      "technique": "radial gradient, tile 100% 100%"
+    },
+    {
+      "id": "radial-amber-glow",
+      "name": "Amber Glow",
+      "category": "decorative",
+      "theme": "light",
+      "style": {
+        "background": "#ffffff",
+        "backgroundImage": "\n      radial-gradient(125% 125% at 50% 90%, #ffffff 40%, #f59e0b 100%)\n    ",
+        "backgroundSize": "100% 100%"
+      },
+      "code": "<div className=\"min-h-screen w-full bg-white relative\">\n  {/* Amber Glow Background */}\n  <div\n    className=\"absolute inset-0 z-0\"\n    style={{\n      backgroundImage: `\n        radial-gradient(125% 125% at 50% 90%, #ffffff 40%, #f59e0b 100%)\n      `,\n      backgroundSize: \"100% 100%\",\n    }}\n  />\n  {/* Your Content/Components */}\n</div>",
+      "animated": false,
+      "keyframes": null,
+      "technique": "radial gradient, tile 100% 100%"
+    },
+    {
+      "id": "radial-emerald-glow",
+      "name": "Emerald Glow",
+      "category": "decorative",
+      "theme": "light",
+      "style": {
+        "background": "#ffffff",
+        "backgroundImage": "\n      radial-gradient(125% 125% at 50% 90%, #ffffff 40%, #10b981 100%)\n    ",
+        "backgroundSize": "100% 100%"
+      },
+      "code": "<div className=\"min-h-screen w-full bg-white relative\">\n  {/* Emerald Glow Background */}\n  <div\n    className=\"absolute inset-0 z-0\"\n    style={{\n      backgroundImage: `\n        radial-gradient(125% 125% at 50% 90%, #ffffff 40%, #10b981 100%)\n      `,\n      backgroundSize: \"100% 100%\",\n    }}\n  />\n  {/* Your Content/Components */}\n</div>",
+      "animated": false,
+      "keyframes": null,
+      "technique": "radial gradient, tile 100% 100%"
+    },
+    {
+      "id": "sunset-horizon",
+      "name": "Sunset Horizon",
+      "category": "gradients",
+      "theme": "light",
+      "style": {
+        "background": "linear-gradient(180deg, #ff9a9e 0%, #fad0c4 50%, #fad0c4 100%)"
+      },
+      "code": "<div className=\"min-h-screen w-full relative\">\n  <div\n    className=\"absolute inset-0 z-0\"\n    style={{\n      background:\n        \"linear-gradient(180deg, #ff9a9e 0%, #fad0c4 50%, #fad0c4 100%)\",\n    }}\n  />\n</div>",
+      "animated": false,
+      "keyframes": null,
+      "technique": "linear gradient"
+    },
+    {
+      "id": "aurora-wave",
+      "name": "Aurora Wave",
+      "category": "effects",
+      "theme": "light",
+      "style": {
+        "background": "conic-gradient(from 180deg at 50% 50%, #4facfe, #00f2fe, #43e97b, #f8ffae, #4facfe)"
+      },
+      "code": "<div className=\"min-h-screen w-full relative\">\n  <div\n    className=\"absolute inset-0 z-0\"\n    style={{\n      background:\n        \"conic-gradient(from 180deg at 50% 50%, #4facfe, #00f2fe, #43e97b, #f8ffae, #4facfe)\",\n    }}\n  />\n</div>",
+      "animated": false,
+      "keyframes": null,
+      "technique": "conic gradient"
+    },
+    {
+      "id": "linen-texture",
+      "name": "Linen Texture",
+      "category": "geometric",
+      "theme": "light",
+      "style": {
+        "background": "#fafafa",
+        "backgroundImage": "repeating-linear-gradient(0deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 1px, transparent 1px, transparent 4px), repeating-linear-gradient(90deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 1px, transparent 1px, transparent 4px)"
+      },
+      "code": "<div className=\"min-h-screen w-full bg-[#fafafa] relative\">\n  <div\n    className=\"absolute inset-0 z-0\"\n    style={{\n      backgroundImage:\n        \"repeating-linear-gradient(0deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 1px, transparent 1px, transparent 4px), repeating-linear-gradient(90deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 1px, transparent 1px, transparent 4px)\",\n    }}\n  />\n</div>",
+      "animated": false,
+      "keyframes": null,
+      "technique": "repeating linear gradient"
+    },
+    {
+      "id": "velvet-night",
+      "name": "Velvet Night",
+      "category": "gradients",
+      "theme": "dark",
+      "style": {
+        "background": "linear-gradient(160deg, #0f2027, #203a43, #2c5364)"
+      },
+      "code": "<div className=\"min-h-screen w-full relative\">\n  <div\n    className=\"absolute inset-0 z-0\"\n    style={{\n      background:\n        \"linear-gradient(160deg, #0f2027, #203a43, #2c5364)\",\n    }}\n  />\n</div>",
+      "animated": false,
+      "keyframes": null,
+      "technique": "linear gradient"
+    },
+    {
+      "id": "soft-pastel-blend",
+      "name": "Soft Pastel Blend",
+      "category": "gradients",
+      "theme": "dark",
+      "style": {
+        "background": "linear-gradient(120deg, #f6d365 0%, #fda085 30%, #a1c4fd 70%, #c2e9fb 100%)"
+      },
+      "code": "<div className=\"min-h-screen w-full relative\">\n  <div\n    className=\"absolute inset-0 z-0\"\n    style={{\n      background:\n        \"linear-gradient(120deg, #f6d365 0%, #fda085 30%, #a1c4fd 70%, #c2e9fb 100%)\",\n    }}\n  />\n</div>",
+      "animated": false,
+      "keyframes": null,
+      "technique": "linear gradient"
+    },
+    {
+      "id": "charcoal-fade",
+      "name": "Charcoal Fade",
+      "category": "effects",
+      "theme": "dark",
+      "style": {
+        "background": "radial-gradient(circle at top, #1c1c1c, #000000)"
+      },
+      "code": "<div className=\"min-h-screen w-full relative\">\n  <div\n    className=\"absolute inset-0 z-0\"\n    style={{\n      background:\n        \"radial-gradient(circle at top, #1c1c1c, #000000)\",\n    }}\n  />\n</div>",
+      "animated": false,
+      "keyframes": null,
+      "technique": "radial gradient"
+    },
+    {
+      "id": "pastel-confetti",
+      "name": "Pastel Confetti",
+      "category": "decorative",
+      "theme": "light",
+      "style": {
+        "background": "#fffafc",
+        "backgroundImage": "\n        radial-gradient(circle at 10% 20%, rgba(255,182,193,0.4) 6px, transparent 0),\n        radial-gradient(circle at 80% 30%, rgba(173,216,230,0.4) 8px, transparent 0),\n        radial-gradient(circle at 40% 70%, rgba(255,223,186,0.5) 10px, transparent 0),\n        radial-gradient(circle at 70% 80%, rgba(186,255,201,0.4) 7px, transparent 0)\n      ",
+        "backgroundSize": "100% 100%"
+      },
+      "code": "<div className=\"min-h-screen w-full bg-[#fffafc] relative\">\n  <div\n    className=\"absolute inset-0 z-0\"\n    style={{\n      backgroundImage: `\n        radial-gradient(circle at 10% 20%, rgba(255,182,193,0.4) 6px, transparent 0),\n        radial-gradient(circle at 80% 30%, rgba(173,216,230,0.4) 8px, transparent 0),\n        radial-gradient(circle at 40% 70%, rgba(255,223,186,0.5) 10px, transparent 0),\n        radial-gradient(circle at 70% 80%, rgba(186,255,201,0.4) 7px, transparent 0)\n      `,\n    }}\n  />\n</div>",
+      "animated": false,
+      "keyframes": null,
+      "technique": "radial gradient, tile 100% 100%"
+    },
+    {
+      "id": "diamond-grid",
+      "name": "Diamond Grid",
+      "category": "geometric",
+      "theme": "light",
+      "style": {
+        "background": "#fdfdfd",
+        "backgroundImage": "\n        linear-gradient(45deg, rgba(139,92,246,0.15) 25%, transparent 25%),\n        linear-gradient(-45deg, rgba(236,72,153,0.15) 25%, transparent 25%),\n        linear-gradient(45deg, transparent 75%, rgba(59,130,246,0.15) 75%),\n        linear-gradient(-45deg, transparent 75%, rgba(16,185,129,0.15) 75%)\n      ",
+        "backgroundSize": "40px 40px",
+        "backgroundPosition": "0 0, 0 20px, 20px -20px, -20px 0px"
+      },
+      "code": "<div className=\"min-h-screen w-full bg-[#fdfdfd] relative\">\n  <div\n    className=\"absolute inset-0 z-0\"\n    style={{\n      backgroundImage: `\n        linear-gradient(45deg, rgba(139,92,246,0.15) 25%, transparent 25%),\n        linear-gradient(-45deg, rgba(236,72,153,0.15) 25%, transparent 25%),\n        linear-gradient(45deg, transparent 75%, rgba(59,130,246,0.15) 75%),\n        linear-gradient(-45deg, transparent 75%, rgba(16,185,129,0.15) 75%)\n      `,\n      backgroundSize: \"40px 40px\",\n      backgroundPosition: \"0 0, 0 20px, 20px -20px, -20px 0px\",\n    }}\n  />\n</div>",
+      "animated": false,
+      "keyframes": null,
+      "technique": "linear gradient, tile 40px 40px"
+    },
+    {
+      "id": "polka-dots-colorful",
+      "name": "Colorful Polka Dots",
+      "category": "decorative",
+      "theme": "light",
+      "style": {
+        "background": "#ffffff",
+        "backgroundImage": "\n        radial-gradient(circle, rgba(236,72,153,0.5) 6px, transparent 7px),\n        radial-gradient(circle, rgba(59,130,246,0.5) 6px, transparent 7px),\n        radial-gradient(circle, rgba(16,185,129,0.5) 6px, transparent 7px),\n        radial-gradient(circle, rgba(245,158,11,0.5) 6px, transparent 7px)\n      ",
+        "backgroundSize": "60px 60px",
+        "backgroundPosition": "0 0, 30px 30px, 30px 0, 0 30px"
+      },
+      "code": "<div className=\"min-h-screen w-full bg-white relative\">\n  <div\n    className=\"absolute inset-0 z-0\"\n    style={{\n      backgroundImage: `\n        radial-gradient(circle, rgba(236,72,153,0.5) 6px, transparent 7px),\n        radial-gradient(circle, rgba(59,130,246,0.5) 6px, transparent 7px),\n        radial-gradient(circle, rgba(16,185,129,0.5) 6px, transparent 7px),\n        radial-gradient(circle, rgba(245,158,11,0.5) 6px, transparent 7px)\n      `,\n      backgroundSize: \"60px 60px\",\n      backgroundPosition: \"0 0, 30px 30px, 30px 0, 0 30px\",\n    }}\n  />\n</div>",
+      "animated": false,
+      "keyframes": null,
+      "technique": "radial gradient, tile 60px 60px"
+    },
+    {
+      "id": "zigzag-stripes",
+      "name": "Zigzag Stripes",
+      "category": "geometric",
+      "theme": "light",
+      "style": {
+        "background": "#e5e7eb",
+        "backgroundImage": "\n        repeating-linear-gradient(135deg, #cbd5e133 0 8px, transparent 8px 20px),\n        repeating-linear-gradient(-135deg, #d1fae533 0 8px, transparent 8px 20px)\n      ",
+        "backgroundSize": "40px 40px"
+      },
+      "code": "<div className=\"min-h-screen w-full bg-[#e5e7eb] relative\">\n  <div\n    className=\"absolute inset-0 z-0\"\n    style={{\n      backgroundImage: `\n        repeating-linear-gradient(135deg, #cbd5e133 0 8px, transparent 8px 20px),\n        repeating-linear-gradient(-135deg, #d1fae533 0 8px, transparent 8px 20px)\n      `,\n      backgroundSize: \"40px 40px\",\n    }}\n  />\n</div>",
+      "animated": false,
+      "keyframes": null,
+      "technique": "repeating linear gradient, tile 40px 40px"
+    },
+    {
+      "id": "pastel-checkerboard",
+      "name": "Pastel Checkerboard",
+      "category": "geometric",
+      "theme": "light",
+      "style": {
+        "background": "#ffffff",
+        "backgroundImage": "\n        linear-gradient(45deg, rgba(139,92,246,0.15) 25%, transparent 25%),\n        linear-gradient(-45deg, rgba(16,185,129,0.15) 25%, transparent 25%),\n        linear-gradient(45deg, transparent 75%, rgba(236,72,153,0.15) 75%),\n        linear-gradient(-45deg, transparent 75%, rgba(59,130,246,0.15) 75%)\n      ",
+        "backgroundSize": "40px 40px",
+        "backgroundPosition": "0 0, 0 20px, 20px -20px, -20px 0px"
+      },
+      "code": "<div className=\"min-h-screen w-full bg-white relative\">\n  <div\n    className=\"absolute inset-0 z-0\"\n    style={{\n      backgroundImage: `\n        linear-gradient(45deg, rgba(139,92,246,0.15) 25%, transparent 25%),\n        linear-gradient(-45deg, rgba(16,185,129,0.15) 25%, transparent 25%),\n        linear-gradient(45deg, transparent 75%, rgba(236,72,153,0.15) 75%),\n        linear-gradient(-45deg, transparent 75%, rgba(59,130,246,0.15) 75%)\n      `,\n      backgroundSize: \"40px 40px\",\n      backgroundPosition: \"0 0, 0 20px, 20px -20px, -20px 0px\",\n    }}\n  />\n</div>",
+      "animated": false,
+      "keyframes": null,
+      "technique": "linear gradient, tile 40px 40px"
+    },
+    {
+      "id": "soft-dashed-columns",
+      "name": "Soft Dashed Columns",
+      "category": "geometric",
+      "theme": "light",
+      "style": {
+        "background": "#ffffff",
+        "backgroundImage": "\n        conic-gradient(at 2px 50%, rgba(99,102,241,0.28) 75%, transparent 0)\n      ",
+        "backgroundSize": "56px 12px",
+        "backgroundPosition": "0 0"
+      },
+      "code": "<div className=\"min-h-screen w-full bg-white relative\">\n  <div\n    className=\"absolute inset-0 z-0 pointer-events-none\"\n    style={{\n      backgroundImage: `\n        conic-gradient(at 2px 50%, rgba(99,102,241,0.28) 75%, transparent 0)\n      `,\n      backgroundSize: \"56px 12px\",\n      backgroundPosition: \"0 0\",\n    }}\n  />\n</div>",
+      "animated": false,
+      "keyframes": null,
+      "technique": "conic gradient, tile 56px 12px"
+    },
+    {
+      "id": "micro-noise-fabric",
+      "name": "Micro Noise Fabric",
+      "category": "decorative",
+      "theme": "light",
+      "style": {
+        "background": "#fafafa",
+        "backgroundImage": "\n        repeating-radial-gradient(\n          circle at 0 0,\n          rgba(0,0,0,0.06) 0 0.7px,\n          transparent 0.7px 6px\n        ),\n        repeating-radial-gradient(\n          circle at 100% 100%,\n          rgba(0,0,0,0.03) 0 0.6px,\n          transparent 0.6px 5px\n        )\n      ",
+        "mixBlendMode": "multiply"
+      },
+      "code": "<div className=\"min-h-screen w-full bg-[#fafafa] relative\">\n  <div\n    className=\"absolute inset-0 z-0\"\n    style={{\n      backgroundImage: `\n        repeating-radial-gradient(\n          circle at 0 0,\n          rgba(0,0,0,0.06) 0 0.7px,\n          transparent 0.7px 6px\n        ),\n        repeating-radial-gradient(\n          circle at 100% 100%,\n          rgba(0,0,0,0.03) 0 0.6px,\n          transparent 0.6px 5px\n        )\n      `,\n      mixBlendMode: \"multiply\",\n    }}\n  />\n</div>",
+      "animated": false,
+      "keyframes": null,
+      "technique": "repeating radial gradient, layer blending"
+    },
+    {
+      "id": "offset-dashed-grid",
+      "name": "Offset Dashed Grid",
+      "category": "geometric",
+      "theme": "light",
+      "style": {
+        "background": "#ffffff",
+        "backgroundImage": "\n        repeating-linear-gradient(\n          0deg,\n          rgba(148,163,184,0.18) 0 1px,\n          transparent 1px 20px\n        ),\n        repeating-linear-gradient(\n          90deg,\n          rgba(148,163,184,0.18) 0 1px,\n          transparent 1px 20px\n        ),\n        repeating-linear-gradient(\n          0deg,\n          rgba(99,102,241,0.22) 0 1px,\n          transparent 1px 40px\n        ),\n        repeating-linear-gradient(\n          90deg,\n          rgba(236,72,153,0.18) 0 1px,\n          transparent 1px 40px\n        )\n      ",
+        "backgroundPosition": "0 0, 10px 10px, 0 0, 20px 20px",
+        "backgroundSize": "20px 20px, 20px 20px, 40px 40px, 40px 40px"
+      },
+      "code": "<div className=\"min-h-screen w-full bg-white relative\">\n  <div\n    className=\"absolute inset-0 z-0\"\n    style={{\n      backgroundImage: `\n        repeating-linear-gradient(\n          0deg,\n          rgba(148,163,184,0.18) 0 1px,\n          transparent 1px 20px\n        ),\n        repeating-linear-gradient(\n          90deg,\n          rgba(148,163,184,0.18) 0 1px,\n          transparent 1px 20px\n        ),\n        repeating-linear-gradient(\n          0deg,\n          rgba(99,102,241,0.22) 0 1px,\n          transparent 1px 40px\n        ),\n        repeating-linear-gradient(\n          90deg,\n          rgba(236,72,153,0.18) 0 1px,\n          transparent 1px 40px\n        )\n      `,\n      backgroundPosition: \"0 0, 10px 10px, 0 0, 20px 20px\",\n      backgroundSize: \"20px 20px, 20px 20px, 40px 40px, 40px 40px\",\n    }}\n  />\n</div>",
+      "animated": false,
+      "keyframes": null,
+      "technique": "repeating linear gradient, tile 20px 20px, 20px 20px, 40px 40px, 40px 40px"
+    },
+    {
+      "id": "radiant-burst-rays",
+      "name": "Radiant Burst Rays",
+      "category": "decorative",
+      "theme": "dark",
+      "style": {
+        "background": "#0b1020",
+        "backgroundImage": "\n        repeating-conic-gradient(\n          from 2deg at 50% 35%,\n          rgba(99,102,241,0.28) 0deg 8deg,\n          rgba(99,102,241,0) 8deg 14deg\n        ),\n        radial-gradient(ellipse 80% 50% at 50% 35%, rgba(56,189,248,0.18), transparent 60%),\n        radial-gradient(ellipse 120% 60% at 50% 0%, rgba(236,72,153,0.12), transparent 65%)\n      ",
+        "backgroundBlendMode": "screen, normal, normal"
+      },
+      "code": "<div className=\"min-h-screen w-full relative bg-[#0b1020]\">\n  <div\n    className=\"absolute inset-0 z-0\"\n    style={{\n      backgroundImage: `\n        repeating-conic-gradient(\n          from 2deg at 50% 35%,\n          rgba(99,102,241,0.28) 0deg 8deg,\n          rgba(99,102,241,0) 8deg 14deg\n        ),\n        radial-gradient(ellipse 80% 50% at 50% 35%, rgba(56,189,248,0.18), transparent 60%),\n        radial-gradient(ellipse 120% 60% at 50% 0%, rgba(236,72,153,0.12), transparent 65%)\n      `,\n      backgroundBlendMode: \"screen, normal, normal\",\n    }}\n  />\n</div>",
+      "animated": false,
+      "keyframes": null,
+      "technique": "repeating conic gradient, radial gradient, layer blending"
+    },
+    {
+      "id": "halo-rings-centerpiece",
+      "name": "Halo Rings Centerpiece",
+      "category": "decorative",
+      "theme": "dark",
+      "style": {
+        "background": "#0a0a0a",
+        "backgroundImage": "\n        repeating-radial-gradient(\n          circle at 50% 40%,\n          rgba(168,85,247,0.18) 0 6px,\n          rgba(168,85,247,0) 6px 22px\n        ),\n        radial-gradient(circle at 50% 40%, rgba(59,130,246,0.18), transparent 55%),\n        radial-gradient(circle at 50% 70%, rgba(16,185,129,0.12), transparent 65%)\n      "
+      },
+      "code": "<div className=\"min-h-screen w-full relative bg-[#0a0a0a]\">\n  <div\n    className=\"absolute inset-0 z-0\"\n    style={{\n      backgroundImage: `\n        repeating-radial-gradient(\n          circle at 50% 40%,\n          rgba(168,85,247,0.18) 0 6px,\n          rgba(168,85,247,0) 6px 22px\n        ),\n        radial-gradient(circle at 50% 40%, rgba(59,130,246,0.18), transparent 55%),\n        radial-gradient(circle at 50% 70%, rgba(16,185,129,0.12), transparent 65%)\n      `,\n    }}\n  />\n</div>",
+      "animated": false,
+      "keyframes": null,
+      "technique": "repeating radial gradient, radial gradient"
+    }
+  ]
+}

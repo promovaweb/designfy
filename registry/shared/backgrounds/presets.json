@@ -1,6 +1,7 @@
 [
   {
     "slug": "signal-grid",
+    "source": "reactbd",
     "sourceId": "reactbd-signal-grid",
     "name": "Signal Grid",
     "category": "geometric",
@@ -17,6 +18,7 @@
   },
   {
     "slug": "zinc-paper",
+    "source": "reactbd",
     "sourceId": "reactbd-zinc-paper",
     "name": "Zinc Paper",
     "category": "decorative",
@@ -33,6 +35,7 @@
   },
   {
     "slug": "dusk-horizon",
+    "source": "reactbd",
     "sourceId": "reactbd-dusk-horizon",
     "name": "Dusk Horizon",
     "category": "gradients",
@@ -50,6 +53,7 @@
   },
   {
     "slug": "frost-panel",
+    "source": "reactbd",
     "sourceId": "reactbd-frost-panel",
     "name": "Frost Panel",
     "category": "effects",
@@ -67,6 +71,7 @@
   },
   {
     "slug": "cyan-mesh",
+    "source": "reactbd",
     "sourceId": "reactbd-cyan-mesh",
     "name": "Cyan Mesh",
     "category": "gradients",
@@ -83,6 +88,7 @@
   },
   {
     "slug": "signal-drift",
+    "source": "reactbd",
     "sourceId": "reactbd-signal-drift",
     "name": "Signal Drift",
     "category": "geometric",
@@ -99,6 +105,7 @@
   },
   {
     "slug": "orbit-glow",
+    "source": "reactbd",
     "sourceId": "reactbd-orbit-glow",
     "name": "Orbit Glow",
     "category": "effects",
@@ -115,6 +122,7 @@
   },
   {
     "slug": "pulse-veil",
+    "source": "reactbd",
     "sourceId": "reactbd-pulse-veil",
     "name": "Pulse Veil",
     "category": "gradients",
@@ -131,6 +139,7 @@
   },
   {
     "slug": "studio-navy-hairline",
+    "source": "reactbd",
     "sourceId": "studio-navy-hairline",
     "name": "Navy Hairline",
     "category": "geometric",
@@ -147,6 +156,7 @@
   },
   {
     "slug": "studio-yellow-corner-wash",
+    "source": "reactbd",
     "sourceId": "studio-yellow-corner-wash",
     "name": "Yellow Corner Wash",
     "category": "gradients",
@@ -163,6 +173,7 @@
   },
   {
     "slug": "studio-ivory-dot-sheet",
+    "source": "reactbd",
     "sourceId": "studio-ivory-dot-sheet",
     "name": "Ivory Dot Sheet",
     "category": "decorative",
@@ -179,6 +190,7 @@
   },
   {
     "slug": "studio-mist-crosshatch",
+    "source": "reactbd",
     "sourceId": "studio-mist-crosshatch",
     "name": "Mist Crosshatch",
     "category": "geometric",
@@ -195,6 +207,7 @@
   },
   {
     "slug": "studio-cloud-horizon",
+    "source": "reactbd",
     "sourceId": "studio-cloud-horizon",
     "name": "Cloud Horizon",
     "category": "gradients",
@@ -211,6 +224,7 @@
   },
   {
     "slug": "studio-sand-mesh",
+    "source": "reactbd",
     "sourceId": "studio-sand-mesh",
     "name": "Sand Mesh",
     "category": "decorative",
@@ -227,6 +241,7 @@
   },
   {
     "slug": "studio-quiet-columns",
+    "source": "reactbd",
     "sourceId": "studio-quiet-columns",
     "name": "Quiet Columns",
     "category": "geometric",
@@ -243,6 +258,7 @@
   },
   {
     "slug": "studio-letterpress-lines",
+    "source": "reactbd",
     "sourceId": "studio-letterpress-lines",
     "name": "Letterpress Lines",
     "category": "decorative",
@@ -259,6 +275,7 @@
   },
   {
     "slug": "studio-pale-diagonal",
+    "source": "reactbd",
     "sourceId": "studio-pale-diagonal",
     "name": "Pale Diagonal",
     "category": "geometric",
@@ -275,6 +292,7 @@
   },
   {
     "slug": "studio-sky-wash",
+    "source": "reactbd",
     "sourceId": "studio-sky-wash",
     "name": "Sky Wash",
     "category": "gradients",
@@ -291,6 +309,7 @@
   },
   {
     "slug": "studio-cream-spotlight",
+    "source": "reactbd",
     "sourceId": "studio-cream-spotlight",
     "name": "Cream Spotlight",
     "category": "effects",
@@ -307,6 +326,7 @@
   },
   {
     "slug": "studio-soft-blueprint",
+    "source": "reactbd",
     "sourceId": "studio-soft-blueprint",
     "name": "Soft Blueprint",
     "category": "geometric",
@@ -323,6 +343,7 @@
   },
   {
     "slug": "studio-graph-paper",
+    "source": "reactbd",
     "sourceId": "studio-graph-paper",
     "name": "Graph Paper",
     "category": "geometric",
@@ -339,6 +360,7 @@
   },
   {
     "slug": "studio-legal-pad",
+    "source": "reactbd",
     "sourceId": "studio-legal-pad",
     "name": "Legal Pad",
     "category": "decorative",
@@ -356,6 +378,7 @@
   },
   {
     "slug": "studio-vellum",
+    "source": "reactbd",
     "sourceId": "studio-vellum",
     "name": "Vellum",
     "category": "decorative",
@@ -372,6 +395,7 @@
   },
   {
     "slug": "studio-linen",
+    "source": "reactbd",
     "sourceId": "studio-linen",
     "name": "Linen",
     "category": "decorative",
@@ -388,6 +412,7 @@
   },
   {
     "slug": "studio-whisper-stripes",
+    "source": "reactbd",
     "sourceId": "studio-whisper-stripes",
     "name": "Whisper Stripes",
     "category": "geometric",
@@ -404,6 +429,7 @@
   },
   {
     "slug": "studio-ivory-vignette",
+    "source": "reactbd",
     "sourceId": "studio-ivory-vignette",
     "name": "Ivory Vignette",
     "category": "effects",
@@ -420,6 +446,7 @@
   },
   {
     "slug": "studio-ledger",
+    "source": "reactbd",
     "sourceId": "studio-ledger",
     "name": "Ledger",
     "category": "geometric",
@@ -437,6 +464,7 @@
   },
   {
     "slug": "studio-polar-dots",
+    "source": "reactbd",
     "sourceId": "studio-polar-dots",
     "name": "Polar Dots",
     "category": "decorative",
@@ -453,6 +481,7 @@
   },
   {
     "slug": "studio-soft-dual-glow",
+    "source": "reactbd",
     "sourceId": "studio-soft-dual-glow",
     "name": "Soft Dual Glow",
     "category": "gradients",
@@ -470,6 +499,7 @@
   },
   {
     "slug": "studio-editorial-rules",
+    "source": "reactbd",
     "sourceId": "studio-editorial-rules",
     "name": "Editorial Rules",
     "category": "geometric",
@@ -486,6 +516,7 @@
   },
   {
     "slug": "studio-cool-slate-wash",
+    "source": "reactbd",
     "sourceId": "studio-cool-slate-wash",
     "name": "Cool Slate Wash",
     "category": "gradients",
@@ -502,6 +533,7 @@
   },
   {
     "slug": "studio-paper-sheen",
+    "source": "reactbd",
     "sourceId": "studio-paper-sheen",
     "name": "Paper Sheen",
     "category": "effects",
@@ -519,6 +551,7 @@
   },
   {
     "slug": "studio-navy-void",
+    "source": "reactbd",
     "sourceId": "studio-navy-void",
     "name": "Navy Void",
     "category": "gradients",
@@ -535,6 +568,7 @@
   },
   {
     "slug": "studio-blueprint-dark",
+    "source": "reactbd",
     "sourceId": "studio-blueprint-dark",
     "name": "Blueprint Dark",
     "category": "geometric",
@@ -551,6 +585,7 @@
   },
   {
     "slug": "studio-amber-horizon",
+    "source": "reactbd",
     "sourceId": "studio-amber-horizon",
     "name": "Amber Horizon",
     "category": "gradients",
@@ -568,6 +603,7 @@
   },
   {
     "slug": "studio-gold-dust",
+    "source": "reactbd",
     "sourceId": "studio-gold-dust",
     "name": "Gold Dust",
     "category": "decorative",
@@ -584,6 +620,7 @@
   },
   {
     "slug": "studio-carbon-lines",
+    "source": "reactbd",
     "sourceId": "studio-carbon-lines",
     "name": "Carbon Lines",
     "category": "geometric",
@@ -600,6 +637,7 @@
   },
   {
     "slug": "studio-ink-mesh",
+    "source": "reactbd",
     "sourceId": "studio-ink-mesh",
     "name": "Ink Mesh",
     "category": "geometric",
@@ -617,6 +655,7 @@
   },
   {
     "slug": "studio-ember-corner",
+    "source": "reactbd",
     "sourceId": "studio-ember-corner",
     "name": "Ember Corner",
     "category": "effects",
@@ -633,6 +672,7 @@
   },
   {
     "slug": "studio-void-dots",
+    "source": "reactbd",
     "sourceId": "studio-void-dots",
     "name": "Void Dots",
     "category": "decorative",
@@ -649,6 +689,7 @@
   },
   {
     "slug": "studio-night-cross",
+    "source": "reactbd",
     "sourceId": "studio-night-cross",
     "name": "Night Cross",
     "category": "geometric",
@@ -665,6 +706,7 @@
   },
   {
     "slug": "studio-deep-wash",
+    "source": "reactbd",
     "sourceId": "studio-deep-wash",
     "name": "Deep Wash",
     "category": "gradients",
@@ -681,6 +723,7 @@
   },
   {
     "slug": "studio-scan-glow",
+    "source": "reactbd",
     "sourceId": "studio-scan-glow",
     "name": "Scan Glow",
     "category": "effects",
@@ -697,6 +740,7 @@
   },
   {
     "slug": "studio-signal-pulse-navy",
+    "source": "reactbd",
     "sourceId": "studio-signal-pulse-navy",
     "name": "Signal Pulse Navy",
     "category": "effects",
@@ -713,6 +757,7 @@
   },
   {
     "slug": "studio-oled-grid",
+    "source": "reactbd",
     "sourceId": "studio-oled-grid",
     "name": "OLED Grid",
     "category": "geometric",
@@ -729,6 +774,7 @@
   },
   {
     "slug": "studio-midnight-graph",
+    "source": "reactbd",
     "sourceId": "studio-midnight-graph",
     "name": "Midnight Graph",
     "category": "geometric",
@@ -746,6 +792,7 @@
   },
   {
     "slug": "studio-constellation",
+    "source": "reactbd",
     "sourceId": "studio-constellation",
     "name": "Constellation",
     "category": "decorative",
@@ -763,6 +810,7 @@
   },
   {
     "slug": "studio-console-stripes",
+    "source": "reactbd",
     "sourceId": "studio-console-stripes",
     "name": "Console Stripes",
     "category": "geometric",
@@ -779,6 +827,7 @@
   },
   {
     "slug": "studio-deep-vignette",
+    "source": "reactbd",
     "sourceId": "studio-deep-vignette",
     "name": "Deep Vignette",
     "category": "effects",
@@ -795,6 +844,7 @@
   },
   {
     "slug": "studio-night-ledger",
+    "source": "reactbd",
     "sourceId": "studio-night-ledger",
     "name": "Night Ledger",
     "category": "geometric",
@@ -812,6 +862,7 @@
   },
   {
     "slug": "studio-navy-pin-dots",
+    "source": "reactbd",
     "sourceId": "studio-navy-pin-dots",
     "name": "Navy Pin Dots",
     "category": "decorative",
@@ -828,6 +879,7 @@
   },
   {
     "slug": "studio-graphite-rules",
+    "source": "reactbd",
     "sourceId": "studio-graphite-rules",
     "name": "Graphite Rules",
     "category": "geometric",
@@ -844,6 +896,7 @@
   },
   {
     "slug": "studio-deep-dual-glow",
+    "source": "reactbd",
     "sourceId": "studio-deep-dual-glow",
     "name": "Deep Dual Glow",
     "category": "gradients",
@@ -861,6 +914,7 @@
   },
   {
     "slug": "studio-quiet-aurora",
+    "source": "reactbd",
     "sourceId": "studio-quiet-aurora",
     "name": "Quiet Aurora",
     "category": "effects",
@@ -879,6 +933,7 @@
   },
   {
     "slug": "studio-obsidian-wash",
+    "source": "reactbd",
     "sourceId": "studio-obsidian-wash",
     "name": "Obsidian Wash",
     "category": "gradients",
@@ -895,6 +950,7 @@
   },
   {
     "slug": "studio-night-notebook",
+    "source": "reactbd",
     "sourceId": "studio-night-notebook",
     "name": "Night Notebook",
     "category": "decorative",
@@ -911,6 +967,7 @@
   },
   {
     "slug": "beach",
+    "source": "reactbd",
     "sourceId": "beach",
     "name": "Beach",
     "category": "effects",
@@ -929,6 +986,7 @@
   },
   {
     "slug": "top-gradient-radial",
+    "source": "reactbd",
     "sourceId": "top-gradient-radial",
     "name": "Top Gradient Radial",
     "category": "decorative",
@@ -954,6 +1012,7 @@
   },
   {
     "slug": "bottom-gradient-radial",
+    "source": "reactbd",
     "sourceId": "bottom-gradient-radial",
     "name": "Bottom Gradient Radial",
     "category": "decorative",
@@ -973,6 +1032,7 @@
   },
   {
     "slug": "top-violet-radial",
+    "source": "reactbd",
     "sourceId": "top-violet-radial",
     "name": "Top Violet Radial",
     "category": "decorative",
@@ -988,6 +1048,7 @@
   },
   {
     "slug": "bottom-violet-radial",
+    "source": "reactbd",
     "sourceId": "bottom-violet-radial",
     "name": "Bottom Violet Radial",
     "category": "decorative",
@@ -1003,6 +1064,7 @@
   },
   {
     "slug": "top-slate-radial",
+    "source": "reactbd",
     "sourceId": "top-slate-radial",
     "name": "Top Slate Radial",
     "category": "decorative",
@@ -1018,6 +1080,7 @@
   },
   {
     "slug": "bottom-slate-radial",
+    "source": "reactbd",
     "sourceId": "bottom-slate-radial",
     "name": "Bottom Slate Radial",
     "category": "decorative",
@@ -1033,6 +1096,7 @@
   },
   {
     "slug": "top-teal-glow",
+    "source": "reactbd",
     "sourceId": "top-teal-glow",
     "name": "Top Teal Glow",
     "category": "decorative",
@@ -1053,6 +1117,7 @@
   },
   {
     "slug": "bottom-teal-glow",
+    "source": "reactbd",
     "sourceId": "bottom-teal-glow",
     "name": "Bottom Teal Glow",
     "category": "decorative",
@@ -1071,11 +1136,16 @@
       "bottom-emerald-glow",
       "dark-horizon-glow",
       "emerald-void",
-      "violet-abyss"
+      "violet-abyss",
+      "radial-teal-glow",
+      "radial-pink-glow",
+      "radial-amber-glow",
+      "radial-emerald-glow"
     ]
   },
   {
     "slug": "top-pink-glow",
+    "source": "reactbd",
     "sourceId": "top-pink-glow",
     "name": "Top Pink Glow",
     "category": "decorative",
@@ -1091,6 +1161,7 @@
   },
   {
     "slug": "bottom-pink-glow",
+    "source": "reactbd",
     "sourceId": "bottom-pink-glow",
     "name": "Bottom Pink Glow",
     "category": "decorative",
@@ -1106,6 +1177,7 @@
   },
   {
     "slug": "top-amber-glow",
+    "source": "reactbd",
     "sourceId": "top-amber-glow",
     "name": "Top Amber Glow",
     "category": "decorative",
@@ -1121,6 +1193,7 @@
   },
   {
     "slug": "bottom-amber-glow",
+    "source": "reactbd",
     "sourceId": "bottom-amber-glow",
     "name": "Bottom Amber Glow",
     "category": "decorative",
@@ -1136,6 +1209,7 @@
   },
   {
     "slug": "top-emerald-glow",
+    "source": "reactbd",
     "sourceId": "top-emerald-glow",
     "name": "Top Emerald Glow",
     "category": "decorative",
@@ -1151,6 +1225,7 @@
   },
   {
     "slug": "bottom-emerald-glow",
+    "source": "reactbd",
     "sourceId": "bottom-emerald-glow",
     "name": "Bottom Emerald Glow",
     "category": "decorative",
@@ -1166,6 +1241,7 @@
   },
   {
     "slug": "dark-horizon-glow",
+    "source": "reactbd",
     "sourceId": "dark-horizon-glow",
     "name": "Dark Horizon Glow",
     "category": "decorative",
@@ -1181,6 +1257,7 @@
   },
   {
     "slug": "crimson-depth",
+    "source": "reactbd",
     "sourceId": "crimson-depth",
     "name": "Crimson Depth",
     "category": "decorative",
@@ -1200,6 +1277,7 @@
   },
   {
     "slug": "emerald-void",
+    "source": "reactbd",
     "sourceId": "emerald-void",
     "name": "Emerald Void",
     "category": "decorative",
@@ -1215,6 +1293,7 @@
   },
   {
     "slug": "violet-abyss",
+    "source": "reactbd",
     "sourceId": "violet-abyss",
     "name": "Violet Abyss",
     "category": "decorative",
@@ -1230,6 +1309,7 @@
   },
   {
     "slug": "azure-depths",
+    "source": "reactbd",
     "sourceId": "azure-depths",
     "name": "Azure Depths",
     "category": "decorative",
@@ -1245,6 +1325,7 @@
   },
   {
     "slug": "orchid-depths",
+    "source": "reactbd",
     "sourceId": "orchid -depths",
     "name": "Orchid  Depths",
     "category": "decorative",
@@ -1260,6 +1341,7 @@
   },
   {
     "slug": "dark-horizon-glow-top",
+    "source": "reactbd",
     "sourceId": "dark-horizon-glow-top",
     "name": "Dark Horizon Glow Top",
     "category": "decorative",
@@ -1275,6 +1357,7 @@
   },
   {
     "slug": "crimson-depth-top",
+    "source": "reactbd",
     "sourceId": "crimson-depth-top",
     "name": "Crimson Depth Top",
     "category": "decorative",
@@ -1290,6 +1373,7 @@
   },
   {
     "slug": "emerald-void-top",
+    "source": "reactbd",
     "sourceId": "emerald-void-top",
     "name": "Emerald Void Top",
     "category": "decorative",
@@ -1305,6 +1389,7 @@
   },
   {
     "slug": "violet-abyss-top",
+    "source": "reactbd",
     "sourceId": "violet-abyss-top",
     "name": "Violet Abyss Top",
     "category": "decorative",
@@ -1320,6 +1405,7 @@
   },
   {
     "slug": "azure-depths-top",
+    "source": "reactbd",
     "sourceId": "azure-depths-top",
     "name": "Azure Depths Top",
     "category": "decorative",
@@ -1335,6 +1421,7 @@
   },
   {
     "slug": "orchid-depths-top",
+    "source": "reactbd",
     "sourceId": "orchid-depths-top",
     "name": "Orchid Depths Top",
     "category": "decorative",
@@ -1350,6 +1437,7 @@
   },
   {
     "slug": "purple-gradient-grid-right",
+    "source": "reactbd",
     "sourceId": "purple-gradient-grid-right",
     "name": "Purple Gradient Grid Right",
     "category": "geometric",
@@ -1367,6 +1455,7 @@
   },
   {
     "slug": "purple-gradient-grid-left",
+    "source": "reactbd",
     "sourceId": "purple-gradient-grid-left",
     "name": "Purple Gradient Grid Left",
     "category": "geometric",
@@ -1384,6 +1473,7 @@
   },
   {
     "slug": "dual-gradient-overlay-strong",
+    "source": "reactbd",
     "sourceId": "dual-gradient-overlay-strong",
     "name": "Dual Gradient Overlay",
     "category": "geometric",
@@ -1401,6 +1491,7 @@
   },
   {
     "slug": "dual-gradient-overlay-strong-swapped",
+    "source": "reactbd",
     "sourceId": "dual-gradient-overlay-strong-swapped",
     "name": "Dual Gradient Overlay Swapped",
     "category": "geometric",
@@ -1418,6 +1509,7 @@
   },
   {
     "slug": "dual-gradient-overlay-top",
+    "source": "reactbd",
     "sourceId": "dual-gradient-overlay-top",
     "name": "Dual Gradient Overlay (Top)",
     "category": "geometric",
@@ -1435,6 +1527,7 @@
   },
   {
     "slug": "dual-gradient-overlay-bottom",
+    "source": "reactbd",
     "sourceId": "dual-gradient-overlay-bottom",
     "name": "Dual Gradient Overlay (Bottom)",
     "category": "geometric",
@@ -1452,6 +1545,7 @@
   },
   {
     "slug": "purple-corner-grid",
+    "source": "reactbd",
     "sourceId": "purple-corner-grid",
     "name": "Purple Corner Grid",
     "category": "geometric",
@@ -1469,6 +1563,7 @@
   },
   {
     "slug": "grid-dual-purple-glow",
+    "source": "reactbd",
     "sourceId": "grid-dual-purple-glow",
     "name": "Grid Dual Purple Glow",
     "category": "geometric",
@@ -1486,6 +1581,7 @@
   },
   {
     "slug": "grid-quad-purple-glow",
+    "source": "reactbd",
     "sourceId": "grid-quad-purple-glow",
     "name": "Grid Quad Purple Glow",
     "category": "geometric",
@@ -1503,6 +1599,7 @@
   },
   {
     "slug": "top-fade-grid",
+    "source": "reactbd",
     "sourceId": "top-fade-grid",
     "name": "Top Fade Grid",
     "category": "geometric",
@@ -1520,6 +1617,7 @@
   },
   {
     "slug": "bottom-fade-grid",
+    "source": "reactbd",
     "sourceId": "bottom-fade-grid",
     "name": "Bottom Fade Grid",
     "category": "geometric",
@@ -1537,6 +1635,7 @@
   },
   {
     "slug": "diagonal-fade-grid-left",
+    "source": "reactbd",
     "sourceId": "diagonal-fade-grid-left",
     "name": "Diagonal Fade Grid Left",
     "category": "geometric",
@@ -1554,6 +1653,7 @@
   },
   {
     "slug": "diagonal-fade-grid-right",
+    "source": "reactbd",
     "sourceId": "diagonal-fade-grid-right",
     "name": "Diagonal Fade Grid Right",
     "category": "geometric",
@@ -1571,6 +1671,7 @@
   },
   {
     "slug": "diagonal-fade-bottom-grid-left",
+    "source": "reactbd",
     "sourceId": "diagonal-fade-bottom-grid-Left",
     "name": "Diagonal Fade Bottom Grid Left",
     "category": "geometric",
@@ -1588,6 +1689,7 @@
   },
   {
     "slug": "diagonal-fade-bottom-grid-right",
+    "source": "reactbd",
     "sourceId": "diagonal-fade-bottom-grid-right",
     "name": "Diagonal Fade Bottom Grid Right",
     "category": "geometric",
@@ -1605,6 +1707,7 @@
   },
   {
     "slug": "diagonal-fade-center-grid",
+    "source": "reactbd",
     "sourceId": "diagonal-fade-center-grid",
     "name": "Diagonal Fade Center Grid",
     "category": "geometric",
@@ -1622,6 +1725,7 @@
   },
   {
     "slug": "diagonal-cross-grid",
+    "source": "reactbd",
     "sourceId": "diagonal-cross-grid",
     "name": "Diagonal Cross Grid",
     "category": "geometric",
@@ -1638,6 +1742,7 @@
   },
   {
     "slug": "diagonal-cross-grid-top",
+    "source": "reactbd",
     "sourceId": "diagonal-cross-grid-top",
     "name": "Diagonal Cross Grid Top",
     "category": "geometric",
@@ -1655,6 +1760,7 @@
   },
   {
     "slug": "diagonal-cross-grid-bottom",
+    "source": "reactbd",
     "sourceId": "diagonal-cross-grid-bottom",
     "name": "Diagonal Cross Grid Bottom",
     "category": "geometric",
@@ -1672,6 +1778,7 @@
   },
   {
     "slug": "diagonal-cross-top-right-fade-grid",
+    "source": "reactbd",
     "sourceId": "diagonal-cross-top-right-fade-grid",
     "name": "Diagonal Cross Top Right Fade Grid",
     "category": "geometric",
@@ -1689,6 +1796,7 @@
   },
   {
     "slug": "diagonal-cross-top-left-fade-grid",
+    "source": "reactbd",
     "sourceId": "diagonal-cross-top-left-fade-grid",
     "name": "Diagonal Cross Top Left Fade Grid",
     "category": "geometric",
@@ -1706,6 +1814,7 @@
   },
   {
     "slug": "diagonal-cross-bottom-right-fade-grid",
+    "source": "reactbd",
     "sourceId": "diagonal-cross-Bottom-right-fade-grid",
     "name": "Diagonal Cross Bottom Right Fade Grid",
     "category": "geometric",
@@ -1723,6 +1832,7 @@
   },
   {
     "slug": "diagonal-cross-bottom-left-fade-grid",
+    "source": "reactbd",
     "sourceId": "diagonal-cross-Bottom-left-fade-grid",
     "name": "Diagonal Cross Bottom Left Fade Grid",
     "category": "geometric",
@@ -1740,6 +1850,7 @@
   },
   {
     "slug": "diagonal-cross-center-fade-grid",
+    "source": "reactbd",
     "sourceId": "diagonal-cross-center-fade-grid",
     "name": "Diagonal Cross Center Fade Grid",
     "category": "geometric",
@@ -1757,6 +1868,7 @@
   },
   {
     "slug": "dashed-grid-light",
+    "source": "reactbd",
     "sourceId": "dashed-grid-light",
     "name": "Dashed Grid Light",
     "category": "geometric",
@@ -1774,6 +1886,7 @@
   },
   {
     "slug": "dashed-top-fade-grid",
+    "source": "reactbd",
     "sourceId": "dashed-top-fade-grid",
     "name": "Dashed Top Fade Grid",
     "category": "geometric",
@@ -1791,6 +1904,7 @@
   },
   {
     "slug": "dashed-bottom-fade-grid",
+    "source": "reactbd",
     "sourceId": "dashed-bottom-fade-grid",
     "name": "Dashed Bottom Fade Grid",
     "category": "geometric",
@@ -1808,6 +1922,7 @@
   },
   {
     "slug": "dashed-top-left-fade-grid",
+    "source": "reactbd",
     "sourceId": "dashed-top-left-fade-grid",
     "name": "Dashed Top Left Fade Grid",
     "category": "geometric",
@@ -1825,6 +1940,7 @@
   },
   {
     "slug": "dashed-top-right-fade-grid",
+    "source": "reactbd",
     "sourceId": "dashed-top-right-fade-grid",
     "name": "Dashed Top Right Fade Grid",
     "category": "geometric",
@@ -1842,6 +1958,7 @@
   },
   {
     "slug": "dashed-bottom-right-fade-grid",
+    "source": "reactbd",
     "sourceId": "dashed-bottom-right-fade-grid",
     "name": "Dashed Bottom Right Fade Grid",
     "category": "geometric",
@@ -1859,6 +1976,7 @@
   },
   {
     "slug": "dashed-bottom-left-fade-grid",
+    "source": "reactbd",
     "sourceId": "dashed-bottom-left-fade-grid",
     "name": "Dashed Bottom Left Fade Grid",
     "category": "geometric",
@@ -1876,6 +1994,7 @@
   },
   {
     "slug": "dashed-center-fade-grid",
+    "source": "reactbd",
     "sourceId": "dashed-center-fade-grid",
     "name": "Dashed Center Fade Grid",
     "category": "geometric",
@@ -1893,6 +2012,7 @@
   },
   {
     "slug": "left-masked-basic-grid",
+    "source": "reactbd",
     "sourceId": "left-masked-basic-grid",
     "name": "Left Masked Basic Grid",
     "category": "geometric",
@@ -1910,6 +2030,7 @@
   },
   {
     "slug": "right-masked-basic-grid",
+    "source": "reactbd",
     "sourceId": "right-masked-basic-grid",
     "name": "Right Masked Basic Grid",
     "category": "geometric",
@@ -1927,6 +2048,7 @@
   },
   {
     "slug": "left-masked-diagonal-cross-grid",
+    "source": "reactbd",
     "sourceId": "left-masked-diagonal-cross-grid",
     "name": "Left Masked Diagonal Cross Grid",
     "category": "geometric",
@@ -1944,6 +2066,7 @@
   },
   {
     "slug": "right-masked-diagonal-cross-grid",
+    "source": "reactbd",
     "sourceId": "right-masked-diagonal-cross-grid",
     "name": "Right Masked Diagonal Cross Grid",
     "category": "geometric",
@@ -1961,6 +2084,7 @@
   },
   {
     "slug": "left-masked-dashed-grid-light",
+    "source": "reactbd",
     "sourceId": "left-masked-dashed-grid-light",
     "name": "Left Masked Dashed Grid Light",
     "category": "geometric",
@@ -1978,6 +2102,7 @@
   },
   {
     "slug": "right-masked-dashed-grid-light",
+    "source": "reactbd",
     "sourceId": "right-masked-dashed-grid-light",
     "name": "Right Masked Dashed Grid Light",
     "category": "geometric",
@@ -1995,6 +2120,7 @@
   },
   {
     "slug": "left-masked-concentric-squares-light",
+    "source": "reactbd",
     "sourceId": "left-masked-concentric-squares-light",
     "name": "Left Masked Concentric Squares - Light",
     "category": "geometric",
@@ -2012,6 +2138,7 @@
   },
   {
     "slug": "right-masked-concentric-squares-light",
+    "source": "reactbd",
     "sourceId": "right-masked-concentric-squares-light",
     "name": "Right Masked Concentric Squares - Light",
     "category": "geometric",
@@ -2029,6 +2156,7 @@
   },
   {
     "slug": "left-masked-circuit-board-light",
+    "source": "reactbd",
     "sourceId": "left-masked-circuit-board-light",
     "name": "Left Masked Circuit Board - Light",
     "category": "geometric",
@@ -2047,6 +2175,7 @@
   },
   {
     "slug": "right-masked-circuit-board-light",
+    "source": "reactbd",
     "sourceId": "right-masked-circuit-board-light",
     "name": "Right Masked Circuit Board - Light",
     "category": "geometric",
@@ -2065,6 +2194,7 @@
   },
   {
     "slug": "left-masked-circuit-board",
+    "source": "reactbd",
     "sourceId": "left-masked-circuit-board",
     "name": "Left Masked Circuit Board",
     "category": "geometric",
@@ -2082,6 +2212,7 @@
   },
   {
     "slug": "right-masked-circuit-board",
+    "source": "reactbd",
     "sourceId": "right-masked-circuit-board",
     "name": "Right Masked Circuit Board",
     "category": "geometric",
@@ -2099,6 +2230,7 @@
   },
   {
     "slug": "left-masked-white-grid-with-dots",
+    "source": "reactbd",
     "sourceId": "left-masked-white-grid-with-dots",
     "name": "Left Masked White Grid with Dots",
     "category": "geometric",
@@ -2117,6 +2249,7 @@
   },
   {
     "slug": "right-masked-white-grid-with-dots",
+    "source": "reactbd",
     "sourceId": "right-masked-white-grid-with-dots",
     "name": "Right Masked White Grid with Dots",
     "category": "geometric",
@@ -2135,6 +2268,7 @@
   },
   {
     "slug": "left-masked-noise-texture-darker-dots",
+    "source": "reactbd",
     "sourceId": "left-masked-noise-texture-darker-dots",
     "name": "Left Masked Noise Texture (Darker Dots)",
     "category": "geometric",
@@ -2151,6 +2285,7 @@
   },
   {
     "slug": "right-masked-noise-texture-darker-dots",
+    "source": "reactbd",
     "sourceId": "right-masked-noise-texture-darker-dots",
     "name": "Right Masked Noise Texture (Darker Dots)",
     "category": "geometric",
@@ -2167,6 +2302,7 @@
   },
   {
     "slug": "dark-radial-glow",
+    "source": "reactbd",
     "sourceId": "dark-radial-glow",
     "name": "Dark Radial Glow",
     "category": "gradients",
@@ -2183,6 +2319,7 @@
   },
   {
     "slug": "blue-radial-glow",
+    "source": "reactbd",
     "sourceId": "blue-radial-glow",
     "name": "Blue Radial Glow",
     "category": "gradients",
@@ -2199,6 +2336,7 @@
   },
   {
     "slug": "purple-radial-glow",
+    "source": "reactbd",
     "sourceId": "purple-radial-glow",
     "name": "Purple Radial Glow",
     "category": "gradients",
@@ -2222,6 +2360,7 @@
   },
   {
     "slug": "cyan-radial-glow",
+    "source": "reactbd",
     "sourceId": "cyan-radial-glow",
     "name": "Cyan Radial Glow",
     "category": "gradients",
@@ -2237,6 +2376,7 @@
   },
   {
     "slug": "orange-radial-glow",
+    "source": "reactbd",
     "sourceId": "orange-radial-glow",
     "name": "Orange Radial Glow",
     "category": "gradients",
@@ -2252,6 +2392,7 @@
   },
   {
     "slug": "pink-radial-glow",
+    "source": "reactbd",
     "sourceId": "pink-radial-glow",
     "name": "Pink Radial Glow",
     "category": "gradients",
@@ -2267,6 +2408,7 @@
   },
   {
     "slug": "gold-radial-glow",
+    "source": "reactbd",
     "sourceId": "gold-radial-glow",
     "name": "Gold Radial Glow",
     "category": "gradients",
@@ -2282,6 +2424,7 @@
   },
   {
     "slug": "red-radial-glow",
+    "source": "reactbd",
     "sourceId": "red-radial-glow",
     "name": "Red Radial Glow",
     "category": "gradients",
@@ -2297,6 +2440,7 @@
   },
   {
     "slug": "lime-radial-glow",
+    "source": "reactbd",
     "sourceId": "lime-radial-glow",
     "name": "Lime Radial Glow",
     "category": "gradients",
@@ -2312,6 +2456,7 @@
   },
   {
     "slug": "emerald-radial-glow",
+    "source": "reactbd",
     "sourceId": "emerald-radial-glow",
     "name": "Emerald Radial Glow",
     "category": "gradients",
@@ -2328,6 +2473,7 @@
   },
   {
     "slug": "aurora-waves",
+    "source": "reactbd",
     "sourceId": "aurora-waves",
     "name": "Aurora Waves",
     "category": "gradients",
@@ -2344,6 +2490,7 @@
   },
   {
     "slug": "aurora-dream-corner-whispers",
+    "source": "reactbd",
     "sourceId": "aurora-dream-corner-whispers",
     "name": "Aurora Dream Corner Whispers",
     "category": "effects",
@@ -2361,6 +2508,7 @@
   },
   {
     "slug": "aurora-dream-soft-harmony",
+    "source": "reactbd",
     "sourceId": "aurora-dream-soft-harmony",
     "name": "Aurora Dream Soft Harmony",
     "category": "effects",
@@ -2378,6 +2526,7 @@
   },
   {
     "slug": "aurora-dream-diagonal-flow",
+    "source": "reactbd",
     "sourceId": "aurora-dream-diagonal-flow",
     "name": "Aurora Dream Diagonal Flow",
     "category": "effects",
@@ -2395,6 +2544,7 @@
   },
   {
     "slug": "aurora-dream-vivid-bloom",
+    "source": "reactbd",
     "sourceId": "aurora-dream-vivid-bloom",
     "name": "Aurora Dream Vivid Bloom",
     "category": "effects",
@@ -2412,6 +2562,7 @@
   },
   {
     "slug": "dreamy-sky-pink-glow",
+    "source": "reactbd",
     "sourceId": "dreamy-sky-pink-glow",
     "name": "Dreamy Sky Pink Glow",
     "category": "effects",
@@ -2429,6 +2580,7 @@
   },
   {
     "slug": "peachy-mint-dream",
+    "source": "reactbd",
     "sourceId": "peachy-mint-dream",
     "name": "Peachy Mint Dream",
     "category": "effects",
@@ -2446,6 +2598,7 @@
   },
   {
     "slug": "soft-pastel-dream",
+    "source": "reactbd",
     "sourceId": "soft-pastel-dream",
     "name": "Soft Pastel Dream",
     "category": "effects",
@@ -2465,6 +2618,7 @@
   },
   {
     "slug": "dreamy-sunset-gradient",
+    "source": "reactbd",
     "sourceId": "dreamy-sunset-gradient",
     "name": "Dreamy Sunset Gradient",
     "category": "effects",
@@ -2483,6 +2637,7 @@
   },
   {
     "slug": "soft-morning-mist",
+    "source": "reactbd",
     "sourceId": "soft-morning-mist",
     "name": "Soft Morning Mist",
     "category": "effects",
@@ -2500,6 +2655,7 @@
   },
   {
     "slug": "peachy-sunrise-glow",
+    "source": "reactbd",
     "sourceId": "peachy-sunrise-glow",
     "name": "Peachy Sunrise Glow",
     "category": "effects",
@@ -2517,6 +2673,7 @@
   },
   {
     "slug": "mint-fresh-breeze",
+    "source": "reactbd",
     "sourceId": "mint-fresh-breeze",
     "name": "Mint Fresh Breeze",
     "category": "effects",
@@ -2534,6 +2691,7 @@
   },
   {
     "slug": "cotton-candy-sky",
+    "source": "reactbd",
     "sourceId": "cotton-candy-sky",
     "name": "Cotton Candy Sky",
     "category": "effects",
@@ -2552,6 +2710,7 @@
   },
   {
     "slug": "cotton-candy-sky-reverse",
+    "source": "reactbd",
     "sourceId": "cotton-candy-sky-reverse",
     "name": "Cotton Candy Sky Reverse",
     "category": "effects",
@@ -2570,6 +2729,7 @@
   },
   {
     "slug": "spring-meadow-mist",
+    "source": "reactbd",
     "sourceId": "spring-meadow-mist",
     "name": "Spring Meadow Mist",
     "category": "effects",
@@ -2587,6 +2747,7 @@
   },
   {
     "slug": "ocean-breeze-fade",
+    "source": "reactbd",
     "sourceId": "ocean-breeze-fade",
     "name": "Ocean Breeze Fade",
     "category": "effects",
@@ -2605,6 +2766,7 @@
   },
   {
     "slug": "lavender-blush-left-flow",
+    "source": "reactbd",
     "sourceId": "lavender-blush-left-flow",
     "name": "Lavender Blush Left Flow",
     "category": "effects",
@@ -2622,6 +2784,7 @@
   },
   {
     "slug": "lavender-blush-right-flow",
+    "source": "reactbd",
     "sourceId": "lavender-blush-right-flow",
     "name": "Lavender Blush Right Flow",
     "category": "effects",
@@ -2639,6 +2802,7 @@
   },
   {
     "slug": "minty-cloud-drift",
+    "source": "reactbd",
     "sourceId": "minty-cloud-drift",
     "name": "Minty Cloud Drift",
     "category": "effects",
@@ -2656,6 +2820,7 @@
   },
   {
     "slug": "rose-gold-whisper",
+    "source": "reactbd",
     "sourceId": "rose-gold-whisper",
     "name": "Rose Gold Whisper",
     "category": "effects",
@@ -2673,6 +2838,7 @@
   },
   {
     "slug": "aurora-silk-fade",
+    "source": "reactbd",
     "sourceId": "aurora-silk-fade",
     "name": "Aurora Silk Fade",
     "category": "effects",
@@ -2691,6 +2857,7 @@
   },
   {
     "slug": "beige-texture",
+    "source": "reactbd",
     "sourceId": "beige-texture",
     "name": "Warm Beige",
     "category": "effects",
@@ -2708,6 +2875,7 @@
   },
   {
     "slug": "soft-warm-pastel-texture",
+    "source": "reactbd",
     "sourceId": "soft-warm-pastel-texture",
     "name": "Soft Warm Pastel",
     "category": "effects",
@@ -2724,6 +2892,7 @@
   },
   {
     "slug": "warm-light-apricot-coral",
+    "source": "reactbd",
     "sourceId": "warm-light-apricot-coral",
     "name": "Warm Light Apricot & Coral",
     "category": "effects",
@@ -2741,6 +2910,7 @@
   },
   {
     "slug": "warm-pastel-coral-cream",
+    "source": "reactbd",
     "sourceId": "warm-pastel-coral-cream",
     "name": "Warm Soft Coral & Cream",
     "category": "effects",
@@ -2758,6 +2928,7 @@
   },
   {
     "slug": "soft-yellow-glow",
+    "source": "reactbd",
     "sourceId": "soft-yellow-glow",
     "name": "Soft Yellow Glow",
     "category": "effects",
@@ -2776,6 +2947,7 @@
   },
   {
     "slug": "soft-dark-yellow-glow",
+    "source": "reactbd",
     "sourceId": "soft-dark-yellow-glow",
     "name": "Soft Dark Yellow Glow",
     "category": "effects",
@@ -2791,6 +2963,7 @@
   },
   {
     "slug": "orange-soft-glow",
+    "source": "reactbd",
     "sourceId": "orange-soft-glow",
     "name": "Orange Soft Glow",
     "category": "effects",
@@ -2807,6 +2980,7 @@
   },
   {
     "slug": "soft-green-glow",
+    "source": "reactbd",
     "sourceId": "soft-green-glow",
     "name": "Soft Green Glow",
     "category": "effects",
@@ -2823,6 +2997,7 @@
   },
   {
     "slug": "purple-center-glow",
+    "source": "reactbd",
     "sourceId": "purple-center-glow",
     "name": "Purple Center Glow",
     "category": "effects",
@@ -2847,6 +3022,7 @@
   },
   {
     "slug": "green-center-glow",
+    "source": "reactbd",
     "sourceId": "green-center-glow",
     "name": "Green Center Glow",
     "category": "effects",
@@ -2863,6 +3039,7 @@
   },
   {
     "slug": "indigo-center-glow",
+    "source": "reactbd",
     "sourceId": "indigo-center-glow",
     "name": "Indigo Center Glow",
     "category": "effects",
@@ -2878,6 +3055,7 @@
   },
   {
     "slug": "lime-center-glow",
+    "source": "reactbd",
     "sourceId": "lime-center-glow",
     "name": "Lime Center  Glow",
     "category": "effects",
@@ -2893,6 +3071,7 @@
   },
   {
     "slug": "sunrise-glow",
+    "source": "reactbd",
     "sourceId": "sunrise-glow",
     "name": "Sunrise Glow",
     "category": "effects",
@@ -2908,6 +3087,7 @@
   },
   {
     "slug": "soft-lavender-center-glow",
+    "source": "reactbd",
     "sourceId": "soft lavender-center-glow",
     "name": "Soft Lavender Center Glow",
     "category": "effects",
@@ -2923,6 +3103,7 @@
   },
   {
     "slug": "soft-pink-glow",
+    "source": "reactbd",
     "sourceId": "soft-pink-glow",
     "name": "Soft Pink Glow",
     "category": "effects",
@@ -2938,6 +3119,7 @@
   },
   {
     "slug": "light-sky-blue-glow",
+    "source": "reactbd",
     "sourceId": "light-sky-blue-glow",
     "name": "Light Sky Blue Glow",
     "category": "effects",
@@ -2953,6 +3135,7 @@
   },
   {
     "slug": "sunny-glow",
+    "source": "reactbd",
     "sourceId": "sunny-glow",
     "name": "Sunny Glow",
     "category": "effects",
@@ -2968,6 +3151,7 @@
   },
   {
     "slug": "purple-glow-bg",
+    "source": "reactbd",
     "sourceId": "purple-glow-bg",
     "name": "Purple Glow Right",
     "category": "effects",
@@ -2988,6 +3172,7 @@
   },
   {
     "slug": "teal-glow-bg",
+    "source": "reactbd",
     "sourceId": "teal-glow-bg",
     "name": "Teal Glow Right",
     "category": "effects",
@@ -3003,6 +3188,7 @@
   },
   {
     "slug": "warm-orange-glow-bg",
+    "source": "reactbd",
     "sourceId": "warm-orange-glow-bg",
     "name": "Warm Orange Glow Right",
     "category": "effects",
@@ -3018,6 +3204,7 @@
   },
   {
     "slug": "cool-blue-glow-bg",
+    "source": "reactbd",
     "sourceId": "cool-blue-glow-bg",
     "name": "Cool Blue Glow Right",
     "category": "effects",
@@ -3033,6 +3220,7 @@
   },
   {
     "slug": "purple-glow-bg-left",
+    "source": "reactbd",
     "sourceId": "purple-glow-bg-left",
     "name": "Purple Glow Left",
     "category": "effects",
@@ -3053,6 +3241,7 @@
   },
   {
     "slug": "teal-glow-bg-left",
+    "source": "reactbd",
     "sourceId": "teal-glow-bg-left",
     "name": "Teal Glow Left",
     "category": "effects",
@@ -3068,6 +3257,7 @@
   },
   {
     "slug": "warm-orange-glow-bg-left",
+    "source": "reactbd",
     "sourceId": "warm-orange-glow-bg-left",
     "name": "Warm Orange Glow Left",
     "category": "effects",
@@ -3083,6 +3273,7 @@
   },
   {
     "slug": "cool-blue-glow-bg-left",
+    "source": "reactbd",
     "sourceId": "cool-blue-glow-bg-left",
     "name": "Cool Blue Glow Left",
     "category": "effects",
@@ -3098,6 +3289,7 @@
   },
   {
     "slug": "purple-glow-bg-top",
+    "source": "reactbd",
     "sourceId": "purple-glow-bg-top",
     "name": "Purple Glow Top",
     "category": "effects",
@@ -3118,6 +3310,7 @@
   },
   {
     "slug": "teal-glow-bg-top",
+    "source": "reactbd",
     "sourceId": "teal-glow-bg-top",
     "name": "Teal Glow Top",
     "category": "effects",
@@ -3133,6 +3326,7 @@
   },
   {
     "slug": "warm-orange-glow-bg-top",
+    "source": "reactbd",
     "sourceId": "warm-orange-glow-bg-top",
     "name": "Warm Orange Glow Top",
     "category": "effects",
@@ -3148,6 +3342,7 @@
   },
   {
     "slug": "cool-blue-glow-bg-top",
+    "source": "reactbd",
     "sourceId": "cool-blue-glow-bg-top",
     "name": "Cool Blue Glow Top",
     "category": "effects",
@@ -3163,6 +3358,7 @@
   },
   {
     "slug": "paper-texture",
+    "source": "reactbd",
     "sourceId": "paper-texture",
     "name": "Paper Texture",
     "category": "geometric",
@@ -3179,6 +3375,7 @@
   },
   {
     "slug": "diagonal-lines",
+    "source": "reactbd",
     "sourceId": "diagonal-lines",
     "name": "Diagonal Stripes",
     "category": "geometric",
@@ -3195,6 +3392,7 @@
   },
   {
     "slug": "diagonal-light",
+    "source": "reactbd",
     "sourceId": "diagonal-light",
     "name": "Diagonal Grid - Light",
     "category": "geometric",
@@ -3211,6 +3409,7 @@
   },
   {
     "slug": "diagonal-light-green",
+    "source": "reactbd",
     "sourceId": "diagonal-light-green",
     "name": "Diagonal Grid - Electric",
     "category": "geometric",
@@ -3229,6 +3428,7 @@
   },
   {
     "slug": "zigzag-lightning-light",
+    "source": "reactbd",
     "sourceId": "zigzag-lightning-light",
     "name": "Zigzag Lightning - Light",
     "category": "geometric",
@@ -3246,6 +3446,7 @@
   },
   {
     "slug": "circuit-board-light",
+    "source": "reactbd",
     "sourceId": "circuit-board-light",
     "name": "Circuit Board - Light",
     "category": "geometric",
@@ -3263,6 +3464,7 @@
   },
   {
     "slug": "concentric-squares-light",
+    "source": "reactbd",
     "sourceId": "concentric-squares-light",
     "name": "Concentric Squares - Light",
     "category": "geometric",
@@ -3279,6 +3481,7 @@
   },
   {
     "slug": "woven-fabric-light",
+    "source": "reactbd",
     "sourceId": "woven-fabric-light",
     "name": "Woven Fabric - Light",
     "category": "geometric",
@@ -3296,6 +3499,7 @@
   },
   {
     "slug": "crosshatch-art-light",
+    "source": "reactbd",
     "sourceId": "crosshatch-art-light",
     "name": "Crosshatch Art - Light",
     "category": "geometric",
@@ -3313,6 +3517,7 @@
   },
   {
     "slug": "white-grid-with-dots",
+    "source": "reactbd",
     "sourceId": "white-grid-with-dots",
     "name": "White Grid with Dots",
     "category": "geometric",
@@ -3330,6 +3535,7 @@
   },
   {
     "slug": "noise-texture-darker-dots",
+    "source": "reactbd",
     "sourceId": "noise-texture-darker-dots",
     "name": "Noise Texture (Darker Dots)",
     "category": "geometric",
@@ -3346,6 +3552,7 @@
   },
   {
     "slug": "circuit-board",
+    "source": "reactbd",
     "sourceId": "circuit-board",
     "name": "Circuit Board",
     "category": "geometric",
@@ -3362,6 +3569,7 @@
   },
   {
     "slug": "basic-grid",
+    "source": "reactbd",
     "sourceId": "basic-grid",
     "name": "Basic Grid",
     "category": "geometric",
@@ -3378,6 +3586,7 @@
   },
   {
     "slug": "white-sphere-grid",
+    "source": "reactbd",
     "sourceId": "white-sphere-grid",
     "name": "White Sphere Grid",
     "category": "geometric",
@@ -3394,6 +3603,7 @@
   },
   {
     "slug": "magenta-orb-grid-light",
+    "source": "reactbd",
     "sourceId": "magenta-orb-grid-light",
     "name": "Magenta Orb Grid Light",
     "category": "geometric",
@@ -3412,6 +3622,7 @@
   },
   {
     "slug": "dark-sphere-grid",
+    "source": "reactbd",
     "sourceId": "dark-sphere-grid",
     "name": "Dark Sphere Grid",
     "category": "geometric",
@@ -3428,6 +3639,7 @@
   },
   {
     "slug": "magenta-orb-grid",
+    "source": "reactbd",
     "sourceId": "magenta-orb-grid",
     "name": "Magenta Orb Grid",
     "category": "geometric",
@@ -3443,6 +3655,7 @@
   },
   {
     "slug": "dark-basic-grid-slate",
+    "source": "reactbd",
     "sourceId": "dark-basic-grid-slate",
     "name": "Dark Basic Grid",
     "category": "geometric",
@@ -3459,6 +3672,7 @@
   },
   {
     "slug": "dark-basic-grid-faded",
+    "source": "reactbd",
     "sourceId": "dark-basic-grid-faded",
     "name": "Dark Basic Grid (Faded)",
     "category": "geometric",
@@ -3475,6 +3689,7 @@
   },
   {
     "slug": "black-basic-grid",
+    "source": "reactbd",
     "sourceId": "black-basic-grid",
     "name": "Black Basic Grid",
     "category": "geometric",
@@ -3491,6 +3706,7 @@
   },
   {
     "slug": "vercel-grid-subtle",
+    "source": "reactbd",
     "sourceId": "vercel-grid-subtle",
     "name": "Vercel Grid Subtle",
     "category": "geometric",
@@ -3507,6 +3723,7 @@
   },
   {
     "slug": "dark-grid-lines",
+    "source": "reactbd",
     "sourceId": "dark-grid-lines",
     "name": "Dark Grid Lines",
     "category": "geometric",
@@ -3523,6 +3740,7 @@
   },
   {
     "slug": "pixel-grid-pattern",
+    "source": "reactbd",
     "sourceId": "pixel-grid-pattern",
     "name": "Pixel Grid Pattern",
     "category": "geometric",
@@ -3539,6 +3757,7 @@
   },
   {
     "slug": "neon-vertical-lines",
+    "source": "reactbd",
     "sourceId": "neon-vertical-lines",
     "name": "Neon Vertical Lines",
     "category": "geometric",
@@ -3555,6 +3774,7 @@
   },
   {
     "slug": "dark-dot-matrix",
+    "source": "reactbd",
     "sourceId": "dark-dot-matrix",
     "name": "Dark Dot Matrix",
     "category": "geometric",
@@ -3571,6 +3791,7 @@
   },
   {
     "slug": "small-grid",
+    "source": "reactbd",
     "sourceId": "small-grid",
     "name": "Small Grid",
     "category": "geometric",
@@ -3587,6 +3808,7 @@
   },
   {
     "slug": "black-grid-white-dots",
+    "source": "reactbd",
     "sourceId": "black-grid-white-dots",
     "name": "Black Grid with White Dots",
     "category": "geometric",
@@ -3606,6 +3828,7 @@
   },
   {
     "slug": "dark-grid-white-dots",
+    "source": "reactbd",
     "sourceId": "dark-grid-white-dots",
     "name": "Dark Grid with White Dots",
     "category": "geometric",
@@ -3622,6 +3845,7 @@
   },
   {
     "slug": "dark-dotted-grid",
+    "source": "reactbd",
     "sourceId": "dark-dotted-grid",
     "name": "Dark Dotted Grid",
     "category": "geometric",
@@ -3639,6 +3863,7 @@
   },
   {
     "slug": "dark-white-dotted-grid",
+    "source": "reactbd",
     "sourceId": "dark-white-dotted-grid",
     "name": "Dark White Dotted Grid",
     "category": "geometric",
@@ -3655,6 +3880,7 @@
   },
   {
     "slug": "dark-noise-colored-high",
+    "source": "reactbd",
     "sourceId": "dark-noise-colored-high",
     "name": "Dark Noise Colored",
     "category": "geometric",
@@ -3672,6 +3898,7 @@
   },
   {
     "slug": "matrix-green",
+    "source": "reactbd",
     "sourceId": "matrix-green",
     "name": "Matrix Green",
     "category": "geometric",
@@ -3688,6 +3915,7 @@
   },
   {
     "slug": "diagonal-green-glow",
+    "source": "reactbd",
     "sourceId": "diagonal-green-glow",
     "name": "Diagonal Grid - Green Glow",
     "category": "geometric",
@@ -3703,6 +3931,7 @@
   },
   {
     "slug": "diagonal-red-blue-glow",
+    "source": "reactbd",
     "sourceId": "diagonal-red/blue-glow",
     "name": "Diagonal Grid - Red/Blue Glow",
     "category": "geometric",
@@ -3720,6 +3949,7 @@
   },
   {
     "slug": "diagonal-electric-erange",
+    "source": "reactbd",
     "sourceId": "diagonal-electric erange",
     "name": "Diagonal Grid - Electric Orange",
     "category": "geometric",
@@ -3736,6 +3966,7 @@
   },
   {
     "slug": "complex-multiplier",
+    "source": "reactbd",
     "sourceId": "complex-multiplier",
     "name": "Complex Multiplier",
     "category": "geometric",
@@ -3754,6 +3985,7 @@
   },
   {
     "slug": "hexagonal-lines",
+    "source": "reactbd",
     "sourceId": "hexagonal-lines",
     "name": "Hexagonal Lines",
     "category": "geometric",
@@ -3771,6 +4003,7 @@
   },
   {
     "slug": "diagonal-synthwave",
+    "source": "reactbd",
     "sourceId": "diagonal-synthwave",
     "name": "Diagonal Grid - Synthwave",
     "category": "geometric",
@@ -3788,6 +4021,7 @@
   },
   {
     "slug": "gradient-left-diagonal-lines",
+    "source": "reactbd",
     "sourceId": "gradient-left-diagonal-lines",
     "name": "Gradient Left Diagonal Lines",
     "category": "geometric",
@@ -3804,6 +4038,7 @@
   },
   {
     "slug": "gradient-right-diagonal-lines",
+    "source": "reactbd",
     "sourceId": "gradient-right-diagonal-lines",
     "name": "Gradient Right Diagonal Lines",
     "category": "geometric",
@@ -3820,6 +4055,7 @@
   },
   {
     "slug": "cross-diagonal-lines",
+    "source": "reactbd",
     "sourceId": "cross-diagonal-lines",
     "name": "Cross Diagonal Lines",
     "category": "geometric",
@@ -3836,6 +4072,7 @@
   },
   {
     "slug": "multi-cross-diagonal-lines",
+    "source": "reactbd",
     "sourceId": "multi-cross-diagonal-lines",
     "name": "Multi Cross Diagonal Lines",
     "category": "geometric",
@@ -3853,6 +4090,7 @@
   },
   {
     "slug": "variable-spacing",
+    "source": "reactbd",
     "sourceId": "variable-spacing",
     "name": "Variable Spacing",
     "category": "geometric",
@@ -3869,6 +4107,7 @@
   },
   {
     "slug": "circuit-board-vibes",
+    "source": "reactbd",
     "sourceId": "circuit-board-vibes",
     "name": "Circuit Board Vibes",
     "category": "geometric",
@@ -3886,6 +4125,7 @@
   },
   {
     "slug": "zigzag-lightning-dark",
+    "source": "reactbd",
     "sourceId": "zigzag-lightning-dark",
     "name": "Zigzag Lightning - Dark",
     "category": "geometric",
@@ -3903,6 +4143,7 @@
   },
   {
     "slug": "circuit-board-dark",
+    "source": "reactbd",
     "sourceId": "circuit-board-dark",
     "name": "Circuit Board - Dark",
     "category": "geometric",
@@ -3919,6 +4160,7 @@
   },
   {
     "slug": "dark-circuit-board",
+    "source": "reactbd",
     "sourceId": "dark-circuit-board",
     "name": "Dark Circuit Board",
     "category": "geometric",
@@ -3935,6 +4177,7 @@
   },
   {
     "slug": "concentric-squares-dark",
+    "source": "reactbd",
     "sourceId": "concentric-squares-dark",
     "name": "Concentric Squares - Dark",
     "category": "geometric",
@@ -3951,6 +4194,7 @@
   },
   {
     "slug": "crosshatch-art-dark",
+    "source": "reactbd",
     "sourceId": "crosshatch-art-dark",
     "name": "Crosshatch Art - Dark",
     "category": "geometric",
@@ -3968,6 +4212,7 @@
   },
   {
     "slug": "aurora-midnight-glow",
+    "source": "reactbd",
     "sourceId": "aurora-midnight-glow",
     "name": "Aurora Midnight Glow",
     "category": "gradients",
@@ -3995,6 +4240,7 @@
   },
   {
     "slug": "crimson-shadow-glow",
+    "source": "reactbd",
     "sourceId": "crimson-shadow-glow",
     "name": "Crimson Shadow Glow",
     "category": "gradients",
@@ -4010,6 +4256,7 @@
   },
   {
     "slug": "emerald-depths-glow",
+    "source": "reactbd",
     "sourceId": "emerald-depths-glow",
     "name": "Emerald Depths Glow",
     "category": "gradients",
@@ -4025,6 +4272,7 @@
   },
   {
     "slug": "violet-storm-glow",
+    "source": "reactbd",
     "sourceId": "violet-storm-glow",
     "name": "Violet Storm Glow",
     "category": "gradients",
@@ -4040,6 +4288,7 @@
   },
   {
     "slug": "golden-horizon-glow",
+    "source": "reactbd",
     "sourceId": "golden-horizon-glow",
     "name": "Golden Horizon Glow",
     "category": "gradients",
@@ -4055,6 +4304,7 @@
   },
   {
     "slug": "ocean-abyss-glow",
+    "source": "reactbd",
     "sourceId": "ocean-abyss-glow",
     "name": "Ocean Abyss Glow",
     "category": "gradients",
@@ -4070,6 +4320,7 @@
   },
   {
     "slug": "rose-twilight-glow",
+    "source": "reactbd",
     "sourceId": "rose-twilight-glow",
     "name": "Rose Twilight Glow",
     "category": "gradients",
@@ -4085,6 +4336,7 @@
   },
   {
     "slug": "copper-forge-glow",
+    "source": "reactbd",
     "sourceId": "copper-forge-glow",
     "name": "Copper Forge Glow",
     "category": "gradients",
@@ -4100,6 +4352,7 @@
   },
   {
     "slug": "arctic-lights-glow",
+    "source": "reactbd",
     "sourceId": "arctic-lights-glow",
     "name": "Arctic Lights Glow",
     "category": "gradients",
@@ -4115,6 +4368,7 @@
   },
   {
     "slug": "indigo-cosmos-glow",
+    "source": "reactbd",
     "sourceId": "indigo-cosmos-glow",
     "name": "Indigo Cosmos Glow",
     "category": "gradients",
@@ -4130,6 +4384,7 @@
   },
   {
     "slug": "pearl-mist-glow",
+    "source": "reactbd",
     "sourceId": "pearl-mist-glow",
     "name": "Pearl Mist Glow",
     "category": "gradients",
@@ -4146,6 +4401,7 @@
   },
   {
     "slug": "magenta-nebula-glow",
+    "source": "reactbd",
     "sourceId": "magenta-nebula-glow",
     "name": "Magenta Nebula Glow",
     "category": "gradients",
@@ -4161,6 +4417,7 @@
   },
   {
     "slug": "pink-aurora-top",
+    "source": "reactbd",
     "sourceId": "pink-aurora-top",
     "name": "Pink Aurora Top",
     "category": "gradients",
@@ -4178,6 +4435,7 @@
   },
   {
     "slug": "crystal-maze",
+    "source": "reactbd",
     "sourceId": "crystal-maze",
     "name": "Crystal Maze",
     "category": "effects",
@@ -4195,6 +4453,7 @@
   },
   {
     "slug": "moonlit-fog",
+    "source": "reactbd",
     "sourceId": "moonlit-fog",
     "name": "Moonlit Fog",
     "category": "effects",
@@ -4212,6 +4471,7 @@
   },
   {
     "slug": "pastel-wave",
+    "source": "reactbd",
     "sourceId": "pastel-wave",
     "name": "Pastel Wave",
     "category": "effects",
@@ -4229,6 +4489,7 @@
   },
   {
     "slug": "soft-blue-radial",
+    "source": "reactbd",
     "sourceId": "soft-blue-radial",
     "name": "Soft Blue Radial",
     "category": "effects",
@@ -4245,6 +4506,7 @@
   },
   {
     "slug": "morning-haze",
+    "source": "reactbd",
     "sourceId": "morning-haze",
     "name": "Morning Haze",
     "category": "effects",
@@ -4262,6 +4524,7 @@
   },
   {
     "slug": "midnight-mist",
+    "source": "reactbd",
     "sourceId": "midnight-mist",
     "name": "Midnight Mist",
     "category": "effects",
@@ -4278,6 +4541,7 @@
   },
   {
     "slug": "aurora-mystic-mist",
+    "source": "reactbd",
     "sourceId": "aurora-mystic-mist",
     "name": "Aurora Mystic Mist",
     "category": "effects",
@@ -4296,6 +4560,7 @@
   },
   {
     "slug": "tropical-dusk-glow",
+    "source": "reactbd",
     "sourceId": "tropical-dusk-glow",
     "name": "Tropical Dusk Glow",
     "category": "effects",
@@ -4313,6 +4578,7 @@
   },
   {
     "slug": "ember-glow",
+    "source": "reactbd",
     "sourceId": "ember-glow",
     "name": "Ember Glow",
     "category": "effects",
@@ -4329,6 +4595,7 @@
   },
   {
     "slug": "cosmic-aurora",
+    "source": "reactbd",
     "sourceId": "cosmic-aurora",
     "name": "Cosmic Aurora",
     "category": "effects",
@@ -4348,6 +4615,7 @@
   },
   {
     "slug": "midnight-ember",
+    "source": "reactbd",
     "sourceId": "midnight-ember",
     "name": "Midnight Ember",
     "category": "effects",
@@ -4365,6 +4633,7 @@
   },
   {
     "slug": "deep-ocean-glow",
+    "source": "reactbd",
     "sourceId": "deep-ocean-glow",
     "name": "Deep Ocean Glow",
     "category": "effects",
@@ -4382,6 +4651,7 @@
   },
   {
     "slug": "cosmic-noise",
+    "source": "reactbd",
     "sourceId": "cosmic-noise",
     "name": "Cosmic Noise",
     "category": "effects",
@@ -4399,6 +4669,7 @@
   },
   {
     "slug": "volcanic-ember",
+    "source": "reactbd",
     "sourceId": "volcanic-ember",
     "name": "Volcanic Ember",
     "category": "effects",
@@ -4415,6 +4686,7 @@
   },
   {
     "slug": "crimson-core-glow",
+    "source": "reactbd",
     "sourceId": "crimson-core-glow",
     "name": "Crimson Core Glow",
     "category": "effects",
@@ -4432,6 +4704,7 @@
   },
   {
     "slug": "northern-aurora",
+    "source": "reactbd",
     "sourceId": "northern-aurora",
     "name": "Northern Aurora",
     "category": "effects",
@@ -4450,6 +4723,7 @@
   },
   {
     "slug": "cosmic-sparkle",
+    "source": "reactbd",
     "sourceId": "cosmic-sparkle",
     "name": "Cosmic Sparkle",
     "category": "effects",
@@ -4469,6 +4743,7 @@
   },
   {
     "slug": "striped-dark",
+    "source": "reactbd",
     "sourceId": "striped-dark",
     "name": "Striped Dark",
     "category": "geometric",
@@ -4485,6 +4760,7 @@
   },
   {
     "slug": "midnight-aurora-glow",
+    "source": "reactbd",
     "sourceId": "midnight-aurora-glow",
     "name": "Midnight Aurora Glow",
     "category": "gradients",
@@ -4501,6 +4777,7 @@
   },
   {
     "slug": "midnight-radial-glow",
+    "source": "reactbd",
     "sourceId": "midnight-radial-glow",
     "name": "Midnight Radial Glow",
     "category": "gradients",
@@ -4517,6 +4794,7 @@
   },
   {
     "slug": "deep-navy-gold",
+    "source": "reactbd",
     "sourceId": "deep-navy-gold",
     "name": "Deep Navy & Gold",
     "category": "gradients",
@@ -4533,6 +4811,7 @@
   },
   {
     "slug": "rich-burgundy",
+    "source": "reactbd",
     "sourceId": "rich-burgundy",
     "name": "Rich Burgundy",
     "category": "gradients",
@@ -4549,6 +4828,7 @@
   },
   {
     "slug": "forest-emerald",
+    "source": "reactbd",
     "sourceId": "forest-emerald",
     "name": "Forest Emerald",
     "category": "gradients",
@@ -4567,6 +4847,7 @@
   },
   {
     "slug": "royal-purple",
+    "source": "reactbd",
     "sourceId": "royal-purple",
     "name": "Royal Purple",
     "category": "gradients",
@@ -4583,6 +4864,7 @@
   },
   {
     "slug": "copper-bronze",
+    "source": "reactbd",
     "sourceId": "copper-bronze",
     "name": "Copper & Bronze",
     "category": "gradients",
@@ -4598,6 +4880,7 @@
   },
   {
     "slug": "steel-blue",
+    "source": "reactbd",
     "sourceId": "steel-blue",
     "name": "Steel Blue",
     "category": "gradients",
@@ -4614,6 +4897,7 @@
   },
   {
     "slug": "warm-amber",
+    "source": "reactbd",
     "sourceId": "warm-amber",
     "name": "Warm Amber",
     "category": "gradients",
@@ -4630,6 +4914,7 @@
   },
   {
     "slug": "moonlight-silver",
+    "source": "reactbd",
     "sourceId": "moonlight-silver",
     "name": "Moonlight Silver",
     "category": "gradients",
@@ -4646,6 +4931,7 @@
   },
   {
     "slug": "center-spotlight-white",
+    "source": "reactbd",
     "sourceId": "center-spotlight-white",
     "name": "White Spotlight",
     "category": "gradients",
@@ -4664,6 +4950,7 @@
   },
   {
     "slug": "center-spotlight-blue",
+    "source": "reactbd",
     "sourceId": "center-spotlight-blue",
     "name": "Blue Spotlight",
     "category": "gradients",
@@ -4687,6 +4974,7 @@
   },
   {
     "slug": "center-spotlight-emerald",
+    "source": "reactbd",
     "sourceId": "center-spotlight-emerald",
     "name": "Emerald Spotlight",
     "category": "gradients",
@@ -4702,6 +4990,7 @@
   },
   {
     "slug": "center-spotlight-crimson",
+    "source": "reactbd",
     "sourceId": "center-spotlight-crimson",
     "name": "Crimson Spotlight",
     "category": "gradients",
@@ -4717,6 +5006,7 @@
   },
   {
     "slug": "center-spotlight-violet",
+    "source": "reactbd",
     "sourceId": "center-spotlight-violet",
     "name": "Violet Spotlight",
     "category": "gradients",
@@ -4732,6 +5022,7 @@
   },
   {
     "slug": "center-spotlight-amber",
+    "source": "reactbd",
     "sourceId": "center-spotlight-amber",
     "name": "Amber Spotlight",
     "category": "gradients",
@@ -4747,6 +5038,7 @@
   },
   {
     "slug": "center-spotlight-cyan",
+    "source": "reactbd",
     "sourceId": "center-spotlight-cyan",
     "name": "Cyan Spotlight",
     "category": "gradients",
@@ -4762,6 +5054,7 @@
   },
   {
     "slug": "center-spotlight-rose",
+    "source": "reactbd",
     "sourceId": "center-spotlight-rose",
     "name": "Rose Spotlight",
     "category": "gradients",
@@ -4777,6 +5070,7 @@
   },
   {
     "slug": "center-spotlight",
+    "source": "reactbd",
     "sourceId": "center-spotlight",
     "name": "Center Spotlight",
     "category": "gradients",
@@ -4792,6 +5086,7 @@
   },
   {
     "slug": "top-spotlight",
+    "source": "reactbd",
     "sourceId": "top-spotlight",
     "name": "Top Spotlight",
     "category": "gradients",
@@ -4808,6 +5103,7 @@
   },
   {
     "slug": "aurora-edge-glow",
+    "source": "reactbd",
     "sourceId": "aurora-edge-glow",
     "name": "Aurora Edge Glow",
     "category": "gradients",
@@ -4824,6 +5120,7 @@
   },
   {
     "slug": "purple-radial-bloom-light",
+    "source": "reactbd",
     "sourceId": "purple-radial-bloom-light",
     "name": "Purple Radial Bloom Light",
     "category": "decorative",
@@ -4840,6 +5137,7 @@
   },
   {
     "slug": "purple-corner-less",
+    "source": "reactbd",
     "sourceId": "purple-corner-less",
     "name": "Purple Corner Less",
     "category": "decorative",
@@ -4865,6 +5163,7 @@
   },
   {
     "slug": "purple-corner-high",
+    "source": "reactbd",
     "sourceId": "purple-corner-high",
     "name": "Purple Corner High",
     "category": "decorative",
@@ -4880,6 +5179,7 @@
   },
   {
     "slug": "blue-corner-glow",
+    "source": "reactbd",
     "sourceId": "blue-corner-glow",
     "name": "Blue Corner Glow",
     "category": "decorative",
@@ -4895,6 +5195,7 @@
   },
   {
     "slug": "green-corner-soft",
+    "source": "reactbd",
     "sourceId": "green-corner-soft",
     "name": "Green Corner Soft",
     "category": "decorative",
@@ -4910,6 +5211,7 @@
   },
   {
     "slug": "pink-corner-dream",
+    "source": "reactbd",
     "sourceId": "pink-corner-dream",
     "name": "Pink Corner Dream",
     "category": "decorative",
@@ -4926,6 +5228,7 @@
   },
   {
     "slug": "orange-corner-warm",
+    "source": "reactbd",
     "sourceId": "orange-corner-warm",
     "name": "Orange Corner Warm",
     "category": "decorative",
@@ -4941,6 +5244,7 @@
   },
   {
     "slug": "teal-corner-cool",
+    "source": "reactbd",
     "sourceId": "teal-corner-cool",
     "name": "Teal Corner Cool",
     "category": "decorative",
@@ -4956,6 +5260,7 @@
   },
   {
     "slug": "yellow-corner-bright",
+    "source": "reactbd",
     "sourceId": "yellow-corner-bright",
     "name": "Yellow Corner Bright",
     "category": "decorative",
@@ -4971,6 +5276,7 @@
   },
   {
     "slug": "indigo-corner-deep",
+    "source": "reactbd",
     "sourceId": "indigo-corner-deep",
     "name": "Indigo Corner Deep",
     "category": "decorative",
@@ -4986,6 +5292,7 @@
   },
   {
     "slug": "rose-corner-elegant",
+    "source": "reactbd",
     "sourceId": "rose-corner-elegant",
     "name": "Rose Corner Elegant",
     "category": "decorative",
@@ -5001,6 +5308,7 @@
   },
   {
     "slug": "violet-dream-sphere",
+    "source": "reactbd",
     "sourceId": "violet-dream-sphere",
     "name": "Violet Dream Sphere",
     "category": "decorative",
@@ -5017,6 +5325,7 @@
   },
   {
     "slug": "lavender-cosmic-glow",
+    "source": "reactbd",
     "sourceId": "lavender-cosmic-glow",
     "name": "Lavender Cosmic Glow",
     "category": "decorative",
@@ -5033,6 +5342,7 @@
   },
   {
     "slug": "purple-haze-burst",
+    "source": "reactbd",
     "sourceId": "purple-haze-burst",
     "name": "Purple Haze Burst",
     "category": "decorative",
@@ -5049,6 +5359,7 @@
   },
   {
     "slug": "mystic-purple-orb",
+    "source": "reactbd",
     "sourceId": "mystic-purple-orb",
     "name": "Mystic Purple Orb",
     "category": "decorative",
@@ -5065,6 +5376,7 @@
   },
   {
     "slug": "soft-rose-glow-right-corner",
+    "source": "reactbd",
     "sourceId": "soft-rose-glow-right-corner",
     "name": "Soft Rose Glow Right Corner",
     "category": "decorative",
@@ -5081,6 +5393,7 @@
   },
   {
     "slug": "soft-rose-glow-left-corner",
+    "source": "reactbd",
     "sourceId": "soft-rose-glow-left-corner",
     "name": "Soft Rose Glow Left Corner",
     "category": "decorative",
@@ -5097,6 +5410,7 @@
   },
   {
     "slug": "soft-rose-glow-corners",
+    "source": "reactbd",
     "sourceId": "soft-rose-glow-corners",
     "name": "Soft Rose Glow Dual Corners",
     "category": "decorative",
@@ -5113,6 +5427,7 @@
   },
   {
     "slug": "prismatic-aurora-burst",
+    "source": "reactbd",
     "sourceId": "prismatic-aurora-burst",
     "name": "Prismatic Aurora Burst",
     "category": "gradients",
@@ -5131,6 +5446,7 @@
   },
   {
     "slug": "cosmic-nebula",
+    "source": "reactbd",
     "sourceId": "cosmic-nebula",
     "name": "Cosmic Nebula",
     "category": "gradients",
@@ -5148,6 +5464,7 @@
   },
   {
     "slug": "stellar-mist",
+    "source": "reactbd",
     "sourceId": "stellar-mist",
     "name": "Stellar Mist",
     "category": "gradients",
@@ -5167,6 +5484,7 @@
   },
   {
     "slug": "diagonal-striped-grid",
+    "source": "reactbd",
     "sourceId": "diagonal-striped-grid",
     "name": "Diagonal Striped Grid",
     "category": "geometric",
@@ -5178,6 +5496,357 @@
       "foreground"
     ],
     "technique": "2 linear-gradient layers + 1 repeating-linear-gradient layer + tiles 24px 24px + mask",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "radial-teal-glow",
+    "source": "gradientdeck",
+    "sourceId": "radial-teal-glow",
+    "name": "Teal Glow",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "bottom-teal-glow",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "radial-pink-glow",
+    "source": "gradientdeck",
+    "sourceId": "radial-pink-glow",
+    "name": "Pink Glow",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "bottom-teal-glow",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "radial-amber-glow",
+    "source": "gradientdeck",
+    "sourceId": "radial-amber-glow",
+    "name": "Amber Glow",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "bottom-teal-glow",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "radial-emerald-glow",
+    "source": "gradientdeck",
+    "sourceId": "radial-emerald-glow",
+    "name": "Emerald Glow",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": "bottom-teal-glow",
+    "legibility": "text-safe"
+  },
+  {
+    "slug": "sunset-horizon",
+    "source": "gradientdeck",
+    "sourceId": "sunset-horizon",
+    "name": "Sunset Horizon",
+    "category": "gradients",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 linear-gradient layer",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "aurora-wave",
+    "source": "gradientdeck",
+    "sourceId": "aurora-wave",
+    "name": "Aurora Wave",
+    "category": "effects",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 conic-gradient layer",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "linen-texture",
+    "source": "gradientdeck",
+    "sourceId": "linen-texture",
+    "name": "Linen Texture",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border"
+    ],
+    "technique": "2 repeating-linear-gradient layers",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "velvet-night",
+    "source": "gradientdeck",
+    "sourceId": "velvet-night",
+    "name": "Velvet Night",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 linear-gradient layer",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "soft-pastel-blend",
+    "source": "gradientdeck",
+    "sourceId": "soft-pastel-blend",
+    "name": "Soft Pastel Blend",
+    "category": "gradients",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "accent",
+      "primary"
+    ],
+    "technique": "1 linear-gradient layer",
+    "variantOf": null,
+    "legibility": "decorative-only",
+    "variants": []
+  },
+  {
+    "slug": "charcoal-fade",
+    "source": "gradientdeck",
+    "sourceId": "charcoal-fade",
+    "name": "Charcoal Fade",
+    "category": "effects",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "muted"
+    ],
+    "technique": "1 radial-gradient layer",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "pastel-confetti",
+    "source": "gradientdeck",
+    "sourceId": "pastel-confetti",
+    "name": "Pastel Confetti",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent",
+      "chart-3",
+      "chart-4"
+    ],
+    "technique": "4 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "diamond-grid",
+    "source": "gradientdeck",
+    "sourceId": "diamond-grid",
+    "name": "Diamond Grid",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent",
+      "chart-3"
+    ],
+    "technique": "4 linear-gradient layers + tiles 40px 40px",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "polka-dots-colorful",
+    "source": "gradientdeck",
+    "sourceId": "polka-dots-colorful",
+    "name": "Colorful Polka Dots",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent",
+      "chart-3",
+      "chart-4"
+    ],
+    "technique": "4 radial-gradient layers + tiles 60px 60px",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "zigzag-stripes",
+    "source": "gradientdeck",
+    "sourceId": "zigzag-stripes",
+    "name": "Zigzag Stripes",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "border",
+      "primary"
+    ],
+    "technique": "2 repeating-linear-gradient layers + tiles 40px 40px",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "pastel-checkerboard",
+    "source": "gradientdeck",
+    "sourceId": "pastel-checkerboard",
+    "name": "Pastel Checkerboard",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent",
+      "chart-3"
+    ],
+    "technique": "4 linear-gradient layers + tiles 40px 40px",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "soft-dashed-columns",
+    "source": "gradientdeck",
+    "sourceId": "soft-dashed-columns",
+    "name": "Soft Dashed Columns",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary"
+    ],
+    "technique": "1 conic-gradient layer + tiles 56px 12px",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "micro-noise-fabric",
+    "source": "gradientdeck",
+    "sourceId": "micro-noise-fabric",
+    "name": "Micro Noise Fabric",
+    "category": "decorative",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "foreground"
+    ],
+    "technique": "2 repeating-radial-gradient layers",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "offset-dashed-grid",
+    "source": "gradientdeck",
+    "sourceId": "offset-dashed-grid",
+    "name": "Offset Dashed Grid",
+    "category": "geometric",
+    "tone": "light",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent"
+    ],
+    "technique": "4 repeating-linear-gradient layers + tiles 20px 20px, 40px 40px",
+    "variantOf": null,
+    "legibility": "needs-fade",
+    "variants": []
+  },
+  {
+    "slug": "radiant-burst-rays",
+    "source": "gradientdeck",
+    "sourceId": "radiant-burst-rays",
+    "name": "Radiant Burst Rays",
+    "category": "decorative",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent"
+    ],
+    "technique": "1 repeating-conic-gradient layer + 2 radial-gradient layers",
+    "variantOf": null,
+    "legibility": "text-safe",
+    "variants": []
+  },
+  {
+    "slug": "halo-rings-centerpiece",
+    "source": "gradientdeck",
+    "sourceId": "halo-rings-centerpiece",
+    "name": "Halo Rings Centerpiece",
+    "category": "decorative",
+    "tone": "dark",
+    "animated": false,
+    "roles": [
+      "background",
+      "primary",
+      "accent"
+    ],
+    "technique": "1 repeating-radial-gradient layer + 2 radial-gradient layers",
     "variantOf": null,
     "legibility": "needs-fade",
     "variants": []

@@ -2,6 +2,24 @@
 
 Formato baseado em Keep a Changelog. Versões seguem SemVer.
 
+## [0.1.2] - 2026-11-24
+
+### Adicionado
+
+- Vinte presets de fundo vindos do catálogo do GradientDeck, convertidos para
+  os papéis do tema como os demais. O total passa a 334 presets, com 257
+  desenhos distintos. A origem está em
+  `skills/designfy-design-system/references/backgrounds/NOTICE.md` e em
+  `THIRD-PARTY-NOTICES.md`: a fonte não publica licença, e a inclusão foi
+  escolha da Promovaweb em 24/11/2026.
+- Campo `source` (`reactbd` ou `gradientdeck`) em cada entrada de
+  `registry/shared/backgrounds/presets.json`.
+
+### Alterado
+
+- Catálogo de fundos, galeria de `examples/backgrounds/` e o guia do usuário
+  com as contagens novas.
+
 ## [0.1.1] - 2026-11-24
 
 ### Adicionado

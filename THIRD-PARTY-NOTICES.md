@@ -2,7 +2,7 @@
 
 O Designfy distribui código próprio sob a GNU AGPL 3.0 e inclui material de
 terceiros nas condições abaixo. Cada item indica o que entrou, onde está e a
-licença que vale para ele.
+licença publicada pela fonte, quando disponível.
 
 ## Hallmark
 
@@ -45,25 +45,28 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-## ReactBD BG e Pattern Craft
+## Presets de fundo
 
-Licença MIT. Copyright (c) 2025 Megh Bari. Copyright (c) 2026 Noor Mohammad /
+O ReactBD BG e o Pattern Craft fornecem 314 presets sob a licença MIT.
+Copyright (c) 2025 Megh Bari. Copyright (c) 2026 Noor Mohammad /
 ReactBD para modificações, padrões adicionais e a interface do ReactBD BG.
+O material de origem está em
+`skills/designfy-design-system/references/backgrounds/reactbd-bg.json`.
 
-Os presets de fundo do Designfy vêm do ReactBD BG e do Pattern Craft. O material
-de origem fica em
-`skills/designfy-design-system/references/backgrounds/reactbd-bg.json`, e o texto
-completo da licença, com os dois avisos de copyright, está em
+O GradientDeck fornece 20 padrões e convida visitantes a copiar o código
+para seus projetos. A fonte não publica licença para esses padrões.
+A Promovaweb escolheu incluí-los em 24 de novembro de 2026. O material de
+origem está em
+`skills/designfy-design-system/references/backgrounds/gradientdeck.json`.
+[Catálogo do GradientDeck](https://gradientdeck.com/pattern-backgrounds).
+
+O build em `scripts/build-backgrounds.ts` lê as duas fontes e gera o CSS
+e os metadados em `registry/shared/backgrounds/`, o catálogo em
+`skills/designfy-design-system/references/backgrounds/catalogo.md`, o tipo
+em `registry/react/background/presets.ts` e os dados da galeria em
+`examples/backgrounds/index.html`. O texto integral da licença MIT e a
+atribuição de cada fonte estão em
 `skills/designfy-design-system/references/backgrounds/NOTICE.md`.
-
-O build em `scripts/build-backgrounds.ts` gera, a partir dessa fonte,
-`registry/shared/backgrounds/designfy-backgrounds.css`,
-`registry/shared/backgrounds/presets.json`, o catálogo em
-`skills/designfy-design-system/references/backgrounds/catalogo.md`, o tipo em
-`registry/react/background/presets.ts` e os dados da galeria em
-`examples/backgrounds/index.html`. O aviso de licença completo fica no
-`NOTICE.md`; o catálogo gerado cita o ReactBD BG e o Pattern Craft como origem
-dos padrões.
 
 ## Formato DESIGN.md do Google Labs
 

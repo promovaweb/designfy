@@ -57,23 +57,23 @@ a paleta e com o modo escuro. Nenhum preset tem cor literal.
 
 ## Escolher um preset
 
-O catálogo desta versão tem 314 presets, com 241 desenhos distintos, em quatro
+O catálogo desta versão tem 334 presets, com 257 desenhos distintos, em quatro
 categorias:
 
 | Categoria | Presets | O que traz | Combina com |
 | --- | --- | --- | --- |
-| `geometric` | 119 | grades, pontos, linhas, hachuras | produto técnico, ferramenta, documentação, sistema |
-| `gradients` | 61 | lavagens e brilhos radiais | página de venda, marca suave, chamada final |
-| `decorative` | 57 | texturas e composições | marca com personalidade, página editorial |
-| `effects` | 77 | holofotes, auroras, brilhos animados | hero de lançamento; um por página |
+| `geometric` | 125 | grades, pontos, linhas, hachuras | produto técnico, ferramenta, documentação, sistema |
+| `gradients` | 64 | lavagens e brilhos radiais | página de venda, marca suave, chamada final |
+| `decorative` | 66 | texturas e composições | marca com personalidade, página editorial |
+| `effects` | 79 | holofotes, auroras, brilhos animados | hero de lançamento; um por página |
 
 Cada preset declara a legibilidade em `presets.json`:
 
 | Valor | Presets | Como usar |
 | --- | --- | --- |
-| `text-safe` | 151 | pode ficar atrás de título e texto curto |
-| `needs-fade` | 106 | use com `fade="radial"` ou `fade="bottom"` e meça o contraste |
-| `decorative-only` | 57 | só em área sem texto: lateral do hero, painel de marca, rodapé |
+| `text-safe` | 160 | pode ficar atrás de título e texto curto |
+| `needs-fade` | 114 | use com `fade="radial"` ou `fade="bottom"` e meça o contraste |
+| `decorative-only` | 60 | só em área sem texto: lateral do hero, painel de marca, rodapé |
 
 A classificação é uma estimativa do gerador. A conferência final é a medida de
 contraste no ponto mais difícil atrás do texto e a captura nos dois temas.
@@ -84,8 +84,10 @@ quando saem da tela. Padrão geométrico sem função vira enfeite: ele funciona
 quando sugere a matéria do produto, como grade para ferramenta de layout e
 pontos para mapa e dado.
 
-Os presets vêm do catálogo MIT ReactBD BG, com origem no Pattern Craft de Megh
-Bari. O Designfy converteu as cores em papéis do tema e manteve a geometria.
+Os presets vêm do ReactBD BG, que distribui padrões do Pattern Craft de Megh
+Bari sob a licença MIT, e do GradientDeck, que convida a copiar os padrões e
+não publica licença para eles. O Designfy converteu as cores em papéis do tema
+e manteve a geometria.
 
 ## Movimento é o padrão
 

@@ -54,7 +54,7 @@ MCP.
 | Catálogo de interface | 80 fragmentos comuns de site e de sistema, com propósito, anatomia, variações, estados, acessibilidade, tokens e fonte de implementação |
 | Registro de componentes | 58 itens React e 46 Astro sobre Tailwind 4, shadcn e Motion, copiados para o projeto com as dependências resolvidas |
 | Tema e paleta | leitura do tema do Tailwind do projeto, contraste WCAG 2.2 e APCA, escala OKLCH e harmonias da roda de cores |
-| Presets de fundo | 314 padrões de fundo por tema, categoria e legibilidade, gerados a partir do tema |
+| Presets de fundo | 334 presets de fundo por tema, categoria e legibilidade, gerados a partir do tema |
 | Capturas | Playwright em celular, tablet, desktop e tela larga, com manifesto de estouro horizontal e erros de console |
 | TUI | Home em menu e abas de tema, catálogo, componentes, skills, dependências, MCP, viewspecs e capturas |
 | MCP | tools de projeto, skills, dependências, catálogo, componentes, tema, paleta, capturas e viewspecs para o agente |

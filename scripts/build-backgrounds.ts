@@ -19,6 +19,8 @@ const categories = {
   effects: "Efeitos",
 };
 type Category = keyof typeof categories;
+const sourceLabels = { reactbd: "ReactBD BG", gradientdeck: "GradientDeck" };
+type Source = keyof typeof sourceLabels;
 type Tone = "light" | "dark";
 type Legibility = "text-safe" | "needs-fade" | "decorative-only";
 const cssComments = /\/\*[\s\S]*?\*\//g;
@@ -36,7 +38,7 @@ interface Pattern {
     animation?: string;
   };
   code: string;
-  cssCode: string;
+  cssCode?: string;
   animated: boolean;
   keyframes: string | null;
 }
@@ -260,7 +262,7 @@ function technique(pattern: Pattern, portuguese = false): string {
 }
 
 function slugFromId(id: string): string {
-  return id.replace(/^reactbd-/i, "").normalize("NFKD").toLowerCase()
+  return id.replace(/^(?:reactbd|gradientdeck)-/i, "").normalize("NFKD").toLowerCase()
     .replace(/\p{Mark}/gu, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
 
@@ -403,60 +405,46 @@ function legibility(declarations: string[]): Legibility {
   return "needs-fade";
 }
 
-// Only names and technique summaries are retained from the research index.
-const gradientDeckOnly = [
-  ["Teal Glow","radial gradient, tile 100% 100%"],
-  ["Pink Glow","radial gradient, tile 100% 100%"],
-  ["Amber Glow","radial gradient, tile 100% 100%"],
-  ["Emerald Glow","radial gradient, tile 100% 100%"],
-  ["Sunset Horizon","linear gradient"],
-  ["Aurora Wave","conic gradient"],
-  ["Linen Texture","repeating linear gradient"],
-  ["Velvet Night","linear gradient"],
-  ["Soft Pastel Blend","linear gradient"],
-  ["Charcoal Fade","radial gradient"],
-  ["Pastel Confetti","radial gradient, tile 100% 100%"],
-  ["Diamond Grid","linear gradient, tile 40px 40px"],
-  ["Colorful Polka Dots","radial gradient, tile 60px 60px"],
-  ["Zigzag Stripes","repeating linear gradient, tile 40px 40px"],
-  ["Pastel Checkerboard","linear gradient, tile 40px 40px"],
-  ["Soft Dashed Columns","conic gradient, tile 56px 12px"],
-  ["Micro Noise Fabric","repeating radial gradient, layer blending"],
-  ["Offset Dashed Grid","repeating linear gradient, tile 20px 20px, 20px 20px, 40px 40px, 40px 40px"],
-  ["Radiant Burst Rays","repeating conic gradient, radial gradient, layer blending"],
-  ["Halo Rings Centerpiece","repeating radial gradient, radial gradient"],
-] as const;
-
-function translateReference(technique: string): string {
-  return technique
-    .replace(/repeating (linear|radial|conic) gradient/g, "gradiente $1 repetido")
-    .replace(/(linear|radial|conic) gradient/g, "gradiente $1")
-    .replace(/\bconic\b/g, "cônico")
-    .replace("tile ", "módulos de ")
-    .replace("layer blending", "mesclagem de camadas");
+function readPatterns(file: string, source: Source) {
+  const data = JSON.parse(readFileSync(join(root, referenceDir, file), "utf8")) as { patterns: Pattern[] };
+  return data.patterns.map((pattern) => ({ ...pattern, source }));
 }
 
-const source = JSON.parse(readFileSync(join(root, referenceDir, "reactbd-bg.json"), "utf8")) as { patterns: Pattern[] };
+const reactbd = readPatterns("reactbd-bg.json", "reactbd");
+const gradientdeck = readPatterns("gradientdeck.json", "gradientdeck").map((pattern) => {
+  const style: Pattern["style"] = Object.fromEntries(Object.entries(pattern.style)
+    .map(([property, value]) => [property, typeof value === "string" ? value.trim() : value]));
+  // Keep the linen lines visible after mapping their ink to the border role.
+  if (pattern.id === "linen-texture") {
+    style.backgroundImage = style.backgroundImage?.replaceAll("rgba(0,0,0,0.02)", "rgba(0,0,0,0.12)");
+  }
+  // The source blend modes flatten the texture on dark or light canvases.
+  if (pattern.id === "micro-noise-fabric") delete style.mixBlendMode;
+  if (pattern.id === "radiant-burst-rays") delete style.backgroundBlendMode;
+  return { ...pattern, style };
+});
+const patterns = [...reactbd, ...gradientdeck];
 const keyframes = new Set<string>();
 const animationProperties = new Set<string>();
 const rules: string[] = [];
-const normalizedSlugs = new Set(source.patterns.map(({ id }) => slugFromId(id)));
+const normalizedSlugs = new Set(reactbd.map(({ id }) => slugFromId(id)));
 const slugs = new Set<string>();
 const firstByFingerprint = new Map<string, { slug: string; variants: string[]; legibility: Legibility }>();
-const presets = source.patterns.map((pattern) => {
+const presets = patterns.map((pattern) => {
   const normalized = slugFromId(pattern.id);
   if (!normalized) throw new Error(`Empty preset slug from ${pattern.id}`);
-  let slug = normalized;
+  const base = pattern.source === "gradientdeck" && slugs.has(normalized) ? `gd-${normalized}` : normalized;
+  let slug = base;
   if (slugs.has(slug)) {
     let suffix = 2;
-    do slug = `${normalized}-${suffix++}`;
+    do slug = `${base}-${suffix++}`;
     while (slugs.has(slug) || normalizedSlugs.has(slug));
   }
   slugs.add(slug);
   const { declarations, roles, keyframes: frames } = tokenizedPattern(pattern);
   if (frames) {
     keyframes.add(frames);
-    for (const [property] of pattern.cssCode.matchAll(/@property --[xy] \{[^}]+\}/g)) {
+    for (const [property] of (pattern.cssCode ?? pattern.code).matchAll(/@property --[xy] \{[^}]+\}/g)) {
       animationProperties.add(renameSpotlight(property));
     }
   }
@@ -464,7 +452,7 @@ const presets = source.patterns.map((pattern) => {
   const key = fingerprint(declarations);
   const first = firstByFingerprint.get(key);
   const entry = {
-    slug, sourceId: pattern.id, name: pattern.name, category: pattern.category, tone: pattern.theme,
+    slug, source: pattern.source, sourceId: pattern.id, name: pattern.name, category: pattern.category, tone: pattern.theme,
     animated: pattern.animated, roles, technique: technique(pattern), variantOf: first?.slug ?? null,
     legibility: first?.legibility ?? legibility(declarations),
   };
@@ -481,7 +469,7 @@ const bySlug = new Map(presets.map((preset) => [preset.slug, preset]));
 const notice = readFileSync(join(root, referenceDir, "NOTICE.md"), "utf8").split("\n").slice(2)
   .map((line) => line.trimEnd()).join("\n").trimEnd();
 const css = [
-  `/* Generated by scripts/build-backgrounds.ts from ReactBD BG and Pattern Craft.\n\n${notice}\n*/`,
+  `/* Generated by scripts/build-backgrounds.ts from ReactBD BG, Pattern Craft, and GradientDeck.\n\n${notice}\n*/`,
   "[data-df-bg] { position: absolute; inset: 0; pointer-events: none; z-index: 0; }",
   "[data-df-bg-fade] { position: absolute; inset: 0; pointer-events: none; }",
   '[data-df-bg-fade="bottom"] { mask-image: linear-gradient(var(--foreground) 35%, transparent); }',
@@ -496,8 +484,9 @@ const css = [
 const catalog = [
   "# Catálogo de fundos",
   "",
-  `O catálogo reúne ${firstByFingerprint.size} fundos distintos entre os ${presets.length} presets adaptados do ReactBD BG.`,
-  "O Pattern Craft, de Megh Bari, é a origem de boa parte dos padrões.",
+  `O catálogo reúne ${firstByFingerprint.size} fundos distintos entre os ${presets.length} presets adaptados do ReactBD BG e do GradientDeck.`,
+  "O Pattern Craft, de Megh Bari, é a origem de boa parte dos padrões do ReactBD BG.",
+  `Os ${gradientdeck.length} presets do GradientDeck aparecem nas tabelas das suas categorias.`,
   "Os componentes React e Astro aceitam o slug na propriedade `preset`.",
   "Importe `designfy-backgrounds.css` uma vez no projeto para carregar os estilos.",
   "A galeria exibe um cartão por fundo e permite mostrar os equivalentes nos dois temas.",
@@ -505,18 +494,17 @@ const catalog = [
   "",
 ];
 for (const [category, title] of Object.entries(categories)) {
-  catalog.push(`## ${title}`, "", "| Slug | Nome | Técnica | Papéis | Animação | Equivalentes |", "| --- | --- | --- | --- | --- | --- |");
+  catalog.push(`## ${title}`, "", "| Slug | Nome | Fonte | Técnica | Papéis | Animação | Equivalentes |",
+    "| --- | --- | --- | --- | --- | --- | --- |");
   presets.forEach((preset, index) => {
-    if (preset.category !== category || preset.variantOf !== null) return;
-    const { slug, name, roles, animated } = preset;
-    const equivalents = preset.variants?.map((variant) => `${bySlug.get(variant)!.name} (\`${variant}\`)`).join("<br>") || "Nenhum";
-    catalog.push(`| \`${slug}\` | ${name} | ${technique(source.patterns[index]!, true)} | ${roles.map((role) => `\`--${role}\``).join(", ")} | ${animated ? "Sim" : "Não"} | ${equivalents} |`);
+    if (preset.category !== category || (preset.variantOf !== null && preset.source === "reactbd")) return;
+    const { slug, name, source, roles, animated, variantOf, variants } = preset;
+    const equivalentSlugs = variantOf ? [variantOf] : variants;
+    const equivalents = equivalentSlugs?.map((variant) => `${bySlug.get(variant)!.name} (\`${variant}\`)`).join("<br>") || "Nenhum";
+    catalog.push(`| \`${slug}\` | ${name} | ${sourceLabels[source]} | ${technique(patterns[index]!, true)} | ${roles.map((role) => `\`--${role}\``).join(", ")} | ${animated ? "Sim" : "Não"} | ${equivalents} |`);
   });
   catalog.push("");
 }
-catalog.push("## Só no GradientDeck", "", "A licença pública do catálogo não foi localizada. As entradas abaixo identificam os fundos e suas técnicas.", "",
-  "| Nome | Técnica |", "| --- | --- |",
-  ...gradientDeckOnly.map(([name, description]) => `| ${name} | ${translateReference(description)} |`), "");
 
 const types = [
   "/** Available background preset slugs. Generated by scripts/build-backgrounds.ts. */",

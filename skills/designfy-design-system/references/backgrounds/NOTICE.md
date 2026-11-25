@@ -22,3 +22,32 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,  
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  
 SOFTWARE.
+
+## GradientDeck
+
+Source: https://gradientdeck.com/pattern-backgrounds
+
+The source publishes no license for these patterns and invites visitors to
+copy the code into their projects. The patterns were included by decision of
+the project owner (Promovaweb) on 2026-11-24.
+
+- Teal Glow
+- Pink Glow
+- Amber Glow
+- Emerald Glow
+- Sunset Horizon
+- Aurora Wave
+- Linen Texture
+- Velvet Night
+- Soft Pastel Blend
+- Charcoal Fade
+- Pastel Confetti
+- Diamond Grid
+- Colorful Polka Dots
+- Zigzag Stripes
+- Pastel Checkerboard
+- Soft Dashed Columns
+- Micro Noise Fabric
+- Offset Dashed Grid
+- Radiant Burst Rays
+- Halo Rings Centerpiece
