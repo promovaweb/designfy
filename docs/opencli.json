@@ -3,7 +3,7 @@
   "opencli": "0.1",
   "info": {
     "title": "Designfy",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "summary": "Visual framework for web projects: design system, React and Astro components with Tailwind, shadcn and motion, skills, dependency and MCP setup, and Playwright screen captures.",
     "description": "Visual framework for web projects: design system, React and Astro components with Tailwind, shadcn and motion, skills, dependency and MCP setup, and Playwright screen captures. Without arguments it opens the TUI; \"designfy mcp\" starts the MCP server over stdio; any other command runs as a CLI with text or --json output.",
     "contact": {

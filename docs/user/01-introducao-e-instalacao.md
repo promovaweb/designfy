@@ -120,6 +120,20 @@ Binary
   PID         3904428
   Data        /home/luizeof/.designfy
   License     AGPL-3.0-only
+
+Project
+
+  Author      Promovaweb
+  Site        https://promovaweb.com
+  Repository  https://github.com/promovaweb/designfy
+
+Credits
+
+  Bun                 runtime, bundler and binary compiler https://bun.sh
+  OpenTUI             terminal user interface rendering https://opentui.com
+  MCP TypeScript SDK  Model Context Protocol server over stdio https://modelcontextprotocol.io
+  OpenCLI             standard description of the command-line interface https://opencli.org
+  Zod                 schema validation for MCP tools https://zod.dev
 ```
 
 O `doctor` confere o ambiente sem gravar arquivo. Numa máquina nova, a pasta
@@ -138,15 +152,16 @@ dependem dela:
 ✓ npx: /home/luizeof/.npm-global/bin/npx
 ✓ designfy.json: Project file exists
 ! VIEWSPEC.md: Not created
-✓ tailwind-theme: /tmp/opencode/designfy-demo/src/styles/global.css
+✓ tailwind-theme: /tmp/opencode/designfy-demo/src/styles/app.css
 ✓ binary: designfy 0.1.0
 ✓ platform: linux-x64
 ```
 
 O `✓` é uma verificação aprovada, o `!` é um aviso e o `✗` reprova o comando
 com exit code 3. Os avisos de `~/.designfy/` somem quando você grava a primeira
-preferência. Os avisos de `designfy.json` e `VIEWSPEC.md` somem quando o
-projeto é preparado, como mostra o próximo capítulo.
+preferência. `VIEWSPEC.md` passa a `✓` quando o guia é criado; num projeto sem
+`designfy.json` ou sem CSS do Tailwind, essas duas linhas também aparecem com
+`!` até o capítulo 2.
 
 ## Ajuda embutida
 

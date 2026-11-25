@@ -81,9 +81,9 @@ pelo arquivo lido e agrupa os tokens:
 /tmp/opencode/designfy-demo/src/styles/app.css
 
 colors
-  --color-background          light var(--background) → #ffffff | dark var(--background) → #02080e
-  --color-foreground          light var(--foreground) → #09131a | dark var(--foreground) → #ebf4f4
-  --color-primary             light var(--primary) → #007e68 | dark var(--primary) → #00d5b2
+  --color-background          light var(--background) → #f7fbfb | dark var(--background) → #061114
+  --color-foreground          light var(--foreground) → #0d1b1e | dark var(--foreground) → #e7f1f0
+  --color-primary             light var(--primary) → #006966 | dark var(--primary) → #4cd7c8
   ...
 
 radius
@@ -91,7 +91,7 @@ radius
   --radius-lg   light var(--radius) | dark var(--radius)
 
 motion
-  --duration-base  light 220ms | dark 220ms
+  --duration-base  light 250ms | dark 250ms
   --ease-out-expo  light cubic-bezier(0.16, 1, 0.3, 1) | dark cubic-bezier(0.16, 1, 0.3, 1)
 ```
 

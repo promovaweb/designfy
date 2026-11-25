@@ -15,7 +15,7 @@ export const site = {
 };
 
 export interface CategoryRecord {
-  slug: "campo" | "arquivo" | "instrumentos";
+  slug: "campo" | "arquivo" | "instrumentos" | "metodo";
   label: string;
   description: string;
 }
@@ -35,6 +35,11 @@ export const categories: CategoryRecord[] = [
     slug: "instrumentos",
     label: "Instrumentos",
     description: "Réguas, pluviômetros e a manutenção que mantém a série inteira.",
+  },
+  {
+    slug: "metodo",
+    label: "Método",
+    description: "Como a cooperativa escolhe o que medir e o que deixar de fora. A primeira leva sai no próximo inverno.",
   },
 ];
 

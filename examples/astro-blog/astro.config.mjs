@@ -6,6 +6,11 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   site: "http://localhost:4321",
+  markdown: {
+    // Shiki emits `var(--shiki-token-*)`, so designfy-prose.css can keep the
+    // highlights on theme roles instead of a fixed theme palette.
+    shikiConfig: { theme: "css-variables" },
+  },
   vite: {
     plugins: [tailwindcss()],
     resolve: {

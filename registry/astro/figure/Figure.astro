@@ -45,7 +45,7 @@ const widthClass = {
 }[variant];
 ---
 
-<figure class:list={["flex min-w-0 flex-col", widthClass, className]}>
+<figure class:list={["not-prose flex min-w-0 flex-col", widthClass, className]}>
   <div class="overflow-hidden rounded-xl border border-border bg-muted" style={`aspect-ratio: ${width} / ${height}`}>
     <img
       src={src}

@@ -9,6 +9,9 @@ import { SETTINGS_SCHEMA, flatten, readSettings, getPath } from "../../config/se
 import { paths } from "../../config/paths.ts";
 import type { Registrar } from "../server.ts";
 
+const annotations = { readOnlyHint: true, openWorldHint: false };
+
+/** Registers settings and credential vault status tools. */
 export function registerConfigTools({ server, catalog }: Registrar): void {
   catalog.tools.push({ name: "config_list", description: "Every settings.json key with its effective value." });
   server.registerTool(
@@ -17,6 +20,7 @@ export function registerConfigTools({ server, catalog }: Registrar): void {
       title: "List configuration",
       description: "Lists the settings.json keys (merged with defaults) and the known schema.",
       inputSchema: {},
+      annotations,
     },
     async () => {
       const d = {
@@ -35,6 +39,7 @@ export function registerConfigTools({ server, catalog }: Registrar): void {
       title: "Read a configuration key",
       description: "Returns the value of a key in dot notation, e.g. output.format.",
       inputSchema: { key: z.string().min(1).describe("Key in dot notation.") },
+      annotations,
     },
     async ({ key }) => {
       const value = getPath(readSettings(), key);
@@ -54,6 +59,7 @@ export function registerConfigTools({ server, catalog }: Registrar): void {
       title: "Credentials vault status",
       description: "Reports file, master key source, count and names of credentials. Never returns values.",
       inputSchema: {},
+      annotations,
     },
     async () => {
       const d = vaultStatus();

@@ -28,6 +28,11 @@ export interface ArticleLink {
   href: string;
 }
 
+export interface ArticleAuthor {
+  name: string;
+  href: string;
+}
+
 export interface ArticleHeaderProps {
   /** The h1 of the page. */
   title: string;
@@ -36,7 +41,7 @@ export interface ArticleHeaderProps {
   /** Category of the article, linked to its page. */
   category?: ArticleLink;
   /** Author name, linked to the author page. */
-  author?: ArticleLink;
+  author?: ArticleAuthor;
   /** Publication date: the ISO value and the visible label. */
   date?: { iso: string; label: string };
   /** Reading time, already written as text ("8 min read"). */
@@ -62,46 +67,43 @@ export function ArticleHeader({
 }: ArticleHeaderProps) {
   const centered = variant === "centered";
   const onCover = variant === "behind" && cover !== undefined;
-  const metaText = onCover ? "text-background/75" : "text-muted-foreground";
 
   return (
     <header className={cn("relative isolate", className)}>
       {onCover ? (
-        <div aria-hidden="true" className="absolute inset-0 -z-10">
+        <div aria-hidden="true" className="absolute inset-0 -z-10 overflow-hidden">
           <img src={cover.src} alt="" width={cover.width} height={cover.height} className="size-full object-cover" />
-          <div className="absolute inset-0 bg-foreground/75" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-background/25" />
+          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-background to-transparent" />
         </div>
       ) : null}
 
-      <div className={cn("df-container", onCover ? "py-20 md:py-28" : "pt-10 md:pt-16")}>
-        <div className={cn("mx-auto flex max-w-3xl flex-col gap-5", centered && "items-center text-center", onCover && "py-4")}>
+      <div className={cn("df-container", onCover ? "py-14 md:py-20" : "pt-10 md:pt-16")}>
+        <div
+          className={cn(
+            "flex max-w-3xl flex-col gap-5",
+            onCover ? "py-6 md:py-10" : "mx-auto",
+            centered && "mx-auto items-center text-center",
+          )}
+        >
           {category ? (
             <a
               href={category.href}
-              className={cn(
-                "df-underline animate-df-fade-up text-sm font-semibold",
-                onCover ? "text-background" : "text-primary",
-              )}
+              className="df-underline animate-df-fade-up text-sm font-semibold text-primary"
             >
               {category.label}
             </a>
           ) : null}
 
           <h1
-            className={cn(
-              "animate-df-fade-up font-heading text-headline font-semibold text-balance [animation-delay:60ms]",
-              onCover ? "text-background" : "text-foreground",
-            )}
+            className="animate-df-fade-up font-heading text-headline font-semibold text-balance text-foreground [animation-delay:60ms]"
           >
             {title}
           </h1>
 
           {lead ? (
             <p
-              className={cn(
-                "animate-df-fade-up max-w-[62ch] text-lead [animation-delay:120ms]",
-                onCover ? "text-background/85" : "text-muted-foreground",
-              )}
+              className="animate-df-fade-up max-w-[62ch] text-lead text-muted-foreground [animation-delay:120ms]"
             >
               {lead}
             </p>
@@ -110,9 +112,8 @@ export function ArticleHeader({
           {author || date || readingTime ? (
             <div
               className={cn(
-                "flex animate-df-fade-up flex-wrap items-center gap-x-2 gap-y-1 text-sm [animation-delay:180ms]",
+                "flex animate-df-fade-up flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted-foreground [animation-delay:180ms]",
                 centered && "justify-center",
-                metaText,
               )}
             >
               {author ? (

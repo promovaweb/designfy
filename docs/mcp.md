@@ -37,7 +37,7 @@ Para desenvolvimento, sem compilar: `"command": "bun", "args": ["run", "src/main
 | `components_list` | `framework?`, `category?`, `surface?` | metadados dos itens do registro |
 | `components_show` | `name`, `framework?`, `source?` | metadados, arquivos e conteúdo se solicitado |
 | `theme_show` | `file?`, `group?` | CSS de origem e tokens por grupo |
-| `theme_check` | `file?` | contraste em claro e escuro e papéis semânticos ausentes |
+| `theme_check` | `file?` | contraste em claro e escuro e papéis semânticos ausentes, com `isError: true` quando a conferência reprova |
 | `palette_generate` | `base`, `harmony?` | escalas OKLCH, tokens claros e escuros e contraste |
 | `palette_wheel` | `color` | cores de cada harmonia em hex e OKLCH |
 | `palette_contrast` | `foreground`, `background` | razão WCAG, APCA e vereditos por uso |
@@ -53,6 +53,10 @@ Para desenvolvimento, sem compilar: `"command": "bun", "args": ["run", "src/main
 
 As tools de projeto usam a pasta de trabalho do servidor. `?` indica
 entrada opcional. O cofre expõe pelo MCP apenas metadados.
+
+`catalog_show`, `components_show` e `viewspec_show` retornam `isError: true`
+quando o identificador solicitado não existe. A resposta em texto contém o
+JSON do erro, com a lista de identificadores disponíveis em `error.details.known`.
 
 ## Modo de leitura
 
@@ -96,7 +100,8 @@ inspecionar as mensagens JSON-RPC.
 
 1. Copie `template/tool/example.ts` para `src/mcp/tools/<name>.ts`.
 2. Declare `inputSchema` com Zod e descreva cada campo com `.describe()`. A
-   description da tool diz quando usar e o que ela devolve.
+   description da tool diz quando usar e o que ela devolve. Use
+   `readOnlyHint: true` para leitura e `readOnlyHint: false` para escrita.
 3. Devolva `content` em texto e, quando a saída for estruturada,
    `structuredContent` com o mesmo objeto.
 4. Acrescente a tool ao `catalog.tools` para que `mcp --list` a enxergue.

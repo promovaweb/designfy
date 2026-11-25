@@ -45,7 +45,12 @@ const showRail = variant !== "block";
 const depthClass = (depth: Item["depth"] | undefined) => (depth === 3 ? "pl-7" : depth === 4 ? "pl-10" : "pl-4");
 ---
 
-<nav aria-label={label} data-df-toc data-df-toc-offset={offset} class:list={["min-w-0", className]}>
+<nav
+  aria-label={label}
+  data-df-toc
+  data-df-toc-offset={offset}
+  class:list={["min-w-0", variant === "rail" ? "h-full" : variant === "auto" ? "xl:h-full" : undefined, className]}
+>
   {
     showBlock && (
       <details class:list={["group rounded-lg border border-border bg-muted/40 px-4 py-1", variant === "auto" && "xl:hidden"]}>

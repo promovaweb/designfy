@@ -73,6 +73,15 @@ designfy capture run http://localhost:4321/componentes/hero-split --selector "#p
 O `--fold` é útil para o hero; o `--full-page` mostra a página inteira e revela
 o que só aparece no fim.
 
+## Conjunto mínimo de uma revisão
+
+Quatro execuções cobrem a revisão: a página inteira em `mobile,tablet,desktop,wide`;
+a dobra em `320x640,mobile,1280x800,desktop` com `--fold`; o tema escuro em
+`mobile,desktop` com `--theme dark`; e o movimento reduzido em `mobile,desktop`
+com `--reduced-motion`. Em projeto com um tema só, a terceira não existe.
+Carregando, vazio e erro também são tela: capture com um parâmetro de
+desenvolvimento ou uma conta de teste, como descreve a referência de capturas.
+
 ## O manifesto
 
 Cada execução grava uma pasta em `.designfy/captures/<run>/`, com os PNGs e um
@@ -80,22 +89,21 @@ Cada execução grava uma pasta em `.designfy/captures/<run>/`, com os PNGs e um
 
 | Campo | Conteúdo |
 | --- | --- |
-| `name`, `createdAt` | nome e horário da execução |
+| `name`, `createdAt`, `outDir` | nome, horário e pasta da execução |
 | `urls` | as URLs visitadas |
 | `viewports` | nome, largura, altura, escala, toque e modo móvel de cada viewport |
 | `theme` | `light` ou `dark` |
 | `fullPage`, `reducedMotion`, `waitMs`, `selector` | as options usadas |
-| `shots` | uma entrada por captura, com `url`, `viewport` e `file` |
-| `title` | o título da página |
-| `documentWidth`, `documentHeight`, `viewportWidth` | medidas da página |
-| `overflowX` | `true` quando o documento é mais largo que o viewport |
-| `consoleErrors`, `pageErrors` | erros do console e da página |
+| `shots` | uma entrada por captura |
 | `errors` | falhas de captura, com URL e viewport |
 
-O `overflowX` é o primeiro sinal que a revisão lê. Ele indica conteúdo mais
-largo que a tela, o defeito mais comum no celular. A correção costuma ser uma
-tabela que rola dentro da própria caixa, uma imagem sem `max-width` ou uma grade
-com largura mínima fixa.
+Cada entrada de `shots` traz `url`, `viewport`, `file` e o que a revisão lê:
+`title`, `documentWidth`, `documentHeight`, `viewportWidth`, `overflowX`,
+`consoleErrors`, `pageErrors` e `error` quando a captura falha. O `overflowX` é
+o primeiro sinal que a revisão lê. Ele indica conteúdo mais largo que a tela, o
+defeito mais comum no celular. A correção costuma ser uma tabela que rola dentro
+da própria caixa, uma imagem sem `max-width` ou uma grade com largura mínima
+fixa.
 
 O manifesto é gravado mesmo quando parte das capturas falha. Uma URL que não
 responde aparece em `errors` e o comando sai com exit code 5.
@@ -113,7 +121,7 @@ arquivos de cada execução. Numa pasta vazia:
 No capture runs found.
 ```
 
-`--out <dir>` aponta para outra pasta. A TUI mostra as mesmas execuções na aba
+`--out <dir>` aponta para outra pasta. A TUI mostra as mesmas execuções no módulo
 Captures, com os arquivos, os tamanhos e o `overflowX` de cada captura.
 
 ## Como a revisão usa as capturas
@@ -122,18 +130,48 @@ A skill `designfy-review` segue um caminho fixo:
 
 1. Lê o `manifest.json` e separa as capturas com `overflowX`, erro de console e
    erro de página.
-2. Abre cada PNG em celular e desktop, na ordem da tela.
+2. Abre cada PNG, começando pelo celular, depois desktop, tablet, tela larga,
+   tema escuro e movimento reduzido.
 3. Compara com o guia e com o viewspec: a ação principal aparece, o contraste
    segura, o texto não corta, o foco aparece, o movimento tem função.
-4. Classifica cada achado por gravidade e devolve para a especialista dona:
-   `designfy-responsive` para quebra de largura, `designfy-accessibility` para
-   foco e contraste, `designfy-components` para estado, `designfy-motion` para
-   animação.
+4. Classifica cada achado por gravidade e devolve para a especialista dona.
 5. Pede uma captura nova depois das correções e repete a leitura.
 
 A revisão não compara pixel a pixel. Ela lê a imagem e o manifesto, como uma
-pessoa faria, e registra o que achou. A comparação automática de imagem fica
-fora do escopo do binário.
+pessoa faria, e registra o que achou.
+
+## Rodadas, gravidade e veredito
+
+Cada rodada tem um nome: `<slug>-r1` para achar tudo, `<slug>-r2` para conferir
+as correções e o que elas trouxeram e `<slug>-r3` para fechar o que restou. Em
+cada rodada nova, confira os achados anteriores primeiro (resolvido, parcial ou
+aberto) e depois olhe a tela inteira de novo. O limite é de três rodadas.
+
+A gravidade orienta a correção:
+
+| Gravidade | O que significa | O que acontece |
+| --- | --- | --- |
+| alta | a tela falha no que promete ou fere uma regra sem exceção: rolagem horizontal, ação principal fora da dobra, texto ilegível, conteúdo inventado, erro de script, controle sem foco ou sem nome, contraste abaixo do mínimo | corrige antes de fechar |
+| média | a tela funciona, mas parece genérica ou descuidada: tudo centralizado, seções iguais, estado vazio sem ação, movimento ausente | corrige ou registra o motivo em Notas |
+| baixa | detalhe de ofício: palavra sozinha na última linha, aspas retas, sombra forte, alinhamento óptico | responde item a item |
+
+Cada achado vai à especialista dona: `designfy-design-system` para cor, tipo,
+espaço e tema; `designfy-components` para componente, estado e dependência;
+`designfy-motion` para animação; `designfy-websites`, `designfy-content` e
+`designfy-systems` para a composição do tipo de tela; `designfy-responsive`
+para estouro, empilhamento e toque; `designfy-accessibility` para foco, teclado,
+nomes e semântica; `designfy-viewspec` para o arquivo ou uma regra do guia. O que
+falta de conteúdo vai para você, pela `designfy`.
+
+No fim, o veredito é um dos três:
+
+| Veredito | Condição |
+| --- | --- |
+| aprovada | nenhum achado de gravidade alta ou média aberto; os baixos respondidos |
+| aprovada com ressalvas | nenhum de gravidade alta; médios abertos com o motivo em Notas |
+| reprovada | algum de gravidade alta aberto |
+
+Só `aprovada` e `aprovada com ressalvas` permitem o estado `done` no viewspec.
 
 ## Fechar a tela
 
@@ -172,5 +210,6 @@ para conferir que a tela não depende de animação para aparecer.
 - `designfy capture run` grava a pasta e o `manifest.json`.
 - `designfy capture list` mostra a execução mais recente.
 - O manifesto tem `overflowX: false` nas capturas de celular.
-- A revisão registrou os achados e as correções antes do `done`.
+- Cada achado tem gravidade e dona, e a correção foi conferida em `r2`.
+- O veredito é `aprovada` ou `aprovada com ressalvas` antes do `done`.
 - O viewspec em `done` cita a execução em `captures`.

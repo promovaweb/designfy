@@ -1,4 +1,4 @@
-    ◆ Designfy   v0.1.0  › ≡ Viewspecs  fixture-pr...react-vite   T night   linux-x64 · Bun 0.0.0
+    ◆ Designfy   v0.0.0  › ≡ Viewspecs  fixture-pr...react-vite   T night   linux-x64 · Bun 0.0.0
     ← Back   ≡ Viewspecs  Read the project guide, viewspecs and checklist progress
    Mesa de Pedidos · Rules: @pessoa: 11, @agente: 14, @revisão: 8 · 2 pending proposals
    screens · Status: all

@@ -99,8 +99,12 @@ export function registerViewspecTools({ server, catalog }: Registrar): void {
       errors: errorsSchema,
     },
   }, async ({ id: viewId }) => report(() => {
-    const { item, found, errors } = readViewspec(process.cwd(), viewId);
-    if (!found && !errors.length) throw error.notFound('No screen viewspec uses id "' + viewId + '".', { id: viewId });
+    const cwd = process.cwd();
+    const { item, found, errors } = readViewspec(cwd, viewId);
+    if (!found && !errors.length) {
+      const known = listViewspecSummaries(cwd).items.map(({ id }) => id);
+      throw error.notFound(`No screen viewspec uses id "${viewId}". Use viewspec_list to discover available screens.`, { id: viewId, known });
+    }
     return { item, errors };
   }));
   server.registerTool("viewspec_progress", {

@@ -11,6 +11,7 @@ Stat card
   Category        data-display
   Purpose         Shows one indicator with its change and context.
   Use when        Dashboards and record summaries.
+  Avoid when
   Anatomy         label; value; change against the previous period; sparkline or icon (optional); link to detail
   Variants        plain; with sparkline; with progress toward a goal
   States          default; loading; error; no data
@@ -19,6 +20,7 @@ Stat card
   Accessibility   Change has a sign and text, not only color or arrow.; Label and value are associated.
   Tokens          card; card-foreground; border; radius; muted-foreground; success; destructive
   Viewspec kinds  dashboard; detail
+  Related         counter; chart-card
   Sources         designfy:stat-card
 ```
 
@@ -29,15 +31,11 @@ forma; o registro entrega o arquivo.
 
 ## O catálogo de interface
 
-O catálogo tem 80 fragmentos comuns de site e de sistema, agrupados em 15
-categorias: ações, contêineres, layout e fundos, movimento, navegação, exibição
-de dados, feedback, navegação de site, hero, seções de site, conteúdo, shell de
-sistema, formulários, configurações e autenticação.
-
-Cada entrada declara superfície (`site`, `system` ou `both`), categoria,
-propósito, quando usar, quando evitar, anatomia, variações, estados,
-responsividade, movimento, acessibilidade, papéis de tema, itens relacionados e
-as fontes de implementação.
+O catálogo tem 80 fragmentos comuns de site e de sistema, em 15 categorias e
+três superfícies: 32 entradas de `site`, 22 de `system` e 26 de `both`. Cada
+entrada declara propósito, quando usar, quando evitar, anatomia, variações,
+estados, responsividade, movimento, acessibilidade, papéis de tema, itens
+relacionados e as fontes de implementação.
 
 ```bash
 designfy catalog list
@@ -47,7 +45,7 @@ designfy catalog search table
 ```
 
 O `--kind` usa o mesmo tipo de tela do viewspec. Para um dashboard, a lista
-devolve só os fragmentos indicados para aquele tipo:
+começa assim:
 
 ```text
   button             Button (both, actions)
@@ -63,20 +61,10 @@ devolve só os fragmentos indicados para aquele tipo:
   counter            Animated counter (both, motion)
   theme-toggle       Theme toggle (both, actions)
   app-shell          App shell (system, shell)
-  sidebar-nav        Sidebar navigation (system, shell)
-  topbar             Topbar (system, shell)
-  page-header        Page header (system, shell)
-  command-palette    Command palette (system, shell)
-  stat-card          Stat card (system, data-display)
-  chart-card         Chart card (system, data-display)
-  data-table         Data table (system, data-display)
+  ...
 ```
 
 A busca não diferencia caixa nem acento:
-
-```bash
-designfy catalog search table
-```
 
 ```text
   dropdown-menu      Dropdown menu (both, actions)
@@ -84,11 +72,15 @@ designfy catalog search table
   comparison-table   Comparison table (site, site-sections)
   prose              Prose (site, content)
   table-of-contents  Table of contents (site, content)
+  figure             Figure (site, content)
+  chart-card         Chart card (system, data-display)
   data-table         Data table (system, data-display)
+  filter-bar         Filter bar (system, data-display)
+  bulk-actions       Bulk action bar (system, data-display)
+  settings-layout    Settings layout (system, settings)
 ```
 
-Id desconhecido sai com exit code 6. O catálogo é a fonte que as skills leem
-antes de olhar qualquer implementação. A skill `designfy-components` exige que
+Id desconhecido sai com exit code 6. A skill `designfy-components` exige que
 `useWhen` valha e `avoidWhen` não valha antes de escolher a peça.
 
 ## O registro de componentes
@@ -96,7 +88,7 @@ antes de olhar qualquer implementação. A skill `designfy-components` exige que
 O registro tem dois manifestos no formato do shadcn,
 `registry/react/registry.json` e `registry/astro/registry.json`, e os arquivos
 de origem. O binário leva o registro embutido, gerado por
-`bun run registry:embed`, e `components list` funciona sem acesso ao repositório.
+`bun run registry:embed`, então `components list` funciona sem o repositório.
 
 ```bash
 designfy components list
@@ -104,25 +96,37 @@ designfy components list --framework react
 designfy components list --surface system
 ```
 
-A lista desta versão traz, no registro Astro:
+O registro React tem 58 itens e o Astro tem 46. Sem `--framework`, o comando usa
+o framework do `designfy.json`; `next` e `react-vite` leem o registro React. A
+lista desta versão:
 
-```text
-  background               Places a theme-driven pattern and an optional fade behind an Astro slot.
-  background-styles        Provides theme-driven CSS for all background presets, fades, and reduced motion.
-  cn                       Combines conditional classes and resolves conflicting Tailwind utilities.
-  designfy-motion          Provides Tailwind animation utilities and styles for reveals, interactions, and reduced motion.
-  designfy-motion-runtime  Observes reveals, pauses offscreen loops, and starts counters as they enter view.
-  designfy-theme           Defines theme roles, type scales, radii, layout utilities, and motion tokens for Tailwind CSS.
-  hero-split               Pairs a headline and actions with a framed visual in a responsive, animated layout.
-  reveal                   Reveals content once on scroll and can stagger its children.
-  section                  Wraps page content with shared spacing, optional heading and lead, and a choice of surfaces.
-```
+| Categoria | Itens |
+| --- | --- |
+| `layout` | `background`, `background-styles`, `section` |
+| `utilities` | `cn`, `designfy-motion-runtime` |
+| `styles` | `designfy-motion`, `designfy-theme`, `designfy-prose` |
+| `hero` | `hero-split`, `hero-centered`, `hero-media` |
+| `motion` | `reveal`, `counter` |
+| `site-navigation` | `announcement-bar`, `site-footer`, `site-header` |
+| `site-sections` | `bento-grid`, `comparison-table`, `cta-band`, `faq`, `feature-grid`, `feature-split`, `logo-marquee`, `marquee`, `newsletter-form`, `pricing-table`, `stats-band`, `steps`, `testimonial` |
+| `containers` | `card` |
+| `actions` | `theme-toggle` |
+| `content` | `article-header`, `author-box`, `callout`, `code-block`, `figure`, `post-card`, `post-list`, `prose`, `reading-progress`, `table-of-contents`, `video-embed` |
+| `data-display` | `activity-feed`, `description-list` no Astro; mais `chart-card`, `data-table`, `filter-bar`, `stat-card` no React |
+| `shell` | `app-shell`, `page-header`, só no React |
+| `auth` | `auth-card`, só no React |
+| `feedback` | `empty-state`, `error-state` |
+| `forms` | `file-upload`, `form-layout`, `stepper`, só no React |
+| `settings` | `settings-layout`, `settings-section`, só no React |
 
-O registro React traz os mesmos nomes, com a implementação em React. Sem
-`--framework`, o comando usa o framework do `designfy.json`; `next` e
-`react-vite` leem o registro React.
+A base do registro está nas três primeiras categorias da tabela:
+`designfy-theme` traz os tokens, `designfy-motion` e `designfy-motion-runtime`
+trazem o movimento e o script, `cn` combina classes, `designfy-prose` liga a
+tipografia de leitura, `background` e `background-styles` trazem os padrões de
+fundo e `section` fecha o ritmo das seções. Eles são arquivos de estilo e de
+biblioteca, não telas, e se copiam uma vez por projeto.
 
-O `show` detalha um item, com arquivos, dependências e itens exigidos:
+## Conferir um item
 
 ```bash
 designfy components show hero-split
@@ -154,13 +158,13 @@ O comando resolve os itens exigidos do Designfy em ordem, grava cada arquivo no
 destino e relata o que fez:
 
 ```text
-  Written               /tmp/opencode/designfy-demo/src/styles/designfy-theme.css
+  Written               /tmp/opencode/designfy-demo/src/components/designfy/hero-split/HeroSplit.astro
+  Unchanged             /tmp/opencode/designfy-demo/src/styles/designfy-theme.css
                         /tmp/opencode/designfy-demo/src/components/designfy/lib/designfy-motion.ts
                         /tmp/opencode/designfy-demo/src/styles/designfy-motion.css
-  Unchanged             None
   Skipped               None
   Missing npm packages  None
-  Dev dependencies      None
+  Missing dev packages  None
   Install shadcn items  None
 ```
 
@@ -171,49 +175,24 @@ As categorias da resposta separam o resultado:
 | `Written` | arquivo novo gravado |
 | `Unchanged` | o arquivo já estava igual |
 | `Skipped` | o arquivo existe com conteúdo diferente e não foi tocado |
-| `Missing npm packages` | pacotes que o arquivo importa e o projeto não tem |
+| `Missing npm packages` | pacotes de produção que o arquivo importa e o projeto não tem |
+| `Missing dev packages` | pacotes de desenvolvimento que faltam |
 | `Install shadcn items` | itens `shadcn:` que precisam do CLI do shadcn |
 
 O destino segue o tipo de arquivo. Componente vai para `paths.components`;
 estilo, para `paths.styles`. O marcador `@designfy/components` é trocado pelo
 alias de `designfy.json`, então o import funciona com o alias do projeto. Um
-arquivo existente e diferente não é sobrescrito sem `--overwrite`, e a saída
-continua 0 com aviso. Depois de copiado, o arquivo pertence ao projeto e pode
-ser editado.
+arquivo existente e diferente não é sobrescrito sem `--overwrite`. Depois de
+copiado, o arquivo pertence ao projeto e pode ser editado.
 
-O `--dry-run` mostra o plano sem gravar, inclusive as dependências pendentes:
-
-```bash
-designfy components add designfy-theme designfy-motion --dry-run
-```
-
-```text
-  Would write           /tmp/opencode/designfy-demo/src/styles/designfy-theme.css
-                        /tmp/opencode/designfy-demo/src/components/designfy/lib/designfy-motion.ts
-                        /tmp/opencode/designfy-demo/src/styles/designfy-motion.css
-  Unchanged             None
-  Skipped               None
-  Missing npm packages  None
-```
-
+O `--dry-run` mostra o plano sem gravar, inclusive as dependências pendentes.
 `--path <dir>` troca a pasta de destino e `--framework <framework>` escolhe o
 manifesto. Sem `designfy.json`, o comando usa os padrões e avisa.
 
-Depois de copiar, confira as dependências:
-
-```bash
-designfy deps check
-```
-
-Um pacote ausente aparece na resposta do `components add` e reprova o
-`deps check` com exit code 10. Instale com `designfy deps install` ou com o
-gerenciador do projeto.
-
 ## shadcn e ReUI
 
-O Designfy não substitui o CLI do shadcn. Os primitivos acessíveis, como botão,
-campo, diálogo, menu, tabela e abas, continuam saindo do
-[shadcn](https://ui.shadcn.com):
+O Designfy não substitui o CLI do shadcn. Os primitivos acessíveis continuam
+saindo do [shadcn](https://ui.shadcn.com):
 
 ```bash
 npx shadcn@latest add button card dialog
@@ -225,11 +204,10 @@ O [ReUI](https://reui.io) entra pelo registro `@reui` do mesmo CLI:
 npx shadcn@latest add @reui/data-grid
 ```
 
-Os três usam o mesmo tema: papéis do shadcn sobre o Tailwind 4. A diferença
-está no que cada um entrega. O registro do Designfy traz composições de página,
-conteúdo e sistema, com movimento e com os estados descritos no catálogo. O
-shadcn traz as primitivas sem estilo. O ReUI traz blocos avançados, como grade
-de dados, filtros e kanban.
+Os três usam o mesmo tema: papéis do shadcn sobre o Tailwind 4. O registro do
+Designfy traz composições de página, conteúdo e sistema, com movimento e com os
+estados descritos no catálogo. O shadcn traz as primitivas sem estilo. O ReUI
+traz blocos avançados, como grade de dados, filtros e kanban.
 
 ## A regra de tema único
 
@@ -241,8 +219,7 @@ dos papéis do tema. O item não leva cor literal, classe de paleta fixa
 
 `dark:` não serve para cor, porque os papéis já mudam com o tema. `dark:` fica
 para diferença que não é de cor, como trocar uma imagem. O
-`bun run registry:check` recusa o item fora da regra, e a revisão confere
-o que o script não lê.
+`bun run registry:check` recusa o item fora da regra.
 
 O registro também exige conteúdo por propriedade. Nenhum texto com cara de real
 dentro do componente; texto, link, imagem e número chegam por prop ou slot.
@@ -254,7 +231,8 @@ de toque de 44 px no celular, mantém o foco visível e usa uma biblioteca de
 
 - `designfy catalog list --kind <tipo>` devolve os fragmentos do tipo de tela.
 - `designfy catalog show <id>` mostra a origem da implementação.
-- `designfy components list` lê o framework do `designfy.json`.
+- `designfy components list --framework react` mostra os 58 itens.
+- `designfy components list --framework astro` mostra os 46 itens.
 - `designfy components add <item> --dry-run` mostra os arquivos antes da cópia.
 - `designfy deps check` termina com exit code 0 depois da cópia.
 - Nenhum arquivo copiado tem cor literal ou `font-family`.

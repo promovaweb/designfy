@@ -54,7 +54,7 @@ abrem Credentials, Docs e About.
    │ globals.css                             │  │ 80 patterns                              │  │ Registry · react-vite                   │
    │ ██ ██ ░░ ░░ ░░ ░░ ░░                    │  │ site   ━━━━━━━━━━━━ 32                   │  │ Copied ━━━━━━━━ 0/58 0%                 │
    │ ✓ 18.88:1 FG / BG                       │  │ system ━━━━━━━━     22                   │  │                                         │
-   │ Inter, sans-serif                       │  │ both   ━━━━━━━━━━━━ 26                   │  │                                         │
+   │ Inter, sans-serif                       │  │ both   ━━━━━━━━━━   26                   │  │                                         │
    ╰─────────────────────────────────────────╯  ╰──────────────────────────────────────────╯  ╰─────────────────────────────────────────╯
 
    ╭─ 4 ⇌ Skills ────────────────────────────╮  ╭─ 5 ◉ Deps ───────────────────────────────╮  ╭─ 6 ⇌ MCP ───────────────────────────────╮
@@ -123,9 +123,8 @@ borda. O painel em foco destaca o título e a borda.
 | `?` | abre ou fecha o help |
 | `q` ou `Ctrl+C` | sai |
 
-A paleta de comandos procura pelo nome entre as ações do módulo, as entradas
-`Go to <módulo>`, as ações dos outros módulos, o help e a saída. A busca aceita
-as letras em sequência.
+A paleta procura módulo e ação, e aceita as letras em sequência. No pé, a barra de teclas mostra os atalhos do módulo, um divisor e os globais; clique
+num chip para executar.
 
 ## Listas, filtros e planos
 

@@ -1,4 +1,4 @@
-    ◆ Designfy   v0.1.0  ⌂ Home  fixture-project · react-vite                                             T night   linux-x64 · Bun 0.0.0
+    ◆ Designfy   v0.0.0  ⌂ Home  fixture-project · react-vite                                             T night   linux-x64 · Bun 0.0.0
 
     › Install dependencies   [Enter]
 
@@ -32,7 +32,7 @@
    ╰─────────────────────────────────────────╯  ╰──────────────────────────────────────────╯  ╰─────────────────────────────────────────╯
 
    ╭─ d ≡ Docs ──────────────────────────────╮  ╭─ a ℹ About ──────────────────────────────╮
-   │ 6 topics                                │  │ v0.1.0                                   │
+   │ 6 topics                                │  │ v0.0.0                                   │
    │ Built-in reference                      │  │ Designfy                                 │
    ╰─────────────────────────────────────────╯  ╰──────────────────────────────────────────╯
    1 installed  ·  0 copied  ·  12 missing deps  ·  1 open viewspecs  ·  1 overflowX

@@ -168,7 +168,7 @@ O binário não guarda segredo próprio; o cofre vem do starter kit.
 
 | Spec | Status | Assunto |
 | --- | --- | --- |
-| [0001](specs/0001-fundacao-do-framework.md) | in progress | catálogos, skills, dependências, MCP, componentes, paleta, capturas, viewspec, TUI e tools |
+| [0001](specs/0001-fundacao-do-framework.md) | done | catálogos, skills, dependências, MCP, componentes, paleta, capturas, viewspec, TUI e tools |
 
 ## Notes
 

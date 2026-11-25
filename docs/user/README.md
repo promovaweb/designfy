@@ -42,14 +42,14 @@ Os capítulos 1 e 2 levam você da instalação ao projeto preparado, com as
 bibliotecas conferidas. O 3 apresenta as skills e mostra como chamar a
 orquestradora. O 4 explica o guia da raiz e o viewspec de cada tela. O 5 e o 6
 cuidam do tema, da paleta, do catálogo e dos componentes. O 7 cobre fundos e
-movimento. O 8 mostra a captura com Playwright e a revisão. O 9 percorre as abas
-da TUI. O 10 liga o binário ao agente por MCP. O 11 reúne preferências, arquivos,
-exit codes e solução de problemas.
+movimento. O 8 mostra a captura com Playwright e a revisão. O 9 percorre a Home
+em menu e os módulos da TUI. O 10 liga o binário ao agente por MCP. O 11 reúne
+preferências, arquivos, exit codes e solução de problemas.
 
 ## Documentação técnica
 
 A pasta [docs/](../../docs/README.md) guarda a documentação que viaja dentro do
-executável, com o contrato do viewspec, a referência do CLI, as abas da TUI e as
+executável, com o contrato do viewspec, a referência do CLI, os módulos da TUI e as
 tools MCP. O `designfy --skill` imprime essa documentação em Markdown.
 
 ## Onde encontrar o projeto

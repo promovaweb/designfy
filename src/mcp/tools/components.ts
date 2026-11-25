@@ -76,7 +76,7 @@ export function registerComponentsWriteTools({ server, catalog }: Registrar): vo
   server.registerTool("components_add", {
     title: "Copy Designfy components",
     description,
-    annotations: { destructiveHint: true, idempotentHint: true, openWorldHint: false },
+    annotations: { readOnlyHint: false, destructiveHint: true, idempotentHint: true, openWorldHint: false },
     inputSchema: {
       names: z.array(z.string().min(1)).nonempty().describe("Registry item names to copy."),
       framework,

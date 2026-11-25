@@ -1,4 +1,4 @@
-    ◆ Designfy   v0.1.0  › λ Components  fixture-project · react-vite                                     T night   linux-x64 · Bun 0.0.0
+    ◆ Designfy   v0.0.0  › λ Components  fixture-project · react-vite                                     T night   linux-x64 · Bun 0.0.0
     ← Back   λ Components  Browse and copy components from the registry
 
    Framework: react

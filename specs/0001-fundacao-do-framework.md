@@ -1,6 +1,6 @@
 # 0001 Fundação do framework
 
-Status: in progress
+Status: done
 
 ## Goal
 
@@ -297,10 +297,10 @@ tabela do `CLISPEC.md`; keys `skills.source`, `skills.agents`,
 - [x] Tools MCP `#termfy-mcp`
 - [x] Screens `#termfy-tui`
 - [x] 11 skills `designfy*` e o validador delas
-- [ ] Componentes do registro em React e Astro
+- [x] Componentes do registro em React e Astro
 - [x] Marca em `brand/`
-- [ ] Documentação embutida, README, CONTRIBUTING, guia e ebook `#termfy-docs`
-- [ ] Exemplos em `examples/`
+- [x] Documentação embutida, README, CONTRIBUTING, guia e ebook `#termfy-docs`
+- [x] Exemplos em `examples/`
 
 ## Tests
 
@@ -314,9 +314,9 @@ tabela do `CLISPEC.md`; keys `skills.source`, `skills.agents`,
 - [x] Catálogo de interface: filtros, busca e ids do registro (`tests/interface-catalog.test.ts`)
 - [x] Tema: `@theme`, `:root`, `.dark`, imports, resolução de `var()` e contraste (`tests/theme.test.ts`)
 - [x] Plano de captura e manifesto com o runner trocado (`tests/capture.test.ts`)
-- [ ] Tools MCP por stdio (`tests/mcp-designfy.test.ts`)
+- [x] Tools MCP por stdio (`tests/mcp-designfy.test.ts`)
 - [x] TUI com as abas novas em todos os tamanhos (`tests/tui-*.test.ts`)
-- [ ] `bun run validate` verde
+- [x] `bun run validate` verde
 
 ## Notes
 
@@ -324,3 +324,5 @@ tabela do `CLISPEC.md`; keys `skills.source`, `skills.agents`,
   pelo Luiz. No mesmo dia: guia `VIEWSPEC.md` na raiz, catálogo de interface
   lido pelas skills, tema único do Tailwind, aba de tema na TUI e movimento
   como padrão de toda tela.
+- 24/11/2026: spec fechada na versão 0.1.1, com os componentes de site, de
+  conteúdo e de sistema no registro e os apps de exemplo.

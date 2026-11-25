@@ -15,7 +15,7 @@ As preferências ficam em `~/.designfy/settings.json`, com permissão 0600.
 | `output.format` | `text` ou `json` | `text` | formato padrão da saída do CLI |
 | `output.colors` | boolean | `true` | cores ANSI na saída de texto |
 | `tui.icons` | `auto`, `nerd`, `unicode`, `ascii` | `auto` | conjunto de ícones da TUI |
-| `tui.initialTab` | nome de aba | `overview` | aba aberta ao iniciar |
+| `tui.initialTab` | ID de módulo | `overview` | tela aberta ao iniciar; `overview` abre a Home |
 | `tui.motion` | boolean | `true` | animações curtas de diálogos e toasts |
 | `tui.mouse` | boolean | `true` | clique, hover e roda na TUI |
 | `tui.theme` | `terminal`, `night`, `day` | `terminal` | paleta da TUI |
@@ -33,6 +33,26 @@ designfy config set output.format json
 designfy config unset telemetry.enabled
 designfy config path
 designfy config schema
+```
+
+O `config list` mostra o arquivo em uso e o valor de cada key:
+
+```text
+File: /home/luizeof/.designfy/settings.json (not created yet; defaults)
+
+  capture.outDir       ".designfy/captures"
+  capture.viewports    "mobile,desktop"
+  deps.packageManager  "auto"
+  output.colors        true
+  output.format        "text"
+  skills.agents        "universal,claude-code,codex,opencode"
+  skills.source        "promovaweb/designfy"
+  telemetry.enabled    false
+  tui.icons            "auto"
+  tui.initialTab       "overview"
+  tui.motion           true
+  tui.mouse            true
+  tui.theme            "terminal"
 ```
 
 `config path` imprime a pasta e os arquivos; `config schema`, o tipo, o padrão e

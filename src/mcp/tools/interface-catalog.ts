@@ -38,7 +38,7 @@ export function registerInterfaceCatalogTools({ server, catalog }: Registrar): v
   server.registerTool("catalog_show", {
     title: "Show interface fragment",
     description: show,
-    inputSchema: { id: z.string().min(1).describe("Interface fragment ID, such as hero.") },
+    inputSchema: { id: z.string().min(1).describe("Interface fragment ID, such as hero-split.") },
     outputSchema: interfaceEntrySchema,
     annotations: { readOnlyHint: true, openWorldHint: false },
   }, ({ id }) => reply(() => getEntry(id)));

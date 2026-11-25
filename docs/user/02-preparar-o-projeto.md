@@ -22,7 +22,7 @@ O `init` lê o `package.json` e detecta:
 
 | O que | Como |
 | --- | --- |
-| Framework | `astro`, `next`, `react` com `vite`, só `react`, ou `unknown` |
+| Framework | `astro`, `next`, `react-vite`, `react` ou `unknown` |
 | Tailwind | a versão maior de `tailwindcss`, ou `null` |
 | shadcn | a presença de `components.json` |
 | Gerenciador | o lockfile, na ordem `bun.lock`, `bun.lockb`, `pnpm-lock.yaml`, `yarn.lock`, `package-lock.json`; sem lockfile, `npm` |
@@ -75,6 +75,7 @@ comando parar com exit code 2:
 
 ```text
 error designfy.json already exists. Use --force to overwrite it. [2 USAGE]
+Use "designfy init --help".
 ```
 
 Use `--force` só quando quiser substituir o arquivo inteiro. Sem `package.json`
@@ -112,14 +113,16 @@ A saída do projeto de exemplo:
     archived            0
   Next viewspec ID      0001
   Viewspec guide        not found
-  Tailwind theme        /tmp/opencode/designfy-demo/src/styles/global.css
+  Tailwind theme        not found
 ```
 
 O painel separa a detecção atual (`Detected framework`) da configuração em
 vigor, que vem do `designfy.json`. Quando os dois divergem, o arquivo vale.
 `Skills installed` conta as skills do catálogo já instaladas no projeto ou no
 escopo global. `Components copied` conta os arquivos do registro que já estão
-na pasta do projeto. `Viewspec guide` diz se o `VIEWSPEC.md` da raiz existe.
+na pasta do projeto. `Viewspec guide` diz se o `VIEWSPEC.md` da raiz existe. `Tailwind theme` mostra
+`not found` até o tema ser copiado; depois do `components add designfy-theme`,
+ela aponta o CSS de entrada.
 
 O `status --json` entrega o mesmo conteúdo em `data`, com os objetos `detected`
 e `project` completos. Um agente usa essa forma para não reler o

@@ -40,7 +40,7 @@ export function registerCaptureWriteTools({ server, catalog }: Registrar): void 
   server.registerTool("capture_run", {
     title: "Capture browser screenshots",
     description,
-    annotations: { destructiveHint: false, idempotentHint: false, openWorldHint: true },
+    annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: true },
     inputSchema: {
       urls: z.array(z.string().min(1)).nonempty().describe("HTTP or HTTPS URLs to capture."),
       viewports: z.union([z.string().min(1), z.array(z.string().min(1)).nonempty()]).optional()

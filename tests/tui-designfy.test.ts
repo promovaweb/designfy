@@ -1,4 +1,5 @@
 /** Exercises Designfy modules through the shell with a local project and fake process runner. */
+import pkg from "../package.json";
 import { tmpdir } from "node:os";
 import { expect, test } from "bun:test";
 import { copyFileSync, cpSync, existsSync, mkdirSync, mkdtempSync, rmSync, readFileSync, writeFileSync } from "node:fs";
@@ -403,7 +404,8 @@ for (const [width, height] of [[100, 30], [140, 40]] as const) {
         }
         await frameWith(setup, ready);
         const frame = setup.captureCharFrame().split("\n").map((line) => line.trimEnd()).join("\n")
-          .replace(`${process.platform}-${process.arch} · Bun ${Bun.version}`, "linux-x64 · Bun 0.0.0");
+          .replace(`${process.platform}-${process.arch} · Bun ${Bun.version}`, "linux-x64 · Bun 0.0.0")
+          .replaceAll(`v${pkg.version}`, `v${"0.0.0".padEnd(pkg.version.length, "0")}`);
         const path = join(import.meta.dir, "showcase-frames", `night-${subject}-${width}x${height}.txt`);
         if (process.env.UPDATE_SHOWCASE === "1") {
           mkdirSync(join(import.meta.dir, "showcase-frames"), { recursive: true });

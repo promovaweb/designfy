@@ -118,7 +118,10 @@ export function TableOfContents({ items, label = "On this page", title, variant 
     });
 
   return (
-    <nav aria-label={label} className={cn("min-w-0", className)}>
+    <nav
+      aria-label={label}
+      className={cn("min-w-0", variant === "rail" ? "h-full" : variant === "auto" ? "xl:h-full" : undefined, className)}
+    >
       {showBlock ? (
         <details
           className={cn(

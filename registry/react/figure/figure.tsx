@@ -60,7 +60,7 @@ export function Figure({
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <figure className={cn("flex min-w-0 flex-col", WIDTH[variant], className)}>
+    <figure className={cn("not-prose flex min-w-0 flex-col", WIDTH[variant], className)}>
       <div
         className="overflow-hidden rounded-xl border border-border bg-muted"
         style={{ aspectRatio: `${width} / ${height}` }}

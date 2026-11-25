@@ -7,11 +7,30 @@
 </style>
   <rect width="1280" height="720" fill="var(--bg)" />
   <rect x="40" y="40" width="1200" height="640" fill="none" stroke="var(--muted)" />
+
+  <g stroke="var(--muted)" stroke-width="1" stroke-opacity="0.4">
+    <line x1="200" y1="520" x2="1080" y2="520" />
+    <line x1="640" y1="120" x2="640" y2="640" />
+  </g>
+
   <g stroke="var(--ink)" stroke-width="3" stroke-linecap="round" fill="none">
-    <path d="M180 470h320" stroke-opacity="0.7" />
-    <path d="M180 530h220" stroke-opacity="0.4" />
-    <circle cx="940" cy="360" r="150" stroke="var(--accent)" />
-    <path d="M900 292v136l112-68Z" fill="var(--accent)" fill-opacity="0.25" stroke="var(--accent)" />
+    <path d="M200 470h300" stroke-opacity="0.7" />
+    <path d="M200 520h210" stroke-opacity="0.45" />
+    <path d="M200 570h120" stroke-opacity="0.25" />
+    <path d="M700 210v310" />
+    <path d="M660 210h80" />
+    <path d="M660 520h80" />
+  </g>
+  <g stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round">
+    <line x1="700" y1="236" x2="660" y2="236" /><line x1="700" y1="260" x2="676" y2="260" /><line x1="700" y1="284" x2="676" y2="284" /><line x1="700" y1="308" x2="676" y2="308" /><line x1="700" y1="332" x2="660" y2="332" /><line x1="700" y1="356" x2="676" y2="356" /><line x1="700" y1="380" x2="676" y2="380" /><line x1="700" y1="404" x2="676" y2="404" /><line x1="700" y1="428" x2="660" y2="428" /><line x1="700" y1="452" x2="676" y2="452" /><line x1="700" y1="476" x2="676" y2="476" /><line x1="700" y1="500" x2="676" y2="500" />
+  </g>
+  <g stroke="var(--accent)" stroke-width="2" stroke-dasharray="7 7">
+    <path d="M820 210h220" />
+    <path d="M820 520h220" />
+  </g>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="19" fill="var(--ink)">
+    <text x="820" y="200">120 mm</text>
+    <text x="820" y="552">0 mm</text>
   </g>
   <text x="72" y="650" fill="var(--muted)" font-family="ui-sans-serif, system-ui, sans-serif" font-size="22">amostra</text>
 </svg>

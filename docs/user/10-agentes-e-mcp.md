@@ -59,7 +59,7 @@ As tools leem o mesmo domínio que o CLI. A tabela abaixo segue os grupos do
 | `components_list`, `components_show` | filtros, `name`, `framework?`, `source?` | metadados, arquivos e conteúdo |
 | `components_add` | `names`, `framework?`, `path?`, `overwrite?`, `dryRun?` | arquivos gravados e dependências |
 | `theme_show`, `theme_check` | `file?`, `group?` | tokens por grupo; contraste em claro e escuro |
-| `palette_generate`, `palette_wheel`, `palette_contrast` | `base`, cor, dois cores | escalas, harmonias e vereditos |
+| `palette_generate`, `palette_wheel`, `palette_contrast` | `base`, uma cor, duas cores | escalas, harmonias e vereditos |
 | `viewspec_guide`, `viewspec_list`, `viewspec_show` | filtros, `id` | guia, lista e o arquivo da tela |
 | `viewspec_progress`, `viewspec_validate` | `id?` | contagem e próximo `id`; diagnósticos por arquivo e linha |
 | `capture_run`, `capture_list` | `urls`, opções; `outDir?` | manifesto e imagens |

@@ -1,4 +1,4 @@
-    ◆ Designfy   v0.1.0  ⌂ Home  fixture-project · react-vite     T night   linux-x64 · Bun 0.0.0
+    ◆ Designfy   v0.0.0  ⌂ Home  fixture-project · react-vite     T night   linux-x64 · Bun 0.0.0
     › Install dependencies   [Enter]
    ╭─ 1 ◐ Theme ────────────────────────────────╮  ╭─ 2 ≡ Catalog ─────────────────────────────╮█
    │ globals.css                                │  │ 80 patterns                               │█

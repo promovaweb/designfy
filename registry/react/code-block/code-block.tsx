@@ -80,7 +80,7 @@ export function CodeBlock({
     <figure
       data-df-code
       data-df-copied={copied ? "" : undefined}
-      className={cn("group relative min-w-0 overflow-hidden rounded-lg border border-border bg-muted/40", className)}
+      className={cn("not-prose group relative min-w-0 overflow-hidden rounded-lg border border-border bg-muted/40", className)}
     >
       <figcaption className="flex min-h-11 items-center justify-between gap-3 border-b border-border px-4 py-1.5">
         <span className="min-w-0 truncate font-mono text-xs text-muted-foreground">{fileName ?? language}</span>

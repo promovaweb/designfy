@@ -57,7 +57,7 @@ export function Callout({ type = "note", label, title, children, className }: Ca
     <aside
       role="note"
       data-df-callout={type}
-      className={cn("rounded-lg border px-5 py-4", tone.surface, tone.border, className)}
+      className={cn("not-prose rounded-lg border px-5 py-4", tone.surface, tone.border, className)}
     >
       <p className={cn("flex items-center gap-2 text-sm font-semibold", tone.text)}>
         <Icon aria-hidden="true" className="size-4 shrink-0" />

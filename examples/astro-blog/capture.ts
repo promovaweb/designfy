@@ -8,7 +8,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
 const base = process.env.PREVIEW_URL ?? "http://localhost:4321";
-const pages = ["/", "/blog/", "/blog/page/2/", "/blog/a-regua-de-chuva/", "/blog/nevoeiro-das-seis/", "/blog/categoria/campo/"];
+const pages = ["/", "/blog/", "/blog/page/2/", "/blog/a-regua-de-chuva/", "/blog/nevoeiro-das-seis/", "/blog/categoria/metodo/", "/blog/categoria/campo/"];
 // `df-capture` asks the page for the final state of the content that enters on
 // scroll, because a full-page screenshot does not scroll.
 const urls = pages.map((path) => {

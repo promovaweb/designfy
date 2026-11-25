@@ -7,23 +7,55 @@
 </style>
   <rect width="1200" height="760" fill="var(--bg)" />
   <rect x="40" y="40" width="1120" height="680" fill="none" stroke="var(--muted)" />
-  <g stroke="var(--ink)" stroke-width="3" fill="none">
-    <rect x="470" y="90" width="150" height="560" rx="12" />
-    <path d="M470 240h150" stroke="var(--accent)" />
-    <rect x="470" y="240" width="150" height="410" rx="12" fill="var(--accent)" fill-opacity="0.16" stroke="none" />
+
+  <g stroke="var(--muted)" stroke-width="1" stroke-opacity="0.35">
+    <line x1="600" y1="40" x2="600" y2="720" />
+    <line x1="600" y1="380" x2="1160" y2="380" />
   </g>
-  <g stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round">
-    <line x1="620" y1="118" x2="548" y2="118" /><line x1="620" y1="141" x2="578" y2="141" /><line x1="620" y1="164" x2="578" y2="164" /><line x1="620" y1="187" x2="578" y2="187" /><line x1="620" y1="210" x2="578" y2="210" /><line x1="620" y1="233" x2="548" y2="233" /><line x1="620" y1="256" x2="578" y2="256" /><line x1="620" y1="279" x2="578" y2="279" /><line x1="620" y1="302" x2="578" y2="302" /><line x1="620" y1="325" x2="578" y2="325" /><line x1="620" y1="348" x2="548" y2="348" /><line x1="620" y1="371" x2="578" y2="371" /><line x1="620" y1="394" x2="578" y2="394" /><line x1="620" y1="417" x2="578" y2="417" /><line x1="620" y1="440" x2="578" y2="440" /><line x1="620" y1="463" x2="548" y2="463" /><line x1="620" y1="486" x2="578" y2="486" /><line x1="620" y1="509" x2="578" y2="509" /><line x1="620" y1="532" x2="578" y2="532" /><line x1="620" y1="555" x2="578" y2="555" /><line x1="620" y1="578" x2="548" y2="578" /><line x1="620" y1="601" x2="578" y2="601" /><line x1="620" y1="624" x2="578" y2="624" />
+
+  <g stroke="var(--ink)" stroke-width="3.5" fill="none">
+    <rect x="380" y="60" width="136" height="640" rx="14" />
+    <path d="M380 300h136" stroke="var(--accent)" />
   </g>
-  <g fill="var(--ink)" font-family="ui-sans-serif, system-ui, sans-serif" font-size="19">
-    <text x="680" y="130">0 mm</text>
-    <text x="680" y="246">120 mm</text>
-    <text x="680" y="640">nível d'água</text>
+  <rect x="381" y="301" width="134" height="398" rx="13" fill="var(--accent)" fill-opacity="0.18" />
+
+  <g stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round"><line x1="516" y1="76" x2="404" y2="76" /><line x1="516" y1="102" x2="448" y2="102" /><line x1="516" y1="128" x2="448" y2="128" /><line x1="516" y1="154" x2="448" y2="154" /><line x1="516" y1="180" x2="448" y2="180" /><line x1="516" y1="206" x2="404" y2="206" /><line x1="516" y1="232" x2="448" y2="232" /><line x1="516" y1="258" x2="448" y2="258" /><line x1="516" y1="284" x2="448" y2="284" /><line x1="516" y1="310" x2="448" y2="310" /><line x1="516" y1="336" x2="404" y2="336" /><line x1="516" y1="362" x2="448" y2="362" /><line x1="516" y1="388" x2="448" y2="388" /><line x1="516" y1="414" x2="448" y2="414" /><line x1="516" y1="440" x2="448" y2="440" /><line x1="516" y1="466" x2="404" y2="466" /><line x1="516" y1="492" x2="448" y2="492" /><line x1="516" y1="518" x2="448" y2="518" /><line x1="516" y1="544" x2="448" y2="544" /><line x1="516" y1="570" x2="448" y2="570" /><line x1="516" y1="596" x2="404" y2="596" /><line x1="516" y1="622" x2="448" y2="622" /><line x1="516" y1="648" x2="448" y2="648" /><line x1="516" y1="674" x2="448" y2="674" /></g>
+  <g font-family="ui-sans-serif, system-ui, sans-serif" font-size="20" fill="var(--ink)" fill-opacity="0.7">
+    <text x="330" y="83" text-anchor="end">120 mm</text>
+    <line x1="348" y1="76" x2="380" y2="76" stroke="var(--muted)" stroke-dasharray="5 6" />
+  </g><g font-family="ui-sans-serif, system-ui, sans-serif" font-size="20" fill="var(--ink)" fill-opacity="0.7">
+    <text x="330" y="213" text-anchor="end">90 mm</text>
+    <line x1="348" y1="206" x2="380" y2="206" stroke="var(--muted)" stroke-dasharray="5 6" />
+  </g><g font-family="ui-sans-serif, system-ui, sans-serif" font-size="20" fill="var(--ink)" fill-opacity="0.7">
+    <text x="330" y="343" text-anchor="end">60 mm</text>
+    <line x1="348" y1="336" x2="380" y2="336" stroke="var(--muted)" stroke-dasharray="5 6" />
+  </g><g font-family="ui-sans-serif, system-ui, sans-serif" font-size="20" fill="var(--ink)" fill-opacity="0.7">
+    <text x="330" y="473" text-anchor="end">30 mm</text>
+    <line x1="348" y1="466" x2="380" y2="466" stroke="var(--muted)" stroke-dasharray="5 6" />
+  </g><g font-family="ui-sans-serif, system-ui, sans-serif" font-size="20" fill="var(--ink)" fill-opacity="0.7">
+    <text x="330" y="603" text-anchor="end">0 mm</text>
+    <line x1="348" y1="596" x2="380" y2="596" stroke="var(--muted)" stroke-dasharray="5 6" />
   </g>
-  <g stroke="var(--muted)" stroke-width="2" stroke-dasharray="6 8">
-    <line x1="624" y1="118" x2="668" y2="118" />
-    <line x1="624" y1="240" x2="668" y2="240" />
-    <line x1="624" y1="640" x2="668" y2="640" />
+
+  <g stroke="var(--accent)" stroke-width="2">
+    <line x1="536" y1="76" x2="628" y2="76" />
+    <line x1="536" y1="300" x2="628" y2="300" />
+    <line x1="536" y1="660" x2="628" y2="660" />
   </g>
-  <text x="72" y="690" fill="var(--muted)" font-family="ui-sans-serif, system-ui, sans-serif" font-size="22">amostra</text>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="19" fill="var(--ink)">
+    <text x="640" y="82">gancho de fixação</text>
+    <text x="640" y="306">120 mm</text>
+    <text x="640" y="666">nível d'água</text>
+  </g>
+
+  <g font-family="ui-sans-serif, system-ui, sans-serif" font-size="20" fill="var(--ink)">
+    <text x="700" y="500" fill-opacity="0.85">régua de cedro</text>
+    <text x="700" y="532">marcas refeitas em 1998</text>
+    <text x="700" y="564">escala conferida com trena</text>
+  </g>
+  <g stroke="var(--accent)" stroke-width="3">
+    <line x1="700" y1="470" x2="760" y2="470" />
+  </g>
+
+  <text x="72" y="690" fill="var(--ink)" fill-opacity="0.55" font-family="ui-sans-serif, system-ui, sans-serif" font-size="22">amostra</text>
 </svg>

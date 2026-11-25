@@ -1,4 +1,4 @@
-    ◆ Designfy   v0.1.0  › ≡ Catalog  fixture-project · react-vite                                        T night   linux-x64 · Bun 0.0.0
+    ◆ Designfy   v0.0.0  › ≡ Catalog  fixture-project · react-vite                                        T night   linux-x64 · Bun 0.0.0
     ← Back   ≡ Catalog  Browse patterns and their implementation sources
 
    Surface: all · Kind: all

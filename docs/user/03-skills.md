@@ -38,12 +38,11 @@ capturas revisadas e o relato final.
 ### `designfy-viewspec`
 
 Escreve e mantém o guia `VIEWSPEC.md` da raiz e o viewspec de cada tela em
-`viewspec/<id>-<slug>/VIEWSPEC.md`, com as nove seções, a checklist por
-especialista e o estado. É chamada para criar o guia, especificar uma tela,
-retomar um trabalho aberto ou validar arquivos. Lê o contrato, o guia do
-projeto, o viewspec da tela, as checklists por tipo, a execução e os erros de
-validação, e usa os modelos e exemplos que acompanham a skill. Entrega o
-arquivo válido, com o progresso e as notas do trabalho.
+`viewspec/<id>-<slug>/VIEWSPEC.md`, com as nove seções e a checklist. É chamada
+para criar o guia, especificar uma tela, retomar um trabalho aberto ou validar
+arquivos. Lê o contrato, o guia do projeto, o viewspec da tela, as checklists
+por tipo, a execução e os erros de validação, e usa os modelos e exemplos da
+skill. Entrega o arquivo válido, com o progresso e as notas.
 
 ### `designfy-design-system`
 
@@ -85,12 +84,11 @@ as lacunas de conteúdo e o que fica para as outras especialistas.
 
 ### `designfy-content`
 
-Cuida da leitura em blogs, artigos, guias e documentação. Entra em página de
-artigo, listagem, categoria, página de documentação e embed de mídia. Lê a
-diagramação do texto, a página de artigo, a listagem e o arquivo, os elementos
-do texto, imagens e embeds, a página de documentação e Markdown ou MDX. Entrega
-a medida e a escala, os elementos tratados, a listagem no ar e o comportamento
-de tabela e código no celular.
+Cuida da leitura em blogs, artigos, guias e documentação. Entra em artigo,
+listagem, categoria, documentação e embed de mídia. Lê a diagramação do texto,
+a página de artigo, a listagem, os elementos do texto, imagens e embeds,
+documentação e Markdown ou MDX. Entrega a medida e a escala, os elementos
+tratados, a listagem no ar e o comportamento de tabela e código no celular.
 
 ### `designfy-systems`
 
@@ -122,11 +120,10 @@ o relatório.
 ### `designfy-review`
 
 Olha a tela pronta com olhos novos. Entra no fechamento de um viewspec, depois
-da primeira dobra, num pedido de melhoria e antes de publicar. Lê o ciclo de
-revisão, as capturas, a leitura das imagens, a otimização por largura, a
-gravidade e o encaminhamento, a revisão por tipo e a lista de acabamento. Entrega
-as execuções de captura, os achados por gravidade com a dona de cada um, o
-veredito e o que vai para o guia.
+da primeira dobra ou antes de publicar. Lê o ciclo de revisão, as capturas, a
+leitura das imagens, a otimização por largura, a gravidade e o encaminhamento, a
+revisão por tipo e a lista de acabamento. Entrega as execuções de captura, os
+achados por gravidade com a dona de cada um, o veredito e o que vai para o guia.
 
 ## O fluxo da skill `designfy`
 
@@ -141,8 +138,8 @@ revisar com capturas e fechar. O trabalho para em três pontos apenas:
 3. **Achado que é escolha de produto.** Por exemplo, decidir quais colunas da
    tabela ficam no celular.
 
-Fora desses pontos, o trabalho corre e você recebe marcos curtos: o que ficou
-pronto, o que vem agora e como conferir.
+Fora deles, o trabalho corre e você recebe marcos curtos: o que ficou pronto e
+como conferir.
 
 ## Três pedidos de exemplo
 
@@ -156,7 +153,7 @@ classifica como `site-page`, superfície `site`, cria
 **Dashboard.** "Redesenha o dashboard de vendas em `/app/vendas`; os dados vêm
 de `GET /api/sales/summary`; a ação principal é abrir os pedidos em atraso." A
 classificação é `dashboard`, superfície `system`, e o viewspec nasce como
-`viewspec/0002-dashboard-de-vendas/VIEWSPEC.md`. As especialistas são
+`viewspec/0002-dashboard-de-vendas/VIEWSPEC.md`. Rodam
 `designfy-design-system` se faltar papel de cor, `designfy-systems`,
 `designfy-components`, `designfy-motion`, `designfy-responsive`,
 `designfy-accessibility` e `designfy-review`.
@@ -180,8 +177,8 @@ O catálogo também instala cinco skills de fora:
 | `astrofy` | [promovaweb/astrofy](https://github.com/promovaweb/astrofy) | projeto Astro: arquitetura, páginas, SEO e deploy |
 | `brandfy` | [promovaweb/brandfy](https://github.com/promovaweb/brandfy) | marca nova: estratégia, logo, paleta e manual |
 
-O `hallmark`, o `shadcn` e o `astrofy` declaram framework e só entram em projeto
-compatível. O `astrofy` e o `brandfy` instalam a biblioteca inteira da origem.
+O `shadcn` e o `astrofy` só entram em projeto compatível. O `astrofy` e o
+`brandfy` instalam a biblioteca inteira da origem.
 
 ## Instalar e listar
 
@@ -199,5 +196,4 @@ as skills por origem e roda um `npx -y skills add` por grupo. O `update` e o
 - `designfy skills list` mostra as onze internas e as cinco externas.
 - `skills-lock.json` está versionado com o projeto.
 - `designfy skills install --dry-run` imprime um comando por origem.
-- A skill `designfy` aparece na pasta do agente que você usa.
 - O relato final cita o viewspec criado e a pasta da captura.

@@ -865,9 +865,7 @@
       "categories": [
         "content"
       ],
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": [],
       "devDependencies": [],
       "registryDependencies": [
         "cn",
@@ -1039,9 +1037,7 @@
       "categories": [
         "content"
       ],
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": [],
       "devDependencies": [],
       "registryDependencies": [
         "cn",

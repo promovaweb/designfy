@@ -95,7 +95,7 @@ export function PostList({
       ) : null}
 
       {empty ? (
-        <div className="flex flex-col items-start gap-4 rounded-xl bg-muted/50 px-6 py-12 sm:items-center sm:text-center">
+        <div className="flex flex-col items-start gap-4 rounded-xl bg-muted/50 px-6 py-10 md:px-8">
           <EmptyHeading className="font-heading text-title font-semibold text-balance text-foreground">{emptyTitle}</EmptyHeading>
           {emptyText ? <p className="max-w-[46ch] text-muted-foreground">{emptyText}</p> : null}
           {emptyAction ? (

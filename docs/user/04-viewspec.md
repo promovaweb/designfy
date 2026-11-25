@@ -17,19 +17,19 @@ código.
 | `viewspec/<id>-<slug>/VIEWSPEC.md` | uma página ou tela | a especificação daquela interface e a checklist da execução |
 
 Toda tela é escrita e revisada contra o guia da raiz. A skill `designfy` lê o
-guia antes de montar o viewspec da tela, a `designfy-viewspec` mantém os dois e
-o binário só lê e valida. Nenhum command grava viewspec.
+guia antes de montar o da tela, a `designfy-viewspec` mantém os dois e o
+binário só lê e valida. Nenhum command grava viewspec.
 
-A pasta `viewspec/` fica visível na raiz. O caminho vem de `paths.viewspec` no
-`designfy.json`. O nome do diretório é `<id>-<slug>`, com o `id` de quatro
-dígitos e o `slug` em kebab-case repetidos no front matter.
+A pasta `viewspec/` fica na raiz e o caminho vem de `paths.viewspec`. O nome do
+diretório é `<id>-<slug>`, com o `id` de quatro dígitos e o `slug` em kebab-case
+repetidos no front matter.
 
 ## O guia do projeto
 
 O guia segue a ideia do formato aberto
 [DESIGN.md](https://github.com/google-labs-code/design.md): um arquivo de texto
-que registra o sistema visual para pessoas e agentes. O Designfy acrescenta
-padrões de tela, um identificador por regra e o histórico do que foi aprendido.
+com o sistema visual para pessoas e agentes. O Designfy acrescenta padrões de
+tela, um identificador por regra e o histórico do que foi aprendido.
 
 O front matter declara o escopo, o nome, as superfícies, os frameworks, o
 arquivo de tokens e os temas:
@@ -89,6 +89,17 @@ ou auditoria). Parágrafo ou item sem `{#id}` é contexto, não regra. Uma regra
 `@pessoa` só muda com o aceite dela; uma `@agente` pode ser revista, com entrada
 nova em Aprendizados.
 
+Uma regra boa cabe numa conferência de captura ou de código e diz o que fazer,
+por quê e quem disse. "Um só `h1` por tela" é regra; "usar boa hierarquia" não
+é. "Tabela com mais de quatro colunas vira cartões abaixo de 640 px" é regra;
+"tabelas responsivas" não é.
+
+Todo guia novo começa com um conjunto pequeno de regras `@agente`: papéis do
+tema sem cor literal, contraste de 4.5:1 conferido, um `h1` por tela, container
+com teto, movimento com versão parada, uma ação principal por tela, carregando,
+vazio e erro em toda região de dado, nenhuma rolagem horizontal entre 320 e
+1920 px, alvo de toque de 44 px, foco visível e nada inventado.
+
 ## Aprendizados
 
 Aprendizados guarda o histórico com data, origem, o que foi aprendido e o
@@ -139,6 +150,14 @@ especialistas na ordem de execução. `guideRules` registra as regras do guia qu
 a tela aplica de forma direta e `deviations` registra as que ela não segue, com
 o motivo em Notas.
 
+Os campos opcionais são `priority` (`low`, `medium` ou `high`), `dependsOn`
+(IDs que precisam estar `done`), `source`, `blockedReason`, `archivedReason` e
+`captures` (execuções da revisão).
+
+Numa entrega com várias telas, crie todos os viewspecs antes da primeira
+implementação e marque a ordem em `dependsOn`: o shell antes das telas, a
+listagem antes do detalhe.
+
 As nove seções do corpo são Objetivo (quem usa, o que precisa conseguir e a ação
 principal), Conteúdo (o que aparece e a origem de cada texto, dado e mídia),
 Estrutura (as regiões de cima para baixo, com o fragmento de cada uma), Estados
@@ -147,6 +166,14 @@ Estrutura (as regiões de cima para baixo, com o fragmento de cada uma), Estados
 quê, com a versão parada), Acessibilidade (marcos, títulos, foco, nomes e
 contraste), Checklist (as tarefas, com dona e identificador) e Notas (o registro
 cronológico das escolhas e dos impedimentos).
+
+## Modelos e exemplos
+
+A skill traz dois modelos em `assets/templates/`, `VIEWSPEC.guia.md` e
+`VIEWSPEC.tela.md`, e cinco exemplos em `assets/examples/`: `guia-de-site.md`,
+`guia-de-sistema.md`, `tela-landing-page.md`, `tela-dashboard.md` e
+`tela-artigo.md`. Os exemplos mostram o detalhe esperado em cada seção; use como forma, não como
+texto para copiar.
 
 ## A checklist
 
@@ -227,7 +254,7 @@ O `progress` resume por estado e devolve o próximo `id`:
 ```
 
 O `show <id>` imprime o front matter e o corpo inteiro. O `validate` confere o
-contrato dos dois níveis e, quando está tudo certo, responde
+contrato dos dois níveis e, com tudo certo, responde
 `Viewspec validation passed.` com exit code 0. Um arquivo inválido aparece com
 caminho e linha:
 
@@ -236,8 +263,8 @@ caminho e linha:
 ```
 
 Sem `VIEWSPEC.md` na raiz, o `validate` mostra `guide: missing` e continua com
-exit code 0; o `viewspec guide` para com exit code 6. A qualidade da interface
-fica com a `designfy-review`, com as capturas na mão.
+exit code 0; o `viewspec guide` para com exit code 6. A qualidade da interface fica
+com a `designfy-review`, com capturas.
 
 ## Conferir
 

@@ -70,7 +70,7 @@ export function VideoEmbed({
         : undefined;
 
   return (
-    <figure className={cn("flex min-w-0 flex-col", className)}>
+    <figure className={cn("not-prose flex min-w-0 flex-col", className)}>
       <div className={cn("relative overflow-hidden rounded-xl border border-border bg-muted", ASPECT[aspect])}>
         {playing ? (
           provider === "native" ? (
