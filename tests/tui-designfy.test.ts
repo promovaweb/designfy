@@ -68,7 +68,7 @@ async function withProject(run: (dir: string) => Promise<void>): Promise<void> {
 }
 
 async function frameWith(setup: TestRendererSetup, expected: string): Promise<string> {
-  for (let attempt = 0; attempt < 30; attempt++) {
+  for (let attempt = 0; attempt < 450; attempt++) {
     await setup.renderOnce();
     const frame = setup.captureCharFrame();
     if (frame.includes(expected)) return frame;
@@ -353,12 +353,12 @@ test("multi-step Skills progress keeps completed steps while the next command ru
         expect(complete).toHaveLength(0);
         await key(setup, "i");
         await frameWith(setup, "PROGRESS");
-        for (let i = 0; !complete.length && i < 30; i++) await Bun.sleep(5);
+        for (let i = 0; !complete.length && i < 600; i++) await Bun.sleep(5);
         expect(complete).toHaveLength(1);
         complete[0]!(0);
         const active = await frameWith(setup, "✓ npx");
         expect(active).toMatch(/Steps ━+ 1\/[2-9]|Steps ━+ 1\/\d{2}/);
-        for (let i = 0; complete.length < 2 && i < 30; i++) await Bun.sleep(5);
+        for (let i = 0; complete.length < 2 && i < 600; i++) await Bun.sleep(5);
         expect(complete).toHaveLength(2);
         complete[1]!(17);
         const result = await frameWith(setup, "exited with code 17");

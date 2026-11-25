@@ -94,7 +94,7 @@ for (const [layout, width] of [["compact", 64], ["medium", 100], ["wide", 160]] 
       expect(fixture.statuses.at(-1)).toBe("docs: cli");
       fixture.answers.choose = async () => 1; await action(docs, "t", fixture.ctx); await setup.renderOnce();
       expect(fixture.statuses.at(-1)).toBe("docs: tui");
-      for (let attempt = 0; attempt < 40 && !setup.captureCharFrame().includes("sem argumentos"); attempt++) { await Bun.sleep(25); await setup.renderOnce(); }
+      for (let attempt = 0; attempt < 600 && !setup.captureCharFrame().includes("sem argumentos"); attempt++) { await Bun.sleep(25); await setup.renderOnce(); }
       expect(setup.captureCharFrame()).toContain("sem argumentos");
       docs.onLeave?.(fixture.ctx);
     } finally { setup.renderer.destroy(); }

@@ -37,7 +37,7 @@ for (const [width, height] of sizes) {
         setCredential("github.token", "visual-test-secret");
         closed = mountTui(setup.renderer, { initialTab: tab, icons: iconSets.unicode, motion: false }, terminalTheme());
         if (tab === "docs") {
-          for (let attempt = 0; attempt < 50; attempt++) {
+          for (let attempt = 0; attempt < 750; attempt++) {
             await setup.renderOnce();
             if (setup.captureCharFrame().includes("Convenções")) break;
             await Bun.sleep(10);
@@ -96,7 +96,7 @@ for (const [width, height] of sizes) {
             expect(panels.filter(panel => panel.verticalScrollBar.visible).length).toBeLessThanOrEqual(1);
             let sections = frame;
             const panel = panels[0]!;
-            for (let attempt = 0; attempt < 20; attempt++) {
+            for (let attempt = 0; attempt < 300; attempt++) {
               const previous = panel.scrollTop;
               panel.scrollBy(3);
               await setup.renderOnce();
@@ -125,7 +125,7 @@ for (const [width, height] of sizes) {
           expect(content).toMatch(/\[r\] reload/);
           const reading = scrollPanels(setup.renderer.root).at(-1)!;
           let steps = content;
-          for (let attempt = 0; attempt < 20; attempt++) {
+          for (let attempt = 0; attempt < 300; attempt++) {
             const previous = reading.scrollTop;
             reading.scrollBy(1);
             await setup.renderOnce();

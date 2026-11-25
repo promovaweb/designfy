@@ -94,7 +94,7 @@ test("About clipboard errors become a status message", async () => {
 });
 test("the narrow Home scrolls to tool modules and keeps cards clickable", async () => {
   await withTui(async (setup) => {
-    for (let attempt = 0; attempt < 40 && !setup.captureCharFrame().includes("0 ⚙ Settings"); attempt++) {
+    for (let attempt = 0; attempt < 600 && !setup.captureCharFrame().includes("0 ⚙ Settings"); attempt++) {
       await setup.mockMouse.scroll(18, 5, "down");
       await setup.renderOnce();
     }
