@@ -2,9 +2,9 @@
 
 ![Logo do Designfy](../../brand/logo/icon.png)
 
-Na revisão do Plano Founders, uma das nove tarefas era manter o prazo da oferta logo abaixo dos botões do hero no celular. A posição ficou registrada no viewspec da tela. Depois do ajuste, a captura `founders-0001-depois` permitiu conferir a disposição dos elementos. O manifesto também registrou que o conteúdo cabia na largura da janela.
+No celular, o prazo da oferta do Plano Founders precisava aparecer logo abaixo dos botões do hero. Esse era um dos nove itens do viewspec da tela. Depois do ajuste, o PNG da execução `founders-0001-depois` permitiu conferir a posição do prazo. O manifesto registrou também a largura do documento e a ausência de rolagem horizontal.
 
-Com o Designfy, você trabalha com esses dois arquivos em momentos diferentes. O viewspec descreve o que a interface precisa fazer. A captura permite comparar o resultado com o que ficou escrito. Entre uma etapa e outra, o catálogo ajuda a escolher um padrão de interface e o registro fornece componentes React ou Astro para implementar a tela com Tailwind. Há componentes que usam shadcn e Motion.
+O viewspec acompanha a tela desde a escolha de um padrão de interface no catálogo até a revisão da captura. Para implementar o padrão, você pode copiar do registro um componente em React ou Astro com os estilos do Tailwind. Alguns componentes usam também o shadcn ou o Motion. Depois da implementação, compare a tela com a checklist do viewspec.
 
 ## Capítulos do guia
 
@@ -22,16 +22,16 @@ Na primeira instalação, comece pelos capítulos 1 e 2 para reconhecer o projet
 10. [Agentes e MCP](10-agentes-e-mcp.md) para conectar um cliente ao binário e consultar o projeto por uma tool.
 11. [Referência](11-referencia.md) para localizar um arquivo, alterar uma preferência ou interpretar o código de saída no CI.
 
-## Edição em PDF e EPUB
+## Leia online ou como ebook
 
-Os capítulos também estão disponíveis em livro. O PDF preserva a composição das páginas para leitura e impressão. No EPUB, você ajusta a fonte e o tamanho do texto no leitor. Para conferir um download, compare o hash do arquivo com o publicado para a edição correspondente.
+Para imprimir o guia com a paginação da edição, baixe o PDF. No EPUB, você pode ajustar a fonte e o tamanho do texto no leitor. O arquivo `build.json` identifica a edição vigente e traz o SHA-256 de cada formato para conferir o download.
 
-- [Baixar o PDF da versão 0.2.1](../../ebook/Designfy-Guia-do-Usuario-v0.2.1.pdf)
-- [Baixar o EPUB da versão 0.2.1](../../ebook/Designfy-Guia-do-Usuario-v0.2.1.epub)
-- [Consultar a edição e os hashes](../../ebook/README.md)
+- [Baixar o PDF da edição vigente](../../ebook/ebook-designfy.pdf)
+- [Baixar o EPUB da edição vigente](../../ebook/ebook-designfy.epub)
+- [Consultar a edição e os hashes](../../ebook/build.json)
 
 ## Referência embutida e versão online
 
-Na máquina onde você instalou o binário, `designfy --skill` imprime o manual técnico em Markdown. Para verificar uma opção da sua versão, abra a ajuda do comando com `--help`. Os arquivos que acompanham o executável documentam o contrato do viewspec, os comandos do CLI, os módulos da TUI e as tools MCP. [Documentação embutida](../../docs/README.md)
+Para consultar o manual técnico da versão instalada, rode `designfy --skill` no terminal. Use `--help` no comando que você pretende executar para conferir as opções disponíveis. A referência embutida também descreve o formato do viewspec e as operações que o agente pode chamar pelo MCP. [Documentação embutida](../../docs/README.md)
 
-O Designfy é distribuído no npm como `@promovaweb/designfy`. O repositório público reúne o código, os binários e as notas de versão. No site da Promovaweb, você encontra a apresentação do projeto e pode ler o guia no navegador. [Repositório do Designfy](https://github.com/promovaweb/designfy) · [Portal do Designfy](https://promovaweb.com/designfy/) · [Guia e documentação online](https://promovaweb.com/docs/designfy/)
+Você encontra o pacote `@promovaweb/designfy` no npm e as notas de cada versão junto aos binários no repositório. Para conhecer as ferramentas do projeto, abra o portal da Promovaweb. A documentação online reúne os capítulos para leitura no navegador. [Repositório do Designfy](https://github.com/promovaweb/designfy) · [Portal do Designfy](https://promovaweb.com/designfy/) · [Guia e documentação online](https://promovaweb.com/docs/designfy/)

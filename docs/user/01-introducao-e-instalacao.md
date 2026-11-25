@@ -1,10 +1,10 @@
 # Capítulo 1: Introdução e instalação
 
-No site da Promovaweb, a primeira tela revisada com o Designfy foi a do Plano Founders. No celular, a linha com o prazo da oferta precisava aparecer sob os botões do hero. O agente registrou a mudança no viewspec da tela. Com o site aberto no navegador, uma captura permitiu conferir a posição do texto na largura de leitura.
+Na primeira revisão de uma tela com o Designfy no site da Promovaweb, o agente registrou no viewspec do Plano Founders onde o prazo da oferta deveria aparecer no celular. Na captura da rota, a referência para conferir a posição era a linha de botões do hero. O prazo precisava ficar logo abaixo dela.
 
 ## O que instalar para trabalhar numa tela
 
-Você instala o executável para operar sobre os arquivos do projeto. Ele identifica o framework, localiza o tema e abre o navegador com Playwright quando chega a hora de fotografar a interface. O agente usa a skill `designfy` para conduzir esse trabalho. É nela que encontra as instruções para escrever a especificação e selecionar as especialistas de cada tela.
+O executável identifica o framework nos arquivos do projeto e localiza o tema usado na interface. Durante uma captura, ele abre a rota no navegador com o Playwright. Já a skill `designfy` orienta o agente a escrever a especificação da tela e a escolher as especialistas que vão trabalhar nela.
 
 | Frente | O que entrega |
 | --- | --- |
@@ -13,7 +13,7 @@ Você instala o executável para operar sobre os arquivos do projeto. Ele identi
 | Peças | registro de componentes React e Astro, catálogo de interface, paleta e fundos |
 | Conferência | `theme check`, `deps check`, `viewspec validate` e capturas com Playwright |
 
-Na linha Conferência, cada comando examina uma parte diferente da entrega. O `theme check` mede contraste no tema. Para verificar a posição de um botão no celular, você precisa olhar a captura da rota indicada no viewspec.
+O `theme check` mede o contraste entre o texto e o fundo de um botão. Para conferir também onde esse botão aparece no celular, abra a captura da rota indicada no viewspec.
 
 ## TUI, CLI e MCP
 
@@ -29,7 +29,7 @@ No CLI, a resposta sai em stdout e os avisos em stderr. Com `--json`, uma execu�
 
 ## Instalação pelo pacote npm
 
-O pacote usa Node.js 18.17 ou superior para baixar o executável. Essa versão do Node também atende à instalação de skills pelo `npx skills` e ao processo do Playwright que roda no projeto durante a captura. Para usar o binário da release, o runtime do Bun já vem incluído.
+O pacote do npm exige o Node.js 18.17 ou superior para baixar o executável, que já inclui o runtime do Bun. A instalação das skills usa o `npx`. Durante uma captura, o Designfy chama o Node para executar o Playwright instalado no projeto.
 
 ```bash
 npm i -g @promovaweb/designfy
@@ -52,7 +52,7 @@ Confira o download com o `SHA256SUMS` da mesma release. Coloque o arquivo em uma
 
 ## Skills no ambiente do agente
 
-O agente precisa de acesso ao GitHub para buscar as instruções no repositório da Promovaweb. Para instalar a biblioteca diretamente com o instalador de skills, use a origem do projeto.
+Para disponibilizar a biblioteca de skills ao agente, indique ao `npx skills add` o repositório da Promovaweb. Essa instalação precisa de acesso ao GitHub.
 
 ```bash
 npx skills add promovaweb/designfy
@@ -84,7 +84,7 @@ designfy about
 designfy doctor
 ```
 
-No registro abaixo, a consulta curta identifica a versão usada para produzir os exemplos do guia.
+O `--version` imprime o nome e a versão do executável encontrado no `PATH`. Os exemplos deste guia foram registrados com a versão indicada aqui.
 
 ```text
 designfy 0.2.0
@@ -139,7 +139,7 @@ Nesse registro de desenvolvimento, o caminho termina em `bun` e a plataforma é 
 ✓ platform: linux-x64
 ```
 
-O símbolo `✓` indica que a verificação passou. Um `!` junto de `directory` ou `settings` é esperado antes da primeira preferência gravada. O aviso de `VIEWSPEC.md` desaparece quando você cria o guia. Em uma aplicação ainda sem `designfy.json` ou CSS do Tailwind, o diagnóstico sinaliza também essas ausências. Uma falha marcada com `✗` leva ao código de saída 3. Uma execução aprovada termina com 0.
+O `✓` marca uma verificação bem-sucedida. Antes de gravar a primeira preferência, você pode encontrar `!` em `directory` ou `settings`. O `doctor` também avisa quando faltam o guia `VIEWSPEC.md`, a configuração `designfy.json` ou a folha do Tailwind. Só os itens com `✗` levam ao código 3. Um diagnóstico com avisos pode terminar com 0.
 
 ## Ajuda do comando instalado
 
@@ -150,6 +150,6 @@ designfy capture run --help
 designfy components add --help
 ```
 
-A primeira consulta mostra as opções da captura, inclusive a largura do navegador. A segunda descreve a cópia de componentes. Para ler a referência técnica da versão instalada em Markdown, use `designfy --skill`. O conteúdo vem de `docs/` e acompanha o executável.
+Em `capture run`, procure `--viewport` para escolher uma largura predefinida ou informar as dimensões no formato `WIDTHxHEIGHT`. Em `components add`, `--dry-run` mostra o plano de cópia. A referência em Markdown dos dois comandos acompanha o executável e pode ser consultada com `designfy --skill`.
 
 Com `designfy --skill cli`, você recebe somente a referência do CLI, gerada a partir do registro de comandos. As outras partes têm os nomes `tui`, `mcp`, `config`, `exit-codes` e `reference`. Um agente pode consultar o tópico de que precisa mesmo quando o repositório do Designfy não está na máquina.

@@ -1,6 +1,6 @@
 # Capítulo 4: Viewspec
 
-O viewspec `0001-founders` reuniu nove itens para revisar o Plano Founders. Um deles tratava do prazo da oferta no celular. Outro especificava como o visitante poderia pausar a faixa animada pelo teclado. O arquivo permitiu acompanhar cada correção até a captura `founders-0001-depois`. Já as orientações aplicáveis a outras páginas ficaram no guia da raiz.
+Nos nove itens do viewspec `0001-founders`, o prazo da oferta no celular e o botão de pausa da faixa animada exigiam verificações diferentes. Para o primeiro, bastava conferir a posição na captura `founders-0001-depois`. Para o segundo, era preciso percorrer a tela pelo teclado até o botão receber foco. As orientações que também valiam para outras rotas ficaram no guia da raiz.
 
 ## Onde registrar uma orientação ou uma tarefa
 
@@ -32,7 +32,7 @@ updatedAt: 2026-11-24T09:00:00-03:00
 ---
 ```
 
-No exemplo, `scope: project` identifica o guia de uma aplicação Astro com temas claro e escuro. Confira o caminho em `tokensFile` no projeto real. No site da Promovaweb, a descoberta automática havia escolhido o CSS da documentação. O guia apontou para `src/styles/brand/global.css`, usado pelas páginas públicas.
+No exemplo, `scope: project` identifica o guia da aplicação Astro. O campo `themes` lista os modos claro e escuro. Em `tokensFile`, indique o CSS usado nas rotas às quais o guia se aplica. No site da Promovaweb, esse caminho é `src/styles/brand/global.css`.
 
 ### Seções, identificadores e autoria
 
@@ -165,7 +165,7 @@ Integrations
   specsfy  absent  specsDir=specs
 ```
 
-No exemplo, o leitor encontrou Astrofy. O resultado de Specsfy é `absent`. Com `status --json`, examine `integrations.astrofy` e `integrations.specsfy`. Um caminho ausente aparece como `null`. Pelo MCP, a ferramenta `project_status` oferece a mesma consulta.
+Na saída da demonstração, o Designfy reconheceu o Astrofy e marcou o Specsfy como `absent`. Em `status --json`, os campos `integrations.astrofy` e `integrations.specsfy` ficam dentro de `data`. Nos campos de caminho, `null` indica ausência do arquivo ou diretório. Pelo MCP, você obtém o mesmo diagnóstico com `project_status`.
 
 ### A sitespec do Astrofy
 
@@ -199,7 +199,7 @@ Quando os dois documentos divergem, prevalece a spec. Complete nela a definiçã
 
 ## Checklist, captura e mudança de estado
 
-Para transformar a especificação em trabalho verificável, descreva cada tarefa no formato GFM. Identifique a especialista que a executa e atribua um ID de quatro caracteres. O trecho da demonstração tem duas tarefas concluídas e duas pendentes.
+Na seção Checklist, escreva cada tarefa como uma caixa de seleção do GitHub Flavored Markdown (GFM). Identifique a especialista responsável e use quatro letras minúsculas ou algarismos no ID de cada item. Na demonstração, as duas primeiras caixas já estão marcadas.
 
 ```markdown
 - [x] Hero com conteúdo real `#designfy-websites` {#a1b2}
@@ -208,7 +208,7 @@ Para transformar a especificação em trabalho verificável, descreva cada taref
 - [ ] Capturas em celular e desktop revisadas e achados resolvidos `#designfy-review` {#z9y8}
 ```
 
-A caixa `[x]` indica conclusão. A caixa `[ ]` conserva o item aberto. Sem a anotação da especialista, vale a primeira entrada de `skills`. Preserve o `{#id}` mesmo quando revisar a descrição. Um identificador ausente ou repetido invalida o arquivo.
+Marque `[x]` ao terminar a tarefa e mantenha `[ ]` enquanto ela estiver aberta. Quando o item omite a especialista, vale a primeira entrada de `skills`. Ao revisar a descrição, preserve o `{#id}`, pois o validador rejeita identificadores ausentes ou repetidos.
 
 No Plano Founders, a mesma checklist cobriu o comportamento da oferta no celular e a inspeção dos componentes compartilhados em `/planos/martech/`. A captura final permitiu verificar a ausência de rolagem horizontal. Registre a execução em `captures` e altere o campo `status` no Markdown para refletir a etapa alcançada.
 
@@ -224,7 +224,7 @@ O leitor usa o estado explícito. Uma tarefa pendente impede `done` mesmo quando
 
 ## Consultas do guia e das telas pelo CLI
 
-Para conferir o arquivo da raiz, use `guide`. Para localizar uma tela pelo título e pelo progresso, consulte `list` e abra o ID com `show`. Os comandos abaixo também permitem conferir o conjunto de arquivos antes da entrega.
+O `viewspec guide` consulta o arquivo da raiz. Para retomar uma tela, procure o título e o progresso em `list` e use o ID em `show`. Já `progress` resume o conjunto das telas e `validate` aponta problemas nos arquivos.
 
 ```bash
 designfy viewspec guide
@@ -234,7 +234,7 @@ designfy viewspec progress
 designfy viewspec validate
 ```
 
-A saída de `guide` mostra o front matter e as seções presentes. Os totais por seção e por origem ajudam a localizar propostas que ainda aguardam confirmação.
+Em `guide`, os totais por seção e por origem aparecem depois do front matter. Procure `Pending proposals` para saber quais propostas aguardam confirmação.
 
 ```text
   Visão geral            1
@@ -270,7 +270,7 @@ A tela `0001` está em implementação com dois de quatro itens marcados. Use `s
   Next id      0002
 ```
 
-O próximo ID livre é `0002`. Para verificar se os arquivos existentes respeitam o contrato, rode `validate`. O retorno `Viewspec validation passed.` vem com código 0. Uma falha de formato localiza o trecho a corrigir.
+Na demonstração, `Next id` indica `0002` para a próxima tela. Ao rodar `validate`, procure `Viewspec validation passed.` e o código 0. Se houver um erro de formato, o diagnóstico indica o arquivo e, quando disponível, a linha a corrigir.
 
 ```text
 /tmp/opencode/designfy-demo/VIEWSPEC.md:80 [Aprendizados] Use YYYY-MM-DD, a valid origin, a description and → followed by the learning destination.

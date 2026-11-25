@@ -1,6 +1,6 @@
 # Capítulo 9: TUI
 
-Na Home do Designfy, uma captura com rolagem horizontal aparece no cartão Captures como `overflowX`. Abra o módulo para selecionar o viewport e copiar o caminho da imagem. O cartão Viewspecs mostra outra parte da revisão da tela, o avanço da checklist. Uma captura sem transbordamento ainda pode ter uma pendência de teclado, como as setas do carrossel na revisão do Plano Founders.
+O cartão Captures da Home mostra quantas imagens da execução mais recente tiveram `overflowX`. Abra o módulo com `8`, selecione a imagem com `Enter` e copie o caminho com `o`. Para acompanhar os testes de teclado da mesma tela, consulte a checklist em Viewspecs. Na revisão do Plano Founders, ela incluía verificar o foco nas setas do carrossel.
 
 ## Abrir a Home ou ir direto ao tema
 
@@ -11,13 +11,13 @@ designfy
 designfy tui --tab theme
 ```
 
-A opção `--tab` aceita os IDs dos módulos numerados: `theme`, `catalog`, `components`, `skills`, `deps`, `mcp`, `viewspecs`, `captures`, `project` e `settings`. Para abrir uma das telas auxiliares, use `credentials`, `docs` ou `about`. O ID da Home é `overview`.
+Os IDs usados por `--tab` correspondem aos nomes dos módulos na tabela de atalhos, em letras minúsculas. Use `overview` para abrir a Home. As telas auxiliares também têm IDs próprios, como `credentials`, `docs` e `about`.
 
 O cabeçalho identifica a pasta e o framework ao lado da marca, da versão e da trilha de navegação. Quando falta espaço, a TUI abrevia a pasta e oculta a plataforma. Na largura completa, também aparecem a versão do Bun e o chip do tema. Clique na marca para voltar ao menu. Dentro de um módulo, o chip `← Back` também leva você à Home.
 
 ## Ler os cartões da Home
 
-A faixa acima dos cartões aponta a primeira pendência do projeto. A inicialização vem antes do tema. Depois do tema vêm o guia, a instalação de dependências e a retomada de um viewspec aberto, nessa ordem. Na Home de referência abaixo, a faixa indica instalação porque ainda faltam 12 pacotes.
+A faixa recomenda inicializar o projeto antes de configurar o tema ou criar o guia. Com esses três passos completos, ela indica as dependências que faltam e, depois da instalação, o viewspec a retomar. No exemplo abaixo, os 12 pacotes ausentes no cartão Deps explicam a indicação `Install dependencies`.
 
 ```text
     ◆ Designfy   v0.2.0  ⌂ Home  fixture-project · react-vite                                             T night   linux-x64 · Bun 0.0.0
@@ -110,7 +110,7 @@ Dentro de um módulo, `Esc` volta à Home. Na Home, a mesma tecla encerra a sess
 
 Abra a busca com `/` na lista do módulo. O filtro funciona nos oito módulos numerados de Theme a Captures e ignora maiúsculas e acentos. O título mostra a busca e quantos itens continuam visíveis em relação ao total. Use `Enter` para conservar o filtro ou `Esc` para recuperar a busca anterior.
 
-Em Skills, por exemplo, `Space` marca uma skill e `a` marca as que aparecem no filtro. Confira a seleção antes de usar `i`. Você pode limpar as marcas com `n`. Ao instalar, o primeiro toque em `i` abre o plano com os comandos previstos. Repita o atalho para executar ou use outra tecla para cancelar o plano. Durante a execução, o painel mostra o tempo decorrido e os passos recentes até chegar ao resultado.
+Em Skills, `Space` marca uma skill e `a` marca as que o filtro exibe. Para limpar as marcas, use `n`. Pressione `i` uma vez e confira os comandos de instalação no plano. Um segundo `i` confirma a execução. Use outra tecla para cancelar enquanto o plano estiver aberto. Durante a instalação, acompanhe no painel o tempo decorrido e os passos já executados.
 
 ## Paleta, ícones e seleção de texto
 
@@ -120,4 +120,4 @@ A preferência `tui.icons` aceita `nerd`, `unicode`, `ascii` ou `auto`. No modo 
 
 ## Largura e altura do terminal
 
-A grade usa três colunas a partir de 110 células de largura. Entre 80 e 109 cabem duas. Abaixo de 80, os cartões ocupam uma coluna. Com menos de 32 linhas, a barra compacta conserva `? help` e `q quit`. O mínimo para usar a TUI é 60 colunas por 16 linhas. A mensagem para ampliar a janela aparece quando uma das medidas fica abaixo desse limite. Fora de um terminal interativo, o comando explícito `designfy tui` encerra com código 8.
+Abaixo de 80 colunas, a Home dispõe os cartões em uma coluna. Entre 80 e 109, a grade ganha a segunda coluna e, a partir de 110, a terceira. Com menos de 32 linhas, a barra compacta preserva `? help` e `q quit`. A TUI indica que você precisa ampliar a janela quando a largura fica abaixo de 60 colunas ou a altura abaixo de 16 linhas. Fora de um terminal interativo, `designfy tui` encerra com código 8.

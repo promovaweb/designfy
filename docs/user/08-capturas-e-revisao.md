@@ -1,6 +1,6 @@
 # Capítulo 8: Capturas e revisão
 
-As primeiras capturas de página inteira do site da Promovaweb mostravam o hero e um espaço vazio no lugar das seções seguintes. No navegador, o conteúdo aparecia durante a rolagem. A diferença estava no momento da captura. O `IntersectionObserver` ainda não tinha disparado as revelações e as imagens abaixo da dobra aguardavam a aproximação do viewport para carregar.
+Nas primeiras capturas de página inteira do site da Promovaweb, o PNG mostrava o hero seguido de um espaço vazio. Ao rolar a mesma página no navegador, as seções apareciam. A captura tinha ocorrido antes que o `IntersectionObserver` revelasse o conteúdo e que as imagens abaixo da dobra começassem a carregar.
 
 ## Playwright e Chromium no projeto
 
@@ -34,7 +34,7 @@ designfy capture run http://localhost:4321/ http://localhost:4321/precos/ --view
 designfy capture run http://localhost:4321/ --viewport mobile,desktop --theme light,dark
 ```
 
-A primeira chamada gera seis imagens no escuro. A segunda gera quatro nos dois temas. Com vários temas, o nome termina em `--<viewport>--<theme>.png`. Com apenas um, termina em `--<viewport>.png`. Os tamanhos predefinidos incluem a escala física e a emulação de toque.
+Na primeira chamada, as duas rotas geram três PNGs cada, um por tamanho no tema escuro. Na segunda, cada tamanho aparece nos dois temas. Quando há mais de um tema, o arquivo termina em `--<viewport>--<theme>.png`. Com um único tema, o sufixo é `--<viewport>.png`. A tabela reúne as dimensões em pixels CSS e a escala de cada dispositivo.
 
 | Nome | Dimensão | Toque e escala |
 | --- | --- | --- |
@@ -50,7 +50,7 @@ Para uma largura fora da tabela, use o formato `LARGURAxALTURA`, como `1024x768`
 | `--theme light\|dark` | define o `colorScheme` do navegador. Aceita repetição ou lista, como `--theme light,dark` |
 | `--full-page` | captura a página inteira, o padrão |
 | `--fold` | captura só a primeira dobra, sem preparar a página |
-| `--no-scroll` | pula a rolagem e a espera por recursos antes da captura da página inteira |
+| `--no-scroll` | dispensa a rolagem de preparação da página inteira |
 | `--scroll-budget <ms>` | limita a rolagem e a espera por recursos, 15000 ms por padrão |
 | `--hide <css>` | oculta os elementos do seletor. Aceita repetição, como `--hide '#chat' --hide '.floating-button'` |
 | `--show-dev-overlays` | mantém visíveis os overlays de desenvolvimento |
@@ -66,7 +66,7 @@ O modo escuro emula a preferência de cor do navegador. Confira no PNG se o site
 
 Por padrão, o navegador percorre a página em passos da altura do viewport. Ele aguarda a rede ficar ociosa, espera as imagens e fontes carregarem e volta ao topo antes do PNG final. Durante o percurso, fotografa também os iframes de outra origem abaixo da dobra para preservar o conteúdo visto ao rolar.
 
-A preparação tem um limite de 15000 ms, ajustável com `--scroll-budget`. Ao atingir o limite, a captura prossegue e registra `scrollBudgetExhausted` no manifesto. Em páginas curtas ou com animação contínua, `--no-scroll` permite dispensar o percurso e a espera mesmo com um servidor lento. Confira nesse caso se as últimas seções apareceram. Acima de 64 Mi pixels físicos, a captura inteira usa escala CSS para reduzir o consumo de memória do Chromium.
+O navegador volta ao topo mesmo que a preparação atinja o limite de 15000 ms. Nesse caso, o manifesto registra `scrollBudgetExhausted`. Ajuste `--scroll-budget` quando a página precisar de mais tempo. Com `--no-scroll`, o navegador pula o percurso, mas ainda aguarda a rede por até 15 segundos. Confira no PNG se as últimas seções carregaram. Acima de 64 Mi pixels físicos, a captura inteira usa escala CSS para reduzir o consumo de memória do Chromium.
 
 Os overlays conhecidos de Astro, Vite e Next.js ficam ocultos. Para investigar o próprio overlay, use `--show-dev-overlays`. Para ocultar um widget do projeto, indique seu seletor com `--hide`. Na revisão de um hero isolado, você pode delimitar a imagem ao elemento de prévia.
 
@@ -101,11 +101,11 @@ Cada execução grava os PNGs e um `manifest.json` em `.designfy/captures/<run>/
 | `themes` | temas na ordem da execução (`theme` guarda o primeiro) |
 | `fullPage`, `scroll`, `scrollBudgetMs`, `showDevOverlays`, `hide`, `reducedMotion`, `waitMs`, `selector` | opções da execução |
 | `shots` | uma entrada por captura |
-| `errors` | falhas de captura, com URL e viewport |
+| `errors` | falhas da execução. Quando uma imagem falha, inclui URL, viewport e tema |
 
-Em `shots`, identifique a captura por `url`, `viewport`, `theme` e `file`. O título em `title` ajuda a conferir a rota. Quando `overflowX` for verdadeiro, compare `documentWidth` com `viewportWidth` e abra a imagem para localizar o trecho mais largo. Uma tabela pode precisar de rolagem interna. Para uma imagem, confira `max-width`. Numa grade, procure uma largura mínima que exceda o espaço disponível.
+Localize a entrada em `shots` pela URL, pelo viewport e pelo tema. O campo `file` aponta para o PNG e `title` ajuda a confirmar a rota. O Designfy marca `overflowX` quando `documentWidth` supera `viewportWidth` em mais de um pixel CSS. Abra a imagem nesse tamanho para identificar o elemento que excede a largura. Numa grade, confira a largura mínima das colunas. Uma imagem pode precisar de `max-width` e uma tabela larga pode exigir rolagem interna.
 
-Para investigar um trecho em branco, consulte `documentHeight` e os passos percorridos em `scrollSteps`. A lista `incompleteImages` aponta imagens ainda pendentes. A marca `scrollBudgetExhausted` indica que o tempo de preparação terminou. Leia também `consoleErrors` e `pageErrors` antes de atribuir o defeito ao layout. Em caso de falha, a captura tem o campo `error`. Uma URL inacessível entra em `errors` e o comando retorna o código 5, mas o manifesto preserva as capturas concluídas.
+Quando uma seção aparece em branco, compare a altura do documento em `documentHeight` com o número de passos de rolagem em `scrollSteps`. Se `scrollBudgetExhausted` for verdadeiro ou `incompleteImages` listar imagens pendentes, refaça a captura antes de aprovar a tela. Consulte também `consoleErrors` e `pageErrors` para investigar falhas de script. Uma URL inacessível produz um `error` em `shots` e uma entrada em `errors`. O comando retorna o código 5 e preserva no manifesto as capturas concluídas.
 
 ## Localizar uma execução anterior
 
@@ -115,7 +115,7 @@ Consulte a lista a partir do projeto. As execuções aparecem da mais recente pa
 designfy capture list
 ```
 
-Na ausência de execuções na pasta consultada, a saída informa que a lista está vazia.
+Quando a pasta consultada não contém execuções reconhecidas pelo Designfy, o comando exibe esta mensagem no terminal.
 
 ```text
 No capture runs found.
@@ -125,13 +125,13 @@ Confira o destino usado em `capture run` antes de refazer a captura. No módulo 
 
 ## Do achado visual à correção no viewspec
 
-A skill `designfy-review` começa pelo manifesto para localizar estouros de largura e erros de console ou de página. Depois abre as imagens a partir do celular. Seguem-se desktop, tablet e tela larga, além das variantes de tema e movimento. A revisão compara o que aparece no PNG com o guia e com o viewspec. A imagem ajuda a verificar um corte de texto. Para conferir um controle que só aparece ao receber foco, reproduza o estado pelo teclado.
+Na revisão com `designfy-review`, abra o manifesto para localizar erros de console ou de página e identificar a largura afetada. Compare o PNG do celular com o viewspec antes de examinar o desktop, o tablet e a tela larga nas variantes previstas pelo guia. Um corte de texto aparece na imagem. Para conferir as setas que surgem ao receber foco, abra a rota e percorra o carrossel pelo teclado.
 
 O viewspec `0001-founders` tinha nove itens. Entre eles estavam as setas do carrossel visíveis ao receber foco e os indicadores de posição clicáveis. A revisão também verificou o anel de foco no resumo da FAQ. Os componentes compartilhados precisavam manter a mesma aparência em repouso em `/planos/martech/`. Na execução `founders-0001-depois`, as capturas não apresentaram estouro horizontal.
 
 ### Gravidade e destino do achado
 
-Registre o defeito junto à imagem e classifique a gravidade pelo efeito na tela. Uma ação sem foco visível impede seu acompanhamento pelo teclado. Uma palavra isolada na última linha permite outra prioridade de correção.
+Classifique cada defeito pelo que acontece durante o uso e registre a imagem correspondente. Quando o foco desaparece sobre um botão, fica difícil acompanhar a navegação pelo teclado. Já uma palavra isolada na última linha permite continuar a leitura e recebe gravidade baixa.
 
 | Gravidade | O que significa | O que acontece |
 | --- | --- | --- |
@@ -183,4 +183,4 @@ designfy capture run http://localhost:4321/ --viewport mobile,desktop --out .des
 designfy capture list --json
 ```
 
-A lista em JSON traz os manifestos em `data.captures`. Publique a pasta com o manifesto e as imagens como artefato do job. Para reprovar a execução por largura excessiva, o script da CI precisa examinar `shots` e retornar falha quando encontrar `overflowX: true`.
+Na lista em JSON, localize a execução do job em `data.captures` e examine os itens de `shots` daquele manifesto. Para reprovar o job por largura excessiva, faça o script retornar falha ao encontrar `overflowX: true`. Publique o manifesto junto dos PNGs para abrir a imagem no tamanho que apresentou o problema.

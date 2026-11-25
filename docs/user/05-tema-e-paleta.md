@@ -1,16 +1,16 @@
 # Capítulo 5: Tema e paleta
 
-Na instalação do Designfy no site da Promovaweb, a primeira consulta ao tema abriu `docs-theme.css`. As cores faziam sentido para a documentação, que tem estilo próprio. Para medir o contraste dos botões dos planos, era preciso ler o CSS do site. O ajuste foi indicar `src/styles/brand/global.css` no campo `tokensFile` do `VIEWSPEC.md` da raiz.
+O botão secundário do site da Promovaweb tinha contraste de 1,76:1 no tema claro. Para chegar a essa medida, foi preciso consultar `src/styles/brand/global.css`. A primeira busca havia encontrado `docs-theme.css`, usado apenas na documentação. O campo `tokensFile` do `VIEWSPEC.md` da raiz registrou qual folha usar nas páginas públicas.
 
 ## Qual arquivo o theme show abriu
 
-Rode a consulta na raiz do seu projeto. A primeira linha da resposta traz o caminho do CSS. Confira esse caminho antes de interpretar uma cor ou investigar um token ausente.
+Na raiz do projeto, rode `theme show` e procure a linha `CSS` para identificar a folha lida. O campo `Selected by` explica como o Designfy chegou a ela. Confira os dois antes de investigar um token ausente.
 
 ```bash
 designfy theme show
 ```
 
-No exemplo abaixo, a leitura começa em `app.css` e segue os imports locais até as declarações em `@theme` e `@theme inline`. Para mostrar o fundo nos dois modos, o comando procura o valor de base em `:root` e verifica se há uma substituição em `.dark`.
+O trecho da consulta reproduz o caminho do arquivo e os tokens. A leitura começa em `app.css` e segue os imports locais até as declarações em `@theme` e `@theme inline`. Para mostrar o fundo nos dois modos, o comando procura o valor de base em `:root` e verifica se há uma substituição em `.dark`.
 
 ```text
 /tmp/opencode/designfy-demo/src/styles/app.css
@@ -58,13 +58,13 @@ Num projeto novo, a sugestão da mensagem instala o tema do registro. Num projet
 
 ## Contraste no tema próprio do site
 
-No tema claro da Promovaweb, o texto corrido atingiu 9,19:1 sobre o fundo da página. Os títulos chegaram a 19,22:1 e o texto de destaque a 7,03:1. O botão secundário ficou em 1,76:1. Para encontrar essa diferença, você precisa medir a combinação que aparece no botão, além da usada no corpo do texto.
+No tema claro da Promovaweb, o contraste sobre o fundo da página chegou a 9,19:1 no texto corrido, a 19,22:1 nos títulos e a 7,03:1 no texto de destaque. Para avaliar a oferta, meça também o texto sobre o fundo do próprio botão. Essa combinação tem cores diferentes das usadas no corpo da página.
 
 ```bash
 designfy theme check
 ```
 
-Nos projetos com escala própria, `theme check` usa o modo `custom`. Declare cada combinação em `theme.pairs` no `designfy.json`. A configuração abaixo mede o texto corrido sobre a página e exige uma razão maior para o destaque.
+Confira o campo `Mode` na saída de `theme check`. No modo `custom`, você pode declarar as combinações em `theme.pairs` no `designfy.json`. No exemplo, o texto corrido usa o mínimo padrão sobre o fundo da página, enquanto o destaque exige 7:1 sobre branco.
 
 ```json
 {
@@ -91,7 +91,7 @@ project uses its own color scales; shadcn roles not checked
   dark --text-body on --bg-page (Texto corrido)   16.86:1 pass (min 4.5:1)
 ```
 
-Na saída de exemplo, o destaque atingiu 18,53:1 para um mínimo de 7:1. Sem pares explícitos, a busca tenta `--text-body`, `--text-heading` e `--accent-text` sobre `--bg-page`, além de `--foreground` sobre `--background`. Isso explica por que vale cadastrar os botões pelo uso. No site, os textos dos botões de IA Makers (4,43:1) e do Plano Founders (4,30:1) ficaram perto de 4,5:1. Os de Creators (3,19:1) e DevOps (3,06:1) também ficaram abaixo.
+Na demonstração, o destaque alcançou 18,53:1 para um mínimo de 7:1. Sem pares explícitos, o Designfy procura `--text-body`, `--text-heading` e `--accent-text` sobre `--bg-page`, além de `--foreground` sobre `--background`. Confira quais pares receberam uma razão numérica. No modo `custom`, o comando pode retornar 0 mesmo quando um par fica sem medida. No site, medir cada botão revelou quatro resultados abaixo de 4,5:1. IA Makers atingiu 4,43:1 e o Plano Founders chegou a 4,30:1. Os valores de Creators e DevOps foram 3,19:1 e 3,06:1, respectivamente.
 
 ## O tema shadcn no Tailwind 4
 
@@ -101,7 +101,7 @@ Em um projeto com Tailwind 4, os componentes do registro leem os papéis do shad
 designfy components add designfy-theme designfy-motion
 ```
 
-Os arquivos ficam em `paths.styles`. No CSS de entrada, importe os estilos nesta ordem. O próprio `designfy-theme.css` já importa `tailwindcss`.
+O Designfy copia as folhas de estilo para `paths.styles`. Na entrada do projeto, importe `designfy-theme.css` primeiro, pois ele já importa o Tailwind. Os estilos de movimento entram depois, na ordem do exemplo.
 
 ```css
 @import "./designfy-theme.css";
@@ -188,7 +188,7 @@ Para distinguir três papéis de peso semelhante, você pode gerar as escalas da
 designfy palette generate --base "#2AD5BE" --harmony triadic --format css
 ```
 
-O gerador monta a escala `primary` de 50 a 950. A escala `neutral` conserva o matiz da base com pouco croma. Nos neutros das superfícies, o croma em torno de 0,004 a 0,02 dá uma leve tonalidade até aos extremos claros e escuros. A opção `--harmony` acrescenta as escalas de acento. Este trecho mostra os papéis semânticos gerados com o contraste conferido.
+A escala `primary` vai de 50 a 950. A escala `neutral` conserva o matiz da base com pouco croma, o que dá uma leve tonalidade às superfícies claras e escuras. Com `--harmony triadic`, o gerador acrescenta escalas de acento. No trecho de CSS, compare os valores de `--background` e `--foreground` em `:root` com os de `.dark` para ver como fundo e texto trocam de luminosidade.
 
 ```css
 :root {
@@ -220,7 +220,7 @@ Com duas cores conhecidas, você pode medir um par isolado. Informe primeiro a c
 designfy palette contrast "#00161E" "#C6F4ED"
 ```
 
-O resultado distingue texto normal de texto grande e de componentes de interface. Na coluna AA, os mínimos são 4,5:1 para texto normal e 3:1 para as outras duas aplicações.
+Na saída, leia `Normal text` para avaliar o rótulo do botão. O nível AA exige 4,5:1 para texto normal. Para texto grande e para o contraste visual do componente, as linhas `Large text` e `UI component` usam 3:1.
 
 ```text
   Foreground    #00161e
@@ -238,4 +238,4 @@ Aqui a razão WCAG chega a 15,50:1. O valor APCA aparece separadamente como `Lc 
 designfy palette contrast "#00161E" "#C6F4ED" --min 7
 ```
 
-Esse par supera o limite. Com `--min`, uma combinação abaixo do valor escolhido retorna código 10, o que permite interromper o job antes de incorporar as novas cores.
+Com `--min 7`, a razão de 15,50:1 resulta em código 0. Um par abaixo do mínimo retorna 10, de modo que a CI pode interromper o job antes de incorporar as cores ao tema.

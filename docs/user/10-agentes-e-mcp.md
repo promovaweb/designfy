@@ -1,10 +1,10 @@
 # Capítulo 10: Agentes e MCP
 
-No site da Promovaweb, a primeira leitura do tema encontrou `docs-theme.css`, a folha de estilos da documentação. Para revisar as páginas públicas, o guia indicou `src/styles/brand/global.css` em `tokensFile`. Quando você usa o Designfy por um agente, a primeira chamada que ajuda a distinguir esses dois arquivos é `project_status`. A resposta identifica o projeto e mostra qual CSS o servidor encontrou.
+No site da Promovaweb, o Designfy encontrou primeiro `docs-theme.css`, a folha da documentação. O guia do site indicou `src/styles/brand/global.css` em `tokensFile` para que a revisão usasse as cores das páginas públicas. Ao conectar o agente, consulte `project_status` e confira o caminho do CSS antes de interpretar as medidas de contraste.
 
 ## Ligar o cliente ao projeto
 
-O cliente inicia o binário com o subcomando `mcp`. A conversa usa Model Context Protocol por stdio. O servidor reserva a saída padrão para as mensagens JSON-RPC e envia os diagnósticos para a saída de erro.
+O cliente inicia `designfy mcp` e conversa com o processo pelo Model Context Protocol (MCP) via stdio. As mensagens JSON-RPC saem pela saída padrão. Os diagnósticos seguem pela saída de erro para preservar o canal usado pelo cliente.
 
 ```bash
 designfy mcp
@@ -46,7 +46,7 @@ A opção global `--project` tem o atalho `-C` e prevalece sobre `DESIGNFY_PROJE
 
 ## Escolher a tool pela operação
 
-Para montar um dashboard, use `catalog_list` com `kind: "dashboard"` para localizar os padrões de interface. Depois de escolher um componente do registro, chame `components_add` com o nome e `dryRun: true`. A resposta mostra os destinos dos arquivos e as dependências da cópia.
+Use `catalog_list` com `kind: "dashboard"` para localizar padrões de painel. Depois de escolher um componente do registro, envie seu nome numa lista no argumento `names` de `components_add` e inclua `dryRun: true`. A resposta mostra quais arquivos a cópia criaria e quais dependências faltam no projeto.
 
 | Tool | Entrada | Saída |
 | --- | --- | --- |
@@ -101,10 +101,10 @@ designfy mcp --list --read-only
 designfy mcp --list --json
 ```
 
-O trecho da listagem em texto mostra como localizar cada tipo de recurso pelo nome ou pela URI.
+Na saída em texto, procure `project_status` sob `Tools` para confirmar que o servidor oferece a consulta ao projeto. O trecho também mostra os endereços do manual que o cliente pode abrir.
 
 ```text
-MCP server designfy v0.2.0
+MCP server designfy v0.2.2
 
 Tools:
   project_status  Use to inspect the current web project. Returns detection, effective project settings, installation counts, viewspec progress, guide counts and the Tailwind stylesheet.
@@ -146,7 +146,7 @@ Cada linha cruza um servidor do catálogo com os clientes reconhecidos. No exemp
   playwright (Playwright)  claude: absent, codex: absent, opencode: absent, cursor: absent, gemini: absent
 ```
 
-O estado `absent` descreve a configuração do cliente naquele projeto. O comando `mcp setup` propõe o Designfy e o shadcn por padrão. Playwright também está disponível no catálogo para seleção explícita. O destino da gravação varia conforme o cliente.
+O estado `absent` indica que falta a entrada daquele servidor no arquivo do cliente. Por padrão, `mcp setup` propõe instalar o Designfy e o shadcn. Para incluir o Playwright, selecione-o explicitamente. A tabela mostra qual arquivo cada cliente consulta no projeto.
 
 | Cliente | Arquivo |
 | --- | --- |
@@ -162,7 +162,7 @@ Antes de gravar, examine os caminhos que o comando selecionou. Sem `--client`, e
 designfy mcp setup --dry-run
 ```
 
-Na prévia abaixo, as duas entradas têm o mesmo destino. O prefixo `planned add` indica uma inclusão prevista.
+No exemplo, `planned add` aparece ao lado dos dois servidores. Confira o caminho no fim de cada linha para verificar se as duas entradas vão para o `.mcp.json` do projeto desejado.
 
 ```text
   claude / designfy  planned add · /tmp/opencode/designfy-demo/.mcp.json
@@ -185,4 +185,4 @@ Reinicie o cliente após gravar a configuração e chame `project_status`. Compa
 npx @modelcontextprotocol/inspector designfy mcp
 ```
 
-O Inspector abre uma interface local para chamar tools e ler resources. Também é possível testar sem interface com um cliente MCP mínimo. Inicie o servidor, liste as tools e chame `project_status`. Uma resposta com o framework de outro projeto indica que você deve conferir a pasta de trabalho ou o valor de `--project`.
+No Inspector, liste as tools e chame `project_status`. O framework e o caminho do CSS na resposta devem corresponder ao projeto aberto. Um cliente MCP mínimo permite repetir a consulta via stdio e ler os mesmos resources. Quando a resposta aponta para outro projeto, confira a pasta de trabalho do servidor e a opção `--project`.

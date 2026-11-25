@@ -1,6 +1,6 @@
 # Capítulo 11: Referência
 
-Quando o Designfy encontra a folha de estilos e reprova o contraste de um botão, o processo termina com código 10. Um caminho de arquivo inexistente produz outro resultado, o código 6. Essa diferença orienta a correção no terminal e permite que um script de CI identifique qual verificação interrompeu o build.
+Quando `designfy theme check` encontra a folha de estilos e reprova o contraste de um botão, o código de saída é 10. Quando o comando não encontra a folha indicada, o código é 6. Na integração contínua, essa diferença permite encaminhar a correção para o par de cores ou para o caminho do CSS.
 
 ## Códigos de saída do CLI
 
@@ -10,7 +10,7 @@ O número retornado pelo processo identifica a família da falha. Consulte a men
 | --- | --- | --- |
 | 0 | `SUCCESS` | operação concluída |
 | 1 | `GENERIC_ERROR` | falha inesperada sem classificação |
-| 2 | `USAGE` | argument, option ou subcommand inválido. binário sem argumentos fora de um TTY |
+| 2 | `USAGE` | argumento, opção ou subcomando inválido. Binário sem argumentos fora de um TTY |
 | 3 | `CONFIG` | settings.json ausente, inválido ou key desconhecida |
 | 4 | `CREDENTIALS` | cofre ilegível, master key ausente ou credencial não encontrada |
 | 5 | `NETWORK_OR_API` | rede, API fora do esperado ou processo externo que falhou |
@@ -33,23 +33,23 @@ Um código 10 pode indicar tanto um pacote ausente quanto um problema no CSS. Pr
 | `No package.json found in the current directory` com exit 6 | comando rodou fora da raiz | entre na raiz do site ou da aplicação |
 | `No Tailwind stylesheet found` com exit 6 | a busca não localizou o CSS do tema | indique o CSS existente com `--file` ou, no Tailwind 4, rode `designfy components add designfy-theme` e importe o tema no CSS de entrada |
 | `Theme check failed` com exit 10 | par abaixo de 4.5 ou papel obrigatório ausente | meça com `designfy palette contrast` e corrija o papel no arquivo de tokens |
-| `Theme check failed` no modo `custom` | par do `theme.pairs` abaixo do `min` | ajuste os valores no `designfy.json` ou o `min` do par |
+| `Theme check failed` no modo `custom` | par do `theme.pairs` abaixo do `min` | corrija as cores na origem e confira se `min` corresponde ao uso desse par |
 | `components add` recusa com exit 10 num projeto Tailwind 3 | o registro usa a sintaxe do Tailwind 4 | use o item como referência, migre o projeto ou copie com `--allow-tailwind3` |
 | `trackedBy` aponta arquivo ausente | a spec ou a sitespec mudou de pasta de estado | atualize o `path` no front matter do viewspec |
 | `missing animate-df-marquee` com exit 10 | o CSS de movimento ficou fora do arquivo lido | importe `designfy-motion.css` e use `--file` no CSS de entrada |
 | `Missing: ...` com exit 10 | pacotes ausentes no `package.json` | rode `designfy deps install` |
 | `Unknown component` com exit 6 | nome errado ou framework errado | confira `designfy components list --framework <framework>` |
-| `Playwright is unavailable` com exit 10 | pacote ou navegador ausente | `designfy deps install testing` e `npx playwright install chromium` |
-| `One or more screenshots failed` com exit 5 | URL fora do ar ou seletor sem resultado | suba o servidor, confira a URL e o `--selector` |
+| `Playwright is unavailable` com exit 10 | o runner não encontrou o pacote Playwright no projeto | rode `designfy deps install testing` na raiz do projeto |
+| `One or more screenshots failed` com exit 5 | o Chromium não abriu ou a captura falhou | leia `errors` no manifesto. Para navegador ausente, rode `npx playwright install chromium`. Para falha na rota, confira a URL e o `--selector` |
 | `Project guide VIEWSPEC.md is missing` com exit 6 | o projeto ainda não tem guia | rode a skill `designfy-viewspec` no modo guia |
 | `Viewspec validation passed.` com `guide: missing` | o aviso não reprova | crie o guia na próxima etapa |
 | A TUI encerra com exit 8 | o comando rodou sem terminal interativo | use o CLI em script e a TUI só no terminal |
 | `npx skills add` falha com exit 5 | sem rede ou agente inválido | confira a conexão, o nome do repositório e o nome do agente |
 | `Shadcn items` na resposta do `components add` | o item exige primitivas do shadcn | rode o comando `npx shadcn@latest add` que a resposta indica |
 
-No site da Promovaweb, o primeiro ajuste foi no arquivo lido. O tema da documentação aparecia no lugar do CSS público. Depois que `tokensFile` apontou para `src/styles/brand/global.css`, foi possível medir os pares do site. No tema claro, os títulos chegaram a 19,22:1. O botão secundário ficou em 1,76:1. O valor dos títulos ajuda a confirmar a leitura daquele par, mas o botão tem cores próprias para corrigir.
+No site da Promovaweb, a primeira medição usou o tema da documentação. Com `tokensFile` apontando para `src/styles/brand/global.css`, o contraste no tema claro chegou a 19,22:1 nos títulos e a 1,76:1 no botão secundário. Nesse caso, o ajuste cabe às cores do texto e do fundo do botão.
 
-Para investigar uma falha de ambiente, rode `designfy doctor` na raiz do projeto. O diagnóstico verifica o runtime e o terminal, além da instalação do Node e do npx. Também examina as preferências locais e a origem da chave do cofre. No projeto, verifica `designfy.json`, a folha do Tailwind e o guia de interface. Um item marcado com `✗` encerra o processo com código 3. Avisos marcados com `!` permitem que a verificação termine com sucesso.
+Rode `designfy doctor` na raiz do projeto e procure o símbolo ao lado de cada item. O diagnóstico confere o runtime, o terminal e a disponibilidade do Node e do npx. Também examina as preferências e a origem da chave do cofre. No projeto, localiza o `designfy.json`, o guia de interface e a folha do Tailwind. Um `✗` indica falha e leva ao código 3. Um `!` isolado permite concluir o diagnóstico com sucesso.
 
 ## Preferências em `settings.json`
 
@@ -118,16 +118,16 @@ A opção global `--project` ou `-C` escolhe a raiz para uma execução. Na aus�
 | `shadcn` | booleano |
 | `paths.components` | pasta dos componentes copiados |
 | `paths.styles` | pasta dos estilos copiados e do CSS do tema |
-| `paths.theme` | caminho opcional do CSS do tema, relativo à raiz ou absoluto. também aceito por `init --theme-path` |
+| `paths.theme` | caminho opcional do CSS do tema, relativo à raiz ou absoluto. Também aceito por `init --theme-path` |
 | `paths.viewspec` | pasta dos viewspecs |
 | `aliases.components` | alias que substitui `@designfy/components` |
-| `theme.pairs` | pares de contraste do modo `custom`, com `fg` e `bg` obrigatórios. `label` e `min` são opcionais |
+| `theme.pairs` | pares de contraste do modo `custom`, com `fg` e `bg` obrigatórios. Os campos `label` e `min` são opcionais |
 
 Use `paths.components` para indicar a pasta de destino dos componentes copiados. Para fixar a folha de estilos que o Designfy deve ler, o campo é `paths.theme`. Já `theme.pairs` descreve quais combinações de primeiro plano e fundo entram na conferência de contraste do modo `custom`.
 
 ## Arquivos do projeto e do usuário
 
-Na revisão do Plano Founders, o guia comum ao site ficou na raiz. A checklist da tela ficou em `viewspec/0001-founders/VIEWSPEC.md`. Para confrontar um item da checklist com o resultado visual, localize a execução de captura pelo nome e abra seu manifesto.
+No site da Promovaweb, o `VIEWSPEC.md` da raiz reúne as orientações comuns às páginas. Para conferir a linha de prazo do Plano Founders, abra a checklist em `viewspec/0001-founders/VIEWSPEC.md` e procure a captura do celular no manifesto de `founders-0001-depois`.
 
 | Caminho | Conteúdo |
 | --- | --- |
@@ -152,17 +152,17 @@ Para usar outro diretório de preferências numa execução, defina `DESIGNFY_HO
 | Variável | Efeito |
 | --- | --- |
 | `DESIGNFY_HOME` | troca `~/.designfy/` por outra pasta |
-| `DESIGNFY_PROJECT` | pasta do projeto por padrão no CLI e no servidor MCP. a option `--project` tem precedência |
-| `DESIGNFY_MASTER_KEY` | master key em 64 caracteres hexadecimais. dispensa `master.key` |
+| `DESIGNFY_PROJECT` | pasta do projeto por padrão na CLI e no servidor MCP. A opção `--project` tem precedência |
+| `DESIGNFY_MASTER_KEY` | master key em 64 caracteres hexadecimais. Dispensa `master.key` |
 | `DESIGNFY_CATALOG_DIR` | pasta com os JSONs de catálogo no lugar dos embutidos |
 | `DESIGNFY_REGISTRY_FILE` | JSON com os registros embutidos de React e Astro |
 | `DESIGNFY_E2E` | `1` habilita o teste de captura com Playwright |
 | `NO_COLOR` | desliga as cores da saída de texto |
 
-Um teste de captura que usa `DESIGNFY_E2E=1` precisa do Playwright e do navegador instalado. Quando a execução informa `Playwright is unavailable`, confira a instalação indicada na tabela de mensagens. A variável habilita o teste, mas a instalação do navegador é uma etapa própria.
+Nos testes de captura, `DESIGNFY_E2E=1` habilita o teste que abre o Chromium pelo Playwright. Instale o grupo `testing` no projeto e baixe o navegador na máquina de teste. Se o pacote estiver presente e a abertura do Chromium falhar, consulte `errors` no manifesto para localizar a mensagem de inicialização.
 
 ## Código-fonte, distribuição e documentação
 
-O pacote do npm é `@promovaweb/designfy`. O código, as skills, os binários e as notas de versão ficam no repositório público do projeto, sob licença AGPL 3.0. O método de construção do binário está documentado no Termfy. [Repositório do Designfy](https://github.com/promovaweb/designfy) · [Guia do Termfy](https://github.com/promovaweb/termfy)
+O repositório do Designfy reúne o código do pacote `@promovaweb/designfy`, as skills e as notas das versões que distribuem os binários. A licença do projeto é a AGPL 3.0. Para consultar o método usado na construção do executável, abra o guia do Termfy. [Repositório do Designfy](https://github.com/promovaweb/designfy) · [Guia do Termfy](https://github.com/promovaweb/termfy)
 
 Para consultar a edição online deste guia ou a referência técnica, use a área de documentação. O portal do Designfy apresenta o projeto e suas ferramentas. [Documentação do Designfy](https://promovaweb.com/docs/designfy/) · [Portal do Designfy](https://promovaweb.com/designfy/)

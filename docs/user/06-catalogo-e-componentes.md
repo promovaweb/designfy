@@ -1,6 +1,6 @@
 # Capítulo 6: Catálogo e componentes
 
-O estudo das 21 seções da landing page do Plano Founders rendeu onze itens para os registros React e Astro. Um deles foi `milestone-timeline`, que reúne datas, resultados e um marcador da etapa atual. Para aproveitar a mesma composição em outra tela, você precisa saber tanto o que a linha do tempo expressa quanto quais arquivos o seu framework recebe.
+O estudo das 21 seções da landing page do Plano Founders rendeu onze itens para os registros React e Astro. Um deles foi `milestone-timeline`, que reúne datas, resultados e um marcador da etapa atual. Na ficha do catálogo, você encontra a função da linha do tempo. No registro do seu framework, pode consultar os arquivos que serão copiados para a tela.
 
 ## Da função da tela à ficha do catálogo
 
@@ -32,7 +32,7 @@ Há 43 entradas de `site`, 22 de `webapp` e 26 de `both`. O nome antigo `system`
   ...
 ```
 
-O `app-shell` oferece a moldura do aplicativo. Um botão classificado como `both` cabe também numa landing page. Para localizar uma função pelo vocabulário da ficha, use a busca. Ela ignora diferenças de caixa e acentuação. O termo `table` alcança entradas de comparação de planos e de exibição de registros.
+Na busca por `table`, `pricing-table` descreve uma comparação de planos e `data-table` organiza registros para consulta. A busca ignora diferenças de caixa e acentuação. Ao escolher entre os resultados, observe também a superfície. O `app-shell` compõe a estrutura da aplicação, enquanto um botão marcado como `both` cabe também numa landing page.
 
 ```text
   dropdown-menu      Dropdown menu (both, actions)
@@ -48,7 +48,7 @@ O `app-shell` oferece a moldura do aplicativo. Um botão classificado como `both
   settings-layout    Settings layout (webapp, settings)
 ```
 
-A lista reúne funções distintas. Abra uma ficha por ID com `designfy catalog show <id>` para ler a finalidade antes de escolher a implementação. Um ID desconhecido retorna o código 6. Para um cartão de indicador, a consulta `designfy catalog show stat-card` produz a ficha abaixo.
+Para examinar uma implementação, comece pela finalidade na ficha do padrão. O comando `designfy catalog show <id>` retorna código 6 para um ID desconhecido. No caso de um indicador acompanhado da variação desde o período anterior, consulte `designfy catalog show stat-card`.
 
 ```text
 Stat card
@@ -76,7 +76,7 @@ O campo `Sources` indica como obter a implementação. Com `designfy:stat-card`,
 
 ## Os componentes disponíveis para cada framework
 
-O registro React oferece 69 itens. O Astro oferece 57. Ambos levam arquivos de origem e um manifesto no formato shadcn, em `registry/react/registry.json` ou `registry/astro/registry.json`. O build `bun run registry:embed` incorpora o registro ao binário, por isso a consulta funciona mesmo sem o checkout do Designfy.
+Há 69 itens no registro React e 57 no Astro. Em cada registro, os arquivos de origem acompanham o manifesto no formato do shadcn. Você encontra os manifestos em `registry/react/registry.json` e `registry/astro/registry.json`. Como `bun run registry:embed` incorpora esses arquivos ao binário, a consulta também funciona fora de um clone do Designfy.
 
 ```bash
 designfy components list
@@ -98,7 +98,7 @@ Sem `--framework`, a consulta usa o framework do `designfy.json`. Os valores `ne
 | `containers` | `card` |
 | `actions` | `theme-toggle` |
 | `content` | `article-header`, `author-box`, `callout`, `code-block`, `figure`, `post-card`, `post-list`, `prose`, `reading-progress`, `table-of-contents`, `video-embed` |
-| `data-display` | `activity-feed`, `description-list` nos dois registros. O React acrescenta `chart-card`, `data-table`, `filter-bar`, `stat-card` no React |
+| `data-display` | `activity-feed`, `description-list` nos dois registros. O React acrescenta `chart-card`, `data-table`, `filter-bar`, `stat-card` |
 | `shell` | `app-shell`, `page-header`, só no React |
 | `auth` | `auth-card`, só no React |
 | `feedback` | `empty-state`, `error-state` |
@@ -109,7 +109,7 @@ Na base compartilhada, `cn` combina classes e `section` define o espaçamento da
 
 ### Composições do Plano Founders
 
-O palco de pixels e o hero são itens separados. Você pode aplicar o palco a outra seção ou usar o hero com o resumo lateral. As onze composições do estudo conservam nome, props e estrutura nas versões React e Astro.
+O `hero-pixel` pode exibir um resumo lateral. Para usar o mosaico em outra região, copie `pixel-stage` separadamente. Os onze itens do estudo estão disponíveis pelos mesmos nomes nos registros React e Astro. Consulte a ficha do seu framework para ver qual arquivo entra no projeto.
 
 | Item | O que entrega |
 | --- | --- |
@@ -125,9 +125,9 @@ O palco de pixels e o hero são itens separados. Você pode aplicar o palco a ou
 | `detail-card` | explica um recurso com ícone, parágrafos e itens de conferência. Inclui o `DetailCardGrid` |
 | `statement-stats` | frase em dois tons ao lado de estatísticas empilhadas, para compor com a linha do tempo |
 
-O estudo também mostrou onde cabia aproveitar um componente existente. A FAQ, por exemplo, ganhou uma disposição com a introdução à esquerda. As cinco variantes abaixo ampliam itens já disponíveis no registro.
+Além das onze composições, o estudo ampliou cinco itens do registro. Na FAQ, a introdução pode ficar fixa à esquerda enquanto o visitante percorre as perguntas. A tabela indica a variante ou a prop que habilita cada mudança.
 
-| Item | Variante nova |
+| Item | Variante ou prop |
 | --- | --- |
 | `faq` | `split` com `stickyIntro`, o título fixo à esquerda enquanto as perguntas rolam |
 | `cta-band` | `secondaryAction`, a segunda ação ao lado da principal |
@@ -166,7 +166,7 @@ O hero precisa dos itens de tema e movimento mesmo com `Dependencies` vazio. Par
 designfy components add hero-split
 ```
 
-O comando resolve as dependências do registro em ordem antes de relatar a cópia. Na saída abaixo, apenas o componente foi gravado. O tema, o script e o CSS de movimento já estavam no projeto com o mesmo conteúdo.
+Na saída, `Written` traz apenas o arquivo `HeroSplit.astro`. O Designfy resolveu primeiro as dependências do registro e encontrou cópias idênticas do tema, do script e do CSS de movimento. Por isso os três aparecem em `Unchanged`.
 
 ```text
   Written               /tmp/opencode/designfy-demo/src/components/designfy/hero-split/HeroSplit.astro
@@ -192,7 +192,7 @@ Ao repetir a operação depois de editar o hero localmente, procure a linha `Ski
 
 Os componentes vão para `paths.components` e os estilos para `paths.styles`. Durante a cópia, o marcador `@designfy/components` recebe o alias configurado em `designfy.json`. Sem esse arquivo, o comando avisa que usará os destinos padrão. Você pode indicar outra pasta com `--path <dir>` ou selecionar o manifesto com `--framework <framework>`.
 
-A cópia pertence ao projeto. Reserve `--overwrite` para quando quiser substituir uma edição local pelo conteúdo do registro. Depois de instalar os pacotes indicados na saída, rode `designfy deps check` e confira o código 0.
+Depois de editar `HeroSplit.astro` no projeto, use `--overwrite` apenas para repor a versão do registro. Instale os pacotes indicados na saída e rode `designfy deps check` para conferir também as dependências dos componentes copiados. O código 0 indica que a verificação passou.
 
 ## Primitivas do shadcn e blocos do ReUI
 
@@ -214,4 +214,4 @@ As composições Designfy usam os mesmos papéis de tema do shadcn sobre o Tailw
 
 Cores, fontes, raios e movimento vêm do tema. Para uma superfície translúcida, use `bg-primary/10` ou `color-mix(in oklab, var(--primary) 18%, transparent)`. Classes fixas como `bg-indigo-500` e `text-gray-900` prendem o componente a uma paleta. O mesmo ocorre com `bg-[#0af]` ou uma declaração literal de `font-family`. O registro verifica essas restrições com `bun run registry:check`.
 
-Claro e escuro usam as mesmas classes de cor porque seus papéis mudam no CSS. Reserve `dark:` para outra diferença visual, como a troca de uma imagem. Ao preencher o componente, forneça texto, links, imagens e números por prop ou slot. Uma região opcional vazia deve ficar fora do HTML. Nos controles resultantes, confira a semântica, o foco visível e o alvo de toque de 44 px no celular. Mantenha uma única biblioteca de ícones na composição.
+As mesmas classes de cor atendem aos modos claro e escuro porque os valores mudam no CSS. Use `dark:` quando a troca de tema exigir outra alteração, como exibir uma imagem diferente. Forneça o conteúdo por prop ou slot e omita do HTML as regiões opcionais vazias. Nos controles, confira a semântica e o foco pelo teclado. No celular, verifique se o alvo de toque alcança 44 px. Use a mesma biblioteca de ícones em toda a composição.

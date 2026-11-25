@@ -2,6 +2,13 @@
 
 Formato baseado em Keep a Changelog. Versões seguem SemVer.
 
+## [0.2.3] - 2026-11-25
+
+### Alterado
+
+- Guia do usuário auditado parágrafo por parágrafo (286 parágrafos lidos, 98 corrigidos): cada saída de comando ganhou a interpretação que faltava, a prosa ficou mais direta e três exemplos foram acertados contra o código (a prop `className` dos componentes Astro, a numeração do escalonamento de movimento e um exemplo JSX com reticências). O ebook acompanha.
+- Skill `designfy-websites`: a referência `texto-da-pagina.md` ganha a seção "Casos no lugar de cenas", com as lições das revisões de copy do portal do Designfy.
+
 ## [0.2.2] - 2026-11-25
 
 ### Alterado

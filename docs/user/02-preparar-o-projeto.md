@@ -4,17 +4,17 @@ Na instalação do Designfy no site da Promovaweb, o framework era Astro e o Tai
 
 ## O CSS de um site já publicado
 
-Na adoção de um site como o da Promovaweb, parte das instruções de interface fica na raiz do monorepo. Antes de inicializar a aplicação, leia o `AGENTS.md`, o `CLAUDE.md` e o `README.md` disponíveis nos dois locais. Procure documentos com `design`, `brand`, `ui` ou `componentes` no nome para conferir a origem das orientações que entrarão no guia.
+No monorepo da Promovaweb, as orientações de interface estão distribuídas entre a raiz do Hub e o diretório do site. Antes do `init`, leia o `AGENTS.md`, o `CLAUDE.md` e o `README.md` disponíveis nessas duas pastas. Arquivos com `design`, `brand`, `ui` ou `componentes` no nome ajudam a localizar as fontes do guia.
 
 Use `designfy theme show --json` para identificar o arquivo lido. Compare a versão do Tailwind em `designfy status --json` com a configuração do projeto e verifique no CSS como o modo escuro é ativado. No site da Promovaweb, o guia reuniu 76 orientações com suas fontes. Apontar `tokensFile` para `src/styles/brand/global.css` fez a leitura alcançar o tema das páginas públicas.
 
 Examine os componentes existentes e abra duas ou três telas de cada tipo. Com o site local em execução, registre a aparência inicial com `designfy capture run http://localhost:4321/ --viewport mobile,desktop`. A captura dá uma referência para comparar o resultado quando uma alteração chega a componentes compartilhados.
 
-Use a skill `designfy-viewspec` no modo guia para registrar o que encontrou. Preserve a escala própria do site, inclusive nomes como `primary-500`. Com Tailwind 4 e papéis do shadcn, a cópia do registro é direta. Para uma escala própria, adapte as classes copiadas ou mapeie os papéis em `@theme inline`. Quando uma especialista indicar algo diferente da convenção local, siga o projeto e descreva a diferença em `## Aprendizados`, citando a skill. A aplicação conserva seu fluxo de sitespec ou spec, issues, validações e commits.
+Com a skill `designfy-viewspec` no modo guia, registre a escala que o projeto já usa, inclusive nomes como `primary-500`. Os componentes do registro usam os papéis do shadcn no Tailwind 4. Para usar outra escala, adapte as classes copiadas ou, no Tailwind 4, faça a correspondência em `@theme inline`. Quando a convenção local divergir da orientação de uma especialista, descreva a diferença em `## Aprendizados` e cite a skill. O viewspec acompanha a sitespec ou spec da aplicação e seu fluxo de issues, validações e commits.
 
 ## A raiz usada pelos comandos
 
-Em um monorepo, você pode trabalhar no terminal da raiz e indicar ao Designfy qual aplicação deve examinar. A opção global curta é `-C`. A forma longa, `--project`, aceita o mesmo diretório.
+A partir da raiz do monorepo, use a opção global `--project` ou sua forma curta `-C` para indicar qual aplicação o Designfy deve examinar.
 
 ```bash
 designfy -C ./website status
@@ -37,9 +37,9 @@ O retorno identifica o destino no disco e o framework reconhecido. No projeto de
 Wrote /tmp/opencode/designfy-demo/designfy.json (astro).
 ```
 
-Confira o framework indicado entre parênteses. Para interpretar os demais valores do arquivo, veja quais sinais o comando procura no projeto.
+Na mensagem `Wrote`, o valor entre parênteses é o framework reconhecido. O `init` consulta os arquivos da aplicação para preencher também os demais campos do JSON.
 
-| O que | Como |
+| Campo detectado | Sinal ou valor |
 | --- | --- |
 | Framework | `astro`, `next`, `react-vite`, `react` ou `unknown` |
 | Tailwind | a versão maior de `tailwindcss`, ou `null` |
@@ -47,7 +47,7 @@ Confira o framework indicado entre parênteses. Para interpretar os demais valor
 | Gerenciador | o lockfile, na ordem `bun.lock`, `bun.lockb`, `pnpm-lock.yaml`, `yarn.lock`, `package-lock.json`; sem lockfile, `npm` |
 | TypeScript | o `tsconfig.json` ou a dependência `typescript` |
 
-A prioridade entre lockfiles importa quando um projeto conserva arquivos de dois gerenciadores. Confira o valor de `packageManager` antes de instalar dependências. A configuração da demonstração serve de referência para localizar cada campo.
+Quando há mais de um lockfile, o `init` usa o primeiro da ordem indicada na tabela. No exemplo, `packageManager` ficou com o valor `npm`. Confira esse campo antes de instalar as dependências.
 
 | Campo | Valor no exemplo |
 | --- | --- |
@@ -83,13 +83,13 @@ Os campos com ponto na tabela representam objetos no JSON. Ao mudar o destino do
 }
 ```
 
-Com esse JSON, o Designfy copia as peças para `src/components/designfy` e procura as especificações em `viewspec`. Num projeto Next que já concentra os componentes em `src/ui`, você pode indicar o caminho real ao criar o arquivo para preservar os imports da aplicação.
+Com esse JSON, o Designfy copia os componentes para `src/components/designfy` e procura as especificações em `viewspec`. Para usar a pasta `src/ui` de uma aplicação Next, indique o destino ao criar o arquivo e confira separadamente se `aliases.components` corresponde ao alias usado nos imports.
 
 ```bash
 designfy init --framework next --components-path src/ui --styles-path app/styles
 ```
 
-Essa chamada propõe um projeto Next com componentes em `src/ui` e estilos em `app/styles`. Quando já existe uma configuração, uma nova tentativa de gravação encontra a proteção abaixo.
+Essa chamada grava `src/ui` e `app/styles` como destinos no `designfy.json` do projeto Next. Quando o arquivo já existe, o `init` interrompe a gravação com a mensagem abaixo.
 
 ```text
 error designfy.json already exists. Use --force to overwrite it. [2 USAGE]
@@ -137,7 +137,7 @@ No projeto de demonstração, procure `astro` nas duas primeiras linhas do paine
   Tailwind theme        not found
 ```
 
-Compare `Framework` e `Detected framework`. O primeiro respeita o JSON mesmo quando a detecção atual diverge. Aqui há uma skill disponível no projeto ou no escopo global. Ainda não há componentes copiados nem viewspecs. O próximo identificador é `0001`.
+`Framework` reflete o valor configurado mesmo quando a detecção atual diverge. Nesta instalação, o Designfy encontrou uma skill local ou global e nenhum componente copiado. Como ainda falta criar o primeiro viewspec, o identificador disponível é `0001`.
 
 A linha `Viewspec guide` procura o guia na raiz. Já `Tailwind theme` indica o CSS encontrado. Num projeto novo com `not found`, confira esse campo após `components add designfy-theme`. Para recuperar a configuração completa num script, consulte a mesma raiz em JSON.
 
@@ -149,7 +149,7 @@ A resposta traz `detected` e `project` dentro de `data`. Assim você pode compar
 
 ## Leitura e cópia no Tailwind 3
 
-No Tailwind 3, o Designfy reconhece tanto `@tailwind base` quanto `@import "tailwindcss/base"`. Ele combina o CSS com `tailwind.config.*` da raiz. A configuração pode fornecer cores aninhadas e expressões como `rgb(var(--x) / <alpha-value>)` ou `hsl(var(--x))`. A leitura também abrange fontes, raios, sombras, larguras de tela, curvas de animação e keyframes.
+No Tailwind 3, o Designfy reconhece a entrada por `@tailwind base` ou `@import "tailwindcss/base"` e consulta também o `tailwind.config.*` da raiz. Assim ele consegue ler cores aninhadas e expressões como `rgb(var(--x) / <alpha-value>)` ou `hsl(var(--x))`. Na configuração você também pode localizar as fontes e os valores de raios e sombras. Para conferir a adaptação por largura ou o movimento, procure os pontos de quebra, as curvas de animação e os keyframes.
 
 ```bash
 designfy theme show
@@ -181,7 +181,7 @@ Na linha `core / tailwindcss  ^4.3.5  ok  ^4.3.5`, a versão declarada no projet
 designfy deps list --group motion
 ```
 
-Com esse filtro, a saída mostra se a aplicação já declara Motion. Para definir o alcance de uma instalação sem argumentos, consulte a coluna *Padrão* e confira a compatibilidade do grupo com o framework do projeto.
+Com `--group motion`, a saída mostra se a aplicação já declara a biblioteca Motion. Na tabela abaixo, a coluna *Padrão* indica os grupos considerados numa instalação sem argumentos. O Designfy filtra esses grupos pelo framework da aplicação.
 
 | Grupo | Assunto | Padrão |
 | --- | --- | --- |
@@ -210,23 +210,23 @@ Um projeto Astro pode receber as integrações React e MDX pelo grupo `astro`. P
 designfy deps check
 ```
 
-O `deps check` termina com 0 quando os grupos examinados estão completos. Em um projeto incompleto, a mensagem identifica os pacotes ausentes e termina com código 10.
+O `deps check` devolve 0 quando os pacotes examinados estão presentes em versões aceitas. Um pacote ausente aparece em `Missing` e uma versão principal antiga aparece em `Outdated`. Nos dois casos, o comando termina com código 10.
 
 ```text
 error Missing: tw-animate-css, class-variance-authority, lucide-react, @tailwindcss/vite, motion, @tailwindcss/typography, @fontsource-variable/inter, @fontsource-variable/manrope, shadcn, radix-ui, @astrojs/react, @astrojs/mdx, react, react-dom. [10 CHECK_FAILED]
 ```
 
-Na saída da demonstração, as integrações do Astro aparecem junto dos pacotes de interface. Use `--group <id>` para restringir a verificação ao trabalho atual. Com `--json`, um script pode ler o resultado em `data` nas verificações bem-sucedidas.
+Na demonstração, `Missing` inclui as integrações do Astro e os pacotes de interface. Com `--group <id>`, o comando examina o grupo escolhido e ainda verifica as dependências dos componentes já copiados. Em uma consulta bem-sucedida com `--json`, o resultado fica em `data`.
 
 ## Plano de instalação e gerenciador de pacotes
 
-Para conferir quais pacotes entrariam no build do site, rode a simulação na raiz da aplicação. O terminal mostra a faixa de versão de cada biblioteca e separa as ferramentas de desenvolvimento antes de iniciar qualquer download.
+Para conferir quais pacotes o gerenciador instalaria, rode a simulação na raiz da aplicação. A saída separa as dependências de produção das ferramentas de desenvolvimento e mostra a faixa de versão de cada pacote. Com `--dry-run`, o Designfy apenas imprime os comandos.
 
 ```bash
 designfy deps install --dry-run
 ```
 
-No projeto de demonstração, o gerenciador selecionado foi o npm. A simulação produziu duas linhas.
+Na simulação do projeto Astro, as duas linhas começam com `npm install` porque o Designfy selecionou o npm para essa aplicação.
 
 ```text
 npm install 'tw-animate-css@^1.4.0' 'class-variance-authority@^0.7.1' 'lucide-react@^1.79.0' '@tailwindcss/vite@^4.3.5' 'motion@^14.14.0' '@tailwindcss/typography@^0.5.20' '@fontsource-variable/inter@^5.3.0' '@fontsource-variable/manrope@^5.3.0' 'radix-ui@^1.8.1' '@astrojs/react@^7.1.9' '@astrojs/mdx@^8.1.6' 'react@^19.3.1' 'react-dom@^19.3.1'
@@ -246,7 +246,7 @@ designfy deps install motion
 designfy deps install tables feedback
 ```
 
-A segunda chamada instala os grupos `tables` e `feedback` juntos. Para conferir qual gerenciador vai alterar o lockfile, consulte o campo `packageManager` do `designfy.json`. A opção `--pm` permite escolher outro nessa execução.
+A segunda chamada instala os grupos `tables` e `feedback` juntos. Quando a preferência global `deps.packageManager` vale `auto`, o Designfy usa o `packageManager` do projeto. Uma escolha explícita em `--pm` prevalece sobre a preferência global naquela execução.
 
 ```bash
 designfy deps install --pm bun

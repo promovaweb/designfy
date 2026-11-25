@@ -70,6 +70,24 @@ A lista completa de termos e construções que o projeto veta fica no
 contrato editorial do próprio projeto; o guia aponta para ele em `## Voz e
 conteúdo`.
 
+## Casos no lugar de cenas
+
+Texto de página que vende parte do que aconteceu de verdade com o produto ou
+com o cliente: um número medido, uma tela que mudou, uma correção datada. A
+cena hipotética ("Imagine que você...", "Você passa uma tarde ajustando...")
+e a generalização sem fonte ("Quase todo time...") soam como texto gerado
+mesmo quando cada frase está correta, e passam por qualquer verificador
+automático.
+
+- Abra cada seção pelo caso que a sustenta e diga de onde ele veio.
+- Varie a estrutura entre as seções e entre as páginas de um mesmo site. Oito
+  páginas com o mesmo molde (situação, mecanismo, lista, convite) e o mesmo
+  fechamento parecem uma só página repetida.
+- Título nomeia o assunto com as palavras do caso. Promessa que serviria a
+  qualquer produto sai.
+- Sem caso real para uma seção, registre a lacuna no viewspec da tela (seção
+  "Fatos que faltam") em vez de inventar a cena.
+
 ## Fatos que faltam
 
 Nunca invente para preencher.
